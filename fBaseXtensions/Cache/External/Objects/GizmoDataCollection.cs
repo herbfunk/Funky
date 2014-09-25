@@ -425,6 +425,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(188380, PluginGizmoType.Chest, "LootType2_caldeumTortured_Male_E_Corpse_05-3925", GizmoTargetTypes.Corpse),
 				new GizmoEntry(188068, PluginGizmoType.Chest, "LootType2_skeleton_A_Corpse_06-33635", GizmoTargetTypes.Corpse),
 				new GizmoEntry(188064, PluginGizmoType.Chest, "LootType2_skeleton_A_Corpse_02-35332", GizmoTargetTypes.Corpse),
+				new GizmoEntry(193011, PluginGizmoType.Chest, "LootType3_GraveGuard_A_Corpse_03-13730", GizmoTargetTypes.Corpse),
+				new GizmoEntry(193032, PluginGizmoType.Chest, "LootType3_GraveGuard_D_Corpse_05-55169", GizmoTargetTypes.Corpse),
+				new GizmoEntry(309401, PluginGizmoType.Chest, "x1_Westm_Corpse_D_03-17426", GizmoTargetTypes.Corpse),
+				new GizmoEntry(193019, PluginGizmoType.Chest, "LootType3_GraveGuard_B_Corpse_05-50003", GizmoTargetTypes.Corpse),
 				#endregion
 
 				//============== Weapon Rack ==============//

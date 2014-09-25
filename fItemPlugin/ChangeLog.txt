@@ -1,4 +1,7 @@
-﻿v1.2.5
+﻿v1.2.6
+Fixed Items that are not salvaged by salvage all method will be salvaged normally now.
+
+v1.2.5
 Fixed Idenify getting stuck.
 
 v1.2.4

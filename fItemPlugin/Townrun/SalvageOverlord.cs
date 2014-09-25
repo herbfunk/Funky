@@ -56,6 +56,8 @@ namespace fItemPlugin.Townrun
 			bShouldSalvageAllMagical = true;
 			bShouldSalvageAllRare = true;
 
+			townRunItemCache.SalvageItems.Clear();
+
 			foreach (var thisitem in Backpack.CacheItemList.Values)
 			{
 				if (thisitem.ACDItem.BaseAddress != IntPtr.Zero)
@@ -274,18 +276,21 @@ namespace fItemPlugin.Townrun
 			}
 
 
+			UpdateSalvageItemList();
+
+
 			if (townRunItemCache.SalvageItems.Count > 0)
 			{
 				CacheACDItem thisitem = townRunItemCache.SalvageItems.FirstOrDefault();
 				if (thisitem != null && thisitem.ACDItem != null)
 				{
-					if ((thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Magic1 && bSalvageAllNormal) ||
-						(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Rare4 && bSalvageAllMagic) ||
-						(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Legendary && bSalvageAllRare))
-					{
-						townRunItemCache.SalvageItems.Remove(thisitem);
-						return RunStatus.Running;
-					}
+					//if ((thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Magic1 && bSalvageAllNormal) ||
+					//	(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Rare4 && bSalvageAllMagic) ||
+					//	(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Legendary && bSalvageAllRare))
+					//{
+					//	townRunItemCache.SalvageItems.Remove(thisitem);
+					//	return RunStatus.Running;
+					//}
 
 					LogSalvagedItem(thisitem);
 

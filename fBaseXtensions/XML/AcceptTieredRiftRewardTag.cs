@@ -7,6 +7,7 @@ using Buddy.Coroutines;
 using fBaseXtensions.Game;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Items;
+using fBaseXtensions.Settings;
 using Zeta.Bot;
 using Zeta.Bot.Coroutines;
 using Zeta.Bot.Profile;
@@ -88,13 +89,69 @@ namespace fBaseXtensions.XML
 				Logger.DBLog.Info("Upgrading Gems..");
 
 				//Update our variables (UIElements of gems, number of gems, and the gem ACDItems)
-				if (SelectableGems.Count==0)
+				if (SelectableGems.Count == 0)
 				{
 					GRiftLevel = GetTieredLootLevel();
 					SelectableUIGemElements = GetGemUIElements();
 					int totalGemUIElements = SelectableUIGemElements.Count;
 					SelectableUIGemElementIndexs = GetGemACDGuids(totalGemUIElements);
 					SelectableGems = GetGemCacheACDItems(SelectableUIGemElementIndexs).OrderByDescending(i => i.LegendaryGemRank).ToList();
+
+					double minSucessChance = FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate;
+					if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.HighestRank)
+					{
+						if (SelectableGems.Any(i => ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, i.LegendaryGemRank) >= minSucessChance))
+						{
+							SelectableGems=SelectableGems.Where(i => ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, i.LegendaryGemRank) >= minSucessChance).OrderByDescending(i => i.LegendaryGemRank).ToList();
+						}
+						else
+							SelectableGems = SelectableGems.OrderByDescending(i => i.LegendaryGemRank).ToList();
+					}
+					else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.LowestRank)
+					{
+						if (SelectableGems.Any(i => ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, i.LegendaryGemRank) >= minSucessChance))
+						{
+							SelectableGems = SelectableGems.Where(i => ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, i.LegendaryGemRank) >= minSucessChance).OrderBy(i => i.LegendaryGemRank).ToList();
+						}
+						else
+							SelectableGems = SelectableGems.OrderBy(i => i.LegendaryGemRank).ToList();
+					}
+					else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.Priority && FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Count > 0)
+					{
+						if (SelectableGems.Any(i => FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Contains(i.LegendaryGemType) && ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, i.LegendaryGemRank) >= minSucessChance))
+						{
+							//Select only Prioritized Gems
+							SelectableGems = SelectableGems.Where(i => FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Contains(i.LegendaryGemType) && ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, i.LegendaryGemRank) >= minSucessChance).ToList();
+
+							//Create new list with priority order
+							List<CacheACDItem> PrioritizedList = new List<CacheACDItem>();
+							for (int i = 0; i < FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Count - 1; i++)
+							{
+								var LegenadryEnumValue = FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[i];
+								if (SelectableGems.Any(item =>item.LegendaryGemType==LegenadryEnumValue))
+								{
+									var acditem = SelectableGems.First(item => item.LegendaryGemType == LegenadryEnumValue);
+									PrioritizedList.Add(acditem);
+								}
+							}
+
+							SelectableGems = PrioritizedList;
+						}
+					}
+					else
+					{
+						if (SelectableGems.Any(i => ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, i.LegendaryGemRank) >= minSucessChance))
+						{
+							SelectableGems = SelectableGems.Where(i => ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, i.LegendaryGemRank) >= minSucessChance).ToList();
+						}
+					}
+
+					Logger.DBLog.InfoFormat("Number of Gems capable of upgrading {0}", SelectableGems.Count);
+					foreach (var gem in SelectableGems)
+					{
+						double successChance = ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, gem.LegendaryGemRank);
+						Logger.DBLog.DebugFormat("Upgrade Capable Gem {0} with Chance {1}%", gem.LegendaryGemType, (successChance*100).ToString());
+					}
 				}
 
 				//Check if the upgrade button is enabled.. if not we select our gem!
@@ -106,16 +163,6 @@ namespace fBaseXtensions.XML
 					string GemName = upgradingGem.ThisRealName + 
 						" Rank " + upgradingGem.LegendaryGemRank + 
 						" Chance " + ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, upgradingGem.LegendaryGemRank);
-
-					//Check if any of the gems are ranked and are greater than 8% chance..
-					var rankedGems = SelectableGems.Where(g => g.LegendaryGemRank > 0 && GRiftLevel-g.LegendaryGemRank>-3).ToList();
-					if (rankedGems.Count>0)
-					{
-						selectIndex = SelectableUIGemElementIndexs.IndexOf(rankedGems[0].ACDGUID);
-						GemName = rankedGems[0].ThisRealName + 
-							" Rank " + rankedGems[0].LegendaryGemRank +
-							" Chance " + ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, rankedGems[0].LegendaryGemRank); 
-					}
 
 					Logger.DBLog.InfoFormat("Upgrading Gem {0}", GemName);
 					
@@ -226,8 +273,10 @@ namespace fBaseXtensions.XML
 			foreach (var item in ZetaDia.Actors.GetActorsOfType<ACDItem>().Where(item => Acdguids.Contains(item.ACDGuid)))
 			{
 				CacheACDItem cItem = new CacheACDItem(item);
-				if (cItem.LegendaryGemRank == 50) continue;
+				//double SuccessRate = ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, cItem.LegendaryGemRank);
 				if (GRiftLevel - cItem.LegendaryGemRank == -7) continue;
+				//if (SuccessRate < FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate) continue;
+
 				GemList.Add(cItem);
 			}
 
@@ -240,8 +289,9 @@ namespace fBaseXtensions.XML
 			foreach (var gem in ZetaDia.Actors.GetActorsOfType<ACDItem>().Where(item => item.ItemType == ItemType.LegendaryGem))
 			{
 				var cItem = new CacheACDItem(gem);
-				if (cItem.LegendaryGemRank == 50) continue;
+				//double SuccessRate = ItemFunc.GetLegendaryGemUpgradeChance(GRiftLevel, cItem.LegendaryGemRank);
 				if (GRiftLevel - cItem.LegendaryGemRank == -7) continue;
+				//if (SuccessRate < FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate) continue;
 				Gems.Add(new CacheACDItem(gem));
 			}
 

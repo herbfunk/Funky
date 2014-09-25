@@ -1,4 +1,15 @@
-﻿v1.1.1.3
+﻿v1.1.2.0
+	Removed Pet SNO IDs from Blacklisting.
+
+	Added Gem Upgrading Options into General Tab -> Adventure Mode Tab.
+		-Added Maximum Tiered Key Allowed (Keys above the value set will be ignored)
+		-Added Minimum Success Rate for Gem Upgrading.
+		-Added Gem Upgrading Type (None, Highest, Lowest, Priority) -- None will use first available gem.
+		-Priority Gems -- Right Clicking on the Lists will open context menu.
+		-The Order of the priority gem lists is the order in which gems will be selected.
+
+
+v1.1.1.3
 	MoveToTownObject will now reset town portal flag. (Was Causing IsInNonCombatBehavior to be true)
 	Removed TownPortalBehaviorFlag from IsInNonCombatBehavior Check.
 	Added method Legendary Gem Upgrade Chance into ItemFunc.

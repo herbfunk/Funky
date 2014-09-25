@@ -52,6 +52,16 @@ namespace fBaseXtensions.Items
 		public bool IsTwoSlot { get; set; }
 		public bool IsVendorBought { get; set; }
 
+		public int DurabilityCurrent { get; set; }
+		public int DurabilityMax { get; set; }
+		public float DurabilityPercent
+		{
+			get
+			{
+				return DurabilityCurrent/DurabilityMax;
+			}
+		}
+
 		//Plugin Item Properties
 		public PluginBaseItemTypes BaseItemType { get; set; }
 		public PluginItemTypes ItemType { get; set; }
@@ -124,6 +134,10 @@ namespace fBaseXtensions.Items
 				ItemStats thesestats = item.Stats;
 				ItemStatString = thesestats.ToString();
 				ItemStatProperties = new ItemProperties(thesestats);
+
+				//Durability
+				DurabilityCurrent = item.DurabilityCurrent;
+				DurabilityMax = item.DurabilityMax;
 			}
 
 			if (BaseItemType == PluginBaseItemTypes.Gem && ItemType == PluginItemTypes.LegendaryGem)

@@ -17,12 +17,12 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 		public override void Initialize()
 		{
 			WaitVars = new WaitLoops(0, 0, true);
-			Cost = 20;
+			Cost = 18;
 			Range = 35;
 
 			
 			Priority = SkillPriority.Medium;
-			PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
+			PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckCanCast);
 			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 

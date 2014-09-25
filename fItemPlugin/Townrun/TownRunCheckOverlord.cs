@@ -145,7 +145,7 @@ namespace fItemPlugin.Townrun
 				case Act.A5:
 					VendorName = "x1_a5_uniquevendor_collector"; break;
 			}
-			RequiresRepair = Backpack.ShouldRepairItems(CharacterSettings.Instance.RepairWhenDurabilityBelow);
+			RequiresRepair = Equipment.ShouldRepairItems(CharacterSettings.Instance.RepairWhenDurabilityBelow);
 			SafetyVendorLocation = GameCache.ReturnTownRunMovementVector(GameCache.TownRunBehavior.Sell, CurrentAct);
 			SafetySalvageLocation = GameCache.ReturnTownRunMovementVector(GameCache.TownRunBehavior.Salvage, CurrentAct);
 			SafetyStashLocation = GameCache.ReturnTownRunMovementVector(GameCache.TownRunBehavior.Stash, CurrentAct);

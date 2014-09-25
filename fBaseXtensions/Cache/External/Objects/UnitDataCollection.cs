@@ -922,6 +922,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(4291, UnitFlags.Normal, "Goatman_Shaman_C-195150"),
 				new UnitEntry(4284, UnitFlags.Normal, "Goatman_Melee_C-195149"),
 				new UnitEntry(4288, UnitFlags.Normal | UnitFlags.Ranged, "Goatman_Ranged_C-195199"),
+
+				new UnitEntry(137995, UnitFlags.Normal, "Spider_Elemental_Lightning_A-5058"),
+				new UnitEntry(221999, UnitFlags.Unique, "TriuneCultist_C_Unique_02-998"),
+
 			};
 			
 			#endregion

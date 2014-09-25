@@ -5713,6 +5713,20 @@
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal Ranged</UnitFlags>
     </UnitEntry>
+    <UnitEntry>
+      <SnoId>137995</SnoId>
+      <InternalName>Spider_Elemental_Lightning_A-5058</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>221999</SnoId>
+      <InternalName>TriuneCultist_C_Unique_02-998</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>
     <UnitPetEntry>

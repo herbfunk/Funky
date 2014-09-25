@@ -22,8 +22,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 
 			
 			Priority = SkillPriority.Medium;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy |
-									  SkillPrecastFlags.CheckRecastTimer));
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
 			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 

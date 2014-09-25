@@ -179,7 +179,10 @@ namespace fBaseXtensions.Cache.Internal
 
 
 
-
+		internal static readonly HashSet<int> hashSNOSkipCommonDataCheck = new HashSet<int>()
+		{
+			75726, //Wizard Arcane Orb Orbiter Orbs
+		};
 
 		
 		

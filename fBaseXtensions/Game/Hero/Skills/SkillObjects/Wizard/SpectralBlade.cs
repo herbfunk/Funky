@@ -16,7 +16,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 
 		public override void Initialize()
 		{
-			Range = 14;
+			Range = RuneIndex == 1 ? 20 : 12;
 			Priority = SkillPriority.Low;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 		}

@@ -470,7 +470,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 		#region Cache Lookup Properties
-		public bool IgnoresLOSCheck { get { return IsBoss || IsWormBoss || BountyCache.RiftTrialIsActiveQuest; } }
+		public bool IgnoresLOSCheck 
+		{ 
+			get 
+			{ 
+				return IsBoss || IsWormBoss || BountyCache.RiftTrialIsActiveQuest; 
+			} 
+		}
 
 		private bool _IsObstacle;
 		public bool IsObstacle { get { if (IsFinalized) return _IsObstacle; return CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID); } }
@@ -713,7 +719,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						targetType = TargetType.None;
 
 						CacheUnitPetEntry petEntry = (CacheUnitPetEntry)snoentry;
-						if ((PetTypes)petEntry.ObjectType==PetTypes.WIZARD_ArcaneOrbs)
+						PetTypes pettype=(PetTypes)petEntry.ObjectType;
+						if (pettype==PetTypes.WIZARD_ArcaneOrbs)
 						{
 							//Logger.DBLog.Debug("Arcane Orbs CacheSNO update!");
 							Obstacletype = ObstacleType.None;

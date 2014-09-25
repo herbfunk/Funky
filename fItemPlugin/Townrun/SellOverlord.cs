@@ -120,7 +120,7 @@ namespace fItemPlugin.Townrun
 				CheckedVendorActions = true;
 
 				// Check durability percentages
-				bNeedsEquipmentRepairs = Backpack.ShouldRepairItems(CharacterSettings.Instance.RepairWhenDurabilityBelow);
+				bNeedsEquipmentRepairs = Equipment.ShouldRepairItems(CharacterSettings.Instance.RepairWhenDurabilityBelow);
 				if (bNeedsEquipmentRepairs)
 					FunkyTownRunPlugin.DBLog.InfoFormat("[Funky] Town Run Behavior Vendor Started (Repair Items)");
 

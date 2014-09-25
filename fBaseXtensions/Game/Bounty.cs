@@ -521,8 +521,8 @@ namespace fBaseXtensions.Game
 											(String.Format("ID: {4} Step: {0} questMeter: {1} killCount: {2} bonusCount: {3}\r\n",
 															q.Value.Step, q.Value.QuestMeter, q.Value.KillCount, q.Value.BonusCount, q.Key)));
 
-			return String.Format("{0}\r\n{1}\r\n{2}\r\n{3}\r\nBountyCacheEntry: {4}\r\n{5}",
-				sActiveBounty, sBountyIDs, sBountyStates, sBountyMapMarkers, sBountyCurrentCacheEntry, sActiveQuests);
+			return String.Format("{0}\r\n{1}\r\n{2}\r\n{3}\r\nBountyCacheEntry: {4}\r\n{5}\r\nGreaterRiftIsActiveQuest: {6} RiftTrialIsActiveQuest: {7}",
+				sActiveBounty, sBountyIDs, sBountyStates, sBountyMapMarkers, sBountyCurrentCacheEntry, sActiveQuests, GreaterRiftIsActiveQuest, RiftTrialIsActiveQuest);
 		}
 
 

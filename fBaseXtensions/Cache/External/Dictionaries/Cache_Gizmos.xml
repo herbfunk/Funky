@@ -2986,6 +2986,38 @@
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>193011</SnoId>
+      <InternalName>LootType3_GraveGuard_A_Corpse_03-13730</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193032</SnoId>
+      <InternalName>LootType3_GraveGuard_D_Corpse_05-55169</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>309401</SnoId>
+      <InternalName>x1_Westm_Corpse_D_03-17426</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193019</SnoId>
+      <InternalName>LootType3_GraveGuard_B_Corpse_05-50003</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>464</SnoId>
       <InternalName>trDun_WeaponRack-791</InternalName>
       <ActorType>Gizmo</ActorType>

@@ -101,6 +101,12 @@ namespace fBaseXtensions.Game.Hero
 
 			return false;
 		}
+		public static bool ContainsItem(int SNOID)
+		{
+			//Update Item List!
+			UpdateItemList();
+			return CacheItemList.Values.Any(i => i.SNO==SNOID);
+		}
 		public static Queue<ACDItem> ReturnUnidenifiedItems()
 		{
 			Queue<ACDItem> returnQueue = new Queue<ACDItem>();

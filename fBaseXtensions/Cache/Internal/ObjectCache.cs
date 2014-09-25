@@ -177,7 +177,7 @@ namespace fBaseXtensions.Cache.Internal
 
 
 					//Validate (ignore special object SNO Ids)
-					if (tmp_CachedObj.SNOID != 75726)
+					if (!CacheIDLookup.hashSNOSkipCommonDataCheck.Contains(tmp_CachedObj.SNOID))
 					{
 						try
 						{
@@ -217,12 +217,15 @@ namespace fBaseXtensions.Cache.Internal
 
 					//Check if this object is a summoned unit by a player...
 					#region SummonedUnits
-					if (tmp_CachedObj.IsSummonedPet && tmp_CachedObj.SNOID == 75726)
+					if (tmp_CachedObj.IsSummonedPet && CacheIDLookup.hashSNOSkipCommonDataCheck.Contains(tmp_CachedObj.SNOID))
 					{
-						//Logger.DBLog.Debug("Found Arcane Orbit Pet!");
-						FunkyGame.Targeting.Cache.Environment.HeroPets.WizardArcaneOrbs++;
-						tmp_CachedObj.NeedsRemoved = true;
-						continue;
+						PetTypes PetType = (PetTypes)TheCache.ObjectIDCache.UnitPetEntries[tmp_CachedObj.SNOID].ObjectType;
+						if (PetType== PetTypes.WIZARD_ArcaneOrbs)
+						{
+							FunkyGame.Targeting.Cache.Environment.HeroPets.WizardArcaneOrbs++;
+							tmp_CachedObj.NeedsRemoved = true;
+							continue;
+						}
 					}
 					#endregion
 

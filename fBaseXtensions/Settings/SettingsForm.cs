@@ -57,7 +57,7 @@ namespace fBaseXtensions.Settings
 
 				cb_CombatAllowDefaultAttack.Checked = FunkyBaseExtension.Settings.Combat.AllowDefaultAttackAlways;
 				cb_CombatAllowDefaultAttack.CheckedChanged += AllowDefaultAttackAlwaysChecked;
-				
+
 				cb_MovementOutOfCombatSkills.Checked = FunkyBaseExtension.Settings.General.OutOfCombatMovement;
 				cb_MovementOutOfCombatSkills.CheckedChanged += OutOfCombatMovementChecked;
 
@@ -78,8 +78,8 @@ namespace fBaseXtensions.Settings
 				tb_ClusterLogicMinimumUnits.Value = (int)(FunkyBaseExtension.Settings.Cluster.ClusterMinimumUnitCount);
 				tb_ClusterLogicMinimumUnits.ValueChanged += tb_ClusterLogicMinimumUnits_ValueChanged;
 
-				cb_ClusterUnitException_RareElite.Checked=FunkyBaseExtension.Settings.Cluster.UnitException_RareElites;
-				cb_ClusterUnitException_RareElite.CheckedChanged+=cb_ClusterUnitException_RareElite_Checked;
+				cb_ClusterUnitException_RareElite.Checked = FunkyBaseExtension.Settings.Cluster.UnitException_RareElites;
+				cb_ClusterUnitException_RareElite.CheckedChanged += cb_ClusterUnitException_RareElite_Checked;
 
 				var unitflagValues = Enum.GetValues(typeof(UnitFlags));
 				Func<object, string> fRetrieveunitflagNames = s => Enum.GetName(typeof(UnitFlags), s);
@@ -94,10 +94,10 @@ namespace fBaseXtensions.Settings
 					{
 						Name = loglevelName,
 						Text = loglevelName,
-						Font=cb_ClusterUnitException_RareElite.Font,
-						FlatStyle=cb_ClusterUnitException_RareElite.FlatStyle,
-						AutoEllipsis=cb_ClusterUnitException_RareElite.AutoEllipsis,
-						AutoSize=cb_ClusterUnitException_RareElite.AutoSize,
+						Font = cb_ClusterUnitException_RareElite.Font,
+						FlatStyle = cb_ClusterUnitException_RareElite.FlatStyle,
+						AutoEllipsis = cb_ClusterUnitException_RareElite.AutoEllipsis,
+						AutoSize = cb_ClusterUnitException_RareElite.AutoSize,
 						Checked = !noUnitFlags && FunkyBaseExtension.Settings.Cluster.UnitExceptions.HasFlag(thisloglevel),
 					};
 					cb.CheckedChanged += ClusterUnitExceptionsChanged;
@@ -447,18 +447,59 @@ namespace fBaseXtensions.Settings
 				cb_GeneralApplyEndDelayToContainers.Checked = FunkyBaseExtension.Settings.General.EnableWaitAfterContainers;
 				cb_GeneralApplyEndDelayToContainers.CheckedChanged += cb_GeneralApplyEndDelayToContainers_CheckedChanged;
 
-				cb_GeneralSkipAhead.Checked=FunkyBaseExtension.Settings.Debugging.SkipAhead;
+				cb_GeneralSkipAhead.Checked = FunkyBaseExtension.Settings.Debugging.SkipAhead;
 				cb_GeneralSkipAhead.CheckedChanged += cb_GeneralSkipAhead_CheckedChanged;
 
 				//cb_DeathWaitForPotion.Checked = FunkyBaseExtension.Settings.Death.WaitForPotionCooldown;
 				//cb_DeathWaitForPotion.CheckedChanged += cb_DeathPotion_CheckedChanged;
-				
+
 				//cb_DeathWaitForSkillsCooldown.Checked = FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
 				//cb_DeathWaitForSkillsCooldown.CheckedChanged += cb_DeathSkills_CheckedChanged;
-				
+
 
 				cb_AdventureModeEnabled.Checked = FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode;
 				cb_AdventureModeEnabled.CheckedChanged += cb_AdventureModeEnabled_CheckedChanged;
+
+				trackBar_TieredRiftKey.Value = FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed;
+				trackBar_TieredRiftKey.ValueChanged += tb_TieredRiftKey_ValueChanged;
+				textBox_MaxTieredRiftKey.Text = FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed.ToString();
+
+				comboBox_GemUpgrading_SuccessRate.Text = (FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate*100).ToString() + "%";
+				comboBox_GemUpgrading_SuccessRate.SelectedIndexChanged += cb_GemUpgrading_SuccessRate_CheckedChanged;
+
+				groupBox_PriorityGemUpgrading.Enabled = false;
+				if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.None)
+					radioButton_GemUpgrading_None.Checked = true;
+				else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.HighestRank)
+					radioButton_GemUpgrading_Highest.Checked = true;
+				else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.LowestRank)
+					radioButton_GemUpgrading_Lowest.Checked = true;
+				else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.Priority)
+				{
+					radioButton_GemUpgrading_Priority.Checked = true;
+					groupBox_PriorityGemUpgrading.Enabled = true;
+				}
+
+				radioButton_GemUpgrading_None.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
+				radioButton_GemUpgrading_Highest.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
+				radioButton_GemUpgrading_Lowest.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
+				radioButton_GemUpgrading_Priority.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
+
+				var legendarGems = Enum.GetValues(typeof(LegendaryGemTypes));
+				Func<object, string> fRetrieveLegendaryGemsNames = s => Enum.GetName(typeof(LegendaryGemTypes), s);
+				foreach (var gem in legendarGems)
+				{
+					LegendaryGemTypes thisLegendaryGem = (LegendaryGemTypes)gem;
+					if (thisLegendaryGem.Equals(LegendaryGemTypes.None)) continue;
+
+					if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Contains(thisLegendaryGem))
+						listBox_GemUpgrading_PriorityList.Items.Add(fRetrieveLegendaryGemsNames(gem));
+					else
+						listBox_GemUpgrading_UnusedGems.Items.Add(fRetrieveLegendaryGemsNames(gem));
+				}
+
+				//radioButton_GemUpgrading_CheckedChanged
+
 
 				comboBox_LootLegendaryItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 61 ? 1 : 2;
 				comboBox_LootLegendaryItemQuality.SelectedIndexChanged += ItemLootChanged;
@@ -1125,8 +1166,80 @@ namespace fBaseXtensions.Settings
 		{
 			FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode = !FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode;
 		}
+		private void tb_TieredRiftKey_ValueChanged(object sender, EventArgs e)
+		{
+			TrackBar slider_sender = (TrackBar)sender;
+			int Value = (int)slider_sender.Value;
+			FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed = Value;
+			textBox_MaxTieredRiftKey.Text = Value.ToString();
+		}
+		private void cb_GemUpgrading_SuccessRate_CheckedChanged(object sender, EventArgs e)
+		{
+			//0 == 100%
+			//90,80,70,60,30,15,8,4,2,1
+			int selectedIndex=comboBox_GemUpgrading_SuccessRate.SelectedIndex;
+			switch (selectedIndex)
+			{
+				case 0:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 1;
+					break;
+				case 1:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.9;
+					break;
+				case 2:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.8;
+					break;
+				case 3:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.7;
+					break;
+				case 4:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.6;
+					break;
+				case 5:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.3;
+					break;
+				case 6:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.15;
+					break;
+				case 7:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.08;
+					break;
+				case 8:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.04;
+					break;
+				case 9:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.02;
+					break;
+				case 10:
+					FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate = 0.01;
+					break;
+			}
+		}
+		private void radioButton_GemUpgrading_CheckedChanged(object sender, EventArgs e)
+		{
+			RadioButton senderObj = (RadioButton)sender;
+			if (senderObj.Equals(radioButton_GemUpgrading_None))
+			{
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType = SettingAdventureMode.GemUpgradingType.None;
+				groupBox_PriorityGemUpgrading.Enabled = false;
+			}
+			else if (senderObj.Equals(radioButton_GemUpgrading_Highest))
+			{
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType = SettingAdventureMode.GemUpgradingType.HighestRank;
+				groupBox_PriorityGemUpgrading.Enabled = false;
+			}
+			else if (senderObj.Equals(radioButton_GemUpgrading_Lowest))
+			{
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType = SettingAdventureMode.GemUpgradingType.LowestRank;
+				groupBox_PriorityGemUpgrading.Enabled = false;
+			}
+			else if (senderObj.Equals(radioButton_GemUpgrading_Priority))
+			{
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType = SettingAdventureMode.GemUpgradingType.Priority;
+				groupBox_PriorityGemUpgrading.Enabled = true;
+			}
+		}
 
-	
 		private void cb_LootPickupCraftPlans_CheckedChanged(object sender, EventArgs e)
 		{
 			FunkyBaseExtension.Settings.Loot.PickupCraftPlans = !FunkyBaseExtension.Settings.Loot.PickupCraftPlans;
@@ -1510,9 +1623,9 @@ namespace fBaseXtensions.Settings
 					try
 					{
 						CacheACDItem item = new CacheACDItem(o);
-						string s=String.Format("Type {0} {1} - SNO: {2} BalanceID: {3}",
-															item.ItemType,item.ThisInternalName,item.SNO,item.ThisBalanceID);
-						
+						string s = String.Format("Type {0} {1} - SNO: {2} BalanceID: {3}",
+															item.ItemType, item.ThisInternalName, item.SNO, item.ThisBalanceID);
+
 						LBDebug.Controls.Add(new UserControlDebugEntry(s));
 					}
 					catch (Exception)
@@ -1521,7 +1634,7 @@ namespace fBaseXtensions.Settings
 					}
 
 				}
-				
+
 			}
 			catch
 			{
@@ -1594,7 +1707,7 @@ namespace fBaseXtensions.Settings
 			//}
 			//catch (Exception)
 			//{
-	
+
 			//}
 
 			//UI.Game.RiftReward_gemUpgradePane_List.ItemsListSetSelectedItemByIndex(0);
@@ -1602,6 +1715,71 @@ namespace fBaseXtensions.Settings
 			//LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(UI.Game.RiftReward_GemUpgradePane_ItemButton)));
 			//UI.Game.RiftReward_Choice_UpgradeGem.Click();
 			LBDebug.Focus();
+		}
+
+		private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (listBox_GemUpgrading_PriorityList.SelectedIndex>=0)
+			{
+				string SelectedItemString = (string)listBox_GemUpgrading_PriorityList.Items[listBox_GemUpgrading_PriorityList.SelectedIndex];
+				var enumValue = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), SelectedItemString);
+				listBox_GemUpgrading_PriorityList.Items.RemoveAt(listBox_GemUpgrading_PriorityList.SelectedIndex);
+				listBox_GemUpgrading_UnusedGems.Items.Add(SelectedItemString);
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Remove(enumValue);
+			}
+		}
+
+		private void addToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (listBox_GemUpgrading_UnusedGems.SelectedIndex>=0)
+			{
+				string SelectedItemString = (string)listBox_GemUpgrading_UnusedGems.Items[listBox_GemUpgrading_UnusedGems.SelectedIndex];
+				var enumValue = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), SelectedItemString);
+				listBox_GemUpgrading_UnusedGems.Items.RemoveAt(listBox_GemUpgrading_UnusedGems.SelectedIndex);
+				listBox_GemUpgrading_PriorityList.Items.Add(SelectedItemString);
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Add(enumValue);
+			}
+		}
+
+		private void moveUpToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (listBox_GemUpgrading_PriorityList.SelectedIndex>0)
+			{
+				int selectedIndex = listBox_GemUpgrading_PriorityList.SelectedIndex;
+
+				string SelectedItemString = (string)listBox_GemUpgrading_PriorityList.Items[listBox_GemUpgrading_PriorityList.SelectedIndex];
+				string moveDownItem = (string)listBox_GemUpgrading_PriorityList.Items[selectedIndex-1];
+				var enumSelectedValue = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), SelectedItemString);
+				var enummoveDownItemValue = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), moveDownItem);
+
+				listBox_GemUpgrading_PriorityList.Items[selectedIndex-1] = SelectedItemString;
+				listBox_GemUpgrading_PriorityList.Items[selectedIndex] = moveDownItem;
+
+
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex - 1] = enumSelectedValue;
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex] = enummoveDownItemValue;
+			}
+		}
+
+		private void moveDownToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int selectedIndex = listBox_GemUpgrading_PriorityList.SelectedIndex;
+			if (listBox_GemUpgrading_PriorityList.SelectedIndex >= 0 && selectedIndex < listBox_GemUpgrading_PriorityList.Items.Count-1)
+			{
+				
+
+				string SelectedItemString = (string)listBox_GemUpgrading_PriorityList.Items[listBox_GemUpgrading_PriorityList.SelectedIndex];
+				string moveUpItem = (string)listBox_GemUpgrading_PriorityList.Items[selectedIndex + 1];
+				var enumSelectedValue = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), SelectedItemString);
+				var enummoveUpItemValue = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), moveUpItem);
+
+				listBox_GemUpgrading_PriorityList.Items[selectedIndex + 1] = SelectedItemString;
+				listBox_GemUpgrading_PriorityList.Items[selectedIndex] = moveUpItem;
+
+
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex + 1] = enumSelectedValue;
+				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex] = enummoveUpItemValue;
+			}
 		}
 
 

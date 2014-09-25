@@ -192,7 +192,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(3455, PluginDroppedItemTypes.Bow, "Bow_norm_base_flippy_03-1103"),
 				new DroppedItemEntry(3458, PluginDroppedItemTypes.Bow, "Bow_norm_base_flippy_06-13162"),
 				new DroppedItemEntry(221942, PluginDroppedItemTypes.Bow, "Bow_norm_unique_flippy_07-25191"),
-
+				new DroppedItemEntry(271877, PluginDroppedItemTypes.Bow, "x1_bow_norm_unique_flippy_11-74722"),
+				new DroppedItemEntry(192605, PluginDroppedItemTypes.Bow, "Bow_norm_unique_flippy_04-62817"),
+				new DroppedItemEntry(175599, PluginDroppedItemTypes.Bow, "Bow_norm_unique_flippy_03-210194"),
 
 				//
 				new DroppedItemEntry(145927, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_base_flippy_03-7239"),
@@ -224,6 +226,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(221763, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_06-30319"),
 				new DroppedItemEntry(98164, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_01-18524"),
 				new DroppedItemEntry(204904, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_05-5224"),
+				new DroppedItemEntry(193047, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_02-23108"),
+				new DroppedItemEntry(222312, PluginDroppedItemTypes.Crossbow, "XBow_norm_unique_flippy_07-261344"),
 
 				//
 				new DroppedItemEntry(3843, PluginDroppedItemTypes.Daibo, "combatStaff_norm_base_flippy_03-15187"),
@@ -300,6 +304,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335371, PluginDroppedItemTypes.HandCrossbow, "x1_handXbow_norm_base_flippy_01-4978"),
 				new DroppedItemEntry(192478, PluginDroppedItemTypes.HandCrossbow, "handXBow_norm_unique_flippy_01-14894"),
 				new DroppedItemEntry(82635, PluginDroppedItemTypes.HandCrossbow, "handXbow_norm_base_flippy_02-4807"),
+				new DroppedItemEntry(271894, PluginDroppedItemTypes.HandCrossbow, "x1_handXbow_norm_unique_flippy_10-79673"),
+				new DroppedItemEntry(211763, PluginDroppedItemTypes.HandCrossbow, "handXbow_norm_unique_flippy_07-20800"),
+				new DroppedItemEntry(196906, PluginDroppedItemTypes.HandCrossbow, "handXbow_norm_unique_flippy_04-14756"),
 
 				//
 				new DroppedItemEntry(4653, PluginDroppedItemTypes.Mace,"Mace_norm_base_flippy_01"),
@@ -424,6 +431,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(182382, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_04-49182"),
 				new DroppedItemEntry(189592, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_05-3732"),
 				new DroppedItemEntry(376464, PluginDroppedItemTypes.Sword, "x1_Sword_norm_promo_flippy_02-215914"),
+				new DroppedItemEntry(5533, PluginDroppedItemTypes.Sword, "Sword_norm_base_flippy_07-1617"),
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),
@@ -1657,6 +1665,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(220654, PluginItemTypes.TwoHandBow, LegendaryItemTypes.UnboundBolt),
 				new ItemDataEntry(175580, PluginItemTypes.TwoHandBow, LegendaryItemTypes.Uskang),
 				new ItemDataEntry(192602, PluginItemTypes.TwoHandBow, LegendaryItemTypes.Windforce),
+				new ItemDataEntry(271882, PluginItemTypes.TwoHandBow, LegendaryItemTypes.None), //LeonineBowofHashir
+
 
 				new ItemDataEntry(194957, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.ArcaneBarb),
 				new ItemDataEntry(98163, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.BakkanCaster),
@@ -1664,6 +1674,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(222286, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.DemonMachine),
 				new ItemDataEntry(192836, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.Hellrack),
 				new ItemDataEntry(204874, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.PusSpitter),
+				new ItemDataEntry(221760, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.Manticore),
 
 				new ItemDataEntry(195145, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.Balance),
 				new ItemDataEntry(197065, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.FlyingDragon),

@@ -180,6 +180,13 @@ namespace fBaseXtensions.Game.Hero
 			return returnItems;
 		}
 
+		public static bool ShouldRepairItems(float minimumPercent)
+		{
+			var equippeditems = ReturnCurrentEquippedItems();
+			List<float> repairPct = equippeditems.Select(o => o.DurabilityPercent).ToList();
+			return repairPct.Any(o => o <= minimumPercent);
+		}
+
 		internal static void EquippmentChangedHandler()
 		{
 			Logger.DBLog.InfoFormat("Equippment has changed!");

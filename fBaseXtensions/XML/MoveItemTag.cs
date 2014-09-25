@@ -169,7 +169,7 @@ namespace fBaseXtensions.XML
 
 						if (KeyType == KeystoneType.Tiered)
 						{
-							if (tieredLevel > 0)
+							if (tieredLevel > 0 && tieredLevel <= FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed)
 							{
 								MovingItemList.Add(new CacheACDItem(tempitem));
 								if (!All) break;
