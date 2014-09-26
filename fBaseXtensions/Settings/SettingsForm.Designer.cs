@@ -215,6 +215,10 @@
 			this.label19 = new System.Windows.Forms.Label();
 			this.comboBox_GemUpgrading_SuccessRate = new System.Windows.Forms.ComboBox();
 			this.groupBox_PriorityGemUpgrading = new System.Windows.Forms.GroupBox();
+			this.btn_gemUpgrading_AddItem = new System.Windows.Forms.Button();
+			this.btn_gemUpgrading_RemoveItem = new System.Windows.Forms.Button();
+			this.btn_gemUpgrading_MoveItemDown = new System.Windows.Forms.Button();
+			this.btn_gemUpgrading_MoveItemUp = new System.Windows.Forms.Button();
 			this.label31 = new System.Windows.Forms.Label();
 			this.label30 = new System.Windows.Forms.Label();
 			this.listBox_GemUpgrading_UnusedGems = new System.Windows.Forms.ListBox();
@@ -291,10 +295,6 @@
 			this.btn_DumpInventory = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.btn_gemUpgrading_MoveItemUp = new System.Windows.Forms.Button();
-			this.btn_gemUpgrading_MoveItemDown = new System.Windows.Forms.Button();
-			this.btn_gemUpgrading_RemoveItem = new System.Windows.Forms.Button();
-			this.btn_gemUpgrading_AddItem = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -2396,6 +2396,46 @@
 			this.groupBox_PriorityGemUpgrading.TabStop = false;
 			this.groupBox_PriorityGemUpgrading.Text = "Prioritizing";
 			// 
+			// btn_gemUpgrading_AddItem
+			// 
+			this.btn_gemUpgrading_AddItem.Location = new System.Drawing.Point(200, 176);
+			this.btn_gemUpgrading_AddItem.Name = "btn_gemUpgrading_AddItem";
+			this.btn_gemUpgrading_AddItem.Size = new System.Drawing.Size(33, 23);
+			this.btn_gemUpgrading_AddItem.TabIndex = 7;
+			this.btn_gemUpgrading_AddItem.Text = "-->";
+			this.btn_gemUpgrading_AddItem.UseVisualStyleBackColor = true;
+			this.btn_gemUpgrading_AddItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+			// 
+			// btn_gemUpgrading_RemoveItem
+			// 
+			this.btn_gemUpgrading_RemoveItem.Location = new System.Drawing.Point(200, 147);
+			this.btn_gemUpgrading_RemoveItem.Name = "btn_gemUpgrading_RemoveItem";
+			this.btn_gemUpgrading_RemoveItem.Size = new System.Drawing.Size(33, 23);
+			this.btn_gemUpgrading_RemoveItem.TabIndex = 6;
+			this.btn_gemUpgrading_RemoveItem.Text = "<--";
+			this.btn_gemUpgrading_RemoveItem.UseVisualStyleBackColor = true;
+			this.btn_gemUpgrading_RemoveItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+			// 
+			// btn_gemUpgrading_MoveItemDown
+			// 
+			this.btn_gemUpgrading_MoveItemDown.Location = new System.Drawing.Point(433, 176);
+			this.btn_gemUpgrading_MoveItemDown.Name = "btn_gemUpgrading_MoveItemDown";
+			this.btn_gemUpgrading_MoveItemDown.Size = new System.Drawing.Size(75, 23);
+			this.btn_gemUpgrading_MoveItemDown.TabIndex = 5;
+			this.btn_gemUpgrading_MoveItemDown.Text = "Down";
+			this.btn_gemUpgrading_MoveItemDown.UseVisualStyleBackColor = true;
+			this.btn_gemUpgrading_MoveItemDown.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
+			// 
+			// btn_gemUpgrading_MoveItemUp
+			// 
+			this.btn_gemUpgrading_MoveItemUp.Location = new System.Drawing.Point(433, 147);
+			this.btn_gemUpgrading_MoveItemUp.Name = "btn_gemUpgrading_MoveItemUp";
+			this.btn_gemUpgrading_MoveItemUp.Size = new System.Drawing.Size(75, 23);
+			this.btn_gemUpgrading_MoveItemUp.TabIndex = 4;
+			this.btn_gemUpgrading_MoveItemUp.Text = "Up";
+			this.btn_gemUpgrading_MoveItemUp.UseVisualStyleBackColor = true;
+			this.btn_gemUpgrading_MoveItemUp.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
+			// 
 			// label31
 			// 
 			this.label31.AutoSize = true;
@@ -3214,7 +3254,7 @@
 			this.btn_DumpInventory.Name = "btn_DumpInventory";
 			this.btn_DumpInventory.Size = new System.Drawing.Size(137, 23);
 			this.btn_DumpInventory.TabIndex = 9;
-			this.btn_DumpInventory.Text = "Inventory";
+			this.btn_DumpInventory.Text = "Equipment";
 			this.btn_DumpInventory.UseVisualStyleBackColor = true;
 			this.btn_DumpInventory.Click += new System.EventHandler(this.btn_DumpInventory_Click);
 			// 
@@ -3233,46 +3273,6 @@
 			this.toolTip1.AutoPopDelay = 5000;
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
-			// 
-			// btn_gemUpgrading_MoveItemUp
-			// 
-			this.btn_gemUpgrading_MoveItemUp.Location = new System.Drawing.Point(433, 147);
-			this.btn_gemUpgrading_MoveItemUp.Name = "btn_gemUpgrading_MoveItemUp";
-			this.btn_gemUpgrading_MoveItemUp.Size = new System.Drawing.Size(75, 23);
-			this.btn_gemUpgrading_MoveItemUp.TabIndex = 4;
-			this.btn_gemUpgrading_MoveItemUp.Text = "Up";
-			this.btn_gemUpgrading_MoveItemUp.UseVisualStyleBackColor = true;
-			this.btn_gemUpgrading_MoveItemUp.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
-			// 
-			// btn_gemUpgrading_MoveItemDown
-			// 
-			this.btn_gemUpgrading_MoveItemDown.Location = new System.Drawing.Point(433, 176);
-			this.btn_gemUpgrading_MoveItemDown.Name = "btn_gemUpgrading_MoveItemDown";
-			this.btn_gemUpgrading_MoveItemDown.Size = new System.Drawing.Size(75, 23);
-			this.btn_gemUpgrading_MoveItemDown.TabIndex = 5;
-			this.btn_gemUpgrading_MoveItemDown.Text = "Down";
-			this.btn_gemUpgrading_MoveItemDown.UseVisualStyleBackColor = true;
-			this.btn_gemUpgrading_MoveItemDown.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
-			// 
-			// btn_gemUpgrading_RemoveItem
-			// 
-			this.btn_gemUpgrading_RemoveItem.Location = new System.Drawing.Point(200, 147);
-			this.btn_gemUpgrading_RemoveItem.Name = "btn_gemUpgrading_RemoveItem";
-			this.btn_gemUpgrading_RemoveItem.Size = new System.Drawing.Size(33, 23);
-			this.btn_gemUpgrading_RemoveItem.TabIndex = 6;
-			this.btn_gemUpgrading_RemoveItem.Text = "<--";
-			this.btn_gemUpgrading_RemoveItem.UseVisualStyleBackColor = true;
-			this.btn_gemUpgrading_RemoveItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
-			// 
-			// btn_gemUpgrading_AddItem
-			// 
-			this.btn_gemUpgrading_AddItem.Location = new System.Drawing.Point(200, 176);
-			this.btn_gemUpgrading_AddItem.Name = "btn_gemUpgrading_AddItem";
-			this.btn_gemUpgrading_AddItem.Size = new System.Drawing.Size(33, 23);
-			this.btn_gemUpgrading_AddItem.TabIndex = 7;
-			this.btn_gemUpgrading_AddItem.Text = "-->";
-			this.btn_gemUpgrading_AddItem.UseVisualStyleBackColor = true;
-			this.btn_gemUpgrading_AddItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
 			// 
 			// SettingsForm
 			// 

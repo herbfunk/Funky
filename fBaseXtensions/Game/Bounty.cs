@@ -58,9 +58,11 @@ namespace fBaseXtensions.Game
 		{
 			get
 			{
-				return FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_RIFTID) &&
-					FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].State == QuestState.InProgress &&
-					(FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step==13||
+				return FunkyGame.Bounty.ActiveBounty!=null &&
+					FunkyGame.Bounty.ActiveBounty.QuestSNO==ADVENTUREMODE_RIFTID &&
+					FunkyGame.Bounty.ActiveBounty.State == QuestState.InProgress &&
+					FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_RIFTID) &&
+					(FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step == 13 ||
 					FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step == 16||
 					FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step == 34);
 			}
@@ -69,8 +71,12 @@ namespace fBaseXtensions.Game
 		{
 			get
 			{
-				return FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_GREATERRIFT_TRIAL) &&
-					FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_GREATERRIFT_TRIAL].State == QuestState.InProgress;
+				//if (FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_GREATERRIFT_TRIAL))
+				//	FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_GREATERRIFT_TRIAL].Refresh();
+
+				return FunkyGame.Bounty.ActiveBounty != null &&
+						FunkyGame.Bounty.ActiveBounty.QuestSNO == ADVENTUREMODE_GREATERRIFT_TRIAL &&
+						FunkyGame.Bounty.ActiveBounty.State== QuestState.InProgress;
 			}
 		}
 
@@ -131,27 +137,38 @@ namespace fBaseXtensions.Game
 		{
 			try
 			{
-				//Refresh any current quests..
-				foreach (var q in ActiveQuests.Values)
-				{
-					q.Refresh();
-				}
+				var CurrentListOfSNOS = ActiveQuests.Keys.ToList();
+				List<int> newActiveQuestSNOS = new List<int>();
+
 				using (ZetaDia.Memory.AcquireFrame())
 				{
 					foreach (var aq in ZetaDia.ActInfo.ActiveQuests)
 					{
 						int sno = aq.QuestSNO;
+						newActiveQuestSNOS.Add(sno);
 
 						//Filter Adventure Mode and Bounty IDs
 						if (sno == ADVENTUREMODE_QUESTID) continue;
 						if (BountyQuestStates.ContainsKey(sno)) continue;
 						//Ignore entries we already added
-						if (ActiveQuests.ContainsKey(sno)) continue;
+						if (ActiveQuests.ContainsKey(sno))
+						{
+							ActiveQuests[sno].Refresh();
+							continue;
+						}
+							
 
 						var newEntry = new QuestInfoCache(aq);
 						ActiveQuests.Add(sno, newEntry);
 					}
 				}
+
+				var removalQuests = CurrentListOfSNOS.Where(i => !newActiveQuestSNOS.Contains(i)).ToList();
+				foreach (var sno in removalQuests)
+				{
+					ActiveQuests.Remove(sno);
+				}
+
 			}
 			catch (Exception ex)
 			{
@@ -421,7 +438,7 @@ namespace fBaseXtensions.Game
 					}
 				}
 			}
-			else if (ActiveBounty != null && !FunkyGame.Hero.bIsInTown)
+			else if (ActiveBounty != null && (!FunkyGame.Hero.bIsInTown || ActiveBounty.QuestSNO == ADVENTUREMODE_GREATERRIFT_TRIAL || ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID))
 			{
 				if (ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID || ActiveBounty.QuestSNO == ADVENTUREMODE_GREATERRIFT_TRIAL)
 				{

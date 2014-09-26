@@ -1608,25 +1608,18 @@ namespace fBaseXtensions.Settings
 
 		private void btn_DumpInventory_Click(object sender, EventArgs e)
 		{
-			if (BotMain.IsRunning || !ZetaDia.IsInGame || ZetaDia.IsLoadingWorld || ZetaDia.Me == null || ZetaDia.Me.CommonData == null)
-				return;
 
 			LBDebug.Controls.Clear();
 
 			try
 			{
-				ZetaDia.Memory.DisableCache();
-				ZetaDia.Actors.Update();
 
-				foreach (var o in ZetaDia.Me.Inventory.Backpack)
+
+				foreach (var o in Equipment.EquippedItems)
 				{
 					try
 					{
-						CacheACDItem item = new CacheACDItem(o);
-						string s = String.Format("Type {0} {1} - SNO: {2} BalanceID: {3}",
-															item.ItemType, item.ThisInternalName, item.SNO, item.ThisBalanceID);
-
-						LBDebug.Controls.Add(new UserControlDebugEntry(s));
+						LBDebug.Controls.Add(new UserControlDebugEntry(o.ToString()));
 					}
 					catch (Exception)
 					{

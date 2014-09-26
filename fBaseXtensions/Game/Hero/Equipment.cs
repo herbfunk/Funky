@@ -23,6 +23,9 @@ namespace fBaseXtensions.Game.Hero
 		public static bool ImmuneToDescratorMoltenPlaguedAvoidances { get; set; }
 		public static bool ImmuneToArcane { get; set; }
 		public static bool ImmuneToPoison { get; set; }
+		public static bool ImmuneToCold { get; set; }
+		public static bool ImmuneToLightning { get; set; }
+		public static bool ImmuneToFire { get; set; }
 		public static bool ImmuneToFrozen { get; set; }
 		public static bool RingOfGrandeur { get; set; }
 		public static bool NoMonsterCollision { get; set; }
@@ -109,6 +112,9 @@ namespace fBaseXtensions.Game.Hero
 			ImmuneToArcane = LegendaryEquippedItems.Any(i => i == LegendaryItemTypes.CountessJuliasCameo);
 			ImmuneToPoison = LegendaryEquippedItems.Any(i => i == LegendaryItemTypes.MarasKaleidoscope);
 			ImmuneToFrozen = LegendaryEquippedItems.Any(i => i == LegendaryItemTypes.IceClimbers);
+			ImmuneToCold = LegendaryEquippedItems.Any(i => i == LegendaryItemTypes.TalismanofAranoch);
+			ImmuneToLightning = LegendaryEquippedItems.Any(i => i == LegendaryItemTypes.XephirianAmulet);
+			ImmuneToFire = LegendaryEquippedItems.Any(i => i == LegendaryItemTypes.TheStarofAzkaranth);
 
 			//Repear Wraps
 			if (LegendaryEquippedItems.Any(i => i== LegendaryItemTypes.ReapersWraps))
@@ -165,6 +171,8 @@ namespace fBaseXtensions.Game.Hero
 			{
 				using (ZetaDia.Memory.AcquireFrame())
 				{
+					ZetaDia.Actors.Update();
+
 					foreach (ACDItem item in ZetaDia.Me.Inventory.Equipped)
 					{
 						var thiscacheditem = new CacheACDItem(item);

@@ -208,6 +208,49 @@ namespace fBaseXtensions.Items
 				return (ThisDynamicID == p.ThisDynamicID);
 			}
 		}
+
+		public override string ToString()
+		{
+			string specificType = 
+				LegendaryGemType != LegendaryGemTypes.None ? String.Format("Legendary Gem Type {0} Rank {1}", LegendaryGemType, LegendaryGemRank) :
+				ThisDyeType != DyeType.None ? String.Format("Dye Type {0}", ThisDyeType) :
+				LegendaryItemType != LegendaryItemTypes.None ? String.Format("Legendary Item Type {0}", LegendaryItemType) :
+				ThisFollowerType != FollowerType.None ? String.Format("Follower Type {0}", ThisFollowerType) :
+				"";
+
+			return String.Format("Item {0} ({1}) [Sno: {2} Balance: {3}]\r\n" +
+			                     "[DynamicID: {4} ACDGuid: {5}]\r\n" +
+			                     "BaseType: {6} ItemType: {7} ({8})\r\n" +
+								 "Quality: {9} Level: {10} IsUnidentified: {11} \r\n" +
+			                     "Durability: {12} / {13} ({14})\r\n" +
+			                     "InvRow {15} InvCol {16} StackQuanity {17}\r\n" +
+								 "IsVendorBought {18}\r\n" +
+			                     "{19}\r\n" +
+			                     "{20}",
+									ThisRealName, ThisInternalName, SNO, ThisBalanceID,
+									ThisDynamicID, ACDGUID,
+									BaseItemType, ItemType, ThisDBItemType,
+									ThisQuality, ThisLevel, IsUnidentified,
+									DurabilityCurrent,DurabilityMax,DurabilityPercent,
+									invRow,invCol,ThisItemStackQuantity,
+									IsVendorBought,
+									specificType,
+									ItemStatString);
+
+			/*
+		public int ThisGoldAmount { get; set; }
+		public bool ThisOneHanded { get; set; }
+		public bool TwoHanded { get; set; }
+
+
+
+		public string ItemStatString = "";
+		public ItemProperties ItemStatProperties { get; set; }
+		public bool IsStackableItem { get; set; }
+		public bool IsTwoSlot { get; set; }
+
+			 */
+		}
 	}
 
 

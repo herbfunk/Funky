@@ -1,4 +1,9 @@
-﻿v1.1.2.0
+﻿v1.1.2.1
+	Bounty Active Quests will trim away "old" entries during refresh.
+	Equipment ReturnCurrentEquippedItems method now calls ZetaDia.Actors.Update() (hopefully fixed repair bug)
+
+
+v1.1.2.0
 	Removed Pet SNO IDs from Blacklisting.
 
 	Added Gem Upgrading Options into General Tab -> Adventure Mode Tab.

@@ -282,6 +282,10 @@ namespace fBaseXtensions.Cache.Internal.Avoidance
 			if (Equipment.ImmuneToPoison && (thisAvoidance == AvoidanceType.PlagueCloud || thisAvoidance == AvoidanceType.PlagueHand || thisAvoidance == AvoidanceType.PoisonGas))
 				return true;
 
+			//Talisman of Aranoch
+			if (Equipment.ImmuneToCold && (thisAvoidance == AvoidanceType.FrozenPulse || thisAvoidance == AvoidanceType.MalthaelDeathFog))
+				return true;
+
 			//Special Blackthorne's Set Bonus Check!
 			if (Equipment.ImmuneToDescratorMoltenPlaguedAvoidances)
 			{
