@@ -53,7 +53,8 @@ namespace fItemPlugin.Townrun
 							{
 								if (thisitem.IsRegularPotion)
 								{
-									if (thisitem.ACDGUID != Backpack.CurrentPotionACDGUID && Backpack.CurrentPotionACDGUID != -1)
+									if ((thisitem.ACDGUID != Backpack.CurrentPotionACDGUID && Backpack.CurrentPotionACDGUID != -1)
+										|| FunkyTownRunPlugin.PluginSettings.PotionsCount==0)
 									{
 										townRunItemCache.SellItems.Add(thisitem);
 										FunkyTownRunPlugin.DBLog.InfoFormat("Selling Potion -- Current PotionACDGUID=={0}", Backpack.CurrentPotionACDGUID);

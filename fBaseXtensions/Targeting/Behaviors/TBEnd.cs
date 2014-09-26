@@ -30,6 +30,24 @@ namespace fBaseXtensions.Targeting.Behaviors
 			{
 				if (obj == null)
 				{
+
+					if (FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode && 
+						BountyCache.RiftTrialIsActiveQuest &&
+						FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL) && 
+						FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL].Step==1 &&
+						FunkyGame.Hero.iCurrentLevelID == 405915)
+					{
+						
+						if (FunkyGame.Hero.Position.Distance(BountyCache.RiftTrial_StartPosition)>10f)
+						{
+							obj = new CacheObject(BountyCache.RiftTrial_StartPosition, TargetType.LineOfSight, 1d, "ReturnToOOCLoc", 10f);
+							return true;
+						}
+
+						obj = new CacheObject(FunkyGame.Hero.Position, TargetType.NoMovement, 20000, "WaitRiftTrial", 2f, -1);
+						return true;
+					}
+
 					// See if we should wait for milliseconds for possible loot drops before continuing run
 					if (DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastHadUnitInSights).TotalMilliseconds <= FunkyBaseExtension.Settings.General.AfterCombatDelay && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastHadEliteUnitInSights).TotalMilliseconds <= 10000 ||
 						//Cut the delay time in half for non-elite monsters!

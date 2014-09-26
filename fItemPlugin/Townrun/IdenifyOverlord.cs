@@ -20,7 +20,7 @@ namespace fItemPlugin.Townrun
 		internal static bool IdenifyItemOverlord(object ret)
 		{
 			//Doing greater rift?
-			if (ZetaDia.Me.IsParticipatingInTieredLootRun)
+			if (IsParticipatingInTieredLootRun)
 				return false;
 
 			if (!FunkyTownRunPlugin.PluginSettings.IdentifyLegendaries) return false;

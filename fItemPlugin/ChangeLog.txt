@@ -1,4 +1,10 @@
-﻿v1.2.6
+﻿v1.2.7
+Fixed check for trial rift, should no longer attempt repairs during trial.
+Fixed Idenification being ignored when Grift/trial was ending.
+Setting Potion Count to Zero will sell ALL regular potions.
+
+
+v1.2.6
 Fixed Items that are not salvaged by salvage all method will be salvaged normally now.
 
 v1.2.5

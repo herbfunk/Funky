@@ -371,8 +371,9 @@ namespace fItemPlugin.Townrun
 			{
 				return (ZetaDia.Me.IsParticipatingInTieredLootRun &&
 				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) &&
-				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 34 && FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 10))||
-				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL)));
+				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 34 && FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 10)) ||
+				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL) &&
+				FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL].Step != 9));
 
 			}
 		}

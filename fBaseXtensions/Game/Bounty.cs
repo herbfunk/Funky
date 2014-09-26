@@ -17,7 +17,7 @@ namespace fBaseXtensions.Game
 		public static readonly int ADVENTUREMODE_QUESTID = 312429;
 		public static readonly int ADVENTUREMODE_RIFTID = 337492;
 		public static readonly int ADVENTUREMODE_GREATERRIFT_TRIAL = 405695;
-
+		internal static readonly Vector3 RiftTrial_StartPosition = new Vector3(279.566f, 277.9756f, -11.48438f);
 		/*
 		 Greater Rift Trial
 		GizmoType: Portal Name: X1_OpenWorld_Tiered_Rifts_Challenge_Portal-30347 ActorSNO: 408511
