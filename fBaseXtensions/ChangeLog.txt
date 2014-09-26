@@ -1,4 +1,20 @@
-﻿v1.1.2.1
+﻿v1.1.2.2
+
+Added Rift Trial logic into ending target behavior move to starting position and wait for units.
+
+Monk:
+	Modified Skills according to build
+		http://www.diablofans.com/builds/835-g37-the-strongest-2-1-monk-build-quin69
+	Mantras
+		Reuse cooldown reduced to 750ms with 4pc SWK.
+		Waits for Special Skills (Sweeping Winds) before spamming.
+	Dashing Strike (Attack Speed Rune)
+		Used on any target every 4 seconds to maintain attack speed buff.
+	Breath of Heaven
+		Infused with Light Rune will recast whenever hero does not have buff.
+
+
+v1.1.2.1
 	Bounty Active Quests will trim away "old" entries during refresh.
 	Equipment ReturnCurrentEquippedItems method now calls ZetaDia.Actors.Update() (hopefully fixed repair bug)
 

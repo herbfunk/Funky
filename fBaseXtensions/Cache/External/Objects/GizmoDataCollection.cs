@@ -65,6 +65,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(291743, PluginGizmoType.BreakableDoor, "x1_Catacombs_Barricade_Breakable-55384"),
 				new GizmoEntry(199412, PluginGizmoType.BreakableDoor, "trDun_TinkerDoor_Breakable-8333"),
 				new GizmoEntry(103316, PluginGizmoType.BreakableDoor, "TrOut_Highlands_Manor_Front_Gate-18784"),
+				new GizmoEntry(195101, PluginGizmoType.BreakableDoor, "Barricade_Breakable_Snow_A-457233"),
+				new GizmoEntry(291372, PluginGizmoType.BreakableDoor, "x1_Westm_Barricade_Breakable-518640"),
+
 
 				//============== DOORS ==============//
 				new GizmoEntry(5854, PluginGizmoType.Door),
@@ -172,6 +175,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(213446, PluginGizmoType.Chest, "Lore_AzmodanChest2-43183", GizmoTargetTypes.Chest),
 				new GizmoEntry(199584, PluginGizmoType.Chest, "CaOut_BoneYard_WormCave_Chest-45908", GizmoTargetTypes.Chest),
 				new GizmoEntry(108122, PluginGizmoType.Chest, "caOut_StingingWinds_Chest-21069", GizmoTargetTypes.Chest),
+				new GizmoEntry(191734, PluginGizmoType.Chest, "caOut_StingingWinds_Chest_CultistCamp-13499", GizmoTargetTypes.Chest),
 
 				//============== Floor Switches ==============//
 				new GizmoEntry(5759, PluginGizmoType.Chest, "trDun_Cath_FloorSpawner_02-670", GizmoTargetTypes.FloorContainer),
@@ -429,6 +433,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(193032, PluginGizmoType.Chest, "LootType3_GraveGuard_D_Corpse_05-55169", GizmoTargetTypes.Corpse),
 				new GizmoEntry(309401, PluginGizmoType.Chest, "x1_Westm_Corpse_D_03-17426", GizmoTargetTypes.Corpse),
 				new GizmoEntry(193019, PluginGizmoType.Chest, "LootType3_GraveGuard_B_Corpse_05-50003", GizmoTargetTypes.Corpse),
+				new GizmoEntry(193031, PluginGizmoType.Chest, "LootType3_GraveGuard_D_Corpse_04-12723", GizmoTargetTypes.Corpse),
 				#endregion
 
 				//============== Weapon Rack ==============//
@@ -471,6 +476,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(170233, PluginGizmoType.Chest, "LoreChest_GuardCaptainJournal-1949", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(220152, PluginGizmoType.Chest, "Lore_Satchel_Chest_FacePuzzleLarge-42045", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(220153, PluginGizmoType.Chest, "Lore_Satchel_Chest_FacePuzzleSmall-14914", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(207706, PluginGizmoType.Chest, "CaOut_Oasis_Chest_Rare_MapVendorCave-12710", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(3028, PluginGizmoType.Chest, "a2dun_Zolt_Random_GoldChest-11759", GizmoTargetTypes.MiscContainer),
 
 				//============== Special Interactables ==============//
 				new GizmoEntry(174754, PluginGizmoType.Switch),

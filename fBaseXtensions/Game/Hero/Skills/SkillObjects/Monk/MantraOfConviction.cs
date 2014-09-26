@@ -18,12 +18,26 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 
 			Priority = SkillPriority.High;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckRecastTimer));
-
-			FcriteriaBuff = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.Environment.SurroundingUnits > 0 && LastUsedMilliseconds > 3000;
-
+			
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30, -1, 0.99d));
-			FcriteriaCombat = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && LastUsedMilliseconds > 3000;
+
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.MonkeyKingsGarb, 4))
+			{
+				PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
+				FcriteriaBuff = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.Environment.SurroundingUnits > 0;
+				FcriteriaCombat = () => 
+					!FunkyGame.Hero.Class.bWaitingForSpecial &&
+					FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && 
+					FunkyGame.Targeting.Cache.Environment.SurroundingUnits > 0;
+			}
+			else
+			{
+				PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckRecastTimer));
+				FcriteriaBuff = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.Environment.SurroundingUnits > 0 && LastUsedMilliseconds > 3000;
+				FcriteriaCombat = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && LastUsedMilliseconds > 3000;
+			}
+
+			
 		}
 
 

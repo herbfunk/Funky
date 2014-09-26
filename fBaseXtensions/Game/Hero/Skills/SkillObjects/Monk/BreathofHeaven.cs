@@ -17,13 +17,21 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 
 			Priority = SkillPriority.High;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckRecastTimer));
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
+
+			if (RuneIndex==3)
+			{
+				
+				FcriteriaCombat = () => !Hotbar.HasBuff(SNOPower.Monk_BreathOfHeaven);
+			}
+			else
+			{
+				FcriteriaCombat = () => FunkyGame.Hero.dCurrentHealthPct <= 0.5d ||
+									   FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25] > 0 || //with elites nearby..
+									   FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25] > 3;
+			}
+
 			FcriteriaBuff = () => FunkyGame.Hero.dCurrentHealthPct <= 0.5d;
-
-			FcriteriaCombat = () => FunkyGame.Hero.dCurrentHealthPct <= 0.5d ||
-								   FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25] > 0 || //with elites nearby..
-								   FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25] > 3;
-
 		}
 
 		public override SNOPower Power

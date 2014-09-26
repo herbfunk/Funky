@@ -24,10 +24,16 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			
 		
 			
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy));
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 			ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 2, false));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			
+			//Sunwuko CDR Build
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.MonkeyKingsGarb, 4))
+			{
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25));
+			}
 
 			FcriteriaBuff = () =>
 			{

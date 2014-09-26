@@ -815,6 +815,20 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						{
 							if (!ItemDropType.HasValue)
 							{
+								try
+								{
+									//Check if this is an item shown on a hero!
+									if (thisObj.IsEnvironmentRActor)
+									{
+										BlacklistCache.IgnoreThisObject(this, raguid);
+										return false;
+									}
+								}
+								catch
+								{
+
+								}
+
 								ItemStringEntry itemstringentry = ItemFunc.DetermineIsItemActorType(InternalName);
 								if (itemstringentry == null)
 								{

@@ -926,6 +926,18 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(137995, UnitFlags.Normal, "Spider_Elemental_Lightning_A-5058"),
 				new UnitEntry(221999, UnitFlags.Unique, "TriuneCultist_C_Unique_02-998"),
 
+				new UnitEntry(418922, UnitFlags.Normal| UnitFlags.Flying | UnitFlags.Transportable, "p1_LR_Ghost_C-60179"),
+				new UnitEntry(418924, UnitFlags.Normal| UnitFlags.Flying | UnitFlags.Transportable, "p1_LR_Ghost_Dark_A-70182"),
+				new UnitEntry(59970, UnitFlags.Unique, "LacuniFemale_A_Unique-13688"),
+				new UnitEntry(222339, UnitFlags.Unique, "LacuniFemale_B_Unique_01-8744"),
+				new UnitEntry(418902, UnitFlags.Normal, "p1_LR_BogBlight_A-12689"),
+				new UnitEntry(418923, UnitFlags.Normal| UnitFlags.Flying | UnitFlags.Transportable, "p1_LR_Ghost_D-23323"),
+				new UnitEntry(54572, UnitFlags.Normal, "Spawner_SkeletonMage_Cold_B-4779"),
+				new UnitEntry(418911, UnitFlags.Normal| UnitFlags.Flying | UnitFlags.Transportable, "p1_LR_Ghost_A-31267"),
+				new UnitEntry(418918, UnitFlags.Normal| UnitFlags.Flying | UnitFlags.Transportable, "p1_LR_Ghost_B-19326"),
+				new UnitEntry(418907, UnitFlags.Normal| UnitFlags.Flying, "x1_LR_demonFlyer_A-27924"),
+				new UnitEntry(5413, UnitFlags.Normal, "skeleton_twoHander_D-46019"),
+
 			};
 			
 			#endregion

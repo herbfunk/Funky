@@ -448,6 +448,7 @@
 		TheSmolderingCore,
 		ValtheksRebuke,
 		MarkofTheMagi,
+		AhavarionSpearofLycander,
 
 		//Two-HandedAxe
 		TheExecutioner,

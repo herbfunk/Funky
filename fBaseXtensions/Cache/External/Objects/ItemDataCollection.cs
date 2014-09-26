@@ -142,8 +142,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				//
 				new DroppedItemEntry(205482, PluginDroppedItemTypes.Helm,"HelmCloth_norm_base_flippy"),
 				new DroppedItemEntry(4463, PluginDroppedItemTypes.Helm,"Helm_norm_base_flippy"),
-				new DroppedItemEntry(299444, PluginDroppedItemTypes.Helm, "x1_voodooMask_wdm_norm_unique_07-3884"),
-				new DroppedItemEntry(369025, PluginDroppedItemTypes.Helm, "x1_helm_WDM_norm_set_16-2783"),
 
 				//
 				new DroppedItemEntry(4833, PluginDroppedItemTypes.Pants,"pants_norm_base_flippy"),
@@ -179,7 +177,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(6327, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_base_flippy_04-8339"),
 				new DroppedItemEntry(6328, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_base_flippy_05-24277"),
 				new DroppedItemEntry(186576, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_unique_flippy_02-23923"),
-				new DroppedItemEntry(191065, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_unique_04-9710"),
 				new DroppedItemEntry(335161, PluginDroppedItemTypes.AxeTwoHanded, "x1_twoHandedAxe_norm_base_flippy_01-20274"),
 
 				//
@@ -208,8 +205,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(223035, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_flippy_05-26194"),
 				new DroppedItemEntry(193440, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_flippy_02-115480"),
 				new DroppedItemEntry(223386, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_flippy_06-181600"),
-				new DroppedItemEntry(195443, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_03_bladeEnergy-13546"),
-				new DroppedItemEntry(195370, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_03-3645"),
 				new DroppedItemEntry(209290, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_flippy_09-18044"),
 				new DroppedItemEntry(196261, PluginDroppedItemTypes.CeremonialKnife, "ceremonialDagger_norm_unique_flippy_04-32055"),
 
@@ -240,6 +235,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(197130, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_02-7244"),
 				new DroppedItemEntry(212211, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_08-478393"),
 				new DroppedItemEntry(197131, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_03-48215"),
+				new DroppedItemEntry(271750, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_unique_flippy_09-90827"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -329,6 +325,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(271665, PluginDroppedItemTypes.Mace, "x1_Mace_norm_unique_flippy_12-10103"),
 				new DroppedItemEntry(188207, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_05-4091"),
 				new DroppedItemEntry(188215, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_08-215343"),
+				new DroppedItemEntry(102670, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_01-3062"),
 
 				//
 				new DroppedItemEntry(6337, PluginDroppedItemTypes.MaceTwoHanded),
@@ -396,7 +393,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(5493, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_04-16574"),
 				new DroppedItemEntry(5494, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_05-8358"),
 				new DroppedItemEntry(5496, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_07-22734"),
-				new DroppedItemEntry(367162, PluginDroppedItemTypes.Staff, "x1_Staff_norm_base_02-6191"),
 				new DroppedItemEntry(59610, PluginDroppedItemTypes.Staff, "Staff_norm_unique_flippy_01-25475"),
 				new DroppedItemEntry(328170, PluginDroppedItemTypes.Staff, "x1_Staff_norm_base_flippy_01-1922"),
 				new DroppedItemEntry(184232, PluginDroppedItemTypes.Staff, "Staff_norm_unique_flippy_03-2202"),
@@ -407,6 +403,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(5490, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_01-14597"),
 				new DroppedItemEntry(5495, PluginDroppedItemTypes.Staff, "Staff_norm_base_flippy_06-14562"),
 				new DroppedItemEntry(271771, PluginDroppedItemTypes.Staff, "x1_staff_norm_unique_flippy_10-1861"),
+				new DroppedItemEntry(271769, PluginDroppedItemTypes.Staff, "x1_staff_norm_unique_flippy_08-235967"),
 
 				//
 				new DroppedItemEntry(5530, PluginDroppedItemTypes.Sword, "Sword_norm_base_flippy_04-7841"),
@@ -432,6 +429,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(189592, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_05-3732"),
 				new DroppedItemEntry(376464, PluginDroppedItemTypes.Sword, "x1_Sword_norm_promo_flippy_02-215914"),
 				new DroppedItemEntry(5533, PluginDroppedItemTypes.Sword, "Sword_norm_base_flippy_07-1617"),
+				new DroppedItemEntry(192523, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_06-45519"),
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),
@@ -464,6 +462,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(6427, PluginDroppedItemTypes.Wand, "Wand_norm_base_flippy_01-12498"),
 				new DroppedItemEntry(403782, PluginDroppedItemTypes.Wand, "p1_Wand_norm_unique_flippy_01-14004"),
 				new DroppedItemEntry(210481, PluginDroppedItemTypes.Wand, "Wand_norm_unique_flippy_07-48205"),
+				new DroppedItemEntry(181985, PluginDroppedItemTypes.Wand, "Wand_norm_unique_flippy_01-26477"),
 
 				#endregion
 
@@ -762,6 +761,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(3436, PluginItemTypes.Boots),
 				new ItemDataEntry(3435, PluginItemTypes.Boots),
 				new ItemDataEntry(58911, PluginItemTypes.Boots),
+				new ItemDataEntry(58909, PluginItemTypes.Boots),
 
 				new ItemDataEntry(253988, PluginItemTypes.Bracers),
 				new ItemDataEntry(253995, PluginItemTypes.Bracers),
@@ -832,6 +832,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(4450, PluginItemTypes.Helm),
 				new ItemDataEntry(4451, PluginItemTypes.Helm),
 				new ItemDataEntry(57789, PluginItemTypes.Helm),
+				new ItemDataEntry(57786, PluginItemTypes.Helm),
 
 				new ItemDataEntry(253984, PluginItemTypes.Pants),
 				new ItemDataEntry(253991, PluginItemTypes.Pants),
@@ -851,6 +852,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(58940, PluginItemTypes.Pants),
 				new ItemDataEntry(58941, PluginItemTypes.Pants),
 				new ItemDataEntry(58939, PluginItemTypes.Pants),
+				new ItemDataEntry(58942, PluginItemTypes.Pants),
 
 				new ItemDataEntry(367173, PluginItemTypes.MightyBelt),
 				new ItemDataEntry(367172, PluginItemTypes.MightyBelt),
@@ -1155,6 +1157,7 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				//Crafting Materials
 				new ItemDataEntry(371083, PluginItemTypes.LegendaryCraftingMaterial),
+				new ItemDataEntry(367009, PluginItemTypes.LegendaryCraftingMaterial),
 				new ItemDataEntry(189860, PluginItemTypes.CraftingMaterial),
 				new ItemDataEntry(361984, PluginItemTypes.CraftingMaterial),
 				new ItemDataEntry(189861, PluginItemTypes.CraftingMaterial),
@@ -1546,7 +1549,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(325579, PluginItemTypes.WizardHat, LegendaryItemTypes.TheMagistrate),
 				new ItemDataEntry(218681, PluginItemTypes.WizardHat, LegendaryItemTypes.TheSwami),
 				new ItemDataEntry(299472, PluginItemTypes.WizardHat, LegendaryItemTypes.VelvetCamaral),
-
+				new ItemDataEntry(224908, PluginItemTypes.WizardHat, LegendaryItemTypes.DarkMagesShade),
 
 				
 				new ItemDataEntry(116388, PluginItemTypes.Axe, LegendaryItemTypes.FleshTearer),
@@ -1707,13 +1710,14 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				new ItemDataEntry(184228, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.AutumnsCall),
 				new ItemDataEntry(193832, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.MalothsFocus),
-				new ItemDataEntry(59612, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.MarkofTheMagi), //MarkofTheMagi
+				new ItemDataEntry(59612, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.MarkofTheMagi),
 				new ItemDataEntry(59601, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.TheBrokenStaff),
 				new ItemDataEntry(192167, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.TheGrandVizier),
 				new ItemDataEntry(193066, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.TheTormentor),
 				new ItemDataEntry(271773, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.ValtheksRebuke),
 				new ItemDataEntry(195407, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.Wormwood),
 				new ItemDataEntry(271774, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.TheSmolderingCore),
+				new ItemDataEntry(271768, PluginItemTypes.TwoHandStaff, LegendaryItemTypes.AhavarionSpearofLycander),
 
 				new ItemDataEntry(198960, PluginItemTypes.TwoHandSword, LegendaryItemTypes.FaithfulMemory),
 				new ItemDataEntry(184187, PluginItemTypes.TwoHandSword, LegendaryItemTypes.Maximus),
@@ -1983,7 +1987,7 @@ namespace fBaseXtensions.Cache.External.Objects
  
 				//KrelmsBuffBulwark
 				new ItemDataEntry(336184, PluginItemTypes.Belt, LegendaryItemTypes.KrelmsBuffBulwark),
-
+				new ItemDataEntry(336185, PluginItemTypes.Bracers, LegendaryItemTypes.KrelmsBuffBulwark), //KrelmsBuffBracers
 				#endregion
 			};
 

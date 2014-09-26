@@ -5727,6 +5727,83 @@
       <EntryType>Unit</EntryType>
       <UnitFlags>Unique</UnitFlags>
     </UnitEntry>
+    <UnitEntry>
+      <SnoId>418922</SnoId>
+      <InternalName>p1_LR_Ghost_C-60179</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying Transportable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>418924</SnoId>
+      <InternalName>p1_LR_Ghost_Dark_A-70182</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying Transportable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>59970</SnoId>
+      <InternalName>LacuniFemale_A_Unique-13688</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>222339</SnoId>
+      <InternalName>LacuniFemale_B_Unique_01-8744</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>418902</SnoId>
+      <InternalName>p1_LR_BogBlight_A-12689</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>418923</SnoId>
+      <InternalName>p1_LR_Ghost_D-23323</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying Transportable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>54572</SnoId>
+      <InternalName>Spawner_SkeletonMage_Cold_B-4779</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>418911</SnoId>
+      <InternalName>p1_LR_Ghost_A-31267</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying Transportable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>418918</SnoId>
+      <InternalName>p1_LR_Ghost_B-19326</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying Transportable</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>418907</SnoId>
+      <InternalName>x1_LR_demonFlyer_A-27924</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal Flying</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>5413</SnoId>
+      <InternalName>skeleton_twoHander_D-46019</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>
     <UnitPetEntry>

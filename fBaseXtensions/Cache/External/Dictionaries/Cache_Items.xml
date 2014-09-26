@@ -247,20 +247,6 @@
       <PluginDroppedItemTypes>Helm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
-      <SnoId>299444</SnoId>
-      <InternalName>x1_voodooMask_wdm_norm_unique_07-3884</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Helm</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>369025</SnoId>
-      <InternalName>x1_helm_WDM_norm_set_16-2783</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Helm</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
       <SnoId>4833</SnoId>
       <InternalName>pants_norm_base_flippy</InternalName>
       <ActorType>Item</ActorType>
@@ -436,13 +422,6 @@
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
-      <SnoId>191065</SnoId>
-      <InternalName>twoHandedAxe_norm_unique_04-9710</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
       <SnoId>335161</SnoId>
       <InternalName>x1_twoHandedAxe_norm_base_flippy_01-20274</InternalName>
       <ActorType>Item</ActorType>
@@ -606,20 +585,6 @@
     <DroppedItemEntry>
       <SnoId>223386</SnoId>
       <InternalName>ceremonialDagger_norm_unique_flippy_06-181600</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>195443</SnoId>
-      <InternalName>ceremonialDagger_norm_unique_03_bladeEnergy-13546</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>195370</SnoId>
-      <InternalName>ceremonialDagger_norm_unique_03-3645</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
@@ -802,6 +767,13 @@
     <DroppedItemEntry>
       <SnoId>197131</SnoId>
       <InternalName>combatStaff_norm_unique_flippy_03-48215</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>271750</SnoId>
+      <InternalName>x1_combatStaff_norm_unique_flippy_09-90827</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
@@ -1339,6 +1311,13 @@
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>102670</SnoId>
+      <InternalName>Mace_norm_unique_flippy_01-3062</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6337</SnoId>
       <InternalName />
       <ActorType>Item</ActorType>
@@ -1724,13 +1703,6 @@
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
-      <SnoId>367162</SnoId>
-      <InternalName>x1_Staff_norm_base_02-6191</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
       <SnoId>59610</SnoId>
       <InternalName>Staff_norm_unique_flippy_01-25475</InternalName>
       <ActorType>Item</ActorType>
@@ -1796,6 +1768,13 @@
     <DroppedItemEntry>
       <SnoId>271771</SnoId>
       <InternalName>x1_staff_norm_unique_flippy_10-1861</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>271769</SnoId>
+      <InternalName>x1_staff_norm_unique_flippy_08-235967</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
@@ -1957,6 +1936,13 @@
     <DroppedItemEntry>
       <SnoId>5533</SnoId>
       <InternalName>Sword_norm_base_flippy_07-1617</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>192523</SnoId>
+      <InternalName>Sword_norm_unique_flippy_06-45519</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
@@ -2153,6 +2139,13 @@
     <DroppedItemEntry>
       <SnoId>210481</SnoId>
       <InternalName>Wand_norm_unique_flippy_07-48205</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>181985</SnoId>
+      <InternalName>Wand_norm_unique_flippy_01-26477</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
@@ -4118,6 +4111,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>58909</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>253988</SnoId>
       <ItemType>Bracers</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4443,6 +4441,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>57786</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>253984</SnoId>
       <ItemType>Pants</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4529,6 +4532,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>58939</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>58942</SnoId>
       <ItemType>Pants</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -5809,6 +5817,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>371083</SnoId>
+      <ItemType>LegendaryCraftingMaterial</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>367009</SnoId>
       <ItemType>LegendaryCraftingMaterial</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -7498,6 +7511,11 @@
       <LegendaryType>VelvetCamaral</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>224908</SnoId>
+      <ItemType>WizardHat</ItemType>
+      <LegendaryType>DarkMagesShade</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>116388</SnoId>
       <ItemType>Axe</ItemType>
       <LegendaryType>FleshTearer</LegendaryType>
@@ -8211,6 +8229,11 @@
       <SnoId>271774</SnoId>
       <ItemType>TwoHandStaff</ItemType>
       <LegendaryType>TheSmolderingCore</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>271768</SnoId>
+      <ItemType>TwoHandStaff</ItemType>
+      <LegendaryType>AhavarionSpearofLycander</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>198960</SnoId>
@@ -9110,6 +9133,11 @@
     <ItemDataEntry>
       <SnoId>336184</SnoId>
       <ItemType>Belt</ItemType>
+      <LegendaryType>KrelmsBuffBulwark</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>336185</SnoId>
+      <ItemType>Bracers</ItemType>
       <LegendaryType>KrelmsBuffBulwark</LegendaryType>
     </ItemDataEntry>
   </ItemDataCache>
