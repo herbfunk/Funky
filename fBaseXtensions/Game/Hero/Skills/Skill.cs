@@ -678,6 +678,12 @@ namespace fBaseXtensions.Game.Hero.Skills
 					ability.TargetPosition = (Vector3)FunkyGame.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].Midpoint;
 					return;
 				}
+				//Cluster Location Nearest
+				if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterLocationNearest) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
+				{
+					ability.TargetPosition = FunkyGame.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].ListUnits[0].Position;
+					return;
+				}
 				//Cluster Target Nearest -- Gets nearest unit in cluster as target.
 				if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTargetNearest) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
 				{

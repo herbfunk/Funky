@@ -18,6 +18,7 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
 			Self=64,
 			RemoveBuff=128,
 			ClusterTargetNearest=256,
+			ClusterLocationNearest=512,
 
 		   // UsesTarget=Target|ClusterTarget|ClusterTargetNearest,
 	 }

@@ -178,6 +178,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(6328, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_base_flippy_05-24277"),
 				new DroppedItemEntry(186576, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_unique_flippy_02-23923"),
 				new DroppedItemEntry(335161, PluginDroppedItemTypes.AxeTwoHanded, "x1_twoHandedAxe_norm_base_flippy_01-20274"),
+				new DroppedItemEntry(191065, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_unique_04-2436"),
 
 				//
 				new DroppedItemEntry(3457, PluginDroppedItemTypes.Bow, "Bow_norm_base_flippy_05-5931"),
@@ -236,6 +237,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(212211, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_08-478393"),
 				new DroppedItemEntry(197131, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_03-48215"),
 				new DroppedItemEntry(271750, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_unique_flippy_09-90827"),
+				new DroppedItemEntry(197133, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_06-43956"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -266,11 +268,11 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(145847, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_04-30912"),
 				new DroppedItemEntry(208943, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_11-37057"),
 				new DroppedItemEntry(145846, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_03-34820"),
-				new DroppedItemEntry(145851, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_04-9255"),
 				new DroppedItemEntry(403776, PluginDroppedItemTypes.FistWeapon, "p1_fistWeapon_norm_unique_flippy_02-491971"),
 				new DroppedItemEntry(130561, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_01-581265"),
 				new DroppedItemEntry(175943, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_07-673823"),
 				new DroppedItemEntry(145845, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_02-229938"),
+				new DroppedItemEntry(175942, PluginDroppedItemTypes.FistWeapon, "fistWeapon_norm_unique_flippy_06-90639"),
 
 				//
 				new DroppedItemEntry(247389, PluginDroppedItemTypes.Flail,"x1_flail1H_norm_base_flippy_02"),
@@ -421,7 +423,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(220015, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_07-578"),
 				new DroppedItemEntry(271620, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_13-2812"),
 				new DroppedItemEntry(271628, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_20-617"),
-				new DroppedItemEntry(185397, PluginDroppedItemTypes.Sword, "Sword_norm_unique_07-8635"),
 				new DroppedItemEntry(194493, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_08-45001"),
 				new DroppedItemEntry(271623, PluginDroppedItemTypes.Sword, "x1_Sword_norm_unique_flippy_15-8018"),
 				new DroppedItemEntry(222798, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_11-60528"),
@@ -480,27 +481,19 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335040, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_flippy_06-9340"),
 				new DroppedItemEntry(335041, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_flippy_07-14146"),
 				new DroppedItemEntry(316612, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_flippy_02-3319"),
-				new DroppedItemEntry(335037, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_base_07-17026"),
-				new DroppedItemEntry(299416, PluginDroppedItemTypes.CrusaderShield, "x1_CruShield_norm_unique_06-460369"),
 
 				//
-				new DroppedItemEntry(139096, PluginDroppedItemTypes.Mojo, "Mojo_norm_base_02-10188"),
 				new DroppedItemEntry(194999, PluginDroppedItemTypes.Mojo, "Mojo_norm_unique_flippy_04-12327"),
 				new DroppedItemEntry(146943, PluginDroppedItemTypes.Mojo, "Mojo_norm_base_flippy_03-2351"),
 				new DroppedItemEntry(146942, PluginDroppedItemTypes.Mojo,"Mojo_norm_base_flippy_02"),
 				new DroppedItemEntry(216525, PluginDroppedItemTypes.Mojo),
 				new DroppedItemEntry(367196, PluginDroppedItemTypes.Mojo),
-				new DroppedItemEntry(367195, PluginDroppedItemTypes.Mojo, "x1_Mojo_norm_base_02-17539"),
 				new DroppedItemEntry(146944, PluginDroppedItemTypes.Mojo, "Mojo_norm_base_flippy_04-24863"),
 				new DroppedItemEntry(146941, PluginDroppedItemTypes.Mojo, "Mojo_norm_base_flippy_01-9263"),
 				new DroppedItemEntry(335260, PluginDroppedItemTypes.Mojo, "x1_Mojo_norm_base_flippy_01-20262"),
 				new DroppedItemEntry(139095, PluginDroppedItemTypes.Mojo, "Mojo_norm_base_01-11670"),
 				new DroppedItemEntry(195001, PluginDroppedItemTypes.Mojo, "Mojo_norm_unique_flippy_05-16239"),
 				new DroppedItemEntry(211673, PluginDroppedItemTypes.Mojo, "Mojo_norm_unique_flippy_07-22764"),
-				new DroppedItemEntry(335259, PluginDroppedItemTypes.Mojo, "x1_Mojo_norm_base_01-15051"),
-				new DroppedItemEntry(367195, PluginDroppedItemTypes.Mojo, "x1_Mojo_norm_base_02-17539"),
-				new DroppedItemEntry(194988, PluginDroppedItemTypes.Mojo, "Mojo_norm_unique_03-2903"),
-				new DroppedItemEntry(192468, PluginDroppedItemTypes.Mojo, "Mojo_norm_unique_02-6997"),
 				new DroppedItemEntry(191286, PluginDroppedItemTypes.Mojo, "Mojo_norm_unique_flippy_01-15152"),
 
 				//
@@ -513,7 +506,6 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(5269, PluginDroppedItemTypes.Shield,"Shield_norm_base_flippy_03"),
 				new DroppedItemEntry(367165, PluginDroppedItemTypes.Shield,"x1_Shield_norm_base_flippy_02"),
 				new DroppedItemEntry(152660, PluginDroppedItemTypes.Shield, "Shield_norm_unique_flippy_03-18333"),
-				new DroppedItemEntry(152666, PluginDroppedItemTypes.Shield, "Shield_norm_unique_03-16014"),
 				new DroppedItemEntry(5267, PluginDroppedItemTypes.Shield, "Shield_norm_base_flippy_01-19143"),
 				new DroppedItemEntry(5273, PluginDroppedItemTypes.Shield, "Shield_norm_base_flippy_07-20794"),
 				new DroppedItemEntry(5272, PluginDroppedItemTypes.Shield, "Shield_norm_base_flippy_06-1082"),

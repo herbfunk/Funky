@@ -50,6 +50,18 @@ namespace fItemPlugin
 			ActionDelegate actionDelegatePrePause = TownRunManager.GilesStashPrePause;
 			ActionDelegate actionDelegatePause = TownRunManager.GilesStashPause;
 
+			CanRunDecoratorDelegate canRunDelegateEvaluateAction = TownRunManager.ActionsEvaluatedOverlord;
+			ActionDelegate actionDelegateEvaluateAction = TownRunManager.ActionsEvaluatedBehavior;
+
+			Sequence sequenceEvaluate = new Sequence(
+						new Zeta.TreeSharp.Action(actionDelegatePrePause),
+						new Zeta.TreeSharp.Action(actionDelegatePause),
+						new Zeta.TreeSharp.Action(actionDelegateEvaluateAction)
+					);
+
+			GilesReplacement.Children[2] = new Decorator(canRunDelegateEvaluateAction, sequenceEvaluate);
+
+
 			#region Idenify
 
 
@@ -78,27 +90,13 @@ namespace fItemPlugin
 			);
 
 			CanRunDecoratorDelegate canRunDelegateFunkyIDOverlord = TownRunManager.IdenifyItemOverlord;
-			GilesReplacement.Children[2] = new Decorator(canRunDelegateFunkyIDOverlord, priorityIDItems);
+			GilesReplacement.Children[3] = new Decorator(canRunDelegateFunkyIDOverlord, priorityIDItems);
 
 			Logger.DBLog.DebugFormat("[FunkyTownRun] Idenify Items - hooked...");
 
 
 
 			#endregion
-
-			// Replace the pause just after identify stuff to ensure we wait before trying to run to vendor etc.
-			CanRunDecoratorDelegate canRunDelegateEvaluateAction = TownRunManager.ActionsEvaluatedOverlord;
-			ActionDelegate actionDelegateEvaluateAction = TownRunManager.ActionsEvaluatedBehavior;
-
-			Sequence sequenceEvaluate = new Sequence(
-						new Zeta.TreeSharp.Action(actionDelegatePrePause),
-						new Zeta.TreeSharp.Action(actionDelegatePause),
-						new Zeta.TreeSharp.Action(actionDelegateEvaluateAction)
-					);
-
-			GilesReplacement.Children[3] = new Decorator(canRunDelegateEvaluateAction, sequenceEvaluate);
-
-
 
 			#region Salvage
 

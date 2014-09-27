@@ -429,6 +429,13 @@
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>191065</SnoId>
+      <InternalName>twoHandedAxe_norm_unique_04-2436</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>3457</SnoId>
       <InternalName>Bow_norm_base_flippy_05-5931</InternalName>
       <ActorType>Item</ActorType>
@@ -779,6 +786,13 @@
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>197133</SnoId>
+      <InternalName>combatStaff_norm_unique_flippy_06-43956</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>3913</SnoId>
       <InternalName>Dagger_norm_base_flippy_04-7545</InternalName>
       <ActorType>Item</ActorType>
@@ -961,13 +975,6 @@
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
-      <SnoId>145851</SnoId>
-      <InternalName>fistWeapon_norm_unique_04-9255</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
       <SnoId>403776</SnoId>
       <InternalName>p1_fistWeapon_norm_unique_flippy_02-491971</InternalName>
       <ActorType>Item</ActorType>
@@ -991,6 +998,13 @@
     <DroppedItemEntry>
       <SnoId>145845</SnoId>
       <InternalName>fistWeapon_norm_unique_flippy_02-229938</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>175942</SnoId>
+      <InternalName>fistWeapon_norm_unique_flippy_06-90639</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
@@ -1885,13 +1899,6 @@
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
-      <SnoId>185397</SnoId>
-      <InternalName>Sword_norm_unique_07-8635</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
       <SnoId>194493</SnoId>
       <InternalName>Sword_norm_unique_flippy_08-45001</InternalName>
       <ActorType>Item</ActorType>
@@ -2221,27 +2228,6 @@
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
-      <SnoId>335037</SnoId>
-      <InternalName>x1_CruShield_norm_base_07-17026</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>299416</SnoId>
-      <InternalName>x1_CruShield_norm_unique_06-460369</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>139096</SnoId>
-      <InternalName>Mojo_norm_base_02-10188</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
       <SnoId>194999</SnoId>
       <InternalName>Mojo_norm_unique_flippy_04-12327</InternalName>
       <ActorType>Item</ActorType>
@@ -2272,13 +2258,6 @@
     <DroppedItemEntry>
       <SnoId>367196</SnoId>
       <InternalName />
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>367195</SnoId>
-      <InternalName>x1_Mojo_norm_base_02-17539</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
@@ -2321,27 +2300,6 @@
     <DroppedItemEntry>
       <SnoId>211673</SnoId>
       <InternalName>Mojo_norm_unique_flippy_07-22764</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>335259</SnoId>
-      <InternalName>x1_Mojo_norm_base_01-15051</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>194988</SnoId>
-      <InternalName>Mojo_norm_unique_03-2903</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>192468</SnoId>
-      <InternalName>Mojo_norm_unique_02-6997</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
@@ -2398,13 +2356,6 @@
     <DroppedItemEntry>
       <SnoId>152660</SnoId>
       <InternalName>Shield_norm_unique_flippy_03-18333</InternalName>
-      <ActorType>Item</ActorType>
-      <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
-    </DroppedItemEntry>
-    <DroppedItemEntry>
-      <SnoId>152666</SnoId>
-      <InternalName>Shield_norm_unique_03-16014</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>

@@ -242,32 +242,16 @@
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
-      <SnoId>5854</SnoId>
-      <InternalName />
+      <SnoId>54882</SnoId>
+      <InternalName>a3dun_Keep_Door_Wooden_A</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
-      <SnoId>454</SnoId>
-      <InternalName />
-      <ActorType>Gizmo</ActorType>
-      <EntryType>Gizmo</EntryType>
-      <PluginGizmoType>Door</PluginGizmoType>
-      <GizmotargetType>None</GizmotargetType>
-    </GizmoEntry>
-    <GizmoEntry>
-      <SnoId>5767</SnoId>
-      <InternalName />
-      <ActorType>Gizmo</ActorType>
-      <EntryType>Gizmo</EntryType>
-      <PluginGizmoType>Door</PluginGizmoType>
-      <GizmotargetType>None</GizmotargetType>
-    </GizmoEntry>
-    <GizmoEntry>
-      <SnoId>230324</SnoId>
-      <InternalName />
+      <SnoId>54850</SnoId>
+      <InternalName>a3dun_Keep_SiegeTowerDoor</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Door</PluginGizmoType>
@@ -275,15 +259,7 @@
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>308241</SnoId>
-      <InternalName />
-      <ActorType>Gizmo</ActorType>
-      <EntryType>Gizmo</EntryType>
-      <PluginGizmoType>Door</PluginGizmoType>
-      <GizmotargetType>None</GizmotargetType>
-    </GizmoEntry>
-    <GizmoEntry>
-      <SnoId>273323</SnoId>
-      <InternalName />
+      <InternalName>X1_Westm_Door_Giant_Lowering_Wolf-9346</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Door</PluginGizmoType>
@@ -436,6 +412,14 @@
     <GizmoEntry>
       <SnoId>167289</SnoId>
       <InternalName>trdun_Cath_CathedralDoorExterior-4148</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Door</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>454</SnoId>
+      <InternalName>trDun_Cath_WoodDoor_A-814</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Door</PluginGizmoType>
@@ -3336,6 +3320,22 @@
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>211999</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>56686</SnoId>
+      <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>174754</SnoId>

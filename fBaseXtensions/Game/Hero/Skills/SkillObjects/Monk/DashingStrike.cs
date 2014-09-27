@@ -46,7 +46,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			//Sunwoko CDR Build
 			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.MonkeyKingsGarb, 4) && RuneIndex==4)
 			{
-				//ExecutionType=SkillExecutionFlags.Target | SkillExecutionFlags.ClusterTargetNearest;
+				ExecutionType=SkillExecutionFlags.Location | SkillExecutionFlags.ClusterLocationNearest;
 				Cooldown = 4000;
 
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));

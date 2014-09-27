@@ -48,7 +48,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				
 				if (targetType.Value == TargetType.Item)
 				{
-					if (BalanceData.thisItemType == Zeta.Game.Internals.Actors.ItemType.Potion)
+					if (BalanceData.thisItemType == ItemType.Potion && BalanceData.IsRegularPotion)
 						return FunkyBaseExtension.Settings.Ranges.PotionRange;
 
 					int maxLootRange = (int)FunkyGame.Targeting.Cache.iCurrentMaxLootRadius;

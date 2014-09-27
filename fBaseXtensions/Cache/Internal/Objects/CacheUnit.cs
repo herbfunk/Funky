@@ -544,10 +544,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				//Set our current radius to the settings of profile.
 				double dUseKillRadius = FunkyGame.Targeting.Cache.iCurrentMaxKillRadius;
 
-
-				// Special short-range list to ignore weakling mobs
-				if (CacheIDLookup.hashActorSNOShortRangeOnly.Contains(SNOID)) dUseKillRadius = 12;
-
 				// Prevent long-range mobs beign ignored while they may be pounding on us
 				if (dUseKillRadius <= 30 && IsRanged) dUseKillRadius = 30;
 				
@@ -829,14 +825,20 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						{//Normal Units
 
 							if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.AvoidanceSummoner) || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Debuffing))
-								Weight += 2000;
+								Weight += 901;
 
 							if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Summoner))
 							{
-								Weight += 500;
+								Weight += 901;
 								if (BountyCache.RiftTrialIsActiveQuest)
 									Weight += 5000;
 							}
+
+							if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.SucideBomber))
+								Weight += 3500;
+
+							if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Tough))
+								Weight += 501;
 
 							//Rift Trial
 							if (BountyCache.RiftTrialIsActiveQuest)
@@ -896,13 +898,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						// Goblins on low health get extra priority - up to 2500
 						if (FunkyBaseExtension.Settings.Targeting.GoblinPriority >= 2 && IsTreasureGoblin && CurrentHealthPct <= 0.98)
 							Weight += (3000 * (1 - (CurrentHealthPct.Value / 0.85)));
-
-						// Bonuses to priority type monsters from the dictionary/hashlist set at the top of the code
-						int iExtraPriority;
-						if (CacheIDLookup.dictActorSNOPriority.TryGetValue(SNOID, out iExtraPriority))
-						{
-							Weight += iExtraPriority;
-						}
 
 						// Close range get higher weights the more of them there are, to prevent body-blocking
 						// Plus a free bonus to anything close anyway

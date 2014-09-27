@@ -78,12 +78,6 @@ namespace fBaseXtensions.Targeting.Behaviors
 		///</summary>
 		private void WeightEvaluationObjList(ref CacheObject CurrentTarget)
 		{
-			// Store if we are ignoring all units this cycle or not
-			bool bIgnoreAllUnits = !FunkyGame.Targeting.Cache.Environment.bAnyChampionsPresent
-										&& ((!FunkyGame.Targeting.Cache.Environment.bAnyTreasureGoblinsPresent && FunkyBaseExtension.Settings.Targeting.GoblinPriority >= 2) || FunkyBaseExtension.Settings.Targeting.GoblinPriority < 2)
-										&& FunkyGame.Hero.dCurrentHealthPct >= 0.85d;
-
-
 			//clear our last "avoid" list..
 			FunkyGame.Targeting.Cache.objectsIgnoredDueToAvoidance.Clear();
 

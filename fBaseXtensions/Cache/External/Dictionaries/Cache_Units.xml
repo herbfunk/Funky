@@ -181,28 +181,28 @@
       <InternalName>FallenChampion_A-941</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4071</SnoId>
       <InternalName>FallenChampion_B-1438</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4072</SnoId>
       <InternalName>FallenChampion_C-8836</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4073</SnoId>
       <InternalName>FallenChampion_D-1012</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4080</SnoId>
@@ -1063,42 +1063,42 @@
       <InternalName>TriuneSummoner_C-10685</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Ranged</UnitFlags>
+      <UnitFlags>Normal Ranged Summoner</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6039</SnoId>
       <InternalName>TriuneSummoner_D-1484</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Ranged</UnitFlags>
+      <UnitFlags>Normal Ranged Summoner</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6042</SnoId>
       <InternalName>TriuneVesselActivated_A-13288</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6046</SnoId>
       <InternalName>TriuneVessel_A-12145</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6052</SnoId>
       <InternalName>Triune_Berserker_A-12360</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6054</SnoId>
       <InternalName>Triune_Berserker_C-1562</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6059</SnoId>
@@ -2078,7 +2078,7 @@
       <InternalName>trDun_Cath_Skeleton_SummoningMachine-1008</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Summoner</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>178213</SnoId>
@@ -4563,7 +4563,7 @@
       <InternalName>trOut_Highlands_Goatmen_SummoningMachine_A_Node-22783</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Summoner</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>218664</SnoId>
@@ -4752,7 +4752,7 @@
       <InternalName>a2dun_Zolt_Tesla_Tower_Spawner_Cold-50322</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Summoner</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>230757</SnoId>
@@ -4766,7 +4766,7 @@
       <InternalName>a2dun_Zolt_Round_Spawner-51486</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Summoner</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>369412</SnoId>

@@ -76,7 +76,10 @@ namespace fBaseXtensions.Game
 
 				return FunkyGame.Bounty.ActiveBounty != null &&
 						FunkyGame.Bounty.ActiveBounty.QuestSNO == ADVENTUREMODE_GREATERRIFT_TRIAL &&
-						FunkyGame.Bounty.ActiveBounty.State== QuestState.InProgress;
+						FunkyGame.Bounty.ActiveBounty.State== QuestState.InProgress &&
+						FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_GREATERRIFT_TRIAL) &&
+						(FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_GREATERRIFT_TRIAL].Step == 1 ||
+						 FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_GREATERRIFT_TRIAL].Step == 13);
 			}
 		}
 

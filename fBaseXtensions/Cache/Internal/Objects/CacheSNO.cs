@@ -961,8 +961,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 							else if (targetType.Value == TargetType.Shrine || IsChestContainer || targetType.Value == TargetType.Door)
 								Obstacletype = ObstacleType.ServerObject;
 						}
-						else if (CacheIDLookup.hashSNOInteractWhitelist.Contains(SNOID))
-							targetType = TargetType.Interactable;
 						else if (Actortype.Value == ActorType.ServerProp)
 						{
 							string TestString = InternalName.ToLower();

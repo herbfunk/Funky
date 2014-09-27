@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
+using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
 using Zeta.Game;
@@ -71,6 +72,8 @@ namespace fItemPlugin.Townrun
 				FunkyTownRunPlugin.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
 				return RunStatus.Failure;
 			}
+
+			BotMain.StatusText = "Town run: Idenify Manual Interaction";
 
 			//Update List Once..
 			if (!ItemIDRefreshDone)
@@ -308,6 +311,8 @@ namespace fItemPlugin.Townrun
 				return RunStatus.Failure;
 			}
 
+			BotMain.StatusText = "Town run: Idenify Movement";
+
 			DiaGizmo objBookOfCain = UpdateBookOfCainObject();
 
 			Vector3 vectorPlayerPosition = ZetaDia.Me.Position;
@@ -315,7 +320,7 @@ namespace fItemPlugin.Townrun
 
 
 			//Normal distance we use to move to specific location before moving to NPC
-			float _distanceRequired = CurrentAct != Act.A5 ? 50f : 14f; //Act 5 we want short range only!
+			float _distanceRequired = CurrentAct != Act.A5 ? 15f : 20f; //Act 5 we want short range only!
 
 			if (objBookOfCain == null || objBookOfCain.Distance > _distanceRequired)
 			{
@@ -351,6 +356,8 @@ namespace fItemPlugin.Townrun
 				FunkyTownRunPlugin.DBLog.InfoFormat("[Funky] Town Run Behavior Failed! (Not In Game/Invalid Actor/misc)");
 				return RunStatus.Failure;
 			}
+
+			BotMain.StatusText = "Town run: Idenify Interaction";
 
 			//Check if we still have items to ID..
 			RefreshUnidList();

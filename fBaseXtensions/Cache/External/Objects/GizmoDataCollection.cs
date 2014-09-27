@@ -70,12 +70,8 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 				//============== DOORS ==============//
-				new GizmoEntry(5854, PluginGizmoType.Door),
-				new GizmoEntry(454, PluginGizmoType.Door),
-				new GizmoEntry(5767, PluginGizmoType.Door),
-				new GizmoEntry(230324, PluginGizmoType.Door),
-				new GizmoEntry(308241, PluginGizmoType.Door),
-				new GizmoEntry(273323, PluginGizmoType.Door),
+				new GizmoEntry(54882, PluginGizmoType.Door, "a3dun_Keep_Door_Wooden_A"),
+				new GizmoEntry(54850, PluginGizmoType.Door, "a3dun_Keep_SiegeTowerDoor"),
 				new GizmoEntry(308241, PluginGizmoType.Door, "X1_Westm_Door_Giant_Lowering_Wolf-9346"),
 				new GizmoEntry(308376, PluginGizmoType.Door, "X1_Westm_Door_Giant_Iron_Bars_Arched-18634"),
 				new GizmoEntry(90419, PluginGizmoType.Door, "trOut_NewTristram_Gate_Town-67"),
@@ -96,6 +92,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(170913, PluginGizmoType.Door, "trOut_TristramField_Field_Gate-23591"),
 				new GizmoEntry(100862, PluginGizmoType.Door, "a1dun_Leor_Jail_Door_A_Exit-18422"),
 				new GizmoEntry(167289, PluginGizmoType.Door, "trdun_Cath_CathedralDoorExterior-4148"),
+				new GizmoEntry(454, PluginGizmoType.Door, "trDun_Cath_WoodDoor_A-814"),
 
 				//============== Resplendant Chests ==============//
 				new GizmoEntry(62873, PluginGizmoType.Chest, "", GizmoTargetTypes.Resplendant),
@@ -480,6 +477,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(3028, PluginGizmoType.Chest, "a2dun_Zolt_Random_GoldChest-11759", GizmoTargetTypes.MiscContainer),
 
 				//============== Special Interactables ==============//
+				//
+				
+				new GizmoEntry(211999, PluginGizmoType.Switch),
+				new GizmoEntry(56686, PluginGizmoType.Switch),
 				new GizmoEntry(174754, PluginGizmoType.Switch),
 				new GizmoEntry(174753, PluginGizmoType.Switch),
 				new GizmoEntry(102079, PluginGizmoType.Switch),

@@ -1,4 +1,8 @@
-﻿v1.2.7
+﻿v1.2.8
+Town run evaluation variable initalization now occurs before idenification behavior. (fixes stuck on ID behavior)
+
+
+v1.2.7
 Fixed check for trial rift, should no longer attempt repairs during trial.
 Fixed Idenification being ignored when Grift/trial was ending.
 Setting Potion Count to Zero will sell ALL regular potions.

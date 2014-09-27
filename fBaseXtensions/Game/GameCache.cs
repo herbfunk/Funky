@@ -523,7 +523,7 @@ namespace fBaseXtensions.Game
 							if (!FunkyGame.AdventureMode)
 								return new Vector3(2951.225f, 2790.428f, 24.04533f);
 							else
-								return new Vector3(372.587f, 513.7535f, 24.04533f);
+								return new Vector3(370.4422f,518.99f,24.04533f);
 						case Act.A2:
 							return new Vector3(326.9954f, 250.1623f, -0.3242276f);
 						case Act.A3:
