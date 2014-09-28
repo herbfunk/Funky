@@ -444,9 +444,9 @@
 			// flowLayoutPanel_GamblingItemTypes
 			// 
 			this.flowLayoutPanel_GamblingItemTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.flowLayoutPanel_GamblingItemTypes.Location = new System.Drawing.Point(0, 58);
+			this.flowLayoutPanel_GamblingItemTypes.Location = new System.Drawing.Point(0, 52);
 			this.flowLayoutPanel_GamblingItemTypes.Name = "flowLayoutPanel_GamblingItemTypes";
-			this.flowLayoutPanel_GamblingItemTypes.Size = new System.Drawing.Size(710, 112);
+			this.flowLayoutPanel_GamblingItemTypes.Size = new System.Drawing.Size(710, 118);
 			this.flowLayoutPanel_GamblingItemTypes.TabIndex = 9;
 			// 
 			// panel2
@@ -457,7 +457,7 @@
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel2.Location = new System.Drawing.Point(0, 0);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(710, 58);
+			this.panel2.Size = new System.Drawing.Size(710, 52);
 			this.panel2.TabIndex = 10;
 			// 
 			// label7

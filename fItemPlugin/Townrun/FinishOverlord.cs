@@ -34,8 +34,8 @@ namespace fItemPlugin.Townrun
 				{
 					ZetaDia.Memory.ClearCache();
 					ZetaDia.Actors.Update();
-					GridSegmentation.Update();
-					Navigator.SearchGridProvider.Update();
+					//GridSegmentation.Update();
+					//Navigator.SearchGridProvider.Update();
 					ResetCache = true;
 				}
 				//FunkyGame.Game.ForceOutOfCombatBehavior = true;
@@ -56,7 +56,7 @@ namespace fItemPlugin.Townrun
 			}
 			
 			GoldInactivity.LastCoinageUpdate = DateTime.Now;
-			fBaseXtensions.Navigation.Navigation.MGP.Update();
+			//fBaseXtensions.Navigation.Navigation.MGP.Update();
 			//FunkyGame.Game.ForceOutOfCombatBehavior = false;
 			ResetCache = false;
 			FunkyGame.Targeting.Cache.bFailedToLootLastItem = false;

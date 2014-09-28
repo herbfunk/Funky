@@ -342,6 +342,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(6336, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_base_flippy_01-6334"),
 				new DroppedItemEntry(59635, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_unique_flippy_01-21986"),
 				new DroppedItemEntry(271667, PluginDroppedItemTypes.MaceTwoHanded, "x1_twoHandedMace_norm_unique_flippy_08-32454"),
+				new DroppedItemEntry(191588, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_unique_flippy_06-56088"),
+				new DroppedItemEntry(197832, PluginDroppedItemTypes.MaceTwoHanded, "twoHandedMace_norm_unique_flippy_07-85576"),
 
 				//
 				new DroppedItemEntry(144192, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_02-1494"),
@@ -513,6 +515,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335210, PluginDroppedItemTypes.Shield, "x1_Shield_norm_base_flippy_01-14924"),
 				new DroppedItemEntry(197715, PluginDroppedItemTypes.Shield, "Shield_norm_unique_flippy_08-10861"),
 				new DroppedItemEntry(61556, PluginDroppedItemTypes.Shield, "Shield_norm_unique_flippy_01-150932"),
+				new DroppedItemEntry(192494, PluginDroppedItemTypes.Shield, "Shield_norm_unique_flippy_06-19615"),
 
 				//
 				new DroppedItemEntry(4817, PluginDroppedItemTypes.Source, "orb_norm_base_flippy_03-9464"),
@@ -1329,6 +1332,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(405796, PluginItemTypes.LegendaryGem),
 				new ItemDataEntry(405797, PluginItemTypes.LegendaryGem),
 				new ItemDataEntry(405781, PluginItemTypes.LegendaryGem), //BaneoftheTrapped
+				new ItemDataEntry(405803, PluginItemTypes.LegendaryGem), //Boon of the hoarder
 
 				//TODO  Cardinal, Desert, Rangers,Elegant
 				new ItemDataEntry(148299, PluginItemTypes.Dye),
@@ -1527,6 +1531,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(222305, PluginItemTypes.SpiritStone, LegendaryItemTypes.TzoKrinsGaze),
 				new ItemDataEntry(222173, PluginItemTypes.SpiritStone, LegendaryItemTypes.ErlangShen),
 				new ItemDataEntry(222306, PluginItemTypes.SpiritStone, LegendaryItemTypes.BezoarStone),
+				new ItemDataEntry(221572, PluginItemTypes.SpiritStone, LegendaryItemTypes.Madstone),
 
 				new ItemDataEntry(299442, PluginItemTypes.VoodooMask, LegendaryItemTypes.Carnevil),
 				new ItemDataEntry(299443, PluginItemTypes.VoodooMask, LegendaryItemTypes.MaskofJeram),
@@ -1769,6 +1774,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				 
 
 				new ItemDataEntry(366971, PluginItemTypes.FollowerScoundrel, LegendaryItemTypes.None), //SlipkasLetterOpener
+				new ItemDataEntry(366969, PluginItemTypes.FollowerTemplar, LegendaryItemTypes.None), //HillenbrandsTrainingSword
+				new ItemDataEntry(366968, PluginItemTypes.FollowerTemplar, LegendaryItemTypes.None), //EnchantingFavor
 				#endregion
 				
 				#region Legendary Set Items

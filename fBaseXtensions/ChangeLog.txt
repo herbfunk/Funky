@@ -1,4 +1,9 @@
-﻿v1.1.2.2
+﻿v1.1.2.3
+
+Added boon of the hoarder legendary gem to cache and enum
+
+
+v1.1.2.2
 
 Added Rift Trial logic into ending target behavior move to starting position and wait for units.
 

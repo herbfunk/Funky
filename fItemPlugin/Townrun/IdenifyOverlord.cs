@@ -194,6 +194,9 @@ namespace fItemPlugin.Townrun
 			castAttempts = 0;
 			preWaitBeforeOpenInv = false;
 
+			//Clear and Refresh item list.
+			Backpack.CacheItemList.Clear();
+			Backpack.UpdateItemList();
 
 			FunkyTownRunPlugin.DBLog.DebugFormat("[Funky] Idenify Behavior Finished!");
 			return RunStatus.Success;

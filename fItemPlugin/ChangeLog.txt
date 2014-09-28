@@ -1,4 +1,7 @@
-﻿v1.2.8
+﻿v1.2.9
+Idenification behavior will now clear item cache and refresh when finishing.
+
+v1.2.8
 Town run evaluation variable initalization now occurs before idenification behavior. (fixes stuck on ID behavior)
 
 

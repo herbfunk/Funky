@@ -20,15 +20,8 @@ using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace fBaseXtensions.Targeting
 {
-	public class TargetingHandler
+	public partial class TargetingClass
 	{
-		//Constructor
-		public TargetingHandler()
-		{
-			CurrentState = RunStatus.Running;
-		}
-
-
 		///<summary>
 		///This method handles the current object target.
 		///</summary>
@@ -69,10 +62,6 @@ namespace fBaseXtensions.Targeting
 		//The current state which is used to return from the handler
 		public RunStatus CurrentState { get; set; }
 
-
-	
-
-
 		//Prechecks are things prior to target checks and actual target handling.. This is always called first.
 		public virtual bool PreChecks()
 		{
@@ -89,10 +78,10 @@ namespace fBaseXtensions.Targeting
 
 			// Special pausing *AFTER* using certain powers
 			#region PauseCheck
-			if (FunkyGame.Targeting.Cache.bWaitingAfterPower && FunkyGame.Hero.Class.PowerPrime.WaitLoopsAfter >= 1)
+			if (Cache.bWaitingAfterPower && FunkyGame.Hero.Class.PowerPrime.WaitLoopsAfter >= 1)
 			{
 				if (FunkyGame.Hero.Class.PowerPrime.WaitLoopsAfter >= 1) FunkyGame.Hero.Class.PowerPrime.WaitLoopsAfter--;
-				if (FunkyGame.Hero.Class.PowerPrime.WaitLoopsAfter <= 0) FunkyGame.Targeting.Cache.bWaitingAfterPower = false;
+				if (FunkyGame.Hero.Class.PowerPrime.WaitLoopsAfter <= 0) Cache.bWaitingAfterPower = false;
 
 				CurrentState = RunStatus.Running;
 				return false;
@@ -113,21 +102,21 @@ namespace fBaseXtensions.Targeting
 				return false;
 			}
 			#endregion
-			
+
 			//Herbfunk
 			//Confirmation of item looted
 			#region ItemLootedConfirmationCheck
-			if (FunkyGame.Targeting.Cache.ShouldCheckItemLooted)
+			if (Cache.ShouldCheckItemLooted)
 			{
 				//Reset?
-				if (FunkyGame.Targeting.Cache.CurrentTarget == null || FunkyGame.Targeting.Cache.CurrentTarget.targetType.HasValue && FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value != TargetType.Item)
+				if (Cache.CurrentTarget == null || Cache.CurrentTarget.targetType.HasValue && Cache.CurrentTarget.targetType.Value != TargetType.Item)
 				{
-					FunkyGame.Targeting.Cache.ShouldCheckItemLooted = false;
+					Cache.ShouldCheckItemLooted = false;
 					return false;
 				}
 
 				//Vendor Behavior ignore checking (Unless told that we shouldn't from town run manager)
-				if (BrainBehavior.IsVendoring && !FunkyGame.Targeting.Cache.IgnoreVendoring)
+				if (BrainBehavior.IsVendoring && !Cache.IgnoreVendoring)
 				{
 					CurrentState = RunStatus.Success;
 					return false;
@@ -139,37 +128,37 @@ namespace fBaseXtensions.Targeting
 				}
 
 				//Count each attempt to confirm.
-				FunkyGame.Targeting.Cache.recheckCount++;
-				string statusText = "[Item Confirmation] Current recheck count " + FunkyGame.Targeting.Cache.recheckCount;
+				Cache.recheckCount++;
+				string statusText = "[Item Confirmation] Current recheck count " + Cache.recheckCount;
 
-				CacheItem thisCacheItem=(CacheItem)FunkyGame.Targeting.Cache.CurrentTarget;
+				CacheItem thisCacheItem = (CacheItem)Cache.CurrentTarget;
 				bool LootedSuccess = Backpack.ContainsItem(thisCacheItem.BalanceID.Value, thisCacheItem.Itemquality.Value);
 
 				statusText += " [ItemFound=" + LootedSuccess + "]";
 				if (LootedSuccess)
 				{
 					//Logger.DBLog.Info("Item Looted Successfully!");
-					GameEvents.FireItemLooted(FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.Value);
+					GameEvents.FireItemLooted(Cache.CurrentTarget.AcdGuid.Value);
 
 					if (FunkyBaseExtension.Settings.Debugging.DebugStatusBar) BotMain.StatusText = statusText;
 
 					//This is where we should manipulate information of both what dropped and what was looted.
 					//Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem);
-					PluginItemTypes itemType=ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
+					PluginItemTypes itemType = ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
 					PluginBaseItemTypes itembaseType = ItemFunc.DetermineBaseType(itemType);
-				
+
 					if (FunkyGame.CurrentGameStats != null)
 						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(itemType, itembaseType, thisCacheItem.Itemquality.Value);
 
 					//Remove item from cache..
-					FunkyGame.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
+					Cache.CurrentTarget.NeedsRemoved = true;
 
 					//Update backpack again!
 					Backpack.UpdateItemList();
 				}
 				else
 				{
-					CacheItem thisObjItem = (CacheItem)FunkyGame.Targeting.Cache.CurrentTarget;
+					CacheItem thisObjItem = (CacheItem)Cache.CurrentTarget;
 
 					statusText += " [Quality";
 					//Quality of the item determines the recheck attempts.
@@ -187,16 +176,16 @@ namespace fBaseXtensions.Targeting
 						case ItemQuality.Magic3:
 							statusText += "<=Magical]";
 							//Non-Quality items get skipped quickly.
-							if (FunkyGame.Targeting.Cache.recheckCount > 2)
-								FunkyGame.Targeting.Cache.reCheckedFinished = true;
+							if (Cache.recheckCount > 2)
+								Cache.reCheckedFinished = true;
 							break;
 
 						case ItemQuality.Rare4:
 						case ItemQuality.Rare5:
 						case ItemQuality.Rare6:
 							statusText += "=Rare]";
-							if (FunkyGame.Targeting.Cache.recheckCount > 3)
-								FunkyGame.Targeting.Cache.reCheckedFinished = true;
+							if (Cache.recheckCount > 3)
+								Cache.reCheckedFinished = true;
 							//else
 							//bItemForcedMovement = true;
 
@@ -204,8 +193,8 @@ namespace fBaseXtensions.Targeting
 
 						case ItemQuality.Legendary:
 							statusText += "=Legendary]";
-							if (FunkyGame.Targeting.Cache.recheckCount > 4)
-								FunkyGame.Targeting.Cache.reCheckedFinished = true;
+							if (Cache.recheckCount > 4)
+								Cache.reCheckedFinished = true;
 							//else
 							//bItemForcedMovement = true;
 
@@ -214,14 +203,14 @@ namespace fBaseXtensions.Targeting
 					#endregion
 
 					//If we are still rechecking then use the waitAfter (powerprime Ability related) to wait a few loops.
-					if (!FunkyGame.Targeting.Cache.reCheckedFinished)
+					if (!Cache.reCheckedFinished)
 					{
 						statusText += " RECHECKING";
 						if (FunkyBaseExtension.Settings.Debugging.DebugStatusBar)
 						{
 							BotMain.StatusText = statusText;
 						}
-						FunkyGame.Targeting.Cache.bWaitingAfterPower = true;
+						Cache.bWaitingAfterPower = true;
 						FunkyGame.Hero.Class.PowerPrime.WaitLoopsAfter = 3;
 						CurrentState = RunStatus.Running;
 						return false;
@@ -234,34 +223,34 @@ namespace fBaseXtensions.Targeting
 						//Items above rare quality don't get blacklisted, just ignored for a few loops.
 						//This will force a movement if stuck.. but 5 loops is only 750ms
 
-						if (!FunkyGame.Targeting.Cache.IgnoreVendoring) //Exclude town run manager checking!
-							FunkyGame.Targeting.Cache.CurrentTarget.BlacklistLoops = 5;
+						if (!Cache.IgnoreVendoring) //Exclude town run manager checking!
+							Cache.CurrentTarget.BlacklistLoops = 5;
 					}
 					else
 					{
 						//Blacklist items below rare quality!
-						FunkyGame.Targeting.Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
-						FunkyGame.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
+						Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
+						Cache.CurrentTarget.NeedsRemoved = true;
 					}
 				}
 
 				// Now tell Trinity to get a new target!
-				FunkyGame.Targeting.Cache.bForceTargetUpdate = true;
+				Cache.bForceTargetUpdate = true;
 
 				//Reset flag, and continue..
-				FunkyGame.Targeting.Cache.ShouldCheckItemLooted = false;
+				Cache.ShouldCheckItemLooted = false;
 			}
 			#endregion
 
 
 			// See if we have been "newly rooted", to force target updates
-			if (FunkyGame.Hero.bIsRooted && !FunkyGame.Targeting.Cache.bWasRootedLastTick)
+			if (FunkyGame.Hero.bIsRooted && !Cache.bWasRootedLastTick)
 			{
-				FunkyGame.Targeting.Cache.bWasRootedLastTick = true;
-				FunkyGame.Targeting.Cache.bForceTargetUpdate = true;
+				Cache.bWasRootedLastTick = true;
+				Cache.bForceTargetUpdate = true;
 			}
 
-			if (!FunkyGame.Hero.bIsRooted) FunkyGame.Targeting.Cache.bWasRootedLastTick = false;
+			if (!FunkyGame.Hero.bIsRooted) Cache.bWasRootedLastTick = false;
 
 			return true;
 		}
@@ -279,34 +268,34 @@ namespace fBaseXtensions.Targeting
 			// Whether we should refresh the target list or not
 			bool bShouldRefreshDiaObjects = false;
 
-			if (!FunkyGame.Targeting.Cache.bWholeNewTarget && !FunkyGame.Targeting.Cache.bWaitingForPower && !FunkyGame.Targeting.Cache.bWaitingForPotion)
+			if (!Cache.bWholeNewTarget && !Cache.bWaitingForPower && !Cache.bWaitingForPotion)
 			{
 				// Update targets at least once every 80 milliseconds
-				if (FunkyGame.Targeting.Cache.bForceTargetUpdate
-					|| FunkyGame.Targeting.Cache.TravellingAvoidance
-					|| ((DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 80 && !ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement))
-					|| DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastRefreshedObjects).TotalMilliseconds >= 1200))
+				if (Cache.bForceTargetUpdate
+					|| Cache.TravellingAvoidance
+					|| ((DateTime.Now.Subtract(Cache.lastRefreshedObjects).TotalMilliseconds >= 80 && !ObjectCache.CheckFlag(Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement))
+					|| DateTime.Now.Subtract(Cache.lastRefreshedObjects).TotalMilliseconds >= 1200))
 				{
 					bShouldRefreshDiaObjects = true;
 				}
 
 				// If we AREN'T getting new targets - find out if we SHOULD because the current unit has died etc.
-				if (!bShouldRefreshDiaObjects && FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && !FunkyGame.Targeting.Cache.CurrentTarget.IsStillValid())
+				if (!bShouldRefreshDiaObjects && Cache.CurrentTarget.targetType.Value == TargetType.Unit && !Cache.CurrentTarget.IsStillValid())
 					bShouldRefreshDiaObjects = true;
 
 			}
 
 			// So, after all that, do we actually want a new target list?
-			if (!FunkyGame.Targeting.Cache.bWholeNewTarget && !FunkyGame.Targeting.Cache.bWaitingForPower && !FunkyGame.Targeting.Cache.bWaitingForPotion)
+			if (!Cache.bWholeNewTarget && !Cache.bWaitingForPower && !Cache.bWaitingForPotion)
 			{
 				// If we *DO* want a new target list, do this... 
 				if (bShouldRefreshDiaObjects)
 				{
 					// Now call the function that refreshes targets
-					FunkyGame.Targeting.Cache.Refresh();
+					Cache.Refresh();
 
 					// No target, return success
-					if (FunkyGame.Targeting.Cache.CurrentTarget == null)
+					if (Cache.CurrentTarget == null)
 					{
 						CurrentState = RunStatus.Success;
 						return false;
@@ -314,55 +303,55 @@ namespace fBaseXtensions.Targeting
 
 					// Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
 					// Note: The time since target picked updates every time the current target loses health, if it's a monster-target
-					if (!ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
-						  && ((FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value != TargetType.Unit && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.LastChangeOfTarget).TotalSeconds > 12)
-						  || (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && !FunkyGame.Targeting.Cache.CurrentTarget.IsBoss && DateTime.Now.Subtract(FunkyGame.Targeting.Cache.LastChangeOfTarget).TotalSeconds > 40)))
+					if (!ObjectCache.CheckFlag(Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
+						  && ((Cache.CurrentTarget.targetType.Value != TargetType.Unit && DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds > 12)
+						  || (Cache.CurrentTarget.targetType.Value == TargetType.Unit && !Cache.CurrentTarget.IsBoss && DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds > 40)))
 					{
 						// NOTE: This only blacklists if it's remained the PRIMARY TARGET that we are trying to actually directly attack!
 						// So it won't blacklist a monster "on the edge of the screen" who isn't even being targetted
 						// Don't blacklist monsters on <= 50% health though, as they can't be in a stuck location... can they!? Maybe give them some extra time!
 						bool bBlacklistThis = true;
 						// PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
-						if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit)
+						if (Cache.CurrentTarget.targetType.Value == TargetType.Unit)
 						{
-							if (FunkyGame.Targeting.Cache.CurrentTarget.IsTreasureGoblin && FunkyBaseExtension.Settings.Targeting.GoblinPriority >= 3) bBlacklistThis = false;
-							if (DateTime.Now.Subtract(FunkyGame.Targeting.Cache.LastChangeOfTarget).TotalSeconds <= 120) bBlacklistThis = false;
+							if (Cache.CurrentTarget.IsTreasureGoblin && FunkyBaseExtension.Settings.Targeting.GoblinPriority >= 3) bBlacklistThis = false;
+							if (DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds <= 120) bBlacklistThis = false;
 						}
 
 						if (bBlacklistThis)
 						{
-							if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit)
+							if (Cache.CurrentTarget.targetType.Value == TargetType.Unit)
 							{
 								//Logger.DBLog.DebugFormat("[Funky] Blacklisting a monster because of possible stuck issues. Monster="+ObjectData.InternalName+" {"+
 								//ObjectData.SNOID.ToString()+"}. Range="+ObjectData.CentreDistance.ToString()+", health %="+ObjectData.CurrentHealthPct.ToString());
 							}
 
-							FunkyGame.Targeting.Cache.CurrentTarget.NeedsRemoved = true;
-							FunkyGame.Targeting.Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
+							Cache.CurrentTarget.NeedsRemoved = true;
+							Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
 						}
 					}
 					// Make sure we start trying to move again should we need to!
-					FunkyGame.Targeting.Cache.bPickNewAbilities = true;
+					Cache.bPickNewAbilities = true;
 
-					FunkyGame.Targeting.cMovement.NewTargetResetVars();
+					cMovement.NewTargetResetVars();
 				}
 				// Ok we didn't want a new target list, should we at least update the position of the current target, if it's a monster?
-				else if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && FunkyGame.Targeting.Cache.CurrentTarget.IsStillValid())
+				else if (Cache.CurrentTarget.targetType.Value == TargetType.Unit && Cache.CurrentTarget.IsStillValid())
 				{
-					FunkyGame.Targeting.Cache.CurrentTarget.UpdatePosition();
+					Cache.CurrentTarget.UpdatePosition();
 				}
 			}
 			#endregion
 
 			// This variable just prevents an instant 2-target update after coming here from the main decorator function above
-			FunkyGame.Targeting.Cache.bWholeNewTarget = false;
+			Cache.bWholeNewTarget = false;
 
 
 			//Update CurrentUnitTarget
-			if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit)
+			if (Cache.CurrentTarget.targetType.Value == TargetType.Unit)
 			{
 				//Update CurrentUnitTarget Variable.
-				if (FunkyGame.Targeting.Cache.CurrentUnitTarget == null) FunkyGame.Targeting.Cache.CurrentUnitTarget = (CacheUnit)FunkyGame.Targeting.Cache.CurrentTarget;
+				if (Cache.CurrentUnitTarget == null) Cache.CurrentUnitTarget = (CacheUnit)Cache.CurrentTarget;
 			}
 
 
@@ -392,21 +381,21 @@ namespace fBaseXtensions.Targeting
 
 			// Find a valid skill
 			#region AbilityPick
-			if (FunkyGame.Targeting.Cache.bPickNewAbilities && !FunkyGame.Targeting.Cache.bWaitingForPower && !FunkyGame.Targeting.Cache.bWaitingForPotion)
+			if (Cache.bPickNewAbilities && !Cache.bWaitingForPower && !Cache.bWaitingForPotion)
 			{
-				FunkyGame.Targeting.Cache.bPickNewAbilities = false;
-				if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.HasValue)
+				Cache.bPickNewAbilities = false;
+				if (Cache.CurrentTarget.targetType.Value == TargetType.Unit && Cache.CurrentTarget.AcdGuid.HasValue)
 				{
 					// Pick an Ability		
-					Skill nextAbility = FunkyGame.Hero.Class.AbilitySelector(FunkyGame.Targeting.Cache.CurrentUnitTarget);
+					Skill nextAbility = FunkyGame.Hero.Class.AbilitySelector(Cache.CurrentUnitTarget);
 
 					// Did we get default attack?
 					if (nextAbility.Equals(FunkyGame.Hero.Class.DefaultAttack) && !FunkyGame.Hero.Class.CanUseDefaultAttack && !FunkyBaseExtension.Settings.Combat.AllowDefaultAttackAlways)
 					{//TODO:: Fix issue when nothing keeps returning (possibly due to bad ability setup)
-						Logger.Write(LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", FunkyGame.Targeting.Cache.CurrentTarget.InternalName);
-						FunkyGame.Targeting.Cache.bForceTargetUpdate = true;
+						Helpers.Logger.Write(Helpers.LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", Cache.CurrentTarget.InternalName);
+						Cache.bForceTargetUpdate = true;
 						CurrentState = RunStatus.Running;
-						FunkyGame.Targeting.Cache.CurrentTarget.BlacklistLoops = 10;
+						Cache.CurrentTarget.BlacklistLoops = 10;
 						return false;
 					}
 
@@ -414,15 +403,15 @@ namespace fBaseXtensions.Targeting
 				}
 
 				// Select an Ability for destroying a destructible with in advance
-				if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Destructible || FunkyGame.Targeting.Cache.CurrentTarget.targetType == TargetType.Barricade)
+				if (Cache.CurrentTarget.targetType.Value == TargetType.Destructible || Cache.CurrentTarget.targetType == TargetType.Barricade)
 				{
 					Skill nextAbility = FunkyGame.Hero.Class.DestructibleAbility();
 					if (nextAbility.Equals(FunkyGame.Hero.Class.DefaultAttack) && !FunkyGame.Hero.Class.CanUseDefaultAttack && !FunkyBaseExtension.Settings.Combat.AllowDefaultAttackAlways)
 					{
-						Logger.Write(LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", FunkyGame.Targeting.Cache.CurrentTarget.InternalName);
-						FunkyGame.Targeting.Cache.bForceTargetUpdate = true;
+						Helpers.Logger.Write(Helpers.LogLevel.Ability, "Default Attack not usable -- Failed to find a valid Ability to use -- Target: {0}", Cache.CurrentTarget.InternalName);
+						Cache.bForceTargetUpdate = true;
 						CurrentState = RunStatus.Running;
-						FunkyGame.Targeting.Cache.CurrentTarget.BlacklistLoops = 10;
+						Cache.CurrentTarget.BlacklistLoops = 10;
 						return false;
 					}
 
@@ -430,31 +419,31 @@ namespace fBaseXtensions.Targeting
 				}
 
 				//Interactables (for pre and post waits)
-				if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Item|TargetType.Interactables|TargetType.Interaction))
+				if (ObjectCache.CheckFlag(Cache.CurrentTarget.targetType.Value, TargetType.Item | TargetType.Interactables | TargetType.Interaction))
 				{
-					Skill.SetupAbilityForUse(ref FunkyGame.Targeting.Cache.InteractionSkill);
-					FunkyGame.Hero.Class.PowerPrime = FunkyGame.Targeting.Cache.InteractionSkill;
+					Skill.SetupAbilityForUse(ref Cache.InteractionSkill);
+					FunkyGame.Hero.Class.PowerPrime = Cache.InteractionSkill;
 				}
 			}
 			#endregion
 
 			#region PotionCheck
 			if (FunkyGame.Hero.dCurrentHealthPct <= FunkyBaseExtension.Settings.Combat.PotionHealthPercent
-				 && !FunkyGame.Targeting.Cache.bWaitingForPower
-				 && !FunkyGame.Targeting.Cache.bWaitingForPotion
+				 && !Cache.bWaitingForPower
+				 && !Cache.bWaitingForPotion
 				 && !FunkyGame.Hero.bIsIncapacitated
 				 && FunkyGame.Hero.Class.HealthPotionAbility.AbilityUseTimer())
 			{
-				FunkyGame.Targeting.Cache.bWaitingForPotion = true;
+				Cache.bWaitingForPotion = true;
 				CurrentState = RunStatus.Running;
 				return false;
 			}
-			if (FunkyGame.Targeting.Cache.bWaitingForPotion)
+			if (Cache.bWaitingForPotion)
 			{
-				FunkyGame.Targeting.Cache.bWaitingForPotion = false;
+				Cache.bWaitingForPotion = false;
 				if (FunkyGame.Hero.Class.HealthPotionAbility.CheckCustomCombatMethod())
 				{
-					
+
 					FunkyGame.Hero.Class.HealthPotionAbility.AttemptToUseHealthPotion();
 					CurrentState = RunStatus.Running;
 					return false;
@@ -463,7 +452,7 @@ namespace fBaseXtensions.Targeting
 			#endregion
 
 			// See if we can use any special buffs etc. while in avoidance
-			if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.Globe | TargetType.AvoidanceMovements))
+			if (ObjectCache.CheckFlag(Cache.CurrentTarget.targetType.Value, TargetType.Globe | TargetType.AvoidanceMovements))
 			{
 				Skill buff;
 				if (FunkyGame.Hero.Class.FindBuffPower(out buff))
@@ -480,11 +469,11 @@ namespace fBaseXtensions.Targeting
 		public virtual bool Movement()
 		{
 			//Set the target location for the Target Movement class..
-			FunkyGame.Targeting.cMovement.CurrentTargetLocation = FunkyGame.Targeting.Cache.CurrentTarget.Position;
+			cMovement.CurrentTargetLocation = Cache.CurrentTarget.Position;
 
 
 			//Instead of using target position we use the navigator pathing as CurrentTargetLocation
-			if (ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
+			if (ObjectCache.CheckFlag(Cache.CurrentTarget.targetType.Value, TargetType.LineOfSight | TargetType.Backtrack))
 			{
 
 				//Navigation.NP.MoveTo(FunkyGame.Navigation.LOSmovementObject.Position, "02 LOS:" + FunkyGame.Navigation.LOSmovementObject.InternalName, true);
@@ -492,18 +481,18 @@ namespace fBaseXtensions.Targeting
 				if (Navigation.Navigation.NP.CurrentPath.Count > 0)
 				{
 					//No more points to navigate..
-					if (Navigation.Navigation.NP.CurrentPath.Count == 1 && FunkyGame.Hero.Position.Distance(Navigation.Navigation.NP.CurrentPath.Current) <= FunkyGame.Targeting.Cache.CurrentTarget.Radius)
+					if (Navigation.Navigation.NP.CurrentPath.Count == 1 && FunkyGame.Hero.Position.Distance(Navigation.Navigation.NP.CurrentPath.Current) <= Cache.CurrentTarget.Radius)
 					{
-						Logger.Write(LogLevel.LineOfSight, "Ending Line of Sight Movement");
-						if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.LineOfSight)
+						Helpers.Logger.Write(LogLevel.LineOfSight, "Ending Line of Sight Movement");
+						if (Cache.CurrentTarget.targetType.Value == TargetType.LineOfSight)
 						{
 							FunkyGame.Navigation.LOSmovementObject = null;
 						}
 						else
 						{
 							//Ending backtracking behavior!
-							FunkyGame.Targeting.Cache.Backtracking = false;
-							FunkyGame.Targeting.Cache.StartingLocation = Vector3.Zero;
+							Cache.Backtracking = false;
+							Cache.StartingLocation = Vector3.Zero;
 						}
 					}
 					else
@@ -511,14 +500,14 @@ namespace fBaseXtensions.Targeting
 						//Skip to next location if within 2.5f distance!
 						if (Navigation.Navigation.NP.CurrentPath.Count > 1 && FunkyGame.Hero.Position.Distance2D(Navigation.Navigation.NP.CurrentPath.Current) <= 5f)
 						{
-							Logger.DBLog.Debug("LOS: Skipping to next vector");
+							Helpers.Logger.DBLog.Debug("LOS: Skipping to next vector");
 							Navigation.Navigation.NP.CurrentPath.Next();
 						}
 
-						FunkyGame.Targeting.cMovement.CurrentTargetLocation = Navigation.Navigation.NP.CurrentPath.Current;
+						cMovement.CurrentTargetLocation = Navigation.Navigation.NP.CurrentPath.Current;
 					}
 
-					CurrentState = FunkyGame.Targeting.cMovement.TargetMoveTo(FunkyGame.Targeting.Cache.CurrentTarget);
+					CurrentState = cMovement.TargetMoveTo(Cache.CurrentTarget);
 					return false;
 				}
 			}
@@ -526,10 +515,10 @@ namespace fBaseXtensions.Targeting
 
 
 			//Check if we are in range for interaction..
-			if (FunkyGame.Targeting.Cache.CurrentTarget.WithinInteractionRange()) return true;
+			if (Cache.CurrentTarget.WithinInteractionRange()) return true;
 
 			//Movement required..
-			CurrentState = FunkyGame.Targeting.cMovement.TargetMoveTo(FunkyGame.Targeting.Cache.CurrentTarget);
+			CurrentState = cMovement.TargetMoveTo(Cache.CurrentTarget);
 
 			return false;
 		}
@@ -542,7 +531,7 @@ namespace fBaseXtensions.Targeting
 			if (FunkyBaseExtension.Settings.Debugging.DebugStatusBar)
 			{
 				FunkyGame.sStatusText = "[Interact- ";
-				switch (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value)
+				switch (Cache.CurrentTarget.targetType.Value)
 				{
 					case TargetType.Avoidance:
 						FunkyGame.sStatusText += "Avoid] ";
@@ -578,20 +567,20 @@ namespace fBaseXtensions.Targeting
 						FunkyGame.sStatusText += "LOS] ";
 						break;
 				}
-				FunkyGame.sStatusText += "Target=" + FunkyGame.Targeting.Cache.CurrentTarget.InternalName + " C-Dist=" + Math.Round(FunkyGame.Targeting.Cache.CurrentTarget.CentreDistance, 2) + ". " +
-						"R-Dist=" + Math.Round(FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance, 2) + ". ";
+				FunkyGame.sStatusText += "Target=" + Cache.CurrentTarget.InternalName + " C-Dist=" + Math.Round(Cache.CurrentTarget.CentreDistance, 2) + ". " +
+						"R-Dist=" + Math.Round(Cache.CurrentTarget.RadiusDistance, 2) + ". ";
 
-				if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && FunkyGame.Hero.Class.PowerPrime.Power != SNOPower.None)
+				if (Cache.CurrentTarget.targetType.Value == TargetType.Unit && FunkyGame.Hero.Class.PowerPrime.Power != SNOPower.None)
 					FunkyGame.sStatusText += "Power=" + FunkyGame.Hero.Class.PowerPrime.Power + " (range " + FunkyGame.Hero.Class.PowerPrime.MinimumRange + ") ";
 
 
-				FunkyGame.sStatusText += "Weight=" + FunkyGame.Targeting.Cache.CurrentTarget.Weight;
+				FunkyGame.sStatusText += "Weight=" + Cache.CurrentTarget.Weight;
 				BotMain.StatusText = FunkyGame.sStatusText;
 				FunkyGame.bResetStatusText = true;
 			}
 			#endregion
 
-			switch (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value)
+			switch (Cache.CurrentTarget.targetType.Value)
 			{
 				case TargetType.Unit:
 				case TargetType.Item:
@@ -605,7 +594,7 @@ namespace fBaseXtensions.Targeting
 				case TargetType.Barricade:
 				case TargetType.CursedShrine:
 				case TargetType.CursedChest:
-					CurrentState = FunkyGame.Targeting.Cache.CurrentTarget.Interact();
+					CurrentState = Cache.CurrentTarget.Interact();
 					break;
 				case TargetType.AvoidanceMovements:
 					CurrentState = RunStatus.Running;
@@ -614,8 +603,8 @@ namespace fBaseXtensions.Targeting
 					//Last position.. since we are interacting, we are within range.
 					if (Navigation.Navigation.NP.CurrentPath.Count <= 1)
 					{
-						FunkyGame.Targeting.Cache.Backtracking = false;
-						FunkyGame.Targeting.Cache.StartingLocation = Vector3.Zero;
+						Cache.Backtracking = false;
+						Cache.StartingLocation = Vector3.Zero;
 					}
 					CurrentState = RunStatus.Running;
 					break;
@@ -626,68 +615,27 @@ namespace fBaseXtensions.Targeting
 					//Last position.. since we are interacting, we are within range.
 					//if (Navigation.NP.CurrentPath.Count <= 1)
 					//{
-					Logger.DBLog.InfoFormat("Ending LOS Movement from Interaction");
+					Helpers.Logger.DBLog.InfoFormat("Ending LOS Movement from Interaction");
 					Navigation.Navigation.NP.Clear();
 					FunkyGame.Navigation.LOSmovementObject = null;
 					//}
 					CurrentState = RunStatus.Running;
 					break;
 				case TargetType.Interaction:
-					Logger.DBLog.InfoFormat("Interacting with obj {0}", FunkyGame.Targeting.Cache.CurrentTarget.DebugStringSimple);
-					FunkyGame.Targeting.Cache.CurrentTarget.ref_DiaObject.Interact();
-					FunkyGame.Targeting.Cache.bForceTargetUpdate = true;
+					Logger.DBLog.InfoFormat("Interacting with obj {0}", Cache.CurrentTarget.DebugStringSimple);
+					Cache.CurrentTarget.ref_DiaObject.Interact();
+					Cache.bForceTargetUpdate = true;
 					break;
 			}
 
 			// Now tell Trinity to get a new target!
 			FunkyGame.Navigation.lastChangedZigZag = DateTime.Today;
 			FunkyGame.Navigation.vPositionLastZigZagCheck = Vector3.Zero;
-			//FunkyGame.Targeting.bForceTargetUpdate=true;
+			//bForceTargetUpdate=true;
 
 			return false;
-		}
-
-
-
-		internal void UpdateStatusText(string Action)
-		{
-			FunkyGame.sStatusText = Action + " ";
-
-			FunkyGame.sStatusText += "Target=" + FunkyGame.Targeting.Cache.CurrentTarget.InternalName + " C-Dist=" + Math.Round(FunkyGame.Targeting.Cache.CurrentTarget.CentreDistance, 2) + ". " +
-				 "R-Dist=" + Math.Round(FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance, 2) + ". ";
-
-			if (FunkyGame.Targeting.Cache.CurrentTarget.targetType.Value == TargetType.Unit && FunkyGame.Hero.Class.PowerPrime.Power != SNOPower.None)
-				FunkyGame.sStatusText += "Power=" + FunkyGame.Hero.Class.PowerPrime.Power + " (range " + FunkyGame.Hero.Class.PowerPrime.MinimumRange + ") ";
-
-			FunkyGame.sStatusText += "Weight=" + FunkyGame.Targeting.Cache.CurrentTarget.Weight;
-			BotMain.StatusText = FunkyGame.sStatusText;
-			FunkyGame.bResetStatusText = true;
-		}
-
-		public override bool Equals(object obj)
-		{
-			//Check for null and compare run-time types. 
-			if (obj == null)
-			{
-				if (FunkyGame.Targeting.Cache.CurrentTarget != null)
-					return false;
-				return true;
-			}
-			Type ta = obj.GetType();
-			Type tb = FunkyGame.Targeting.Cache.CurrentTarget != null ? FunkyGame.Targeting.Cache.CurrentTarget.GetType() : GetType();
-
-			if (ta.Equals(tb))
-			{
-				return ((CacheObject)obj) == (FunkyGame.Targeting.Cache.CurrentTarget);
-			}
-			return false;
-		}
-		public override int GetHashCode()
-		{
-			return FunkyGame.Targeting.Cache.CurrentTarget != null ? FunkyGame.Targeting.Cache.CurrentTarget.GetHashCode() : base.GetHashCode();
 		}
 
 
 	}
-
 }

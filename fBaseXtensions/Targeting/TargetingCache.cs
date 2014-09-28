@@ -44,6 +44,8 @@ namespace fBaseXtensions.Targeting
 
 			FleeingLastTarget = false;
 			AvoidanceLastTarget = false;
+			CurrentUnitTarget = null;
+			FunkyGame.Hero.Class.PowerPrime=FunkyGame.Hero.Class.DefaultAttack;
 
 			if (CurrentTarget.targetType == TargetType.Container && FunkyBaseExtension.Settings.General.EnableWaitAfterContainers)
 			{

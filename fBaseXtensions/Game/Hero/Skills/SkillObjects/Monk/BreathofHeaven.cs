@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
@@ -21,7 +22,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 			if (RuneIndex==3)
 			{
-				
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20));
 				FcriteriaCombat = () => !Hotbar.HasBuff(SNOPower.Monk_BreathOfHeaven);
 			}
 			else

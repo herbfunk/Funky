@@ -191,7 +191,7 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				//============== Corpse ==============//
 				#region Corpses
-		
+				new GizmoEntry(193021, PluginGizmoType.Chest, "LootType3_GraveGuard_C_Corpse_01-19181", GizmoTargetTypes.Corpse),
 				new GizmoEntry(187374, PluginGizmoType.Chest, "LootType2_Adventurer_D_Corpse_01-17329", GizmoTargetTypes.Corpse),
 				new GizmoEntry(187372, PluginGizmoType.Chest, "LootType2_Adventurer_C_Corpse_01-17368", GizmoTargetTypes.Corpse),
 				new GizmoEntry(187376, PluginGizmoType.Chest, "LootType2_Adventurer_D_Corpse_02-18039", GizmoTargetTypes.Corpse),
@@ -458,6 +458,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(289777, PluginGizmoType.Chest, "x1_Bog_ArmorRack-5965", GizmoTargetTypes.ArmorRack),
 				new GizmoEntry(196509, PluginGizmoType.Chest, "a3dun_Bridge_Armor_Rack-42001", GizmoTargetTypes.ArmorRack),
 				new GizmoEntry(307431, PluginGizmoType.Chest, "x1_westm_Int_ArmorRack-26984", GizmoTargetTypes.ArmorRack),
+				new GizmoEntry(53253, PluginGizmoType.Chest, "a3dun_Keep_Armor_Rack-17043", GizmoTargetTypes.ArmorRack),
 
 				//============== Misc Containers ==============//
 				new GizmoEntry(5727, PluginGizmoType.Chest, "trDun_Cath_BookcaseShelves_B-394", GizmoTargetTypes.MiscContainer),
@@ -475,6 +476,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(220153, PluginGizmoType.Chest, "Lore_Satchel_Chest_FacePuzzleSmall-14914", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(207706, PluginGizmoType.Chest, "CaOut_Oasis_Chest_Rare_MapVendorCave-12710", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(3028, PluginGizmoType.Chest, "a2dun_Zolt_Random_GoldChest-11759", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(166661, PluginGizmoType.Chest, "Lore_UriksJournal-13083", GizmoTargetTypes.MiscContainer),
 
 				//============== Special Interactables ==============//
 				//

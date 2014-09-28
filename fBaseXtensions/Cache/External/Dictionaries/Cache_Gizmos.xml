@@ -1122,6 +1122,14 @@
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>193021</SnoId>
+      <InternalName>LootType3_GraveGuard_C_Corpse_01-19181</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>187374</SnoId>
       <InternalName>LootType2_Adventurer_D_Corpse_01-17329</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -3202,6 +3210,14 @@
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>53253</SnoId>
+      <InternalName>a3dun_Keep_Armor_Rack-17043</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>5727</SnoId>
       <InternalName>trDun_Cath_BookcaseShelves_B-394</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -3316,6 +3332,14 @@
     <GizmoEntry>
       <SnoId>3028</SnoId>
       <InternalName>a2dun_Zolt_Random_GoldChest-11759</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>166661</SnoId>
+      <InternalName>Lore_UriksJournal-13083</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>

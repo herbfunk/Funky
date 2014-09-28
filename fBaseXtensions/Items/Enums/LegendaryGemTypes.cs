@@ -15,6 +15,7 @@
 		SimplicitysStrength=405802,
 		InvigoratingGemstone = 405797,
 		BaneOfThePowerful=405775,
-		GogokOfSwiftness = 405796
+		GogokOfSwiftness = 405796,
+		BoonOfTheHoarder = 405803
 	}
 }

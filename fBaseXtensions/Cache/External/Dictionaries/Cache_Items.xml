@@ -1416,6 +1416,20 @@
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>191588</SnoId>
+      <InternalName>twoHandedMace_norm_unique_flippy_06-56088</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>197832</SnoId>
+      <InternalName>twoHandedMace_norm_unique_flippy_07-85576</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>144192</SnoId>
       <InternalName>mightyWeapon_1H_norm_base_flippy_02-1494</InternalName>
       <ActorType>Item</ActorType>
@@ -2405,6 +2419,13 @@
     <DroppedItemEntry>
       <SnoId>61556</SnoId>
       <InternalName>Shield_norm_unique_flippy_01-150932</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>192494</SnoId>
+      <InternalName>Shield_norm_unique_flippy_06-19615</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
@@ -7402,6 +7423,11 @@
       <LegendaryType>BezoarStone</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>221572</SnoId>
+      <ItemType>SpiritStone</ItemType>
+      <LegendaryType>Madstone</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>299442</SnoId>
       <ItemType>VoodooMask</ItemType>
       <LegendaryType>Carnevil</LegendaryType>
@@ -8429,6 +8455,16 @@
     <ItemDataEntry>
       <SnoId>366971</SnoId>
       <ItemType>FollowerScoundrel</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>366969</SnoId>
+      <ItemType>FollowerTemplar</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>366968</SnoId>
+      <ItemType>FollowerTemplar</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>

@@ -5804,6 +5804,34 @@
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
+    <UnitEntry>
+      <SnoId>219668</SnoId>
+      <InternalName>MastaBlasta_Rider_A_Unique_01-2335</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219985</SnoId>
+      <InternalName>morluSpellcaster_A_Unique_01-93712</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>141196</SnoId>
+      <InternalName>demonTrooper_C-12613</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>219960</SnoId>
+      <InternalName>HoodedNightmare_A_Unique_02-12146</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>
     <UnitPetEntry>

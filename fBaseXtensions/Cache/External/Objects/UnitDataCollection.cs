@@ -938,6 +938,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(418907, UnitFlags.Normal| UnitFlags.Flying, "x1_LR_demonFlyer_A-27924"),
 				new UnitEntry(5413, UnitFlags.Normal, "skeleton_twoHander_D-46019"),
 
+				new UnitEntry(219668, UnitFlags.Unique, "MastaBlasta_Rider_A_Unique_01-2335"),
+				new UnitEntry(219985, UnitFlags.Unique, "morluSpellcaster_A_Unique_01-93712"),
+				new UnitEntry(141196, UnitFlags.Normal, "demonTrooper_C-12613"),
+				new UnitEntry(219960, UnitFlags.Unique | UnitFlags.Fast, "HoodedNightmare_A_Unique_02-12146"),
 			};
 			
 			#endregion

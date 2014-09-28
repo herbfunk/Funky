@@ -357,6 +357,7 @@ namespace fBaseXtensions.Game.Hero
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
 									SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
+									SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 5;
 									FunkyGame.Game.AllowAnyUnitForLOSMovement = true;
 								}
 
