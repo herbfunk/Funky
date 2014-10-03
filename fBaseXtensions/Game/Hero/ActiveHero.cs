@@ -307,7 +307,7 @@ namespace fBaseXtensions.Game.Hero
 				FunkyGame.Hero.UpdateCoinage = true;
 
 				//Check active bounty
-				if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode)
+				if (FunkyGame.AdventureMode)
 					CheckActiveBounty();
 
 				Navigator.SearchGridProvider.Update();
@@ -344,8 +344,6 @@ namespace fBaseXtensions.Game.Hero
 					{
 						var CurrentBountyCacheEntry = FunkyGame.Bounty.CurrentBountyCacheEntry;
 						Logger.Write(Helpers.LogLevel.Bounty, "Checking Bounty Type {0}", CurrentBountyCacheEntry.Type);
-						
-						if (!SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode) return;
 
 						int curLevelID = FunkyGame.Hero.iCurrentLevelID;
 
@@ -356,9 +354,13 @@ namespace fBaseXtensions.Game.Hero
 								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Clear) -- Disabling Cluster Logic!");
-									SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
-									SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 5;
-									FunkyGame.Game.AllowAnyUnitForLOSMovement = true;
+									if (FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications)
+									{
+										SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
+										SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 5;
+										FunkyGame.Game.AllowAnyUnitForLOSMovement = true;
+									}
+									
 								}
 
 								break;
@@ -369,17 +371,22 @@ namespace fBaseXtensions.Game.Hero
 									CurrentBountyCacheEntry.LevelAreaIDs != null && CurrentBountyCacheEntry.LevelAreaIDs.Any(i => i == curLevelID))
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Kill) -- Disabling Cluster Logic and Enabling Navigation of Points!");
-									SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
+									if (FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications)
+									{
+										SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
+									}
 
-									//only enable when its the ending level.
-									FunkyGame.Game.ShouldNavigateMinimapPoints = CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID;
+									if (FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest)
+										FunkyGame.Game.ShouldNavigateMinimapPoints = CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID;
 								}
 								break;
 							case BountyTypes.CursedEvent:
 								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (CursedEvent) -- Enabling Navigation of Points!");
-									FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+									if (FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest)
+										FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+
 									FunkyGame.Game.QuestMode = true;
 								}
 								break;
@@ -387,14 +394,16 @@ namespace fBaseXtensions.Game.Hero
 								if (CurrentBountyCacheEntry.StartingLevelAreaID == curLevelID)
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Boss) -- Enabling Navigation of Points!");
-									FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+									if (FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest)
+										FunkyGame.Game.ShouldNavigateMinimapPoints = true;
 								}
 								break;
 							case BountyTypes.Event:
 								if (CurrentBountyCacheEntry.EndingLevelAreaID == curLevelID)
 								{
 									Logger.Write(Helpers.LogLevel.Bounty, "Bounty Level ID Match (Event) -- Enabling Navigation of Points!");
-									FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+									if (FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest)
+										FunkyGame.Game.ShouldNavigateMinimapPoints = true;
 									FunkyGame.Game.QuestMode = true;
 								}
 								break;
@@ -408,23 +417,38 @@ namespace fBaseXtensions.Game.Hero
 					//Killing..
 					if (curStep == 1 || curStep == 13)
 					{
-						FunkyGame.Bounty.RefreshRiftMapMarkers();
-						FunkyGame.Game.ShouldNavigateMinimapPoints = true;
-						SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
 						if (curStep == 13) MonitorSettings.MonitorSettingsTag.GoldInactivityTimeoutSeconds = 0;
+
+						if (FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest)
+						{
+							FunkyGame.Bounty.RefreshRiftMapMarkers();
+							FunkyGame.Game.ShouldNavigateMinimapPoints = true;
+						}
+
+						if (FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications)
+							SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;
 					}
 					else if (curStep == 3 || curStep==16)//Boss Spawned
 					{
-						FunkyGame.Bounty.RefreshRiftMapMarkers();
-						SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
-						FunkyGame.Game.ShouldNavigateMinimapPoints = false;
 						if (curStep == 16) MonitorSettings.MonitorSettingsTag.GoldInactivityTimeoutSeconds = 0;
+
+						if (FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest)
+						{
+							FunkyGame.Bounty.RefreshRiftMapMarkers();
+							FunkyGame.Game.ShouldNavigateMinimapPoints = false;
+						}
+						
+
+						if (FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications)
+							SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
+						
 					}
 					else//Boss Killed 10 / 34
 					{
-						SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
-						FunkyGame.Game.ShouldNavigateMinimapPoints = false;
 						if (curStep == 10 || curStep == 34) MonitorSettings.MonitorSettingsTag.GoldInactivityTimeoutSeconds = 0;
+
+						//SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
+						//FunkyGame.Game.ShouldNavigateMinimapPoints = false;
 					}
 				}
 			}

@@ -1332,6 +1332,13 @@
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>188200</SnoId>
+      <InternalName>Mace_norm_unique_flippy_03-392434</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6337</SnoId>
       <InternalName />
       <ActorType>Item</ActorType>
@@ -2741,6 +2748,13 @@
     <DroppedItemEntry>
       <SnoId>119731</SnoId>
       <InternalName>Lore_NephalemLastStand-15170</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>368690</SnoId>
+      <InternalName>x1_Fortress_LoreBook_Malthael_Open-15656</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
@@ -8073,6 +8087,11 @@
       <LegendaryType>ThePaddle</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>271765</SnoId>
+      <ItemType>TwoHandDaibo</ItemType>
+      <LegendaryType>WarstaffofGeneralQuang</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>59633</SnoId>
       <ItemType>TwoHandMace</ItemType>
       <LegendaryType>ArthefsSparkofLife</LegendaryType>
@@ -8451,6 +8470,11 @@
       <SnoId>184199</SnoId>
       <ItemType>Source</ItemType>
       <LegendaryType>WinterFlurry</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>366979</SnoId>
+      <ItemType>FollowerEnchantress</ItemType>
+      <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>366971</SnoId>

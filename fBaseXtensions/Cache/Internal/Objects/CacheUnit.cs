@@ -353,7 +353,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				return
 					//(ProfileCache.LineOfSightSNOIds.Contains(SNOID)) ||
-					 (((SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Game.AllowAnyUnitForLOSMovement) ||
+					 (((SettingAdventureMode.AdventureModeSettingsTag.AllowCombatModifications && FunkyGame.AdventureMode && FunkyGame.Game.AllowAnyUnitForLOSMovement) ||
 						(IsSucideBomber && SettingLOSMovement.LOSSettingsTag.AllowSucideBomber) ||
 						(IsTreasureGoblin && SettingLOSMovement.LOSSettingsTag.AllowTreasureGoblin) ||
 						(IsSpawnerUnit && SettingLOSMovement.LOSSettingsTag.AllowSpawnerUnits) ||
@@ -989,7 +989,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 				#region Validations
 				// Unit is already dead
-				if (CurrentHealthPct.HasValue && (CurrentHealthPct.Value <= 0d))
+				if (CurrentHealthPct.HasValue && (CurrentHealthPct.Value <= 0d || CurrentHealthPct.Value>1d))
 				{
 					//Respawnable Units -- Only when they are not elite/rare/uniques!
 					if (!ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Revivable) || IsEliteRareUnique)
@@ -1266,7 +1266,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 				//Special Bounty Check for Events only!
-				if (SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.Event)
+				if (FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.Event)
 				{
 					if (!IsQuestGiver)
 					{

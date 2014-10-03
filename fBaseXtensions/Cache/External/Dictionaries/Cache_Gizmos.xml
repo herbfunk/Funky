@@ -1122,6 +1122,38 @@
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>122930</SnoId>
+      <InternalName>caOut_Boneyard_BanishedSkeleton_B-12533</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>122904</SnoId>
+      <InternalName>caOut_Boneyard_BanishedSkeleton_A-13073</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>122932</SnoId>
+      <InternalName>caOut_Boneyard_BanishedSkeleton_C-24391</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>311234</SnoId>
+      <InternalName>x1_Westm_Female_Corpse_A_01-40455</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>193021</SnoId>
       <InternalName>LootType3_GraveGuard_C_Corpse_01-19181</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -3346,6 +3378,38 @@
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>230240</SnoId>
+      <InternalName>Lore_HighlandsChest-10452</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>190915</SnoId>
+      <InternalName>a4dun_spire_CorruptedWallAngel_Column_1-34318</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193154</SnoId>
+      <InternalName>a4dun_spire_CorruptedWallAngel_Column_2-37722</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>193165</SnoId>
+      <InternalName>a4dun_spire_CorruptedWallAngel_Column_3-39228</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>211999</SnoId>
       <InternalName />
       <ActorType>Gizmo</ActorType>
@@ -3492,6 +3556,14 @@
     <GizmoEntry>
       <SnoId>138989</SnoId>
       <InternalName />
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>HealingWell</PluginGizmoType>
+      <GizmotargetType>Healthwell</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>116807</SnoId>
+      <InternalName>a1dun_Leor_BloodWell_A</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>HealingWell</PluginGizmoType>

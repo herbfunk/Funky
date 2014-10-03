@@ -44,11 +44,11 @@ namespace fBaseXtensions.Behaviors
 				ExitGame.BehaviorEngaged = true;
 				return true;
 			}
-			else if(FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode && BountyCache.RiftTrialIsActiveQuest && FunkyGame.Hero.iCurrentLevelID == 405915)
-			{
-				Logger.DBLog.Info("Performing Trial Rift Handler Behavior!");
-				return true;
-			}
+			//else if(FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications && BountyCache.RiftTrialIsActiveQuest && FunkyGame.Hero.iCurrentLevelID == 405915)
+			//{
+			//	Logger.DBLog.Info("Performing Trial Rift Handler Behavior!");
+			//	return true;
+			//}
 			//else if (GoblinBehavior.BehaviorEngaged && GoblinBehavior.ShouldRunBehavior())
 			//{
 			//	Logger.DBLog.Info("Starting Goblin Behavior.");
@@ -80,10 +80,10 @@ namespace fBaseXtensions.Behaviors
 			}
 
 			//Trial Rift!
-			if (FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode && BountyCache.RiftTrialIsActiveQuest && FunkyGame.Hero.iCurrentLevelID == 405915)
-			{
-				return TrialRiftBehavior.Behavior();
-			}
+			//if (FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications && BountyCache.RiftTrialIsActiveQuest && FunkyGame.Hero.iCurrentLevelID == 405915)
+			//{
+			//	return TrialRiftBehavior.Behavior();
+			//}
 
 			//if (GoblinBehavior.BehaviorEngaged)
 			//	return GoblinBehavior.Behavior();

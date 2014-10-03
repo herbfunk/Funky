@@ -1903,7 +1903,7 @@
       <InternalName />
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Unique Burrowing Worm</UnitFlags>
+      <UnitFlags>Unique Boss Worm</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>145745</SnoId>
@@ -2547,7 +2547,7 @@
       <InternalName />
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Unique Burrowing Worm</UnitFlags>
+      <UnitFlags>Unique Boss Worm</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>219223</SnoId>
@@ -4409,7 +4409,7 @@
       <InternalName>x1_Rockworm_Pand_Unique_A-98549</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal Worm</UnitFlags>
+      <UnitFlags>Boss Worm</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>338681</SnoId>
@@ -5831,6 +5831,216 @@
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>361991</SnoId>
+      <InternalName>x1_NightScreamer_Unique_B-2089</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>332075</SnoId>
+      <InternalName>x1_westmarchBrute_A_Graveyard_Holdout_Event-6859</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>374750</SnoId>
+      <InternalName>x1_PortalGuardian_A_Borgoth-12119</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>318438</SnoId>
+      <InternalName>X1_demonTrooper_Chronodemon_Event_ForgottenWar-14981</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>361417</SnoId>
+      <InternalName>x1_westmarchRanged_Unique_B-3956</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>373842</SnoId>
+      <InternalName>x1_MoleMutant_Melee_Unique_C-26473</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>362307</SnoId>
+      <InternalName>x1_MoleMutant_Shaman_Unique_A-28985</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>363910</SnoId>
+      <InternalName>x1_westmarchHound_Leader_Unique_A-31622</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>309462</SnoId>
+      <InternalName>x1_FloaterAngel_Unique_04-35114</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>355870</SnoId>
+      <InternalName>X1_Westmarch_Male_Event_KingEvent2-40570</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>357018</SnoId>
+      <InternalName>x1_NPC_Westmarch_Gorrel_NonUnique-40583</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>354378</SnoId>
+      <InternalName>x1_Squigglet_A_unique_cellarEventB-25201</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Ranged</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>351179</SnoId>
+      <InternalName>x1_BogFamily_melee_A_Unique_DH-2517</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>332399</SnoId>
+      <InternalName>X1_Rockling_Ranged_Large-8859</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>332398</SnoId>
+      <InternalName>X1_Rockling_Melee_Large-8875</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>353667</SnoId>
+      <InternalName>X1_Rockling_Event_RockHive_Queen-9315</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>360242</SnoId>
+      <InternalName>x1_leaperAngel_A_FortressUnique-15190</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>307099</SnoId>
+      <InternalName>x1_FloaterAngel_Unique_03-31856</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>361973</SnoId>
+      <InternalName>x1_BogFamily_ranged_Unique_A-28451</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>288471</SnoId>
+      <InternalName>x1_WickerMan_Unique_A-29253</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>325779</SnoId>
+      <InternalName>X1_BigRed_Chronodemon_Event_Prison-32272</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Fast</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>374220</SnoId>
+      <InternalName>X1_demonTrooper_C-37648</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>360864</SnoId>
+      <InternalName>x1_westmarchBrute_Unique_D-51007</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>289386</SnoId>
+      <InternalName>X1_graveDiggerGhost-969</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>289387</SnoId>
+      <InternalName>X1_GhostGuard-1102</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>289388</SnoId>
+      <InternalName>X1_graveRobberGhost-1114</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>289392</SnoId>
+      <InternalName>X1_GhostLord_LordOfFools-1319</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>361313</SnoId>
+      <InternalName>x1_Dark_Angel_Unique_B-4210</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>361771</SnoId>
+      <InternalName>x1_BogFamily_Brute_Unique_B-2631</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>363060</SnoId>
+      <InternalName>x1_Rockworm_Pand_Unique_B-5646</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique Boss Worm</UnitFlags>
     </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>

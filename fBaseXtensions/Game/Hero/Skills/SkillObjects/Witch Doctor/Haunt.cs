@@ -45,6 +45,13 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			Priority = SkillPriority.High;
 			ShouldTrack = true;
 
+			if (!FunkyGame.Hero.Class.ContainsAnyPrimarySkill)
+			{
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
+				IsPrimarySkill = true;
+				Priority = SkillPriority.Low;
+			}
+
 			var precastflags = SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast;
 			if (hotbarContainsLoctusSwarm) precastflags |= SkillPrecastFlags.CheckRecastTimer;
 

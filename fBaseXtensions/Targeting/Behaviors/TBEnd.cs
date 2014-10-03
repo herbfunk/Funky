@@ -50,7 +50,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 					if (DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastSeenCursedShrine).TotalMilliseconds <= (1000))
 					{
-						if (SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.CursedEvent)
+						if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.AllowCombatModifications && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.CursedEvent)
 						{
 							Logger.DBLog.Info("[Funky] Cursed Object Found During Cursed Bounty -- Enabling LOS movement for all Units!");
 							SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 10f;
@@ -93,7 +93,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 					}
 
 					//Currently preforming an interactive profile behavior (check if in town and not vendoring)
-					if (FunkyGame.Game.InteractableCachedObject!=null && (!FunkyGame.Hero.bIsInTown || !BrainBehavior.IsVendoring))
+					if (FunkyGame.Game.InteractableCachedObject != null && (!FunkyGame.Hero.bIsInTown || !BrainBehavior.IsVendoring))
 					{
 						if (FunkyGame.Game.InteractableCachedObject.Position.Distance(FunkyGame.Hero.Position) > 50f)
 						{
@@ -147,8 +147,8 @@ namespace fBaseXtensions.Targeting.Behaviors
 						obj = new CacheObject(FunkyGame.Targeting.Cache.StartingLocation, TargetType.Backtrack, 20000, "Backtracking", 2.5f);
 						return true;
 					}
-					
-					
+
+
 				}
 
 				return obj != null;

@@ -101,10 +101,10 @@ namespace fBaseXtensions.XML
 					new Action(ret => UpdateMovingItemList())),
 
 				new Decorator(ret => Itemsource==ItemSource.Stash && !bUpdatedStashMap,
-					new Action(ret => UpdateStashSlots())),
-
-				new Decorator(ret => Itemsource==ItemSource.Backpack && !bUpdatedStashMap,
 					new Action(ret => UpdateBackpackSlots())),
+					
+				new Decorator(ret => Itemsource==ItemSource.Backpack && !bUpdatedStashMap,
+					new Action(ret => UpdateStashSlots())),
 
 				new Decorator(ret => MovingItemList.Count==0,
 					new Sequence
@@ -252,7 +252,7 @@ namespace fBaseXtensions.XML
 					BackpackSlotBlocked[iColumn, iRow] = false;
 			// Block off the entire of any "protected"
 			foreach (InventorySquare iProtPage in CharacterSettings.Instance.ProtectedBagSlots)
-				StashSlotBlocked[iProtPage.Column, iProtPage.Row] = true;
+				BackpackSlotBlocked[iProtPage.Column, iProtPage.Row] = true;
 
 
 
@@ -605,8 +605,8 @@ namespace fBaseXtensions.XML
 			string sOriginalInternalName = item.ThisInternalName;
 			PluginItemTypes OriginalPluginItemType = ItemFunc.DetermineItemType(item);
 			PluginBaseItemTypes thisGilesBaseType = ItemFunc.DetermineBaseType(OriginalPluginItemType);
-			bool bOriginalTwoSlot = ItemFunc.DetermineIsTwoSlot(OriginalPluginItemType);
-			bool bOriginalIsStackable = ItemFunc.DetermineIsStackable(OriginalPluginItemType);
+			bool bOriginalTwoSlot = item.IsTwoSlot;
+			bool bOriginalIsStackable = item.IsStackableItem;
 			int iAttempts;
 			if (_dictItemStashAttempted.TryGetValue(iOriginalDynamicID, out iAttempts))
 			{
@@ -626,17 +626,19 @@ namespace fBaseXtensions.XML
 						BackpackSlotBlocked[iProtPage.Column, iProtPage.Row] = true;
 
 					// Map out all the items already in the stash
-					foreach (ACDItem tempitem in ZetaDia.Me.Inventory.StashItems)
+					foreach (ACDItem tempitem in ZetaDia.Me.Inventory.Backpack)
 					{
 						if (tempitem.BaseAddress != IntPtr.Zero)
 						{
-							int inventoryRow = tempitem.InventoryRow;
-							int inventoryColumn = tempitem.InventoryColumn;
+							CacheACDItem tempCacheItem = new CacheACDItem(tempitem);
+
+							int inventoryRow = tempCacheItem.invRow;
+							int inventoryColumn = tempCacheItem.invCol;
 							// Mark this slot as not-free
 							BackpackSlotBlocked[inventoryColumn, inventoryRow] = true;
 							// Try and reliably find out if this is a two slot item or not
-							BackpackSlotBlocked[inventoryColumn, inventoryRow + 1] = true;
-							if (inventoryRow != 19 && inventoryRow != 9 && inventoryRow != 29 && inventoryRow != 39 && inventoryRow != 49)
+							//BackpackSlotBlocked[inventoryColumn, inventoryRow + 1] = true;
+							if (inventoryRow != 5 && tempCacheItem.IsTwoSlot)
 							{
 								BackpackSlotBlocked[inventoryColumn, inventoryRow + 1] = true;
 							}
@@ -700,7 +702,7 @@ namespace fBaseXtensions.XML
 			// If it's a 2-square item, find a double-slot free
 			if (bOriginalTwoSlot)
 			{
-				for (int iRow = 0; iRow <= 49; iRow++)
+				for (int iRow = 0; iRow <= 5; iRow++)
 				{
 					bool bBottomPageRow = iRow == 5;
 					for (int iColumn = 0; iColumn <= 9; iColumn++)

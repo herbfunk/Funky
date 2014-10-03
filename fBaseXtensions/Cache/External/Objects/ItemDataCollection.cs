@@ -328,6 +328,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(188207, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_05-4091"),
 				new DroppedItemEntry(188215, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_08-215343"),
 				new DroppedItemEntry(102670, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_01-3062"),
+				new DroppedItemEntry(188200, PluginDroppedItemTypes.Mace, "Mace_norm_unique_flippy_03-392434"),
 
 				//
 				new DroppedItemEntry(6337, PluginDroppedItemTypes.MaceTwoHanded),
@@ -576,6 +577,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(156477, PluginDroppedItemTypes.LoreBook, "Lore_BelialOasis-10284"),
 				new DroppedItemEntry(183707, PluginDroppedItemTypes.LoreBook, "Lore_WaterPuzzle-9440"),
 				new DroppedItemEntry(119731, PluginDroppedItemTypes.LoreBook, "Lore_NephalemLastStand-15170"),
+				new DroppedItemEntry(368690, PluginDroppedItemTypes.LoreBook, "x1_Fortress_LoreBook_Malthael_Open-15656"),
 
 				new DroppedItemEntry(359504, PluginDroppedItemTypes.BloodShard),
 				//============================= GEMS =============================
@@ -1683,6 +1685,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(196880, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.RozpedinsForce), //RozpedinsForce
 				new ItemDataEntry(197072, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.TheFlowofEternity),
 				new ItemDataEntry(197068, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.ThePaddle),
+				new ItemDataEntry(271765, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.WarstaffofGeneralQuang),
 
 				new ItemDataEntry(59633, PluginItemTypes.TwoHandMace, LegendaryItemTypes.ArthefsSparkofLife),
 				new ItemDataEntry(99227, PluginItemTypes.TwoHandMace, LegendaryItemTypes.Crushbane),
@@ -1771,8 +1774,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(192320, PluginItemTypes.Source, LegendaryItemTypes.TheOculus),
 				new ItemDataEntry(195325, PluginItemTypes.Source, LegendaryItemTypes.Triumvirate),
 				new ItemDataEntry(184199, PluginItemTypes.Source, LegendaryItemTypes.WinterFlurry),
-				 
-
+				
+				new ItemDataEntry(366979, PluginItemTypes.FollowerEnchantress, LegendaryItemTypes.None), //SmokingThurible
 				new ItemDataEntry(366971, PluginItemTypes.FollowerScoundrel, LegendaryItemTypes.None), //SlipkasLetterOpener
 				new ItemDataEntry(366969, PluginItemTypes.FollowerTemplar, LegendaryItemTypes.None), //HillenbrandsTrainingSword
 				new ItemDataEntry(366968, PluginItemTypes.FollowerTemplar, LegendaryItemTypes.None), //EnchantingFavor

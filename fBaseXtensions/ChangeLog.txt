@@ -1,4 +1,16 @@
-﻿v1.1.2.3
+﻿v1.1.2.4
+
+Added events for Add/Remove to ObjectCache Objects collection.
+
+Precombat no longer runs trial rift behavior.
+
+Adventure Mode support no longer navigates minimap markers unless setting is enabled. (Fix for stuck in dungeon exploring)
+
+Fixed some bugs in MoveItem Tag
+FunkyWhileActorPresent Tag now uses the new events add/remove in ObjectCache Objects collection.
+
+
+v1.1.2.3
 
 Added boon of the hoarder legendary gem to cache and enum
 

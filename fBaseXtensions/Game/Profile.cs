@@ -49,12 +49,14 @@ namespace fBaseXtensions.Game
 			{
 				return String.Format("Current Profile Behavior {0}\r\n" +
 				                     "Behavior Type {1}\r\n" +
+									 "Previous Profile Behavior {4}\r\n" +
 									 "IsInteractive {2}\r\n" +
 									 "IsOutOfCombat {3}\r\n",
 									 CurrentProfileBehavior.GetType().ToString(),
 									 CurrentProfileBehaviorType,
 									 ProfileBehaviorIsInteractive,
-									 ProfileBehaviorIsOutOfCombat);
+									 ProfileBehaviorIsOutOfCombat,
+									 PreviousProfileBehaviorType);
 			}
 		}
 
@@ -64,13 +66,33 @@ namespace fBaseXtensions.Game
 			get { return _currentProfileBehaviorType; }
 			set { _currentProfileBehaviorType = value; }
 		}
+		private ProfileBehaviorTypes _previousProfileBehaviorType = ProfileBehaviorTypes.Unknown;
+		public ProfileBehaviorTypes PreviousProfileBehaviorType
+		{
+			get { return _previousProfileBehaviorType; }
+			set { _previousProfileBehaviorType = value; }
+		}
+
 		public bool ProfileBehaviorIsInteractive
 		{
-			get { return CurrentProfileBehaviorType.HasFlag(ProfileBehaviorTypes.Interactive); }
+			get 
+			{
+				if (CurrentProfileBehaviorType == ProfileBehaviorTypes.Unknown) return false;
+
+				return ProfileBehaviorTypes.Interactive.HasFlag(CurrentProfileBehaviorType); 
+			}
 		}
 		public bool ProfileBehaviorIsOutOfCombat
 		{
-			get { return CurrentProfileBehaviorType.HasFlag(ProfileBehaviorTypes.OutOfCombat); }
+			get 
+			{
+				if (CurrentProfileBehaviorType == ProfileBehaviorTypes.Unknown) return false;
+
+				if (CurrentProfileBehaviorType != ProfileBehaviorTypes.WaitTimer)
+					return ProfileBehaviorTypes.OutOfCombat.HasFlag(CurrentProfileBehaviorType);
+
+				return ProfileBehaviorTypes.OutOfCombat.HasFlag(PreviousProfileBehaviorType);
+			}
 		}
 
 		private ProfileBehavior currentProfileBehavior;
@@ -101,7 +123,10 @@ namespace fBaseXtensions.Game
 					Logger.Write(LogLevel.Event, "Profile Behavior Changed To {0} [{1}]", currentProfileBehavior.GetType().ToString(), currentProfileBehavior.StatusText);
 					
 					Type profileTagType = currentProfileBehavior.GetType();
+
+					PreviousProfileBehaviorType = CurrentProfileBehaviorType;
 					CurrentProfileBehaviorType = GetProfileBehaviorType(profileTagType);
+
 					if (OnProfileBehaviorChange != null)
 						OnProfileBehaviorChange(CurrentProfileBehaviorType);
 				}

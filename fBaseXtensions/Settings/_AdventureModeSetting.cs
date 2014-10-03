@@ -9,6 +9,7 @@ namespace fBaseXtensions.Settings
 	public class SettingAdventureMode
 	{
 		public bool EnableAdventuringMode { get; set; }
+		public bool AllowCombatModifications { get; set; }
 		public bool NavigatePointsOfInterest { get; set; }
 		public int MaximumTieredRiftKeyAllowed { get; set; }
 		public double GemUpgradingMinimumSuccessRate { get; set; }
@@ -25,6 +26,7 @@ namespace fBaseXtensions.Settings
 
 		public SettingAdventureMode()
 		{
+			AllowCombatModifications = true;
 			EnableAdventuringMode = true;
 			NavigatePointsOfInterest = false;
 			GemUpgradeType = GemUpgradingType.None;

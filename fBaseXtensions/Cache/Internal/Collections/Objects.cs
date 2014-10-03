@@ -51,9 +51,27 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			return s;
 		}
 
+		public delegate void ObjectAddedToCollection(CacheObject obj);
+		public event ObjectAddedToCollection OnObjectAddedToCollection;
 		public void Add(int key, CacheObject value)
 		{
 			objects.Add(key, value);
+
+			if (OnObjectAddedToCollection != null)
+				OnObjectAddedToCollection(value);
+		}
+
+		public delegate void ObjectRemovedFromCollection(CacheObject obj);
+		public event ObjectRemovedFromCollection OnObjectRemovedFromCollection;
+		public void Remove(int key)
+		{
+			if (OnObjectRemovedFromCollection != null)
+			{
+				var clone = objects[key].Clone();
+				OnObjectRemovedFromCollection(clone);
+			}
+				
+			objects.Remove(key);
 		}
 
 		public bool ContainsKey(int key)
@@ -69,13 +87,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			}
 		}
 
-		public void Remove(int key)
-		{
-			//if (FunkyGame.Navigation.LOSmovementObject != null && FunkyGame.Navigation.LOSmovementObject.RAGUID.Equals(key))
-			//	FunkyGame.Navigation.LOSmovementObject = null;
-
-			objects.Remove(key);
-		}
+		
 
 		public bool TryGetValue(int key, out CacheObject value)
 		{

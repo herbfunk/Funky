@@ -450,15 +450,22 @@ namespace fBaseXtensions.Settings
 				cb_GeneralSkipAhead.Checked = FunkyBaseExtension.Settings.Debugging.SkipAhead;
 				cb_GeneralSkipAhead.CheckedChanged += cb_GeneralSkipAhead_CheckedChanged;
 
-				//cb_DeathWaitForPotion.Checked = FunkyBaseExtension.Settings.Death.WaitForPotionCooldown;
-				//cb_DeathWaitForPotion.CheckedChanged += cb_DeathPotion_CheckedChanged;
+				cb_DeathWaitForPotion.Checked = FunkyBaseExtension.Settings.Death.WaitForPotionCooldown;
+				cb_DeathWaitForPotion.CheckedChanged += cb_DeathPotion_CheckedChanged;
 
-				//cb_DeathWaitForSkillsCooldown.Checked = FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
-				//cb_DeathWaitForSkillsCooldown.CheckedChanged += cb_DeathSkills_CheckedChanged;
+				cb_DeathWaitForSkillsCooldown.Checked = FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
+				cb_DeathWaitForSkillsCooldown.CheckedChanged += cb_DeathSkills_CheckedChanged;
 
 
 				cb_AdventureModeEnabled.Checked = FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode;
 				cb_AdventureModeEnabled.CheckedChanged += cb_AdventureModeEnabled_CheckedChanged;
+
+				cb_adventuremode_NavigateMinimapMarkers.Checked = FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest;
+				cb_adventuremode_NavigateMinimapMarkers.CheckedChanged += cb_adventuremode_NavigateMinimapMarkers_CheckedChanged;
+			
+				cb_adventuremode_allowcombatmodification.Checked = FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications;
+				cb_adventuremode_allowcombatmodification.CheckedChanged += cb_adventuremode_allowcombatmodification_CheckedChanged;
+				
 
 				trackBar_TieredRiftKey.Value = FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed;
 				trackBar_TieredRiftKey.ValueChanged += tb_TieredRiftKey_ValueChanged;
@@ -1156,15 +1163,23 @@ namespace fBaseXtensions.Settings
 		}
 		private void cb_DeathPotion_CheckedChanged(object sender, EventArgs e)
 		{
-			//FunkyBaseExtension.Settings.Death.WaitForPotionCooldown = !FunkyBaseExtension.Settings.Death.WaitForPotionCooldown;
+			FunkyBaseExtension.Settings.Death.WaitForPotionCooldown = !FunkyBaseExtension.Settings.Death.WaitForPotionCooldown;
 		}
 		private void cb_DeathSkills_CheckedChanged(object sender, EventArgs e)
 		{
-			//FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown = !FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
+			FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown = !FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
 		}
 		private void cb_AdventureModeEnabled_CheckedChanged(object sender, EventArgs e)
 		{
 			FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode = !FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode;
+		}
+		private void cb_adventuremode_NavigateMinimapMarkers_CheckedChanged(object sender, EventArgs e)
+		{
+			FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest = !FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest;
+		}
+		private void cb_adventuremode_allowcombatmodification_CheckedChanged(object sender, EventArgs e)
+		{
+			FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications = !FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications;
 		}
 		private void tb_TieredRiftKey_ValueChanged(object sender, EventArgs e)
 		{

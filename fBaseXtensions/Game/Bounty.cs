@@ -4,6 +4,7 @@ using System.Linq;
 using fBaseXtensions.Cache;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.External.Objects;
+using fBaseXtensions.Settings;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
@@ -186,6 +187,10 @@ namespace fBaseXtensions.Game
 		public void RefreshBountyMapMarkers()
 		{
 			CurrentBountyMapMarkers.Clear();
+
+			//Disabled Setting?
+			//if (!FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest) return;
+
 			using (ZetaDia.Memory.AcquireFrame())
 			{
 				foreach (var m in ZetaDia.Minimap.Markers.OpenWorldMarkers)
@@ -199,6 +204,10 @@ namespace fBaseXtensions.Game
 		public void RefreshRiftMapMarkers()
 		{
 			CurrentBountyMapMarkers.Clear();
+
+			//Disabled Setting?
+			//if (!FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest) return;
+
 			int exitHash = GetRiftWorldExitHash(FunkyGame.Hero.CurrentWorldID);
 			if (exitHash != -1)
 			{

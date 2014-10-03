@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using fBaseXtensions.Navigation.Clustering;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
@@ -16,12 +17,12 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 		public override void Initialize()
 		{
 			WaitVars = new WaitLoops(0, 0, true);
-			Cost = 49;
-
 
 			Priority = SkillPriority.High;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckCanCast));
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
+			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.RaimentoftheJadeHarvester, 6))
+				IsSpecialMovementSkill = true;
 
 			//IsSpecialMovementSkill = true;
 			//IsBuff=true;

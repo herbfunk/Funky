@@ -191,6 +191,10 @@ namespace fBaseXtensions.Cache.External.Objects
 
 				//============== Corpse ==============//
 				#region Corpses
+				new GizmoEntry(122930, PluginGizmoType.Chest, "caOut_Boneyard_BanishedSkeleton_B-12533", GizmoTargetTypes.Corpse),
+				new GizmoEntry(122904, PluginGizmoType.Chest, "caOut_Boneyard_BanishedSkeleton_A-13073", GizmoTargetTypes.Corpse),
+				new GizmoEntry(122932, PluginGizmoType.Chest, "caOut_Boneyard_BanishedSkeleton_C-24391", GizmoTargetTypes.Corpse),
+				new GizmoEntry(311234, PluginGizmoType.Chest, "x1_Westm_Female_Corpse_A_01-40455", GizmoTargetTypes.Corpse),
 				new GizmoEntry(193021, PluginGizmoType.Chest, "LootType3_GraveGuard_C_Corpse_01-19181", GizmoTargetTypes.Corpse),
 				new GizmoEntry(187374, PluginGizmoType.Chest, "LootType2_Adventurer_D_Corpse_01-17329", GizmoTargetTypes.Corpse),
 				new GizmoEntry(187372, PluginGizmoType.Chest, "LootType2_Adventurer_C_Corpse_01-17368", GizmoTargetTypes.Corpse),
@@ -477,6 +481,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(207706, PluginGizmoType.Chest, "CaOut_Oasis_Chest_Rare_MapVendorCave-12710", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(3028, PluginGizmoType.Chest, "a2dun_Zolt_Random_GoldChest-11759", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(166661, PluginGizmoType.Chest, "Lore_UriksJournal-13083", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(230240, PluginGizmoType.Chest, "Lore_HighlandsChest-10452", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(190915, PluginGizmoType.Chest, "a4dun_spire_CorruptedWallAngel_Column_1-34318", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(193154, PluginGizmoType.Chest, "a4dun_spire_CorruptedWallAngel_Column_2-37722", GizmoTargetTypes.MiscContainer),
+				new GizmoEntry(193165, PluginGizmoType.Chest, "a4dun_spire_CorruptedWallAngel_Column_3-39228", GizmoTargetTypes.MiscContainer),
 
 				//============== Special Interactables ==============//
 				//
@@ -502,9 +510,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				 
 				//
 				new GizmoEntry(138989, PluginGizmoType.HealingWell, "", GizmoTargetTypes.Healthwell),
+				new GizmoEntry(116807, PluginGizmoType.HealingWell, "a1dun_Leor_BloodWell_A", GizmoTargetTypes.Healthwell),
 				new GizmoEntry(373463, PluginGizmoType.PoolOfReflection, "PoolOfReflection", GizmoTargetTypes.PoolOfReflection),
 				 
-
+				
 				new GizmoEntry(176075, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
 				new GizmoEntry(176077, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
 				new GizmoEntry(176074, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),

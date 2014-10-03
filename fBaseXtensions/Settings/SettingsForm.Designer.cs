@@ -295,6 +295,9 @@
 			this.btn_DumpInventory = new System.Windows.Forms.Button();
 			this.btn_Test = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.groupBox18 = new System.Windows.Forms.GroupBox();
+			this.cb_adventuremode_NavigateMinimapMarkers = new System.Windows.Forms.CheckBox();
+			this.cb_adventuremode_allowcombatmodification = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl_Combat.SuspendLayout();
@@ -392,6 +395,7 @@
 			this.tabPage15.SuspendLayout();
 			this.tabPage16.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
+			this.groupBox18.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -2296,7 +2300,7 @@
 			// tabPage17
 			// 
 			this.tabPage17.Controls.Add(this.groupBox16);
-			this.tabPage17.Controls.Add(this.cb_AdventureModeEnabled);
+			this.tabPage17.Controls.Add(this.groupBox18);
 			this.tabPage17.Location = new System.Drawing.Point(4, 22);
 			this.tabPage17.Name = "tabPage17";
 			this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
@@ -2315,9 +2319,9 @@
 			this.groupBox16.Controls.Add(this.groupBox_PriorityGemUpgrading);
 			this.groupBox16.Controls.Add(this.groupBox17);
 			this.groupBox16.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBox16.Location = new System.Drawing.Point(3, 27);
+			this.groupBox16.Location = new System.Drawing.Point(3, 103);
 			this.groupBox16.Name = "groupBox16";
-			this.groupBox16.Size = new System.Drawing.Size(651, 499);
+			this.groupBox16.Size = new System.Drawing.Size(651, 423);
 			this.groupBox16.TabIndex = 20;
 			this.groupBox16.TabStop = false;
 			this.groupBox16.Text = "Gem Upgrading";
@@ -2576,11 +2580,11 @@
 			// cb_AdventureModeEnabled
 			// 
 			this.cb_AdventureModeEnabled.AutoSize = true;
-			this.cb_AdventureModeEnabled.Dock = System.Windows.Forms.DockStyle.Top;
+			this.cb_AdventureModeEnabled.Enabled = false;
 			this.cb_AdventureModeEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cb_AdventureModeEnabled.Location = new System.Drawing.Point(3, 3);
+			this.cb_AdventureModeEnabled.Location = new System.Drawing.Point(6, 19);
 			this.cb_AdventureModeEnabled.Name = "cb_AdventureModeEnabled";
-			this.cb_AdventureModeEnabled.Size = new System.Drawing.Size(651, 24);
+			this.cb_AdventureModeEnabled.Size = new System.Drawing.Size(234, 24);
 			this.cb_AdventureModeEnabled.TabIndex = 19;
 			this.cb_AdventureModeEnabled.Text = "Enable Adventuring Mode";
 			this.toolTip1.SetToolTip(this.cb_AdventureModeEnabled, "Adventuring Mode enables Funky Bot to automatically move and change combat settin" +
@@ -3274,6 +3278,39 @@
 			this.toolTip1.InitialDelay = 1000;
 			this.toolTip1.ReshowDelay = 500;
 			// 
+			// groupBox18
+			// 
+			this.groupBox18.Controls.Add(this.cb_adventuremode_allowcombatmodification);
+			this.groupBox18.Controls.Add(this.cb_adventuremode_NavigateMinimapMarkers);
+			this.groupBox18.Controls.Add(this.cb_AdventureModeEnabled);
+			this.groupBox18.Dock = System.Windows.Forms.DockStyle.Top;
+			this.groupBox18.Location = new System.Drawing.Point(3, 3);
+			this.groupBox18.Name = "groupBox18";
+			this.groupBox18.Size = new System.Drawing.Size(651, 100);
+			this.groupBox18.TabIndex = 21;
+			this.groupBox18.TabStop = false;
+			this.groupBox18.Text = "groupBox18";
+			// 
+			// cb_adventuremode_NavigateMinimapMarkers
+			// 
+			this.cb_adventuremode_NavigateMinimapMarkers.AutoSize = true;
+			this.cb_adventuremode_NavigateMinimapMarkers.Location = new System.Drawing.Point(6, 49);
+			this.cb_adventuremode_NavigateMinimapMarkers.Name = "cb_adventuremode_NavigateMinimapMarkers";
+			this.cb_adventuremode_NavigateMinimapMarkers.Size = new System.Drawing.Size(152, 17);
+			this.cb_adventuremode_NavigateMinimapMarkers.TabIndex = 20;
+			this.cb_adventuremode_NavigateMinimapMarkers.Text = "Navigate Minimap Markers";
+			this.cb_adventuremode_NavigateMinimapMarkers.UseVisualStyleBackColor = true;
+			// 
+			// cb_adventuremode_allowcombatmodification
+			// 
+			this.cb_adventuremode_allowcombatmodification.AutoSize = true;
+			this.cb_adventuremode_allowcombatmodification.Location = new System.Drawing.Point(6, 72);
+			this.cb_adventuremode_allowcombatmodification.Name = "cb_adventuremode_allowcombatmodification";
+			this.cb_adventuremode_allowcombatmodification.Size = new System.Drawing.Size(155, 17);
+			this.cb_adventuremode_allowcombatmodification.TabIndex = 21;
+			this.cb_adventuremode_allowcombatmodification.Text = "Allow Combat Modifications";
+			this.cb_adventuremode_allowcombatmodification.UseVisualStyleBackColor = true;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3401,7 +3438,6 @@
 			this.panel18.ResumeLayout(false);
 			this.panel18.PerformLayout();
 			this.tabPage17.ResumeLayout(false);
-			this.tabPage17.PerformLayout();
 			this.groupBox16.ResumeLayout(false);
 			this.groupBox16.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.trackBar_TieredRiftKey)).EndInit();
@@ -3437,6 +3473,8 @@
 			this.tabPage16.ResumeLayout(false);
 			this.tabPage16.PerformLayout();
 			this.flowLayoutPanel1.ResumeLayout(false);
+			this.groupBox18.ResumeLayout(false);
+			this.groupBox18.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -3712,6 +3750,9 @@
 		private System.Windows.Forms.Button btn_gemUpgrading_RemoveItem;
 		private System.Windows.Forms.Button btn_gemUpgrading_MoveItemDown;
 		private System.Windows.Forms.Button btn_gemUpgrading_MoveItemUp;
+		private System.Windows.Forms.GroupBox groupBox18;
+		private System.Windows.Forms.CheckBox cb_adventuremode_allowcombatmodification;
+		private System.Windows.Forms.CheckBox cb_adventuremode_NavigateMinimapMarkers;
 		//
 	}
 }
