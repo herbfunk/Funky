@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using fBaseXtensions.Behaviors;
 using fBaseXtensions.Cache.Internal;
@@ -29,6 +30,7 @@ namespace fBaseXtensions.Game
 		internal bool ShouldNavigateMinimapPoints { get; set; }
 		internal bool AllowAnyUnitForLOSMovement { get; set; }
 		public bool ForceOutOfCombatBehavior { get; set; }
+        internal Dictionary<int,int> ObjectCustomWeights=new Dictionary<int, int>(); 
 
 		public void ResetCombatModifiers()
 		{

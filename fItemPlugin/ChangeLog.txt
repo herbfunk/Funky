@@ -1,4 +1,8 @@
-﻿v1.2.9
+﻿v1.3.0
+Added UI Salvage All Check for players who don't have salvage all unlocked.
+
+
+v1.2.9
 Idenification behavior will now clear item cache and refresh when finishing.
 
 v1.2.8

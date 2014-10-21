@@ -542,6 +542,11 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(255881, PluginDroppedItemTypes.InfernalKey),
 				new DroppedItemEntry(255882,PluginDroppedItemTypes.InfernalKey),
 
+                new DroppedItemEntry(364723,PluginDroppedItemTypes.CraftingMaterial, "DemonOrgan_Ghom_x1"),
+                new DroppedItemEntry(364725,PluginDroppedItemTypes.CraftingMaterial, "DemonOrgan_Diablo_x1"),
+                new DroppedItemEntry(364724,PluginDroppedItemTypes.CraftingMaterial, "DemonOrgan_SiegeBreaker_x1"),
+                new DroppedItemEntry(364722,PluginDroppedItemTypes.CraftingMaterial, "DemonOrgan_SkeletonKing_x1"),
+
 				new DroppedItemEntry(323722, PluginDroppedItemTypes.KeyFragment,"LootRunKey"),
 				new DroppedItemEntry(408416, PluginDroppedItemTypes.KeyFragment, "TieredLootrunKey_0-44181"),
 				new DroppedItemEntry(405649, PluginDroppedItemTypes.RamaladnisGift, "Consumable_Add_Sockets_flippy-20806"),

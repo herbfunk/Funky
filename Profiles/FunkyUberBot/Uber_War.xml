@@ -1,0 +1,98 @@
+<Profile>
+  <Name>Funky Uber War</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <!--Item - Name: Infernal Machine of War ActorSNO: 366948-->
+
+    <While condition="(not CurrentLevelAreaId == 332339 and
+                       not CurrentLevelAreaId == 257116 and
+                       not CurrentLevelAreaId == 256742)">
+
+      <UseWaypoint questId="1" stepId="1" waypointNumber="0" statusText="" />
+      <WaitTimer questId="1" waitTime="7100" />
+    </While>
+    
+    <FunkyCustomWeight>
+      <WeightList>
+        <Weight sno="255634" weight="25000"/>
+      </WeightList>
+    </FunkyCustomWeight>
+    
+
+    <While condition="CurrentLevelAreaId == 332339">
+
+      <If condition="not HasBackpackItem(366948)">
+        <MoveToTownObject questId="1" stepId="1" Type="Stash" />
+        <WaitTimer questId="1" stepId="1" waitTime="5000" />
+
+        <If condition="HasStashedItem(366948)">
+          <MoveItem Sno="366948" ItemSource="Stash" all="True" />
+        </If>
+        <WaitTimer questId="1" stepId="1" waitTime="2200" />
+      </If>
+      
+
+      <!-- Act one town level area 332339-->
+      <SafeMoveTo questId="312429" stepId="2" x="307" y="527" z="24" pathPrecision="5" pathPointLimit="250" scene="trOut_Tristram_E10_S15" statusText="" />
+
+      <!--GizmoType: Portal Name: g_Portal_Rectangle_Orange_IconDoor-2926 ActorSNO: 178293 Distance: 10.50083 Position: <287.3289, 511.8875="", 24.15775="">-->
+      <While condition="not ActorExistsAt(178293, 287, 511, 24, 50)">
+
+        <!-- GizmoType: BreakableDoor Name: Uber_BossPortal_Door-1483 ActorSNO: 258064 Distance: 19.55174 Position: <291.1101, 515.7273, 24.72> Barracade: True Radius: 9.196252 Health0.00100000004749745/1 -->
+        <MoveToActor questId="312429" stepId="2" actorId="258064" interactRange="8" pathPrecision="5" pathPointLimit="250" statusText="" />
+
+        <WaitTimer questId="1" stepId="1" waitTime="5000" />
+      </While>
+
+
+      <MoveToActor questId="312429" stepId="2" actorId="178293" interactRange="8" pathPrecision="5" pathPointLimit="250" statusText="" isPortal="True" destinationWorldId="257117" />
+    </While>
+
+
+    <!-- Heretic's Abode Level Area 257116-->
+    <While condition="CurrentLevelAreaId == 257116">
+
+      <!--No Machine and No Portal! -->
+      <If condition="not HasBackpackItem(366948) and not ActorExistsAt(258394, 134, 146, 2, 50)">
+        <!-- Load Next Profile! -->
+        <LogMessage quest="1" step="2" output="[Uber Bot] No Portal, No Machine -- Loading Next Profile!" />
+        <LoadProfile file="Uber_Bones.xml" />
+      </If>
+
+      <!--GizmoType: BossPortal Name: Uber_Portal2-11030 ActorSNO: 258394 Distance: 1.913947 Position: <134.8997, 146.8138="", 2="">-->
+        <While condition="not ActorExistsAt(258394, 134, 146, 2, 50)">
+        <!-- Use Machine -->
+        <UseItem sno="366948" />
+        <WaitTimer questId="1" stepId="1" waitTime="5000" />
+      </While>
+
+      <MoveToActor questId="312429" stepId="2" actorId="258394" interactRange="8" pathPrecision="5" pathPointLimit="250" statusText="" isPortal="True" destinationWorldId="256607" />
+    </While>
+
+
+    <!-- Realm of Turmoil Level Area 256742 -->
+    <While condition="CurrentLevelAreaId == 256742">
+      <WaitTimer questId="1" stepId="1" waitTime="2500" />
+      <SafeMoveTo questId="312429" stepId="2" x="475" y="356" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+
+      <!--new UnitEntry(255623, UnitFlags.Boss, "Uber_SiegebreakerDemon"),
+      new UnitEntry(255634, UnitFlags.Boss, "Uber_ZoltunKulle"),-->
+
+
+      <FunkyWhile condition="ActorPresent(255623) or
+                          ActorPresent(255634)">
+        <WaitTimer questId="312429" stepId="2" waitTime="5000" />
+      </FunkyWhile>
+
+      <LogMessage questId="312429" stepId="2" output="[Uber Bot] War Is Finished!" />
+      <WaitTimer questId="1" stepId="1" waitTime="4500" />
+      <LoadProfile file="Uber_Bones.xml" />
+    </While>
+
+
+
+  </Order>
+</Profile>

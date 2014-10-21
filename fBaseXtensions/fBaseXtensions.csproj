@@ -1114,6 +1114,15 @@
     <Compile Include="XML\CustomConditions.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="XML\UseItemTag.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="XML\FunkyClusterTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XML\FunkyCustomWeightTag.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="XML\MapMarkerExistsTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -1127,9 +1136,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\FunkyAdventureMode.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="XML\FunkyClusterTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\FunkyWaypoint.cs">

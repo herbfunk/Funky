@@ -955,6 +955,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					}
 				} // Forcing close range target or not?
 
+
+                //Special Custom Weight Check (From Profile Tags)
+			    if (FunkyGame.Game.ObjectCustomWeights.ContainsKey(SNOID))
+			        Weight += FunkyGame.Game.ObjectCustomWeights[SNOID];
+
 			}
 			else
 			{

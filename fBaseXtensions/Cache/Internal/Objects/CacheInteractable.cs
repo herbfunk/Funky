@@ -424,6 +424,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						Weight = 11000d - (Math.Floor(centreDistance) * 190d);
 						break;
 				}
+
+                //Special Custom Weight Check (From Profile Tags)
+                if (FunkyGame.Game.ObjectCustomWeights.ContainsKey(SNOID))
+                    Weight += FunkyGame.Game.ObjectCustomWeights[SNOID];
 			}
 			else
 			{

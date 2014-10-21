@@ -1,0 +1,9 @@
+﻿Funky Uber Bot Profile
+
+What is it?
+Set of profiles that bots the uber bosses!
+It requires the uber machines to already be crafted.
+
+
+Requirements
+fBaseXtensions Plugin!

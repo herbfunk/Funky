@@ -2557,6 +2557,34 @@
       <PluginDroppedItemTypes>InfernalKey</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>364723</SnoId>
+      <InternalName>DemonOrgan_Ghom_x1</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>364725</SnoId>
+      <InternalName>DemonOrgan_Diablo_x1</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>364724</SnoId>
+      <InternalName>DemonOrgan_SiegeBreaker_x1</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>364722</SnoId>
+      <InternalName>DemonOrgan_SkeletonKing_x1</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>323722</SnoId>
       <InternalName>LootRunKey</InternalName>
       <ActorType>Item</ActorType>

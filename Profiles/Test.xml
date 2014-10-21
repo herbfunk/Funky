@@ -4,10 +4,15 @@
   <KillMonsters>True</KillMonsters>
   <PickupLoot>True</PickupLoot>
   <Order>
-    <LogMessage questId="312429" stepId="2" output="Checking Profile!" />
     
-    <FunkyWhile condition="(QuestAndStepActive(337492,1))">
-      <LogMessage questId="312429" stepId="2" output="Quest and Step are active!!" />
-    </FunkyWhile>
+    <FunkyProfile>
+      <Cluster enabled="False" />
+      
+      <ObjectWeighting>
+        <ObjectWeight sno="1000" weight="10000" />
+      </ObjectWeighting>
+    </FunkyProfile>
+    
+    <LogMessage questId="312429" stepId="2" output="Checking Profile!" />
   </Order>
 </Profile>

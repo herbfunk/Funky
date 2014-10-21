@@ -164,6 +164,7 @@ namespace fBaseXtensions
 			Logger.Write(LogLevel.OutOfCombat, "New Game Started");
 
 			SettingAdventureMode.AdventureModeSettingsTag = FunkyBaseExtension.Settings.AdventureMode;
+
 			if (FunkyGame.AdventureMode)
 			{
 				FunkyGame.Game.ResetCombatModifiers();
@@ -207,6 +208,8 @@ namespace fBaseXtensions
 			Logger.Write(LogLevel.Event, "OnProfileChanged Event");
 			string sThisProfile = ProfileManager.CurrentProfile.Path;
 			FunkyGame.CurrentGameStats.ProfileChanged(sThisProfile);
+
+		    FunkyGame.Game.ObjectCustomWeights.Clear();
 			SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
 			FunkyGame.Game.QuestMode = false;
 			SettingLOSMovement.LOSSettingsTag = FunkyBaseExtension.Settings.LOSMovement;

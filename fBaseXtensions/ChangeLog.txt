@@ -6,6 +6,8 @@ Added CustomConditions class for custom conditions in If/While tags.
 
 Added FunkyWhile profile tag -- which constantly checks the condition and breaks once it fails.
 
+Added UseItem tag -- accepts sno id and attempts to use the item.
+
 Crusader
 	Smite now considered "Ranged" and Usage Range has been increased.
 	Fist of Heavens considered "Ranged" now.

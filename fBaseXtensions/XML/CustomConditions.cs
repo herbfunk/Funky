@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Game;
 using Zeta.Bot.Settings;
 using Zeta.Common;
@@ -29,13 +30,21 @@ namespace fBaseXtensions.XML
             {//Quest not in progress!
                 return false;
             }
-                
+
             if (step != -1 && FunkyGame.Bounty.ActiveQuests[sno].Step != step)
             {//Quest Step does not match!
                 return false;
             }
 
             return true;
+        }
+
+        public static bool ActorPresent(int sno)
+        {
+            if (ObjectCache.ShouldUpdateObjectCollection)
+                ObjectCache.UpdateCacheObjectCollection();
+
+            return ObjectCache.Objects.Values.Any(o => o.SNOID == sno);
         }
     }
 }

@@ -159,6 +159,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			if (centreDistance <= 12f)
 				Weight += 2000d;
 
+
+            //Special Custom Weight Check (From Profile Tags)
+            if (FunkyGame.Game.ObjectCustomWeights.ContainsKey(SNOID))
+                Weight += FunkyGame.Game.ObjectCustomWeights[SNOID];
+
 		}
 
 		public override bool IsZDifferenceValid

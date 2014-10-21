@@ -260,6 +260,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						}
 						break;
 				}
+
+                //Special Custom Weight Check (From Profile Tags)
+                if (FunkyGame.Game.ObjectCustomWeights.ContainsKey(SNOID))
+                    Weight += FunkyGame.Game.ObjectCustomWeights[SNOID];
 			}
 			else
 			{
