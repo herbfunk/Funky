@@ -1,0 +1,52 @@
+<Profile>
+  <Name>Funky - KeyBot The Silver Spire - Act4</Name>
+  <GameParams quest="-1" step="-1" act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <Order>
+    <FunkySetAdventureMode enabled="False" />
+    <TrinityMaxDeaths questId="1" max="3" />
+    <ToggleTargeting combat="True" looting="True" lootRadius="50" />
+
+
+    <While condition="CurrentLevelAreaId != 109538">
+      <UseWaypoint waypointNumber="44" questId="1"/>
+      <WaitTimer questId="1" waitTime="2500" />
+    </While>
+
+    <FunkyClustering>
+      <ExceptionList>
+        <ClusterException sno="256054" />
+      </ExceptionList>
+    </FunkyClustering>
+
+    <FunkyWhileActorPresent sno="256054" present="False">
+      <TrinityExploreDungeon questId="1" stepId="2" until="ObjectFound" actorId="256054" objectDistance="60" boxTolerance="0.20" boxSize="45" timeoutType="Timer" timeoutValue="240" townPortalOnTimeout="false">
+        <PrioritizeScenes>
+          <PriorityScene sceneName="Portal" />
+        </PrioritizeScenes>
+        <IgnoreScenes>
+          <IgnoreScene sceneName="Entrance" />
+          <IgnoreScene sceneName="_N_" />
+          <IgnoreScene sceneName="_S_" />
+          <IgnoreScene sceneName="_E_" />
+          <IgnoreScene sceneName="_W_" />
+        </IgnoreScenes>
+      </TrinityExploreDungeon>
+    </FunkyWhileActorPresent>
+
+    <FunkyWhileActorPresent sno="256054" present="True">
+      <MoveTo questId="1" actorId="256054" pathPrecision="20" />
+      <WaitTimer questId="1" waitTime="2000" />
+    </FunkyWhileActorPresent>
+
+    <!--<If condition="ActorExistsAt(256054, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 300)">-->
+    <FunkyWhileActorPresent sno="256054" present="True">
+      <MoveTo questId="1" actorId="256054" pathPrecision="20" />
+      <WaitTimer questId="1" waitTime="2000" />
+    </FunkyWhileActorPresent>
+    
+    <WaitTimer questId="1" waitTime="6000" />
+    <LoadProfile file="Loader.xml" />
+  </Order>
+</Profile>

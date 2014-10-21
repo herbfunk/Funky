@@ -1,0 +1,37 @@
+<Profile>
+  <Name>Trial Rift Starter</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="80" />
+    
+    <!-- Finished -->
+    <If condition="QuestAndStepActive(405695, 9)">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemNPC" />
+      <WaitTimer questId="1" stepId="1" waitTime="5000" />
+      <LoadProfile file="_Starter_Default.xml" />
+    </If>
+    
+    <!-- Active -->
+    <If condition="QuestAndStepActive(405695, 13) or QuestAndStepActive(405695, 1)">
+      <LoadProfile file="Trial_Rift.xml" />
+    </If>
+    
+    <HasKeystone Keystone="Trial" ItemSource="Backpack" not="True">
+      <LoadProfile file="_Starter_Default.xml" />
+    </HasKeystone>
+    
+    <WaitTimer questId="1" stepId="1" waitTime="1000" />
+
+    <!-- Open Portal -->
+    <While condition="ZetaDia.IsInTown">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemObelisk" />
+      <OpenRiftPortal Keystone="Trial" />
+      <WaitTimer questId="1" stepId="1" waitTime="5000" />
+    </While>
+    
+    <LoadProfile file="Trial_Rift.xml" />
+  </Order>
+</Profile>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyDebug", "FunkyDebug\FunkyDebug.csproj", "{2D41D60B-069C-4240-869D-08DCF7FF0E26}"
 EndProject
@@ -9,14 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fBaseXtensions", "fBaseXten
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheBrowser", "CacheBrowser\CacheBrowser.csproj", "{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunkyProfiles", "FunkyProfiles\FunkyProfiles.csproj", "{94D69BDC-47B5-456A-8F85-C79328D12596}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fItemPlugin", "fItemPlugin\fItemPlugin.csproj", "{0AB4160A-A6F1-4A2F-8295-E64674DF7904}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9B349AF5-9A32-49A9-B815-9D2BA7BCE694} = {9B349AF5-9A32-49A9-B815-9D2BA7BCE694}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", "{59FD095F-D6D5-4462-A60D-0157488D9D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profiles", "Profiles\Profiles.csproj", "{D0CE5A57-301A-4175-8207-056A3D411961}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,16 +58,6 @@ Global
 		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3D1DD2FD-15EF-4FCE-A902-E80A43AB750E}.Release|x86.ActiveCfg = Release|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{94D69BDC-47B5-456A-8F85-C79328D12596}.Release|x86.ActiveCfg = Release|Any CPU
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -78,6 +68,16 @@ Global
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|x86.ActiveCfg = Release|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

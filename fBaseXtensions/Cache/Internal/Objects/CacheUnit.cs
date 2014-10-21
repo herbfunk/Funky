@@ -1772,8 +1772,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			//Check if we should mod our distance:: used for worm bosses
 			if (IsWormBoss)
 				FunkyGame.Hero.Class.PowerPrime.MinimumRange = FunkyGame.Hero.Class.IsMeleeClass ? 14 : 16;
-			else if (IgnoresLOSCheck)
-				FunkyGame.Hero.Class.PowerPrime.MinimumRange = (int)(ActorSphereRadius.Value * 1.5);
+			//else if (IgnoresLOSCheck)
+				//FunkyGame.Hero.Class.PowerPrime.MinimumRange = (int)(ActorSphereRadius.Value * 1.5);
 			else if (Hotbar.HasBuff(SNOPower.Pages_Buff_Electrified))
 			{
 				if (FunkyGame.Hero.Class.PowerPrime.MinimumRange>20)

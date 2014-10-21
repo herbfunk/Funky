@@ -1,0 +1,126 @@
+<Profile>
+	<Name>Funky - KeyBot Fields of Misery - Act1</Name>
+	<GameParams quest="-1" step="-1" act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+	<KillMonsters>True</KillMonsters>
+	<PickupLoot>True</PickupLoot>
+
+<Order>
+	<FunkySetAdventureMode enabled="False" />
+	<TrinityMaxDeaths questId="1" max="3" />
+	<ToggleTargeting combat="True" looting="True" lootRadius="50" />
+	<FunkyClustering>
+		<ExceptionList>
+			<ClusterException sno="255704" />
+		</ExceptionList>
+	</FunkyClustering>
+	
+	<While condition="CurrentWorldId != 71150">
+    <UseWaypoint waypointNumber="7" questId="1"/>	
+		<WaitTimer questId="1" waitTime="2500" />
+	</While>	
+	
+	<!--<FunkyClustering enabled="True" radius="10" units="10" range="100">
+		<ExceptionList>
+			<ClusterException sno="255704" />
+		</ExceptionList>
+	</FunkyClustering>-->
+	
+	<FunkyWhileActorPresent sno="255704" present="False">
+		<TrinityMoveTo questId="1" x="2121.814" y="1752.232" z="0.1000008" NoSkip="false" pathPrecision="10"/> 
+		<TrinityMoveTo questId="1" x="2100.219" y="1677.018" z="0.1000005" NoSkip="false" pathPrecision="10"/> 
+		<TrinityMoveTo questId="1" x="2091.422" y="1623.293" z="2.680532" NoSkip="false" pathPrecision="10"/>
+		<TrinityMoveTo questId="1" x="2089.223" y="1544.358" z="5.052154" NoSkip="false" pathPrecision="10"/> 
+		<TrinityMoveTo questId="1" x="2090.912" y="1479.448" z="0.1000005" NoSkip="false" pathPrecision="10"/> 
+		<TrinityMoveTo questId="1" x="2097.993" y="1474.82" z="0.09999999" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2137.276" y="1370.932" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2165.769" y="1277.219" z="0.1000004" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2156.99" y="1225.715" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2163.954" y="1151.602" z="0.1000004" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2218.746" y="1136.081" z="0.1000002" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2260.182" y="1091.263" z="0.2" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2292.532" y="1054.595" z="0.1000002" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2348.369" y="1002.666" z="0.1000002" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2386.734" y="967.7734" z="0.1000002" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2415.902" y="900.5545" z="0.1000002" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2414.383" y="839.4459" z="0.1000002" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2405.958" y="742.9651" z="0.1000004" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2378.889" y="694.4801" z="0.09999952" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2296.881" y="710.7858" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2259.397" y="749.5108" z="0.100001" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2242.711" y="853.623" z="0.4391971" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2220.791" y="931.9771" z="0.1000003" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2172.939" y="975.9068" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2106.936" y="990.8749" z="0.1000008" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2105.972" y="1065.865" z="0.1000009" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2067.576" y="1108.32" z="0.1000005" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2019.373" y="1033.464" z="0.09052859" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2021.42" y="960.0733" z="0.1000007" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2078.554" y="932.1022" z="0.128922" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2138.079" y="891.3553" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2149.422" y="807.8272" z="0.09999692" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2169.041" y="734.3105" z="0.100001" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2180.917" y="655.9212" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2214.359" y="623.4834" z="0.1000005" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2229.098" y="569.7237" z="0.1000003" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2204.356" y="514.4288" z="0.1000004" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2189.308" y="477.6703" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2140.952" y="539.5485" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2120.283" y="590.9316" z="0.11" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2057.712" y="647.8866" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2033.8" y="712.4767" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2054.067" y="763.7806" z="0.09999999" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2060.212" y="817.3734" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2011.116" y="850.2619" z="0.09999915" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1969.188" y="946.2283" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1891.022" y="946.9892" z="0.1000005" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1843.926" y="905.8502" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1824.465" y="864.5573" z="0.1000004" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1882.965" y="820.3901" z="0.1000009" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1846.451" y="761.3127" z="0.100001" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1909.286" y="710.9962" z="0.2000001" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1947.527" y="658.0102" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1980.798" y="610.2832" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2007.771" y="573.7601" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2042.391" y="519.7237" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2082.958" y="452.0928" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="2097.281" y="423.1006" z="0.09999996" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="2018.194" y="385.1681" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1977.917" y="428.405" z="0.1000005" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1931.761" y="421.8185" z="0.1000004" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1902.265" y="480.3408" z="0.1139787" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1909.174" y="555.0732" z="0.2000004" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1802.685" y="489.7834" z="0.1999999" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1791.325" y="414.719" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1838.378" y="364.4988" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1907.112" y="307.4904" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1931.072" y="254.1432" z="0.1000002" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1855.712" y="224.7134" z="0.1000008" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1814.526" y="216.1432" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1754.3" y="188.8824" z="0.100001" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1686.755" y="204.7353" z="0.100001" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1722.031" y="274.7891" z="0.09999999" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1682.46" y="311.1886" z="0.1" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1674.57" y="352.9521" z="0.1000005" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1682.766" y="418.588" z="0.1" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1688.087" y="499.5175" z="0.2" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1673.112" y="567.1138" z="0.1000029" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1693.368" y="632.4119" z="0.2" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1687.397" y="717.2836" z="0.2000025" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1775.314" y="730.1959" z="0.100001" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1778.166" y="795.3933" z="0.08540052" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1679.421" y="779.728" z="0.1000013" NoSkip="false" pathPrecision="30"/>
+		<TrinityMoveTo questId="1" x="1576.791" y="786.8594" z="9.155185" NoSkip="false" pathPrecision="30"/> 
+		<TrinityMoveTo questId="1" x="1563.451" y="824.5952" z="22.32685" NoSkip="false" pathPrecision="30"/>
+		
+		<ToggleTargeting questId="1" combat="True" />
+	</FunkyWhileActorPresent>
+
+	<FunkyWhileActorPresent sno="255704" present="True">
+    <FunkyMoveToSno questId="1" Sno="255704" pathPrecision="20" />
+		<WaitTimer questId="1" waitTime="2000" />
+	</FunkyWhileActorPresent>
+	<WaitTimer questId="1" waitTime="6000" />
+  
+  <LoadProfile file="Loader.xml" />
+</Order>
+</Profile>

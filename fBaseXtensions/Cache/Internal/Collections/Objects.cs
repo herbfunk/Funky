@@ -61,14 +61,33 @@ namespace fBaseXtensions.Cache.Internal.Collections
 				OnObjectAddedToCollection(value);
 		}
 
-		public delegate void ObjectRemovedFromCollection(CacheObject obj);
+	    public class ObjectRemovedArgs
+	    {
+            public int SNO { get; set; }
+            public int RAGUID { get; set; }
+            public int ACDGUID { get; set; }
+
+	        public ObjectRemovedArgs(CacheObject obj)
+	        {
+	            SNO = obj.SNOID;
+	            RAGUID = obj.RAGUID;
+	            ACDGUID = obj.AcdGuid.HasValue ? obj.AcdGuid.Value : -1;
+	        }
+
+	        public ObjectRemovedArgs(int sno, int raguid, int acdguid)
+	        {
+	            SNO = sno;
+	            RAGUID = raguid;
+	            ACDGUID = acdguid;
+	        }
+	    }
+		public delegate void ObjectRemovedFromCollection(ObjectRemovedArgs args);
 		public event ObjectRemovedFromCollection OnObjectRemovedFromCollection;
 		public void Remove(int key)
 		{
 			if (OnObjectRemovedFromCollection != null)
 			{
-				var clone = objects[key].Clone();
-				OnObjectRemovedFromCollection(clone);
+                OnObjectRemovedFromCollection(new ObjectRemovedArgs(objects[key]));
 			}
 				
 			objects.Remove(key);

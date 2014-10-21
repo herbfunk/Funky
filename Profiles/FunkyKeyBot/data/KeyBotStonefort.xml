@@ -1,0 +1,116 @@
+<Profile>
+	<Name>Funky - KeyBot Stonefort - Act3</Name>
+	<GameParams quest="-1" step="-1" act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+	<KillMonsters>True</KillMonsters>
+	<PickupLoot>True</PickupLoot>
+
+<Order>
+	<FunkySetAdventureMode enabled="False" />
+	<TrinityMaxDeaths questId="1" max="3" />
+	<ToggleTargeting combat="True" looting="True" lootRadius="50" />
+
+	<While condition="CurrentLevelAreaId != 93173">
+    <UseWaypoint waypointNumber="27" questId="1"/>	
+		<WaitTimer questId="1" waitTime="2500" />
+	</While>
+	
+	<FunkyClustering>
+		<ExceptionList>
+			<ClusterException sno="256040" />
+		</ExceptionList>
+	</FunkyClustering>
+
+	<FunkyWhileActorPresent sno="256040" present="False">
+
+		<!-- Checkpoint near door of Skycrown-->
+		<If condition="ActorExistsAt(3795, 4263.047, 4200.328, -25.00001, 100) and CurrentWorldId == 93099">
+			<TrinityMoveTo navigation="true" questId="1" x="4250.376" y="4232.752" z="-24.56764" pathPrecision="10" name="Stonefort-01" />
+			<TrinityMoveTo navigation="true" questId="1" x="4243.99" y="4186.121" z="0.245108"  name="Stonefort-01" />
+			<TrinityMoveTo navigation="true" questId="1" x="4185.254" y="4075.947" z="0.2290937" pathPrecision="10" name="Stonefort-01" />
+			<TrinityMoveTo navigation="true" questId="1" x="4183.186" y="3935.875" z="2.820084" pathPrecision="10" name="Stonefort-01" />	
+		</If>	
+		
+		<!-- Checkpoint across bridge-->
+		<If condition="ActorExistsAt(3795, 4183.186, 3935.875, 2.820084, 100) and CurrentWorldId == 93099">
+			<TrinityMoveTo navigation="true" questId="1" x="4189.281" y="3851.575" z="0.09999619" pathPrecision="10" name="Stonefort-01" />
+			<TrinityMoveTo navigation="true" questId="1" x="4195.19" y="3875.053" z="1.332369" pathPrecision="10" name="Stonefort-02" />
+			<TrinityMoveTo navigation="true" questId="1" x="4242.93" y="3874.285" z="0.09999755" pathPrecision="10" name="Stonefort-03" />
+			
+			<TrinityMoveTo navigation="true" questId="1" x="4218.704" y="3772.069" z="0.1000018" pathPrecision="10" name="Stonefort-06" />
+			<TrinityMoveTo navigation="true" questId="1" x="4291.727" y="3768.172" z="25.28019"  name="Stonefort-07" />
+			<TrinityMoveTo navigation="true" questId="1" x="4280.826" y="3671.434" z="50.1986"  name="Stonefort-08" />
+			<TrinityMoveTo navigation="true" questId="1" x="4243.191" y="3642.335" z="50.3272" pathPrecision="10" name="Stonefort-09" />
+			<TrinityMoveTo navigation="true" questId="1" x="4148.443" y="3640.988" z="25.26313"  name="Stonefort-10" />
+			<TrinityMoveTo navigation="true" questId="1" x="4151.076" y="3710.092" z="0.1000038"  name="Stonefort-11" />
+			<TrinityMoveTo navigation="true" questId="1" x="4132.957" y="3708.21" z="0.1000038" pathPrecision="10" name="Stonefort-13" />
+			<TrinityMoveTo navigation="true" questId="1" x="4036.055" y="3701.815" z="0.9952618" pathPrecision="10" name="Stonefort-14" />
+			<TrinityMoveTo navigation="true" questId="1" x="4049.123" y="3744.979" z="0.1" pathPrecision="10" name="Stonefort-15" />
+			<TrinityMoveTo navigation="true" questId="1" x="3956.753" y="3808.968" z="-24.82707" pathPrecision="10" name="Stonefort-17" />
+			<TrinityMoveTo navigation="true" questId="1" x="3868.592" y="3808.428" z="-24.9" pathPrecision="10" name="Stonefort-18" />
+			<TrinityMoveTo navigation="true" questId="1" x="3867.485" y="3749.424" z="0.1000076"  name="Stonefort-19" />
+			<TrinityMoveTo navigation="true" questId="1" x="3837.84" y="3709.956" z="0.1000027" pathPrecision="10" name="Stonefort-20" />
+			<TrinityMoveTo navigation="true" questId="1" x="3875.368" y="3689.878" z="0.1000015" pathPrecision="10" name="Stonefort-21" />
+			<TrinityMoveTo navigation="true" questId="1" x="3955.917" y="3687.855" z="25.1"  name="Stonefort-22" />
+			<TrinityMoveTo navigation="true" questId="1" x="3953.049" y="3654.884" z="25.24511" pathPrecision="10" name="Stonefort-23" />
+			
+			<TrinityMoveTo navigation="true" questId="1" x="3930.442" y="3687.597" z="25.10001" pathPrecision="10" name="Stonefort-32" />
+			<TrinityMoveTo navigation="true" questId="1" x="3874.085" y="3690.057" z="0.1000028"  name="Stonefort-33" />
+			<TrinityMoveTo navigation="true" questId="1" x="3753.486" y="3693.653" z="0.1000019" pathPrecision="10" name="Stonefort-34" />
+			
+			<TrinityMoveTo navigation="true" questId="1" x="3763.774" y="3744.978" z="0.1000019" pathPrecision="10" name="Stonefort-34 Magi 1" />
+
+			<TrinityMoveTo navigation="true" questId="1" x="3740.242" y="3661.956" z="0.2451074" pathPrecision="10" name="Stonefort-35" />
+			
+			<TrinityMoveTo navigation="true" questId="1" x="3737.482" y="3692.022" z="0.1000019" pathPrecision="10" name="Stonefort-38" />		
+			<TrinityMoveTo navigation="true" questId="1" x="3688.689" y="3705.723" z="0.1000019" pathPrecision="10" name="Stonefort-39" />
+			<TrinityMoveTo navigation="true" questId="1" x="3579.041" y="3689.529" z="0.8375952" pathPrecision="10" name="Stonefort-40" />
+			<TrinityMoveTo navigation="true" questId="1" x="3503.109" y="3693.468" z="25.27349"  name="Stonefort-41" />
+			<TrinityMoveTo navigation="true" questId="1" x="3492.066" y="3780.812" z="25.27348" pathPrecision="10" name="Stonefort-42" />
+			
+			<TrinityMoveTo navigation="true" questId="1" x="3566.036" y="3784.871" z="25.27349" pathPrecision="10" name="Magi 42a" />
+
+			<TrinityMoveTo navigation="true" questId="1" x="3385.147" y="3784.31" z="0.3137339"  name="Stonefort-43" />
+			<TrinityMoveTo navigation="true" questId="1" x="3391.344" y="3630.601" z="-24.8054"  name="Stonefort-44" />
+			<TrinityMoveTo navigation="true" questId="1" x="3446.663" y="3629.618" z="0.3137375" name="Stonefort-45"  />
+			<TrinityMoveTo navigation="true" questId="1" x="3502.791" y="3620.802" z="0.1" pathPrecision="1" name="Stonefort-46"/>
+			<TrinityMoveTo navigation="true" questId="1" x="3509.327" y="3618.292" z="0.1000028" pathPrecision="1" name="Stonefort-47" />
+			<TrinityMoveTo navigation="true" questId="1" x="3507.779" y="3549.252" z="0.1000019" pathPrecision="3" name="Stonefort-48"/>
+			<TrinityMoveTo navigation="true" questId="1" x="3510.614" y="3501.776" z="0.100001"  pathPrecision="3" name="Stonefort-49" />	
+			<TrinityMoveTo navigation="true" questId="1" x="3504.309" y="3459.253" z="0.2522737" pathPrecision="3" name="Stonefort-50"/> <!-- Stuck near catapult fixed-->
+			<TrinityMoveTo navigation="true" questId="1" x="3500.487" y="3308.97" z="0.1000015" pathPrecision="3" name="Stonefort-51"/>
+			<TrinityMoveTo navigation="true" questId="1" x="3555.146" y="3310.59" z="25.34047"  name="Stonefort-52"/>
+			<TrinityMoveTo navigation="true" questId="1" x="3564.974" y="3279.456" z="25.24511" pathPrecision="3" name="Stonefort-53"/>
+			<TrinityMoveTo navigation="true" questId="1" x="3564.974" y="3279.456" z="25.24511" pathPrecision="3" name="Stonefort-54"/>
+			<TrinityMoveTo navigation="true" questId="1" x="3506.301" y="3308.56" z="0.3282085"  name="Stonefort-55"/>
+			<TrinityMoveTo navigation="true" questId="1" x="3463.842" y="3298.881" z="0.1000038" pathPrecision="10" name="Stonefort-56" />
+			<TrinityMoveTo navigation="true" questId="1" x="3374.967" y="3244.451" z="0.1000038" pathPrecision="10" name="Stonefort-57" />
+			<TrinityMoveTo navigation="true" questId="1" x="3319.312" y="3257.573" z="0.09999999" pathPrecision="10" name="Stonefort-58" />
+			<TrinityMoveTo navigation="true" questId="1" x="3289.249" y="3320.663" z="0.4422254" pathPrecision="10" name="Stonefort-59" />
+			<TrinityMoveTo navigation="true" questId="1" x="3288.18" y="3325.812" z="0.589447"  name="Stonefort-60"/>
+		</If>
+		
+		<!-- Checkpoint -->	
+		<If condition="ActorExistsAt(3795, 3288.18, 3325.812, 0.589447, 50) and CurrentWorldId == 93099">
+			<TrinityMoveTo navigation="true" questId="1" x="3297.296" y="3318.617" z="0.3082159" name="Stonefort-61" />
+			<TrinityMoveTo navigation="true" questId="1" x="3266.247" y="3319.879" z="14.08129"  name="Stonefort-62"/>
+			<TrinityMoveTo navigation="true" questId="1" x="3170.153" y="3318.897" z="25.25741" pathPrecision="10" name="Stonefort-63" />
+			<TrinityMoveTo navigation="true" questId="1" x="3172.51" y="3238.327" z="25.25741" name="Stonefort-64" />
+			<TrinityMoveTo navigation="true" questId="1" x="3177.383" y="3183.601" z="0.3082168"  name="Stonefort-65" />
+			<TrinityMoveTo navigation="true" questId="1" x="3225.26" y="3178.965" z="0.1000008" pathPrecision="10" name="Stonefort-66" />
+			<TrinityMoveTo navigation="true" questId="1" x="3240.87" y="2990.068" z="0.1000019" pathPrecision="10" name="Stonefort-67" />
+			<TrinityMoveTo navigation="true" questId="1" x="3264.937" y="2751.992" z="0.3458459" pathPrecision="10" name="Stonefort-68" noskip="true" />
+		</If>
+		
+		<ToggleTargeting questId="1" combat="True" />
+	</FunkyWhileActorPresent>
+
+	<FunkyWhileActorPresent sno="256040" present="True">
+    <MoveTo questId="1" actorId="256040" pathPrecision="20" />
+		<WaitTimer questId="1" waitTime="2000" />
+	</FunkyWhileActorPresent>
+	<WaitTimer questId="1" waitTime="6000" />
+
+
+  <LoadProfile file="Loader.xml" />
+</Order>
+</Profile>

@@ -1,0 +1,167 @@
+<Profile>
+<Name>Funky Rift Bot Optimized Explore (Normal)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>True</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+<TargetBlacklists>
+	<TargetBlacklist actorId="355635"/> <!-- Furnace -->
+	<TargetBlacklist actorId="157531"/> <!-- Broken Watermill in Oasis -->
+	<TargetBlacklist actorId="170913"/> <!-- Broken door -->
+</TargetBlacklists>
+
+<Order>
+  <FunkyWhile condition="QuestAndStepActive(337492, 1)">
+
+		<!-- Small Cursed Hold-->
+		<If condition="(MarkerExistsAt(732643260, 543.0258, 840.2885, 1.596355, 100))
+    or (MarkerExistsAt(-1464312746, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1683860485, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876093, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876094, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876095, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876096, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876097, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876098, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876099, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876100, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876101, 543.0258, 840.2885, 1.596355, 100))
+    or (MarkerExistsAt(1877684886, 543.0258, 840.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876102, 543.0258, 840.2885, 1.596355, 100))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Small Cursed Hold with SafeMoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="967" y="817" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="954" y="959" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="732" y="961" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="725" y="841" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="721" y="647" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="724" y="478" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="800" y="486" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="802" y="675" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="800" y="486" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="959" y="482" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="961" y="705" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="839" y="729" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="837" y="840" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="968" y="822" z="0" pathPrecision="5" statusText="" />
+			<If condition="not ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+				<SafeMoveTo questId="312429" stepId="2" x="1010" y="890" z="0" pathPrecision="5" statusText="" />
+				<SafeMoveTo questId="312429" stepId="2" x="1165" y="877" z="0" pathPrecision="5" statusText="" />
+				<SafeMoveTo questId="312429" stepId="2" x="1105" y="823" z="0" pathPrecision="5" statusText="" />
+				<SafeMoveTo questId="312429" stepId="2" x="1028" y="814" z="-50" pathPrecision="5" statusText="" />
+			</If>
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Medium Cursed Hold-->
+		<If condition="(MarkerExistsAt(732643260, 303.0258, 600.2885, 1.596355, 100))
+    or (MarkerExistsAt(-1464312746, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1683860485, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876093, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876094, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876095, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876096, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876097, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876098, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876099, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876100, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876101, 303.0258, 600.2885, 1.596355, 100))
+    or (MarkerExistsAt(1877684886, 303.0258, 600.2885, 1.596355, 100))
+		or (MarkerExistsAt(1938876102, 303.0258, 600.2885, 1.596355, 100))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Medium Cursed Hold with SafeMoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="727" y="817" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="714" y="959" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="492" y="961" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="485" y="841" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="481" y="647" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="484" y="478" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="560" y="486" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="562" y="675" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="560" y="486" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="719" y="482" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="721" y="705" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="599" y="729" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="597" y="840" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="728" y="822" z="0" pathPrecision="5" statusText="" />
+
+			<SafeMoveTo questId="312429" stepId="2" x="967" y="817" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="954" y="959" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="732" y="961" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="725" y="841" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="721" y="647" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="724" y="478" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="800" y="486" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="802" y="675" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="800" y="486" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="959" y="482" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="961" y="705" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="839" y="729" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="837" y="840" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="968" y="822" z="0" pathPrecision="5" statusText="" />
+			<If condition="not ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+				<SafeMoveTo questId="312429" stepId="2" x="1010" y="890" z="0" pathPrecision="5" statusText="" />
+				<SafeMoveTo questId="312429" stepId="2" x="1165" y="877" z="0" pathPrecision="5" statusText="" />
+				<SafeMoveTo questId="312429" stepId="2" x="1105" y="823" z="0" pathPrecision="5" statusText="" />
+				<SafeMoveTo questId="312429" stepId="2" x="1028" y="814" z="-50" pathPrecision="5" statusText="" />
+			</If>
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Large Cursed Hold-->
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Large Cursed Hold with SafeMoveTo." />
+		<SafeMoveTo questId="312429" stepId="2" x="727" y="817" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="714" y="959" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="492" y="961" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="485" y="841" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="481" y="647" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="484" y="478" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="560" y="486" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="562" y="675" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="560" y="486" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="719" y="482" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="721" y="705" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="599" y="729" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="597" y="840" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="728" y="822" z="0" pathPrecision="5" statusText="" />
+
+		<SafeMoveTo questId="312429" stepId="2" x="967" y="817" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="954" y="959" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="732" y="961" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="725" y="841" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="721" y="647" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="724" y="478" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="800" y="486" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="802" y="675" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="800" y="486" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="959" y="482" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="961" y="705" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="839" y="729" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="837" y="840" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="968" y="822" z="0" pathPrecision="5" statusText="" />
+
+		<SafeMoveTo questId="312429" stepId="2" x="1201" y="481" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="1080" y="482" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="1079" y="1033" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="842" y="1029" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="835" y="1438" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="716" y="1436" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="720" y="1198" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="1199" y="1198" z="0" pathPrecision="5" statusText="" />
+		<SafeMoveTo questId="312429" stepId="2" x="1202" y="1101" z="0" pathPrecision="5" statusText="" />
+		<If condition="not ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+			<SafeMoveTo questId="312429" stepId="2" x="1010" y="890" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1165" y="877" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1105" y="823" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1028" y="814" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1078" y="946" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1082" y="1129" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1077" y="1207" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="962" y="1199" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="962" y="1437" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1200" y="1438" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1201" y="1113" z="0" pathPrecision="5" statusText="" />
+		</If>
+		<LoadProfile file="Normal_Rift.xml" />
+	</FunkyWhile>
+	<LoadProfile file="Normal_Rift.xml" />
+</Order>
+</Profile>

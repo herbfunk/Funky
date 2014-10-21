@@ -1,0 +1,91 @@
+<Profile>
+<Name>Funky Rift Bot Optimized Explore (Normal)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>True</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+<TargetBlacklists>
+	<TargetBlacklist actorId="355635"/> <!-- Furnace -->
+	<TargetBlacklist actorId="157531"/> <!-- Broken Watermill in Oasis -->
+	<TargetBlacklist actorId="170913"/> <!-- Broken door -->
+</TargetBlacklists>
+
+<Order>
+  <FunkyWhile condition="QuestAndStepActive(337492, 1)">
+
+		<!-- Battlefield Bridge Large-->
+		<If condition="(MarkerExistsAt(732643260, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876093, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876094, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876095, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876096, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876097, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876098, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876099, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876100, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876101, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(1938876102, 3937.963, 592.7666, -11.55366, 100))
+		or (MarkerExistsAt(-1464312746, 3937.963, 592.7666, -11.55366, 10))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Battlefield Bridge Large with SafeMoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="4070" y="595" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="4223" y="553" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="4095" y="713" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="4212" y="842" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="4088" y="923" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3992" y="1100" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3829" y="967" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3823" y="494" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="4022" y="459" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3794" y="482" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3699" y="633" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3736" y="839" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3808" y="976" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3701" y="1080" z="1" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3593" y="677" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3366" y="691" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3367" y="963" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3174" y="1004" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3260" y="653" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="3107" y="732" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="2993" y="848" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="2673" y="871" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="2366" y="846" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="2227" y="863" z="-24" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="2012" y="833" z="-24" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1893" y="882" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1814" y="856" z="-25" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1759" y="819" z="-24" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1647" y="881" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1506" y="870" z="-25" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1404" y="852" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1194" y="842" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Unknown version-->
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Unknown version of Battlefield Bridge with ExploreDungeon." />
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Battlefield Bridge @ 40/10/0.2" />
+		<While condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBF') and not 
+						  (ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100) or 
+						   (CurrentWorldId == 288454 and MarkerExistsAt(1938876094, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288685 and MarkerExistsAt(1938876095, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288687 and MarkerExistsAt(1938876096, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288798 and MarkerExistsAt(1938876097, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288800 and MarkerExistsAt(1938876098, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288802 and MarkerExistsAt(1938876099, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288804 and MarkerExistsAt(1938876100, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288810 and MarkerExistsAt(1938876101, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288814 and MarkerExistsAt(1938876102, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100))
+						  )">
+			<ExploreDungeon questId="1" stepId="2" until="FullyExplored" markerDistance="60" boxSize="40" pathPrecision="10" boxTolerance="0.2"/>
+			<LoadProfile file="Normal_Rift.xml" />
+		</While>
+		<While condition="not ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+			<ExploreDungeon questId="337492" stepId="1" until="RiftComplete" markerDistance="60" boxSize="40" pathPrecision="10" boxTolerance="0.2"/>
+			<LoadProfile file="Normal_Rift.xml" />
+		</While>
+		<LoadProfile file="Normal_Rift.xml" />
+	</FunkyWhile>
+	<LoadProfile file="Normal_Rift.xml" />
+</Order>
+</Profile>

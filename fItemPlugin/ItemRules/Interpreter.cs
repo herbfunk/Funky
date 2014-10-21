@@ -809,6 +809,7 @@ namespace fItemPlugin.ItemRules
 			  itemDic.Add("[UNIDENT]", item.IsUnidentified);
 			  itemDic.Add("[INTNAME]", item.InternalName);
 			  itemDic.Add("[ITEMID]", item.GameBalanceId.ToString());
+              itemDic.Add("[SNO]", item.ActorSNO);
 
 			  // if there are no stats return
 			  //if (item.Stats == null) return;
@@ -888,7 +889,7 @@ namespace fItemPlugin.ItemRules
 			  itemDic.Add("[ARCANEDMG%]", item.Stats.ArcaneSkillDamagePercentBonus);
 			  itemDic.Add("[HOLYDMG%]", item.Stats.HolySkillDamagePercentBonus);
 
-			  itemDic.Add("[PHYSDMG%]", item.Stats.SkillDamagePercentBonus);
+			  itemDic.Add("[PHYSDMG%]", item.Stats.PhysicalSkillDamagePercentBonus);
 
 			  itemDic.Add("[ELEMDMG%]", new float[] { item.Stats.FireSkillDamagePercentBonus,
                                                     item.Stats.LightningSkillDamagePercentBonus,
@@ -897,13 +898,7 @@ namespace fItemPlugin.ItemRules
                                                     item.Stats.ArcaneSkillDamagePercentBonus,
                                                     item.Stats.HolySkillDamagePercentBonus }.Max());
 
-			  itemDic.Add("[SKILLDMG%]", new float[] { item.Stats.FireSkillDamagePercentBonus,
-                                                    item.Stats.LightningSkillDamagePercentBonus,
-                                                    item.Stats.ColdSkillDamagePercentBonus,
-                                                    item.Stats.PosionSkillDamagePercentBonus,
-                                                    item.Stats.ArcaneSkillDamagePercentBonus,
-                                                    item.Stats.HolySkillDamagePercentBonus,
-                                                    item.Stats.SkillDamagePercentBonus}.Max());
+			  itemDic.Add("[SKILLDMG%]", item.Stats.SkillDamagePercentBonus);
 
 			  float damage, healing, toughness;
 			  item.GetStatChanges(out damage, out healing, out toughness);

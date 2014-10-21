@@ -33,7 +33,6 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 		public override void Initialize()
 		{
 			Range = 20;
-			Cost = 30;
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 

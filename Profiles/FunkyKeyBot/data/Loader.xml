@@ -1,0 +1,71 @@
+<Profile>
+	<Name>Funky - KeyBot Loader</Name>
+	<GameParams step="1" act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+	<KillMonsters>True</KillMonsters>
+	<PickupLoot>True</PickupLoot>
+	<TargetBlacklists>
+		<TargetBlacklist actorId="114622" name="Tyrael" />
+		<TargetBlacklist actorId="365097" />
+		<TargetBlacklist actorId="364601" />
+	</TargetBlacklists>
+
+<Order>
+	<ToggleTargeting combat="True" looting="True" lootRadius="50" />
+	
+  
+  <While condition="not Me.IsInTown ">
+    <UseTownPortal questId="1" />
+    <WaitTimer questId="1" stepId="1" waitTime="3000"/>
+  </While>
+  
+  <If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('a1o')">
+    <TrinityLoadOnce questId="1" stepId="1" noRandom="false">
+      <ProfileList>
+        <LoadProfileOnce profile="KeyBotFieldsOfMisery.xml" />
+      </ProfileList>
+    </TrinityLoadOnce>
+  </If>
+
+  <If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('a2o')">
+    <TrinityLoadOnce questId="1" stepId="1" noRandom="false">
+      <ProfileList>
+        <LoadProfileOnce profile="KeyBotDahlgurOasis.xml" />
+      </ProfileList>
+    </TrinityLoadOnce>
+  </If>
+
+  <If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('a3o')">
+    <TrinityLoadOnce questId="1" stepId="1" noRandom="false">
+      <ProfileList>
+        <LoadProfileOnce profile="KeyBotStonefort.xml" />
+      </ProfileList>
+    </TrinityLoadOnce>
+  </If>
+
+  <If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('a4o')">
+    <TrinityLoadOnce questId="1" stepId="1" noRandom="false">
+      <ProfileList>
+        <LoadProfileOnce profile="KeyBotTheSilverSpire.xml" />
+      </ProfileList>
+    </TrinityLoadOnce>
+  </If>
+  
+  <If condition="not Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('a1o') and
+      not Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('a2o') and
+      not Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('a3o') and
+      not Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('a4o')">
+
+    <TrinityLoadOnce questId="1" stepId="1" noRandom="false">
+      <ProfileList>
+        <LoadProfileOnce profile="KeyBotFieldsOfMisery.xml" />
+        <LoadProfileOnce profile="KeyBotDahlgurOasis.xml" />
+        <LoadProfileOnce profile="KeyBotStonefort.xml" />
+        <LoadProfileOnce profile="KeyBotTheSilverSpire.xml" />
+      </ProfileList>
+    </TrinityLoadOnce>
+  </If>
+	
+
+  <LeaveGame quest="1" step="1" reason="Finished" stayInParty="False" />
+</Order>
+</Profile>

@@ -1,0 +1,152 @@
+<Profile>
+	<Name>Funky - KeyBot Dahlgur Oasis Loader - Act2</Name>
+	<GameParams quest="-1" step="-1" act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+	<KillMonsters>True</KillMonsters>
+	<PickupLoot>True</PickupLoot>
+<Order>
+  <FunkySetAdventureMode enabled="False" />
+  <While condition="CurrentLevelAreaId != 57425">
+    <UseWaypoint waypointNumber="23" questId="1"/>
+    <WaitTimer questId="1" waitTime="2500" />
+  </While>
+  <WaitTimer questId="1" waitTime="1000" />
+  <ToggleTargeting combat="True" looting="True" lootRadius="50" />
+
+  <FunkyClustering>
+    <ExceptionList>
+      <ClusterException sno="256022" />
+    </ExceptionList>
+  </FunkyClustering>
+  
+	<If condition="ActorExistsAt(Me.ActorSNO, 3509, 3983, 102, 20) or
+				   ActorExistsAt(Me.ActorSNO, 3898, 4169, 102, 20)">
+		<LoadProfile profile="KeyBotDahlgurOasisWest.xml" />
+	</If>
+
+	<If condition="ActorExistsAt(Me.ActorSNO, 3463, 4369, 102, 20) or
+				   ActorExistsAt(Me.ActorSNO, 3549, 4269, 102, 20)">
+		<LoadProfile profile="KeyBotDahlgurOasisMid.xml" />
+	</If>
+
+	<If condition="ActorExistsAt(Me.ActorSNO, 2983, 4609, 102, 20) or
+				   ActorExistsAt(Me.ActorSNO, 2833, 4398, 102, 20)">
+		<LoadProfile profile="KeyBotDahlgurOasisEast.xml" />
+	</If>
+
+	<If condition="ActorExistsAt(Me.ActorSNO, 3178, 4204, 102, 20) or
+				   ActorExistsAt(Me.ActorSNO, 3029, 3983, 102, 20) or
+				   ActorExistsAt(Me.ActorSNO, 2973, 4264, 102, 20) or
+				   ActorExistsAt(Me.ActorSNO, 3190, 4191, 102, 20)">
+		<LoadProfile profile="KeyBotDahlgurOasisNW.xml" />
+	</If>
+	
+	<If condition="not ActorExistsAt(Me.ActorSNO, 3509, 3983, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 3898, 4169, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 3463, 4369, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 3548, 4269, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 2983, 4609, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 2833, 4398, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 3178, 4204, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 3029, 3983, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 2973, 4264, 102, 20) or
+	not ActorExistsAt(Me.ActorSNO, 3190, 4191, 102, 20)">
+		<TrinityMaxDeaths questId="1" max="3" />
+		
+		<LogMessage output="[KeyBot] => This waypoint is unknown" />
+    <FunkyWhileActorPresent sno="256022" present="False">
+		
+			<SafeMoveTo questId="1" x="4219.11" y="4387.877" z="94.4203" pathPrecision="8" navigation="true" />
+			<SafeMoveTo questId="1" x="4161.401" y="4504.677" z="100.0547" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="4111.484" y="4595.857" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="4187.239" y="4672.199" z="97.34127" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="4111.484" y="4595.857" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="4053.743" y="4632.044" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3986.753" y="4635.704" z="100.1119" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="4075.82" y="4490.384" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3982.22" y="4462.765" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3871.081" y="4608.379" z="100.0591" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3953.482" y="4739.026" z="97.5541" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- missing spot -->
+			<SafeMoveTo questId="1" x="3912.502" y="4702.98" z="97.45359" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Ensure no Stuck -->
+			<SafeMoveTo questId="1" x="3900.649" y="4633.374" z="100.1131" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Ensure no Stuck -->
+			<SafeMoveTo questId="1" x="3790.745" y="4636.63" z="98.08823" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3812.22" y="4598.735" z="100.0882" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3789.527" y="4558.647" z="100.0946" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3841.902" y="4513.143" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3839.374" y="4401.773" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3886.49" y="4220.695" z="100.0927" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3850.326" y="4198.906" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3916.267" y="4120.608" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3982.679" y="4222.559" z="97.6" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3876.997" y="4055.105" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3812.989" y="3987.49" z="100.0195" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- STUCKPOINT -->
+			<SafeMoveTo questId="1" x="3745.001" y="4085.805" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3547.484" y="4021.385" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- STUCKPOINT -->
+			<SafeMoveTo questId="1" x="3486.014" y="3939.068" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3467.684" y="3974.691" z="100.1007" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3482.328" y="4011.986" z="100.11" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3533.737" y="4041.491" z="100.0995" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3506.465" y="4112.114" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3483.322" y="4142.787" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3517.503" y="4207.877" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3575.004" y="4217.125" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3599.676" y="4161.26" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3597.224" y="4384.44" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3669.723" y="4366.751" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3708.806" y="4329.127" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3762.105" y="4352.523" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3764.753" y="4428.132" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3696.014" y="4427.23" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3686.062" y="4473.032" z="97.47635" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3727.674" y="4422.885" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3763.168" y="4401.488" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3753.78" y="4333.87" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3655.029" y="4352.191" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Avoid Wagon -->
+			<SafeMoveTo questId="1" x="3597.224" y="4384.44" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3448.229" y="4414.834" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3389.899" y="4364.895" z="100.0591" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3355.035" y="4231.469" z="100.1004" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3235.141" y="4182.993" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />  
+			<SafeMoveTo questId="1" x="3124.169" y="4123.921" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3081.957" y="4034.642" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3174.932" y="4044.101" z="99.9893" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3074.128" y="3983.315" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3018.151" y="3934.438" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="2981.843" y="3954.606" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="3009.544" y="4014.499" z="100.11" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="2992.25" y="4197.32" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3027.731" y="4243.196" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3202.938" y="4453.584" z="98.65264" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3151.411" y="4529.596" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3169.398" y="4609.085" z="98.00623" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3231.027" y="4674.403" z="97.34128" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3109.926" y="4551.934" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="2874.354" y="4573.568" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="2835.981" y="4628.62" z="98.08822" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="2966.502" y="4659.631" z="99.93564" pathPrecision="8" unsafeRandomDistance="3" navigation="true" /> <!-- Magi Add -->
+			<SafeMoveTo questId="1" x="2714.692" y="4474.128" z="101.6243" pathPrecision="8" unsafeRandomDistance="3" navigation="true"/>
+			<SafeMoveTo questId="1" x="2778.003" y="4398.69" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="2792.877" y="4212.372" z="100.1467" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="2790.936" y="4319.282" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="2843.875" y="4351.588" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="2871.557" y="4377.822" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="2900.219" y="4272.604" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="2882.751" y="4235.921" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3055.979" y="4326.854" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3118.818" y="4299.036" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3110.32" y="4208.194" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3179.581" y="4282.82" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
+			<SafeMoveTo questId="1" x="3198.814" y="4321.397" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" noskip="true" />
+		
+			<ToggleTargeting questId="1" combat="True" />
+		</FunkyWhileActorPresent>
+
+    <FunkyWhileActorPresent sno="256022" present="True">
+      <MoveTo questId="1" actorId="256022" pathPrecision="20" />
+      <WaitTimer questId="1" waitTime="2000" />
+    </FunkyWhileActorPresent>
+    <WaitTimer questId="1" waitTime="6000" />
+
+    <LoadProfile file="Loader.xml" />
+	</If>
+</Order>
+</Profile>

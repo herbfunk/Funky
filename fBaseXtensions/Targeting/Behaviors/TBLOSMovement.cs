@@ -49,7 +49,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 				if (obj == null)
 				{
 					if (FunkyGame.Navigation.LOSmovementObject != null &&
-						(FunkyGame.Navigation.LOSmovementObject.CentreDistance < (FunkyGame.Navigation.LOSmovementObject.IgnoringCacheCheck ? SettingLOSMovement.LOSSettingsTag.MinimumRangeMarkers : SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects) &&
+						(FunkyGame.Navigation.LOSmovementObject.CentreDistance < MinimumDistance &&
 						(FunkyGame.Navigation.LOSmovementObject.IgnoringCacheCheck || !FunkyGame.Navigation.LOSmovementObject.CacheContainsOrginObject())))
 					{//Invalidated the Line of sight obj!
 

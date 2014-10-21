@@ -13,6 +13,7 @@ using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Monitor;
 using fBaseXtensions.Settings;
+using fBaseXtensions.XML;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Common.Plugins;
@@ -75,6 +76,7 @@ namespace fBaseXtensions
 			TheCache.ObjectIDCache = new IDCache();
 			BotMain.OnStart += EventHandling.OnBotStart;
 			BotMain.OnStop += EventHandling.OnBotStop;
+	        CustomConditions.Initialize();
 			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
 			Logger.Write("Init Logger Completed!");
 			Logger.DBLog.DebugFormat("fBaseXtensions OnInitialize Finished");
@@ -111,7 +113,7 @@ namespace fBaseXtensions
 
 		public Version Version
 		{
-			get { return new Version(1, 1, 2, 4); }
+			get { return new Version(1, 1, 3, 0); }
 		}
 		public string Author
 		{

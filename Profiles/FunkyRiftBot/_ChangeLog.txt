@@ -1,0 +1,28 @@
+﻿v0008
+Changed ExploreDungeon tag until condition to PortalExitFound in Normal_RiftExplore.xml
+
+
+v0007
+fBaseXtensions fixed MoveItem tag issue with protected slots and occupied slots in backpack.
+
+v0006
+fBaseXensions added boon of the hoarder gem.
+Fixed issue with bounty profile ending outside town and causing endless loop for normal rift.
+
+v0005
+fBaseXtensions now has Gem Upgrading and Misc Settings found under General -> Adventure Mode tab in the settings window.
+
+v0004
+Updated for diablo patch v2.1.1
+Added hash markers for cursed hold.
+
+v0003
+Added KeyOrder Variable (<SetVariable Key="KeyOrder" Value="Highest" />) to Starter_Default -- Change Value to Lowest to use lowest instead.
+Fixed Bug -- Load Profile no profile found in Normal Cursed Tower profile.
+
+v0002
+Renamed Starting Profiles for easier clicking.
+Fixed Starting when Rift is Open while in town. Will now enter portal..
+
+v0001
+Profiles are all in a single folder now -- should fix the profile path to long error!

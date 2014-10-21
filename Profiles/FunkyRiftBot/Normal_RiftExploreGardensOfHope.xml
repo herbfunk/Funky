@@ -1,0 +1,80 @@
+<Profile>
+<Name>Funky Rift Bot Optimized Explore (Normal)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>True</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+<TargetBlacklists>
+	<TargetBlacklist actorId="355635"/> <!-- Furnace -->
+	<TargetBlacklist actorId="157531"/> <!-- Broken Watermill in Oasis -->
+	<TargetBlacklist actorId="170913"/> <!-- Broken door -->
+</TargetBlacklists>
+
+<Order>
+  <FunkyWhile condition="QuestAndStepActive(337492, 1)">
+
+		<!-- Gardens of Hope 1-->
+		<If condition="(MarkerExistsAt(732643260, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876093, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876094, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876095, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876096, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876097, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876098, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876099, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876100, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876101, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(1938876102, 1119.795, 513.736, 15.25936, 10))
+		or (MarkerExistsAt(-1464312746, 1119.795, 513.736, 15.25936, 10))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Gardens of Hope 1 with SafeMoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="1295" y="597" z="15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1162" y="571" z="15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1094" y="776" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1157" y="747" z="-15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1298" y="918" z="-15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1091" y="851" z="-15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1003" y="944" z="-15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="1046" y="1052" z="-15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="951" y="1005" z="-15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="856" y="1079" z="-15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="926" y="1275" z="-30" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="845" y="1231" z="-30" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="725" y="1459" z="-15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="627" y="1215" z="0" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="550" y="1009" z="15" pathPrecision="5" pathPointLimit="250" statusText="" />
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Unknown version of Gardens of Hope-->
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Unknown version of Gardens of Hope with ExploreDungeon." />
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Gardens of Hope @ 15/35/0.01" />
+		<While condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBF') and not 
+						  (ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100) or 
+						   (CurrentWorldId == 288454 and MarkerExistsAt(1938876094, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288685 and MarkerExistsAt(1938876095, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288687 and MarkerExistsAt(1938876096, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288798 and MarkerExistsAt(1938876097, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288800 and MarkerExistsAt(1938876098, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288802 and MarkerExistsAt(1938876099, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288804 and MarkerExistsAt(1938876100, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288810 and MarkerExistsAt(1938876101, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288814 and MarkerExistsAt(1938876102, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100))
+						  )">
+			<ExploreDungeon questId="1" stepId="2" until="FullyExplored" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+			<PriorityScenes>
+				<PriorityScene sceneName="Portal"/>
+				<PriorityScene sceneName="Exit" />
+			</PriorityScenes>
+			</ExploreDungeon>
+			<MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+			<LoadProfile file="Normal_Rift.xml" />
+		</While>
+		<While condition="not ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+			<ExploreDungeon questId="337492" stepId="1" until="RiftComplete" markerDistance="60" boxSize="10" pathPrecision="40" boxTolerance="0.2"/>
+			<LoadProfile file="Normal_Rift.xml" />
+		</While>
+		<LoadProfile file="Normal_Rift.xml" />
+	</FunkyWhile>
+	<LoadProfile file="Normal_Rift.xml" />
+</Order>
+</Profile>

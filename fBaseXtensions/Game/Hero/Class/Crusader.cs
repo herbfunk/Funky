@@ -190,5 +190,30 @@ namespace fBaseXtensions.Game.Hero.Class
 
 		}
 
+
+        /*Item Bonus Skill Affixes
+         * 
+         *      Helm + Boots
+         * Blessed Shield
+         * Fist of the Heavens
+         * Blessed Hammer
+         * Shield Bash
+         * Sweep Attack
+         * Phalanx
+         * 
+         *      Belt
+         * Slash
+         * Smite
+         * Justice
+         * Punish
+         * 
+         *      Chest + Shoulders
+         * Condemn
+         * Heaven's Fury
+         * Falling Sword
+         * Bombardment
+         * 
+         */
+
 	}
 }

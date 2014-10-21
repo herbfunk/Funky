@@ -1,0 +1,106 @@
+<Profile>
+<Name>Funky Rift Bot Optimized Explore (Tiered)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>True</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+<TargetBlacklists>
+	<TargetBlacklist actorId="355635"/> <!-- Furnace -->
+	<TargetBlacklist actorId="157531"/> <!-- Broken Watermill in Oasis -->
+	<TargetBlacklist actorId="170913"/> <!-- Broken door -->
+</TargetBlacklists>
+
+<Order>
+	<ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="80" />
+  <FunkyWhile condition="not (ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100) or 
+						   (CurrentWorldId == 288454 and MarkerExistsAt(1938876094, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288685 and MarkerExistsAt(1938876095, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288687 and MarkerExistsAt(1938876096, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288798 and MarkerExistsAt(1938876097, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288800 and MarkerExistsAt(1938876098, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288802 and MarkerExistsAt(1938876099, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288804 and MarkerExistsAt(1938876100, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288810 and MarkerExistsAt(1938876101, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288814 and MarkerExistsAt(1938876102, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (not (QuestAndStepActive(337492, 13) or QuestAndStepActive(337492, 16))
+						   )
+						  )">
+
+		<!-- Stonefort-->
+		<If condition="CurrentLevelAreaId == 346527"> 
+			<LoadProfile file="Tiered_RiftExploreStonefort.xml" />
+		</If>
+		<!-- Bastion's Keep-->
+		<If condition="CurrentLevelAreaId == 276226">
+			<LoadProfile file="Tiered_RiftExploreBastionKeep.xml" />
+		</If>
+		<!-- The Cursed Hold-->
+		<If condition="CurrentLevelAreaId == 334821">
+			<LoadProfile file="Tiered_RiftExploreCursedHold.xml" />
+		</If>
+		<!-- Tower of the Damned-->
+		<If condition="CurrentLevelAreaId == 342477"> 
+			<LoadProfile file="Tiered_RiftExploreCursedTower.xml" />
+		</If>
+		<!-- Southern Highlands-->
+		<If condition="CurrentLevelAreaId == 347562"> 
+			<LoadProfile file="Tiered_RiftExploreSouthernHighland.xml" />
+		</If>
+		<!-- 349048 Battlefield Bridge-->
+		<!-- 332335 Exterior Bog-->
+		<!-- 347870 Exterior Graveyard-->
+		<!-- 349181 Exterior Boneyards-->
+		<!-- 332323 Dahlgur Oasis-->
+		<!-- 347961 Forgotten Battlefield-->
+		<!-- This setting works well in open area maps-->
+		<If condition="CurrentLevelAreaId == 349048 or 
+					   CurrentLevelAreaId == 332335 or 
+					   CurrentLevelAreaId == 347870 or
+					   CurrentLevelAreaId == 349181 or
+					   CurrentLevelAreaId == 332323 or
+					   CurrentLevelAreaId == 347961">  
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Open Area @ 50/30/0.05" />
+			<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBF')">
+				<ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="100" boxSize="50" pathPrecision="30" boxTolerance="0.05">
+					<PriorityScenes>
+					<PriorityScene sceneName="Exit"/>
+					<PriorityScene sceneName="Entrance"/>
+					<PriorityScene sceneName="Portal"/>
+					</PriorityScenes>
+				</ExploreDungeon>
+				<LoadProfile file="Tiered_Rift.xml" />
+			</If>
+			<ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="100" boxSize="50" pathPrecision="30" boxTolerance="0.05">
+				<PriorityScenes>
+					<PriorityScene sceneName="Exit"/>
+					<PriorityScene sceneName="Entrance"/>
+					<PriorityScene sceneName="Portal"/>
+				</PriorityScenes>
+			</ExploreDungeon>
+			<LoadProfile file="Tiered_Rift.xml" />
+		</If>
+		<!-- Default small area explore-->
+		<!-- This default setting works very well in narrow dungeons-->
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Narrow Area @ 10/40/0.4" />
+		<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBF')">
+			<ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="100" boxSize="10" pathPrecision="40" boxTolerance="0.4">
+				<PriorityScenes>
+					<PriorityScene sceneName="Exit"/>
+					<PriorityScene sceneName="Entrance"/>
+					<PriorityScene sceneName="Portal"/>
+				</PriorityScenes>
+			</ExploreDungeon>
+			<LoadProfile file="Tiered_Rift.xml" />
+		</If>
+		<ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="100" boxSize="10" pathPrecision="40" boxTolerance="0.4">
+			<PriorityScenes>
+				<PriorityScene sceneName="Exit"/>
+				<PriorityScene sceneName="Entrance"/>
+				<PriorityScene sceneName="Portal"/>
+			</PriorityScenes>
+		</ExploreDungeon>
+		<LoadProfile file="Tiered_Rift.xml" />
+	</FunkyWhile>
+	<LoadProfile file="Tiered_Rift.xml" />
+</Order>
+</Profile>

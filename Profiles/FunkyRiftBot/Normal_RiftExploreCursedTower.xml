@@ -1,0 +1,255 @@
+<Profile>
+<Name>Funky Rift Bot Optimized Explore (Normal)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>True</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+<TargetBlacklists>
+	<TargetBlacklist actorId="355635"/> <!-- Furnace -->
+	<TargetBlacklist actorId="157531"/> <!-- Broken Watermill in Oasis -->
+	<TargetBlacklist actorId="170913"/> <!-- Broken door -->
+</TargetBlacklists>
+
+<Order>
+	<FunkyWhile condition="QuestAndStepActive(337492, 1)">
+
+		<!-- Tower of Cursed 1-A-->
+		<If condition="(MarkerExistsAt(732643260, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876093, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876094, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876095, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876096, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876097, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876098, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876099, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876100, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876101, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(1938876102, 488.2521, 767.5283, 82.0196, 10))
+		or (MarkerExistsAt(-1464312746, 488.2521, 767.5283, 82.0196, 10))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Tower of Cursed 1-A with SafeMoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="574" y="838" z="50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="664" y="903" z="50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="767" y="917" z="40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="853" y="861" z="30" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="905" y="746" z="20" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="839" y="665" z="10" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="785" y="605" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="690" y="677" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="639" y="719" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="664" y="780" z="-16" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="728" y="794" z="-30" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="753" y="690" z="-65" pathPrecision="5" statusText="" />
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+			<!-- Tower of Cursed of 1-B-->
+		<If condition="(MarkerExistsAt(732643260, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876093, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876094, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876095, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876096, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876097, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876098, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876099, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876100, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876101, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(1938876102, 399.2324, 721.925, 44.40216, 10))
+		or (MarkerExistsAt(-1464312746, 399.2324, 721.925, 44.40216, 10))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Tower of Cursed 1-B with SafeMoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="569" y="724" z="-10" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="656" y="612" z="-10" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="699" y="535" z="-20" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="725" y="520" z="-21" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="835" y="555" z="-30" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="884" y="602" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="919" y="691" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="920" y="714" z="-48" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="892" y="744" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="876" y="813" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="884" y="839" z="-49" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="798" y="907" z="-59" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="765" y="886" z="-60" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="698" y="888" z="-59" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="665" y="811" z="-60" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="703" y="777" z="-70" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="750" y="690" z="-114" pathPrecision="5" statusText="" />
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Tower of Damned 1-->
+		<If condition="(MarkerExistsAt(732643260, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876093, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876094, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876095, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876096, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876097, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876098, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876099, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876100, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876101, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(1938876102, 720.8195, 407.845, 41.87429, 10))
+		or (MarkerExistsAt(-1464312746, 720.8195, 407.845, 41.87429, 10))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Tower of Damned 1 with SafeMoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="721" y="597" z="-10" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="627" y="634" z="-19" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="593" y="695" z="-30" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="627" y="811" z="-30" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="675" y="766" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="737" y="782" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="745" y="687" z="-78" pathPrecision="5" statusText="" />
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Tower of Cursed 2-->
+		<If condition="(MarkerExistsAt(732643260, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876093, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876094, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876095, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876096, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876097, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876098, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876099, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876100, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876101, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(1938876102, 678.8602, 717.8599, 34.98107, 1))
+		or (MarkerExistsAt(-1464312746, 678.8602, 717.8599, 34.98107, 1))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Tower of Cursed 2 with SafeMoveTo." />	
+			<SafeMoveTo questId="312429" stepId="2" x="729" y="783" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="772" y="755" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="771" y="713" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="802" y="700" z="-10" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="725" y="635" z="-20" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="695" y="531" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="620" y="548" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="533" y="655" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="522" y="708" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="589" y="728" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="525" y="761" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="539" y="798" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="588" y="805" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="605" y="833" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="676" y="848" z="-60" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="677" y="902" z="-60" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="789" y="910" z="-60" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="835" y="876" z="-60" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="907" y="782" z="-60" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="912" y="683" z="-70" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="897" y="622" z="-69" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="804" y="537" z="-80" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="737" y="523" z="-106" pathPrecision="5" statusText="" />
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+			<!-- Tower of Damned 2-->
+		<If condition="(MarkerExistsAt(732643260, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876093, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876094, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876095, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876096, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876097, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876098, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876099, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876100, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876101, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(1938876102, 680.1924, 719.7283, 33.9541, 1))
+		or (MarkerExistsAt(-1464312746, 680.1924, 719.7283, 33.9541, 1))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Tower of Damned 2 with SafeMoveTo." />	
+			<SafeMoveTo questId="312429" stepId="2" x="723" y="783" z="2" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="783" y="720" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="741" y="660" z="0" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="724" y="535" z="-9" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="769" y="538" z="-10" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="802" y="572" z="-19" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="848" y="603" z="-20" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="848" y="688" z="-20" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="861" y="752" z="-30" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="910" y="774" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="853" y="876" z="-40" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="738" y="919" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="731" y="864" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="639" y="873" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="621" y="814" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="580" y="781" z="-50" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="538" y="751" z="-56" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="511" y="727" z="-60" pathPrecision="5" statusText="" />
+			<SafeMoveTo questId="312429" stepId="2" x="425" y="720" z="-90" pathPrecision="5" statusText="" />
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Tower of Cursed 3-->
+		<If condition="(MarkerExistsAt(732643260, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876093, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876094, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876095, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876096, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876097, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876098, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876099, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876100, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876101, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(1938876102, 484.4771, 767.3116, 39.86788, 1))
+		or (MarkerExistsAt(-1464312746, 484.4771, 767.3116, 39.86788, 1))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Tower of Cursed 3 with SafeMoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="589" y="839" z="10" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="658" y="765" z="10" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="536" y="699" z="10" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="619" y="572" z="10" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="846" y="587" z="0" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="898" y="817" z="-9" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="737" y="914" z="-20" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="727" y="782" z="-29" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="729" y="677" z="-74" pathPrecision="5"/>
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Tower of Cursed 4-->
+		<If condition="(MarkerExistsAt(732643260, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876093, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876094, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876095, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876096, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876097, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876098, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876099, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876100, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876101, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(1938876102, 678.2551, 720.005, 34.83162, 5))
+		or (MarkerExistsAt(-1464312746, 678.2551, 720.005, 34.83162, 5))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Tower of Cursed 4 with SafeMoveTo." />	
+			<SafeMoveTo questId="312429" stepId="2" x="744" y="789" z="1" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="784" y="910" z="-10" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="584" y="747" z="-10" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="602" y="566" z="-30" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="744" y="669" z="-30" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="887" y="615" z="-50" pathPrecision="5"/>
+			<SafeMoveTo questId="312429" stepId="2" x="730" y="524" z="-89" pathPrecision="5"/>
+			<LoadProfile file="Normal_Rift.xml" />
+		</If>
+
+		<!-- Unknown version of the tower-->
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Unknown version of The Tower with ExploreDungeon." />
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Tower of the Damned/Cursed @ 10/40/0.2" />
+		<While condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBF') and not 
+						  (ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100) or 
+						   (CurrentWorldId == 288454 and MarkerExistsAt(1938876094, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288685 and MarkerExistsAt(1938876095, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288687 and MarkerExistsAt(1938876096, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288798 and MarkerExistsAt(1938876097, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288800 and MarkerExistsAt(1938876098, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288802 and MarkerExistsAt(1938876099, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288804 and MarkerExistsAt(1938876100, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288810 and MarkerExistsAt(1938876101, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288814 and MarkerExistsAt(1938876102, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100))
+						  )">
+			<ExploreDungeon questId="1" stepId="2" until="FullyExplored" markerDistance="30" boxSize="10" pathPrecision="40" boxTolerance="0.2"/>
+			<LoadProfile file="Normal_Rift.xml" />
+		</While>
+		<While condition="not ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+			<ExploreDungeon questId="337492" stepId="1" until="RiftComplete" markerDistance="30" boxSize="10" pathPrecision="40" boxTolerance="0.2"/>
+			<LoadProfile file="Normal_Rift.xml" />
+		</While>
+	    <LoadProfile file="Normal_Rift.xml" />
+	</FunkyWhile>
+	<LoadProfile file="Normal_Rift.xml" />
+</Order>
+</Profile>

@@ -15,27 +15,78 @@ namespace fBaseXtensions.Items
 	public class CacheACDItem
 	{
 		public string ThisInternalName { get; set; }
-		public string ThisRealName { get; set; }
-		public int ThisLevel { get; set; }
-		public ItemQuality ThisQuality { get; set; }
-		public int ThisGoldAmount { get; set; }
+	   
+        public string ThisRealName
+        {
+            get { return _thisRealName; }
+            set { _thisRealName = value; }
+        }
+        private string _thisRealName="";
+
+        public int ThisLevel
+        {
+            get { return _thisLevel; }
+            set { _thisLevel = value; }
+        }
+        private int _thisLevel=0;
+
+        public int ThisGoldAmount
+        {
+            get { return _thisGoldAmount; }
+            set { _thisGoldAmount = value; }
+        }
+        private int _thisGoldAmount=0;
+
+        public ItemQuality ThisQuality
+        {
+            get { return _thisQuality; }
+            set { _thisQuality = value; }
+        }
+	    private ItemQuality _thisQuality=ItemQuality.Invalid;
+
+        public int ThisItemStackQuantity
+        {
+            get { return _thisItemStackQuantity; }
+            set { _thisItemStackQuantity = value; }
+        }
+        private int _thisItemStackQuantity=0;
+
+        public DyeType ThisDyeType
+        {
+            get { return _thisDyeType; }
+            set { _thisDyeType = value; }
+        }
+        private DyeType _thisDyeType= DyeType.None;
+	   
 		public int LegendaryGemRank { get; set; }
 		public LegendaryGemTypes LegendaryGemType { get; set; }
 		public int ThisBalanceID { get; set; }
 		public int ThisDynamicID { get; set; }
 		public bool ThisOneHanded { get; set; }
 		public bool TwoHanded { get; set; }
-		public DyeType ThisDyeType { get; set; }
+        
 		public ItemType ThisDBItemType { get; set; }
 		public FollowerType ThisFollowerType { get; set; }
-		public bool IsUnidentified { get; set; }
+
+        public bool IsUnidentified
+        {
+            get { return _isUnidentified; }
+            set { _isUnidentified = value; }
+        }
+	    private bool _isUnidentified=false;
+
+        public bool IsVendorBought
+        {
+            get { return _isVendorBought; }
+            set { _isVendorBought = value; }
+        }
+        private bool _isVendorBought=false;
 		
 		public bool IsPotion { get; set; }
 		public PotionTypes PotionType=PotionTypes.None;
 		public LegendaryItemTypes LegendaryItemType=LegendaryItemTypes.None;
 
-
-		public int ThisItemStackQuantity { get; set; }
+        
 
 
 		public ACDItem ACDItem { get; set; }
@@ -50,7 +101,8 @@ namespace fBaseXtensions.Items
 		public ItemProperties ItemStatProperties { get; set; }
 		public bool IsStackableItem { get; set; }
 		public bool IsTwoSlot { get; set; }
-		public bool IsVendorBought { get; set; }
+
+        
 
 		public int DurabilityCurrent { get; set; }
 		public int DurabilityMax { get; set; }
@@ -61,13 +113,27 @@ namespace fBaseXtensions.Items
 		public PluginItemTypes ItemType { get; set; }
 
 
+	    public string SimpleDebugString
+	    {
+	        get { return String.Format("Name {0} Sno {1} BalanceID {2}", ThisInternalName, SNO, ThisBalanceID); }
+	    }
+
 		public CacheACDItem(ACDItem item)
 		{
 			
 			SNO=item.ActorSNO;
 			ThisBalanceID = item.GameBalanceId;
 			ThisInternalName = item.InternalName;
-			ThisLevel = item.Level;
+
+		    try
+		    {
+                _thisLevel = item.Level;
+		    }
+		    catch (Exception ex)
+		    {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item level for {0} \r\n {1}", SimpleDebugString, ex.Message);
+		    }
+			
 
 			ItemDataEntry itemEntry;
 			if (TheCache.ObjectIDCache.ItemDataEntries.TryGetValue(SNO, out itemEntry))
@@ -101,17 +167,73 @@ namespace fBaseXtensions.Items
 			ACDItem = item;
 			ACDGUID = item.ACDGuid;
 			ThisDynamicID = item.DynamicId;
-			ThisRealName = item.Name;
-			ThisGoldAmount = item.Gold;
-			ThisLevel = item.Level;
-			ThisItemStackQuantity = item.ItemStackQuantity;
-			
-			ThisQuality = item.ItemQualityLevel;
+
+
+            try
+            {
+                _thisRealName = item.Name;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item name {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+
+            try
+            {
+                _thisGoldAmount = item.Gold;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item gold amount {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+
+            try
+            {
+                _thisQuality = item.ItemQualityLevel;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item quality {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+
+            try
+            {
+                _thisItemStackQuantity = item.ItemStackQuantity;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item stack quanity {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+
+            try
+            {
+                _isUnidentified = item.IsUnidentified;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item is identified {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+
+            try
+            {
+                _thisDyeType = item.DyeType;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item dye type {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+
+            try
+            {
+                _isVendorBought = item.IsVendorBought;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item is vendor bought {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+
 			ThisOneHanded = item.IsOneHand;
 			TwoHanded = item.IsTwoHand;
-			IsUnidentified = item.IsUnidentified;
-			
-			ThisDyeType = item.DyeType;
 
 			IsPotion = ItemType == PluginItemTypes.HealthPotion;
 			if (IsPotion)
@@ -121,18 +243,33 @@ namespace fBaseXtensions.Items
 			invRow = item.InventoryRow;
 			invCol = item.InventoryColumn;
 
-			IsVendorBought = item.IsVendorBought;
+			
 
 			if (BaseItemType== PluginBaseItemTypes.Armor || BaseItemType== PluginBaseItemTypes.Jewelry || BaseItemType== PluginBaseItemTypes.Offhand || BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || BaseItemType == PluginBaseItemTypes.WeaponTwoHand|| BaseItemType== PluginBaseItemTypes.FollowerItem)
 			{
-				ItemStats thesestats = item.Stats;
-				ItemStatString = thesestats.ToString();
-				ItemStatProperties = new ItemProperties(thesestats);
+                try
+                {
+                    ItemStats thesestats = item.Stats;
+                    ItemStatString = thesestats.ToString();
+                    ItemStatProperties = new ItemProperties(thesestats);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(LogLevel.Items, "Failed to retrieve item stats {0} \r\n {1}", SimpleDebugString, ex.Message);
+                }
 
-				//Durability
-				DurabilityCurrent = item.CurrentDurability;
-				DurabilityMax = item.MaxDurability;
-				DurabilityPercent=item.DurabilityPercent;
+
+                try
+                {
+                    //Durability
+                    DurabilityCurrent = item.CurrentDurability;
+                    DurabilityMax = item.MaxDurability;
+                    DurabilityPercent = item.DurabilityPercent;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(LogLevel.Items, "Failed to retrieve item durability {0} \r\n {1}", SimpleDebugString, ex.Message);
+                }
 			}
 
 			if (BaseItemType == PluginBaseItemTypes.Gem && ItemType == PluginItemTypes.LegendaryGem)
@@ -141,9 +278,9 @@ namespace fBaseXtensions.Items
 				{
 					LegendaryGemRank = item.JewelRank;
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
-					Logger.DBLog.Debug("Failed to get Jewel Rank for Legendary Gem!");
+                    Logger.DBLog.DebugFormat("Failed to get Jewel Rank for Legendary Gem!{0} \r\n {1}", SimpleDebugString, ex.Message);
 				}
 
 				try
@@ -157,7 +294,7 @@ namespace fBaseXtensions.Items
 					
 			}
 
-			if (itemEntry==null && !IsUnidentified)
+			if (itemEntry==null && !_isUnidentified)
 			{
 				if (FunkyBaseExtension.Settings.Debugging.DebuggingData && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Items))
 				{
@@ -182,7 +319,7 @@ namespace fBaseXtensions.Items
 		{
 			get
 			{
-				return  (!IsVendorBought && ThisLevel != 1) &&
+				return  (!_isVendorBought && _thisLevel != 1) &&
 						(BaseItemType == PluginBaseItemTypes.Armor || BaseItemType == PluginBaseItemTypes.FollowerItem ||
 				        BaseItemType == PluginBaseItemTypes.Jewelry || BaseItemType == PluginBaseItemTypes.Offhand ||
 				        BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || 
@@ -190,7 +327,10 @@ namespace fBaseXtensions.Items
 			}
 		}
 
-		public override int GetHashCode()
+	    
+
+
+	    public override int GetHashCode()
 		{
 			return ThisDynamicID;
 		}
@@ -213,7 +353,7 @@ namespace fBaseXtensions.Items
 		{
 			string specificType = 
 				LegendaryGemType != LegendaryGemTypes.None ? String.Format("Legendary Gem Type {0} Rank {1}", LegendaryGemType, LegendaryGemRank) :
-				ThisDyeType != DyeType.None ? String.Format("Dye Type {0}", ThisDyeType) :
+				_thisDyeType != DyeType.None ? String.Format("Dye Type {0}", _thisDyeType) :
 				LegendaryItemType != LegendaryItemTypes.None ? String.Format("Legendary Item Type {0}", LegendaryItemType) :
 				ThisFollowerType != FollowerType.None ? String.Format("Follower Type {0}", ThisFollowerType) :
 				"";
@@ -227,13 +367,13 @@ namespace fBaseXtensions.Items
 								 "IsVendorBought {18}\r\n" +
 			                     "{19}\r\n" +
 			                     "{20}",
-									ThisRealName, ThisInternalName, SNO, ThisBalanceID,
+									_thisRealName, ThisInternalName, SNO, ThisBalanceID,
 									ThisDynamicID, ACDGUID,
 									BaseItemType, ItemType, ThisDBItemType,
-									ThisQuality, ThisLevel, IsUnidentified,
+									_thisQuality, _thisLevel, _isUnidentified,
 									DurabilityCurrent,DurabilityMax,DurabilityPercent,
-									invRow,invCol,ThisItemStackQuantity,
-									IsVendorBought,
+									invRow,invCol,_thisItemStackQuantity,
+									_isVendorBought,
 									specificType,
 									ItemStatString);
 

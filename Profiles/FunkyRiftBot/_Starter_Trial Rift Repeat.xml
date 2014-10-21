@@ -1,0 +1,65 @@
+<Profile>
+  <Name>Funky Trial Rift Repeater</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="250" />
+    <SetVariable Key="RiftBot" Value="Trial" />
+    
+    <!-- Check Normal Rift Active -->
+    <If condition="IsActiveQuestAndStep(337492, 1) or IsActiveQuestAndStep(337492, 3)">
+      <LoadProfile file="Normal Rift.xml" />
+    </If>
+    
+    <!-- Check Tiered Rift Active -->
+    <If condition="IsActiveQuestAndStep(337492, 13) or IsActiveQuestAndStep(337492, 16)">
+      <LoadProfile file="Tiered Rift.xml" />
+    </If>
+
+    <!-- Check Trial Rift Active -->
+    <If condition="IsActiveQuestAndStep(405695, 13) or IsActiveQuestAndStep(405695, 1)">
+      <LoadProfile file="Trial Rift.xml" />
+    </If>
+
+    <!-- Check Rift Finished -->
+    <While condition="IsActiveQuestAndStep(337492, 10) or IsActiveQuestAndStep(337492, 34) or IsActiveQuestAndStep(405695, 9)">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemNPC" />
+      <WaitTimer questId="1" stepId="1" waitTime="2500"/>
+      <MoveToActor questId="312429" stepId="2" actorId="363744" interactRange="9" pathPrecision="5" pathPointLimit="250" statusText="" />
+    </While>
+
+    <!-- Wait for Portal To Disapear-->
+    <While condition="ActorExistsAt(396751, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 50)
+                      or ActorExistsAt(312429, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 50)">
+      <WaitTimer questId="1" stepId="1" waitTime="5000" />
+    </While>
+    
+    <!-- Check for no fragment keys-->
+    <HasKeystone Keystone="Trial" ItemSource="Backpack" not="True">
+      <!-- Move to Stash -->
+      <MoveToTownObject questId="1" stepId="1" Type="Stash" />
+
+      <!-- Load Trial Profile-->
+      <If condition="(not HasBackpackItem(408416) and HasStashedItem(408416)) or HasBackpackItem(408416)">
+        <If condition="not HasBackpackItem(408416)">
+          <MoveItem Sno="408416" ItemSource="Stash" all="True" />
+        </If>
+
+        <LoadProfile file="Trial Rift.xml" />
+      </If>
+
+      
+      <!-- No Keys Found!!!-->
+      <SetVariable Key="RiftBot" Value="" />
+      <LoadProfile file="_Starter_Default.xml" />
+    </HasKeystone>
+
+    <HasKeystone Keystone="Trial" ItemSource="Backpack">
+      <!-- Load Tiered Profile-->
+      <LoadProfile file="Trial Rift.xml" />
+    </HasKeystone>
+
+  </Order>
+</Profile>

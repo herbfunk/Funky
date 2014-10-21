@@ -1,0 +1,98 @@
+<Profile>
+<Name>Funky Rift Bot Optimized Explore (Tiered)</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>True</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+<TargetBlacklists>
+	<TargetBlacklist actorId="355635"/> <!-- Furnace -->
+	<TargetBlacklist actorId="157531"/> <!-- Broken Watermill in Oasis -->
+	<TargetBlacklist actorId="170913"/> <!-- Broken door -->
+</TargetBlacklists>
+
+<Order>
+  <FunkyWhile condition="QuestAndStepActive(337492, 13)">
+		<!-- Stonefort 1-->
+		<If condition="(MarkerExistsAt(732643260, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876093, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876094, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876095, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876096, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876097, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876098, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876099, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876100, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876101, 1890.154, 1759.493, -22.55594, 10))
+		or (MarkerExistsAt(1938876102, 1890.154, 1759.493, -22.55594, 10))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Stonefort 1 with MoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="1886" y="1870" z="-25" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1857" y="1811" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1526" y="1776" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1290" y="1779" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1179" y="1769" z="1" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1082" y="1764" z="25" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1044" y="1557" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="858" y="1533" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="860" y="1233" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="858" y="971" z="1" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="863" y="796" z="1" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="784" y="752" z="25" pathPrecision="5" />
+			<LoadProfile file="Tiered_Rift.xml" />
+		</If>
+
+		<!-- Stonefort 2-->
+		<If condition="(MarkerExistsAt(732643260, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876093, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876094, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876095, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876096, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876097, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876098, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876099, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876100, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876101, 1861.255, 2265.319, -23.04723, 10))
+		or (MarkerExistsAt(1938876102, 1861.255, 2265.319, -23.04723, 10))">
+			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Stonefort 2 with MoveTo." />
+			<SafeMoveTo questId="312429" stepId="2" x="1857" y="2330" z="-25" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1799" y="2115" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1618" y="2113" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1495" y="2043" z="25" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1577" y="1884" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1503" y="1791" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="1352" y="1774" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="989" y="1778" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="886" y="1870" z="40" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="818" y="1732" z="25" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="845" y="1403" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="840" y="1142" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="861" y="949" z="0" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="865" y="796" z="2" pathPrecision="5" />
+			<SafeMoveTo questId="312429" stepId="2" x="793" y="757" z="25" pathPrecision="5" />
+			<LoadProfile file="Tiered_Rift.xml" />
+		</If>
+
+		<!-- Unknown version of Stonefort-->
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Unknown version of Stonefort with ExploreDungeon." />		
+		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Stonefort @ 30/15/0.3" />
+		<While condition="not (ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100) or 
+						   (CurrentWorldId == 288454 and MarkerExistsAt(1938876094, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288685 and MarkerExistsAt(1938876095, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288687 and MarkerExistsAt(1938876096, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288798 and MarkerExistsAt(1938876097, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288800 and MarkerExistsAt(1938876098, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288802 and MarkerExistsAt(1938876099, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288804 and MarkerExistsAt(1938876100, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288810 and MarkerExistsAt(1938876101, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288814 and MarkerExistsAt(1938876102, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100))
+						  )">
+			<ExploreDungeon questId="1" stepId="2" until="FullyExplored" markerDistance="60" boxSize="30" pathPrecision="15" boxTolerance="0.3"/>
+			<LoadProfile file="Tiered_Rift.xml" />
+		</While>
+		<While condition="not ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+			<ExploreDungeon questId="337492" stepId="1" until="RiftComplete" markerDistance="60" boxSize="30" pathPrecision="15" boxTolerance="0.3"/>
+			<LoadProfile file="Tiered_Rift.xml" />
+		</While>
+	</FunkyWhile>
+	<LoadProfile file="Tiered_Rift.xml" />
+</Order>
+</Profile>

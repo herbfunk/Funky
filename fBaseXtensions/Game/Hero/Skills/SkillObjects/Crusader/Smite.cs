@@ -21,9 +21,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 
 		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		public override void Initialize()
+        public override bool IsRanged { get { return true; } }
+
+	    public override void Initialize()
 		{
-			Range = 15;
+			Range = 30;
 			Priority = SkillPriority.Low;
 			PreCast = new SkillPreCast(SkillPrecastFlags.None);
 

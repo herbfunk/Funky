@@ -1,0 +1,473 @@
+<Profile>
+  <Name>Funky Rift Bot Optimized Explore (Normal)</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <TargetBlacklists>
+    <TargetBlacklist actorId="355635"/>
+    <!-- Furnace -->
+    <TargetBlacklist actorId="362323"/>
+    <!-- A buged NPC in A5 -->
+    <TargetBlacklist actorId="157531"/>
+    <!-- Broken Watermill in Oasis -->
+    <TargetBlacklist actorId="170913"/>
+    <!-- Broken door -->
+  </TargetBlacklists>
+
+  <Order>
+    <ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="80" />
+    <FunkyWhile condition="not (ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100) or 
+						   (CurrentWorldId == 288454 and MarkerExistsAt(1938876094, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288685 and MarkerExistsAt(1938876095, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288687 and MarkerExistsAt(1938876096, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288798 and MarkerExistsAt(1938876097, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288800 and MarkerExistsAt(1938876098, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288802 and MarkerExistsAt(1938876099, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288804 and MarkerExistsAt(1938876100, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288810 and MarkerExistsAt(1938876101, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288814 and MarkerExistsAt(1938876102, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (not (QuestAndStepActive(337492, 1) or QuestAndStepActive(337492, 3))
+						   )
+						  )">
+
+      <If condition="CurrentLevelAreaId == 346527">
+        <!-- Stonefort-->
+        <WaitTimer questId="1" stepId="1" waitTime="2000"/>
+        <LoadProfile file="Normal_RiftExploreStonefort.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 276226">
+        <!-- Bastion's Keep-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Bastion Keep @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal" />
+            <PriorityScene sceneName="Exit" />
+            <PriorityScene sceneName="River" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 322727">
+        <!-- Caverns of Araneae-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Caverns of Araneae @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 334821">
+        <!-- The Cursed Hold (Warden)-->
+        <WaitTimer questId="1" stepId="1" waitTime="2000"/>
+        <LoadProfile file="Normal_RiftExploreCursedHold.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 342477">
+        <!-- Tower of the Damned-->
+        <WaitTimer questId="1" stepId="1" waitTime="2000"/>
+        <LoadProfile file="Normal_RiftExploreCursedTower.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 331264">
+        <!-- Westmarch Commons-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Westmarch Commons @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01"/>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 352713">
+        <!-- Catacombs-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Catacombs @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 323580">
+        <!-- Arreat Crater-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Areat Crater @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 352652">
+        <!-- Plague Tunnel-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Plague Tunnel @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 275927">
+        <!-- Halls of Agony-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Halls of Agony @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 332323">
+        <!-- Dahlgur Oasis-->
+        <WaitTimer questId="1" stepId="1" waitTime="2000"/>
+        <LoadProfile file="Normal_RiftExploreDahlgurOasis.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 312606">
+        <!-- Archives of Zoltun Kulle-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Zoltun Archives @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 312607">
+        <!-- Archives of Zoltun Kulle-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Zoltun Archives @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 275923">
+        <!-- Cathedral-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Cathedral @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 343965">
+        <!-- Whimsyshire-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Whimsyshire @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 347961">
+        <!-- Forgotten Battlefield-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Forgotten Battlefield @ 30/10/0.1" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="30" pathPrecision="10" boxTolerance="0.1">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <If condition="ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)">
+          <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="30" pathPrecision="10" boxTolerance="0.1"/>
+        </If>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 346565">
+        <!-- Gardens of Hope-->
+        <WaitTimer questId="1" stepId="1" waitTime="2000"/>
+        <LoadProfile file="Normal_RiftExploreGardensOfHope.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 362179">
+        <!-- Hell Rift-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Hell Rift @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 347562">
+        <!-- Southern Highlands-->
+        <WaitTimer questId="1" stepId="1" waitTime="2000"/>
+        <LoadProfile file="Normal_RiftExploreSouthernHighland.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 349181">
+        <!-- Boneyards-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Boneyards @ 40/10/0.1" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="30" boxSize="40" pathPrecision="10" boxTolerance="0.1" >
+          <PriorityScenes>
+            <PriorityScene sceneName="Edge_N" />
+            <PriorityScene sceneName="Edge_NE" />
+            <PriorityScene sceneName="Edge_E" />
+            <PriorityScene sceneName="Edge_SE" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 276150">
+        <!-- Crypts-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Crypts @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 353527">
+        <!-- Aquaducts-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Aquaducts @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 348617">
+        <!-- Wortham-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Wortham @ 15/35/0.2" />
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <ExploreDungeon questId="1" stepId="2" until="RiftComplete" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.2">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="E10_S15" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 290245">
+        <!-- Sewers-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Sewers @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 275929">
+        <!-- Corrupt Spire-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Corrupt Spire @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 349048">
+        <!-- Battlefield Bridge-->
+        <WaitTimer questId="1" stepId="1" waitTime="2000"/>
+        <LoadProfile file="Normal_RiftExploreBattlefieldBridge.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 276215">
+        <!-- Worm Caves-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Worm Caves @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 332335">
+        <!-- Exterior Bog-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Exterior Bog @ 30/10/0.15" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="30" pathPrecision="10" boxTolerance="0.15">
+          <PriorityScenes>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 352690">
+        <!-- Bog Cave-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Bog Cave @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 347870">
+        <!-- Exterior Graveyard-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Exterior Graveyard @ 30/10/0.1" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="30" pathPrecision="10" boxTolerance="0.1" >
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 276212">
+        <!-- Flooded Cave-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Flooded Cave @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 352719">
+        <!-- Hex Maze-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Hex Maze @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 330531">
+        <!-- Tristram Fields-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Tristram Fields @ 30/15/0.05" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="30" pathPrecision="15" boxTolerance="0.05" >
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 347196">
+        <!-- Tristram Wilderness-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Tristram Wilderness @ 30/15/0.05" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="30" pathPrecision="15" boxTolerance="0.05">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 276230">
+        <!-- Ice Cave-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Ice Cave @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <If condition="CurrentLevelAreaId == 276128">
+        <!-- Rot Cave-->
+        <LogMessage quest="1" step="2" output="[Rift Bot] Explore Rot Cave @ 15/35/0.01" />
+        <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="15" pathPrecision="35" boxTolerance="0.01">
+          <PriorityScenes>
+            <PriorityScene sceneName="Portal"/>
+            <PriorityScene sceneName="Exit" />
+          </PriorityScenes>
+          <IgnoreScenes>
+            <IgnoreScene sceneName="Entrance" />
+          </IgnoreScenes>
+        </ExploreDungeon>
+        <MoveToMapMarker questId="1" stepId="1" isPortal="True" destinationWorldId="-1"/>
+        <LoadProfile file="Normal_Rift.xml" />
+      </If>
+
+      <!-- Default 30/15/0.05 -->
+      <LogMessage quest="1" step="2" output="[Rift Bot] Explore Random Map @ 30/15/0.05" />
+      <ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="60" boxSize="30" pathPrecision="15" boxTolerance="0.05"/>
+      <LoadProfile file="Normal_Rift.xml" />
+    </FunkyWhile>
+    <LoadProfile file="Normal_Rift.xml" />
+  </Order>
+</Profile>

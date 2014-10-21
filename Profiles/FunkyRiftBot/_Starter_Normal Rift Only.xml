@@ -1,0 +1,69 @@
+<Profile>
+  <Name>Funky Rift Normal Only Starter</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="80" />
+    <SetVariable Key="RiftBot" Value="Normal" />
+    
+    <!-- Check Normal Rift Active -->
+    <If condition="QuestAndStepActive(337492, 1) or QuestAndStepActive(337492, 3)">
+      <LoadProfile file="Normal Rift.xml" />
+    </If>
+    
+    <!-- Check Tiered Rift Active -->
+    <If condition="QuestAndStepActive(337492, 13) or QuestAndStepActive(337492, 16)">
+      <LoadProfile file="Tiered Rift.xml" />
+    </If>
+
+    <!-- Check Trial Rift Active -->
+    <If condition="QuestAndStepActive(405695, 13) or QuestAndStepActive(405695, 1)">
+      <LoadProfile file="Trial Rift.xml" />
+    </If>
+
+    <!-- Check Rift Finished -->
+    <While condition="QuestAndStepActive(337492, 10) or QuestAndStepActive(337492, 34) or QuestAndStepActive(405695, 9)">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemNPC" />
+      <WaitTimer questId="1" stepId="1" waitTime="2500"/>
+      <MoveToActor questId="312429" stepId="2" actorId="363744" interactRange="9" pathPrecision="5" pathPointLimit="250" statusText="" />
+    </While>
+
+    <!-- Wait for Portal To Disapear-->
+    <While condition="ActorExistsAt(396751, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 50)
+                      or ActorExistsAt(312429, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 50)">
+      <WaitTimer questId="1" stepId="1" waitTime="5000" />
+    </While>
+    
+    <!-- Check for no fragment keys-->
+    <HasKeystone Keystone="Fragment" ItemSource="Backpack" not="True">
+      <!-- Move to Stash -->
+      <MoveToTownObject questId="1" stepId="1" Type="Stash" />
+
+      <!-- Load Normal Profile-->
+      <If condition="(not HasBackpackItem(323722) and HasStashedItem(323722)) or HasBackpackItem(323722)">
+        
+        <If condition="not HasBackpackItem(323722)">
+          <MoveItem Sno="323722" ItemSource="Stash" />
+        </If>
+
+        <LoadProfile file="Normal Rift.xml" />
+      </If>
+
+      
+      <!-- No Keys Found!!!-->
+      <ActBountiesComplete act="A4">
+        <LeaveGame quest="1" step="1" reason="No more keystones left!" stayInParty="False" />
+      </ActBountiesComplete>
+      <!-- Load A4 Bounties -->
+      <LoadProfile file="Bounties.xml" />
+    </HasKeystone>
+
+    <HasKeystone Keystone="Fragment" ItemSource="Backpack">
+      <!-- Load Tiered Profile-->
+      <LoadProfile file="Normal Rift.xml" />
+    </HasKeystone>
+
+  </Order>
+</Profile>

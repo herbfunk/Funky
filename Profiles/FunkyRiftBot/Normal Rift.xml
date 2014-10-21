@@ -1,0 +1,56 @@
+<Profile>
+  <Name>Normal Rift Starter</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="80" />
+    
+    <!-- Finished -->
+    <If condition="QuestAndStepActive(337492, 34) or QuestAndStepActive(337492, 10)">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemNPC" />
+      <WaitTimer questId="1" stepId="1" waitTime="2500"/>
+      <MoveToActor questId="312429" stepId="2" actorId="363744" interactRange="9" pathPrecision="5" pathPointLimit="250" statusText="" />
+      <!-- Wait for Portal To Disapear-->
+      <While condition="ActorExistsAt(345935, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 50)">
+        <WaitTimer questId="1" stepId="1" waitTime="5000" />
+      </While>
+    </If>
+
+
+    <!-- Active -->
+    <If condition="QuestAndStepActive(337492, 1) or QuestAndStepActive(337492, 3)">
+      <If condition="ZetaDia.IsInTown">
+        <LogMessage quest="1" step="2" output="[Rift Bot] In town during rift run!!!" />
+        <MoveToTownObject questId="1" stepId="1" Type="NephalemObelisk" Interact="False" />
+        <MoveToActor questId="312429" stepId="2" actorId="345935" interactRange="9" isPortal="True" destinationWorldId="-1" pathPrecision="5" pathPointLimit="250" statusText="" />
+      </If>
+      <LoadProfile file="Normal_Rift.xml" />
+    </If>
+
+    <HasKeystone Keystone="Fragment" ItemSource="Backpack" not="True">
+      <LoadProfile file="_Starter_Default.xml" />
+    </HasKeystone>
+
+    <!-- Check if rift is not active quest and we are not in town! -->
+    <If condition="not (QuestAndStepActive(337492, 1) or QuestAndStepActive(337492, 3) or QuestAndStepActive(337492, 10)) and not ZetaDia.IsInTown">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemObelisk" />
+    </If>
+    
+    <!-- <CheckTownRun Slots="20" /> -->
+    <WaitTimer questId="1" stepId="1" waitTime="1000" />
+
+    <While condition="ZetaDia.IsInTown">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemObelisk" />
+      <OpenRiftPortal Keystone="Fragment" />
+      <WaitTimer questId="1" stepId="1" waitTime="5000" />
+      <While condition="ActorExistsAt(345935, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 50)">
+        <MoveToActor questId="312429" stepId="2" actorId="345935" interactRange="9" isPortal="True" destinationWorldId="-1" pathPrecision="5" pathPointLimit="250" statusText="" />
+      </While>
+      <LoadProfile file="Normal_Rift.xml" />
+    </While>
+
+     <LoadProfile file="Normal_Rift.xml" />
+  </Order>
+</Profile>

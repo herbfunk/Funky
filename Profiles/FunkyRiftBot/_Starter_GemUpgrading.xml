@@ -1,0 +1,11 @@
+<Profile>
+  <Name>Funky Rift Starter (Gem Upgrading)</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <SetVariable Key="RiftReward" Value="Gem" />
+    <LoadProfile file="_Starter_Default.xml" />
+  </Order>
+</Profile>

@@ -1,0 +1,316 @@
+<Profile>
+<Name>Rift Bot Act 4 Bounties</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>true</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+<TargetBlacklists>
+	<TargetBlacklist actorId="355635"/> <!-- Furnace -->
+	<TargetBlacklist actorId="157531"/> <!-- Broken Watermill in Oasis -->
+	<TargetBlacklist actorId="170913"/> <!-- Broken door -->
+</TargetBlacklists>
+
+<Order>
+	<ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="80" />
+
+	<!-- Kill Khatun, Kill Torchlighter, Kill Veshan the fierce, Kill the aspect of destruction-->
+	<If condition="HasQuest(349258) or HasQuest(349256) or HasQuest(349260) or HasQuest(357131)">
+		<While condition="CurrentWorldId != 109513">
+			<UseWaypoint waypointNumber="41" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<WaitTimer questId="1" stepId="2" waitTime="1000" />		
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />
+		<ExploreDungeon stayAfterBounty="False" questId="1" stepId="2" until="BountyComplete" boxSize="20" boxTolerance="0.3" pathPrecision="40" />
+	</If>
+	<!-- Cursed Dais-->
+	<If condition="HasQuest(369900)">
+		<While condition="CurrentWorldId != 109513">
+			<UseWaypoint waypointNumber="41" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<WaitTimer questId="1" stepId="2" waitTime="1000" />
+		<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('ZB')">
+			<ToggleTargeting questId="1" combat="False" />
+		</If>
+		<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />	
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<WaitTimer questId="1" stepId="2" waitTime="1000" />
+		<While condition="HasQuest(369900) and not ActorExistsAt(368169, Me.Position.X, Me.Position.Y, Me.Position.Z, 100)">			
+			<ExploreDungeon questId="1" stepId="2" until="ObjectFound" objectDistance="100" actorId="368169" boxSize="20" boxTolerance="0.3" pathPrecision="40" />
+		</While>
+		<While condition="HasQuest(369900)">
+			<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />	
+			<MoveToActor questId="312429" stepId="2" pathPrecision="5" actorId="368169"/>
+			<WaitTimer questId="312429" stepId="2" waitTime="1000"/>
+		</While>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>
+	<!-- Kill Rakanoth -->
+	<If condition="HasQuest(349262)">
+		<While condition="CurrentWorldId != 109513 and CurrentWorldId != 166640">
+			<UseWaypoint waypointNumber="41" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('ZB')">
+			<ToggleTargeting questId="1" combat="False" />
+		</If>
+		<SafeMoveTo questId="312429" stepId="2" x="862" y="1003" z="-15" pathPrecision="5"/> 
+		<SafeMoveTo questId="312429" stepId="2" x="724" y="905" z="0" pathPrecision="5"/> 
+		<SafeMoveTo questId="312429" stepId="2" x="859" y="714" z="0" pathPrecision="5"/> 
+		<SafeMoveTo questId="312429" stepId="2" x="977" y="467" z="0" pathPrecision="5"/> 
+		<SafeMoveTo questId="312429" stepId="2" x="988" y="286" z="18" pathPrecision="5"/>
+		<While condition="CurrentWorldId != 166640">
+			<MoveToActor questId="1" stepId="2" actorId="161276" isPortal="True" destinationWorldId="166640" x="990" y="268" z="18" />
+			<WaitTimer questId="1" stepId="2" waitTime="3000" />
+		</While>			
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<SafeMoveTo questId="1" stepId="2" pathPrecision="10" x="358" y="352" z="0" />
+		<While condition="Me.IsInBossEncounter">
+			<WaitTimer questId="1" stepId="2" waitTime="1000" />
+		</While>  
+		<SafeMoveTo questId="1" stepId="2" pathPrecision="10" x="358" y="352" z="0" />
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>
+	
+	<!-- Kill the aspect of pain, Kill the aspect of anguish, Kill kao'ahn, Kill oah'tash-->
+	<If condition="HasQuest(357129) or HasQuest(357127) or HasQuest(349254) or HasQuest(349252)">
+		<While condition="CurrentWorldId != 219659">
+			<UseWaypoint waypointNumber="42" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<WaitTimer questId="1" stepId="2" waitTime="1000" />		
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />	
+		<ExploreDungeon stayAfterBounty="False" questId="1" stepId="2" until="BountyComplete" boxSize="20" boxTolerance="0.3" pathPrecision="40" />
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>
+	
+	<!-- Kill sledge, hammermash, clear hell rift-->
+	<If condition="HasQuest(364336) or HasQuest(364333) or HasQuest(362140)">
+		<While condition="CurrentWorldId != 109526 and CurrentWorldId != 109525 and CurrentWorldId != 109530">
+			<UseWaypoint waypointNumber="43" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('ZB')">
+			<ToggleTargeting questId="1" combat="False" />
+		</If>
+		<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		<If condition="CurrentWorldId == 109526 or CurrentWorldId == 109525">
+			<If condition="(ActorExistsAt(6442, 775.6774, 1206.639, -9.316513, 10))">
+				<SafeMoveTo questId="312429" stepId="2" x="573" y="746" z="-10" pathPrecision="5"/> 
+				<MoveToActor questId="1" stepId="2" actorId="224890" InteractAttempts="5" isPortal="True"/>
+				<WaitTimer questId="1" stepId="2" waitTime="2500" />
+			</If>
+			<If condition="(ActorExistsAt(6442, 1073.872, 786.39, 0, 10))">
+				<SafeMoveTo questId="312429" stepId="2" x="715" y="739" z="1" pathPrecision="5"/> 
+				<MoveToActor questId="1" stepId="2" actorId="224890" InteractAttempts="5" isPortal="True"/>
+				<WaitTimer questId="1" stepId="2" waitTime="2500" />
+			</If>
+			<If condition="CurrentWorldId == 109526 or CurrentWorldId == 109525">
+				<ExploreDungeon questId="1" stepId="2" until="ObjectFound" objectDistance="300" actorId="224890" boxSize="15" pathPrecision="30" boxTolerance="0.5" ignoreMarkers="False" stayAfterBounty="False">
+					<PrioritizeScenes>
+						<PriorityScene sceneName="a3dun_Crater_E_Dead_End_02_E01_N01" pathPrecision="40" />          
+					</PrioritizeScenes>
+				</ExploreDungeon >
+				<MoveToActor questId="1" stepId="2" actorId="224890" InteractAttempts="5" isPortal="True"/>
+				<WaitTimer questId="1" stepId="2" waitTime="2500" />
+			</If>
+		</If>			
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<If condition="(CurrentWorldId == 109530) and (HasQuest(364336) or HasQuest(364333))">
+			<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />			
+			<ToggleTargeting questId="1" combat="True" killRadius="45" />
+			<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			<If condition="ZetaDia.ActInfo.ActiveBounty">			
+				<ExploreDungeon stayAfterBounty="False" questId="1" stepId="2" until="BountyComplete" boxSize="20" boxTolerance="0.3" pathPrecision="40" />
+			</If>
+		</If>
+		<If condition="(CurrentWorldId == 109530) and HasQuest(362140)">	
+			<ExploreDungeon stayAfterBounty="False" questId="1" stepId="2" until="BountyComplete" boxSize="15" boxTolerance="0.3" pathPrecision="30" />
+		</If>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>	
+	
+	<!-- Kill aspect of hatred, aspect of lies, slarg the behemoth, kysindra the wretched, pyres the damned-->
+	<If condition="HasQuest(357133) or HasQuest(357135) or HasQuest(349280) or HasQuest(349276) or HasQuest(349278)">
+		<While condition="CurrentWorldId != 121579">
+			<UseWaypoint waypointNumber="44" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<WaitTimer questId="1" stepId="2" waitTime="1000" />
+		<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />		
+		<ExploreDungeon stayAfterBounty="False" questId="1" stepId="2" until="BountyComplete" boxSize="15" boxTolerance="0.4" pathPrecision="40" />
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>
+	
+	<!-- Kill Izual-->
+	<If condition="HasQuest(361421)">
+		<While condition="CurrentWorldId != 121579 and CurrentWorldId != 214956">
+			<UseWaypoint waypointNumber="44" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('ZB')">
+			<ToggleTargeting questId="1" combat="False" />
+		</If>
+		<If condition="CurrentWorldId == 121579">
+			<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />
+			<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			<If condition="CurrentWorldId == 121579">
+				<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />
+				<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			</If>
+			<If condition="CurrentWorldId == 121579">
+				<ExploreDungeon stayAfterBounty="False" questId="1" stepId="2"  until="ObjectFound" objectDistance="100" actorId="225195" boxSize="15" boxTolerance="0.4" pathPrecision="30">
+					<PrioritizeScenes>
+						<PriorityScene sceneName="Exit" />
+					</PrioritizeScenes>
+				</ExploreDungeon>
+				<MoveToActor questId="1" stepId="2" actorId="225195" isPortal="True" destinationWorldId="214956" interactRange="20" />
+				<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			</If>
+		</If>
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<If condition="CurrentWorldId == 214956">
+			<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			<SafeMoveTo questId="1" stepId="2" pathPrecision="10" x="583" y="558" z="0" />
+			<While condition="Me.IsInBossEncounter">
+				<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			</While>
+			<SafeMoveTo questId="1" stepId="2" pathPrecision="10" x="583" y="558" z="0" />
+		</If>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>
+	
+	<!-- Kill aspect of terror, grimnight the soulless, Sao'thall, rhau'kye, haures, aspect of sin-->
+	<If condition="HasQuest(357139) or HasQuest(349272) or HasQuest(349274) or HasQuest(349282) or HasQuest(349270) or HasQuest(357137)">
+		<While condition="CurrentWorldId != 129305">
+			<UseWaypoint waypointNumber="45" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<WaitTimer questId="1" stepId="2" waitTime="1000" />
+		<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />	
+		<ExploreDungeon stayAfterBounty="False" questId="1" stepId="2" until="BountyComplete" boxSize="15" boxTolerance="0.4" pathPrecision="40" />
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>
+	
+	<!-- Cursed chapel-->
+	<If condition="HasQuest(369878)">
+		<While condition="CurrentWorldId != 129305">
+			<UseWaypoint waypointNumber="45" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<WaitTimer questId="1" stepId="2" waitTime="1000" />
+		<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('ZB')">
+			<ToggleTargeting questId="1" combat="False" />
+		</If>
+		<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<WaitTimer questId="1" stepId="2" waitTime="1000" />
+		<While condition="HasQuest(369878) and not ActorExistsAt(365097, Me.Position.X, Me.Position.Y, Me.Position.Z, 100)">			
+			<ExploreDungeon questId="1" stepId="2" until="ObjectFound" objectDistance="100" actorId="365097" boxSize="15" boxTolerance="0.4" pathPrecision="40" />
+		</While>
+		<While condition="HasQuest(369878)">
+			<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />	
+			<MoveToActor questId="312429" stepId="2" pathPrecision="5" actorId="365097"/>
+			<WaitTimer questId="312429" stepId="2" waitTime="1000"/>
+		</While>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>
+
+	<!-- kill diablo -->
+	<If condition="HasQuest(349288)">
+		<While condition="CurrentWorldId != 129305 and CurrentWorldId != 153670 and CurrentWorldId != 205399 and CurrentWorldId != 196292 and CurrentWorldId !=109561">
+			<UseWaypoint waypointNumber="45" questId="1"/>
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('ZB')">
+			<ToggleTargeting questId="1" combat="False" />
+		</If>
+		<If condition="CurrentWorldId == 129305">
+			<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />
+			<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			<If condition="CurrentWorldId == 129305">
+				<MoveToObjective questId="1" interactRange="20" pathPrecision="40" />
+				<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			</If>
+			<If condition="CurrentWorldId == 129305">
+				<ExploreDungeon stayAfterBounty="False" questId="1" stepId="2" until="ObjectFound" objectDistance="100" actorId="210763" boxSize="15" boxTolerance="0.4" pathPrecision="40">
+					<PrioritizeScenes>
+						<PriorityScene sceneName="Exit" />
+					</PrioritizeScenes>
+				</ExploreDungeon>
+				<MoveToActor questId="1" stepId="2" actorId="210763" isPortal="True" interactRange="20"/>
+				<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			</If>
+		</If>
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<If condition="CurrentWorldId == 205399">
+			<SafeMoveTo questId="312429" stepId="2" x="279.5" y="280" z="0" pathPrecision="5"/>
+			<While condition="CurrentWorldId != 109561">
+				<MoveToActor questId="1" stepId="2" actorId="161279" isPortal="True" x="279.5" y="280" z="0"/>
+				<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			</While>
+			<MoveTo questId="1" stepId="2" x="356" y="355" z="41" />
+			<WaitTimer questId="1" stepId="2" waitTime="1000" />
+			<While condition="HasQuest(349288) and (CurrentWorldId == 109561 or CurrentWorldId == 153670 or CurrentWorldId == 196292)">
+				<WaitTimer questId="1" stepId="2" waitTime="1000" />
+				<If condition="CurrentWorldId == 196292">
+					<MoveTo questId="1" stepId="2" pathPrecision="10" x="360" y="358" z="40"/>
+				</If>
+			</While>
+		</If>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+		<WaitTimer questId="1" stepId="1" waitTime="500"/>
+	</If>
+
+	<ActBountiesComplete act="A4">
+		<While condition="CurrentWorldId != 172909">  
+			<WaitTimer questId="1" stepId="1" waitTime="3000"/>
+			<UseWaypoint waypointNumber="26" questId="1"/> 
+			<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		</While>
+		<ToggleTargeting questId="1" combat="True" killRadius="45" />
+		<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		<SafeMoveTo questId="312429" stepId="2" x="385" y="419" z="1" pathPrecision="5" statusText="" />
+		<MoveToActor questId="1" stepId="1" actorId="114622" />
+		<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+		<WaitTimer questId="1" stepId="1" waitTime="1000"/>
+
+		<LoadProfile file="_Starter_Default.xml" />
+	</ActBountiesComplete>
+  <LoadProfile file="_Starter_Default.xml" />
+	
+</Order>
+</Profile>

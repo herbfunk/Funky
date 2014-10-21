@@ -1,0 +1,9 @@
+<Profile>
+  <Name>Funky - KeyBot Act4 Only</Name>
+  <GameParams step="1" act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <Order>
+    <LoadProfile file="data/a4o/a4o.xml" />
+  </Order>
+</Profile>

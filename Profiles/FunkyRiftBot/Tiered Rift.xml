@@ -1,0 +1,56 @@
+<Profile>
+  <Name>Tiered Rift Starter</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <Order>
+    <ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="80" />
+
+    <!-- Finished -->
+    <If condition="QuestAndStepActive(337492, 10)">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemNPC" />
+      <WaitTimer questId="1" stepId="1" waitTime="2500"/>
+      <MoveToActor questId="312429" stepId="2" actorId="363744" interactRange="9" pathPrecision="5" pathPointLimit="250" statusText="" />
+
+      <While condition="ActorExistsAt(345935, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 50)">
+        <WaitTimer questId="1" stepId="1" waitTime="5000" />
+      </While>
+    </If>
+
+
+    <!-- Active -->
+    <If condition="QuestAndStepActive(337492, 13) or QuestAndStepActive(337492, 16) or QuestAndStepActive(337492, 34)">
+      <If condition="ZetaDia.IsInTown">
+        <LogMessage quest="1" step="2" output="[Rift Bot] In town during tiered rift run!!!" />
+        <MoveToTownObject questId="1" stepId="1" Type="NephalemObelisk" Interact="False" />
+        <MoveToActor questId="396751" stepId="2" actorId="345935" interactRange="9" isPortal="True" destinationWorldId="-1" pathPrecision="5" pathPointLimit="250" statusText="" />
+      </If>
+      <LoadProfile file="Tiered_Rift.xml" />
+    </If>
+
+    <!-- Check we have key required -->
+    <HasKeystone Keystone="Tiered" ItemSource="Backpack" not="True">
+      <LoadProfile file="_Starter_Default.xml" />
+    </HasKeystone>
+
+    <!-- Town run before we open a new one.. -->
+    <!-- <CheckTownRun Durability="50" /> -->
+    <WaitTimer questId="1" stepId="1" waitTime="1000" />
+
+    <While condition="ZetaDia.IsInTown">
+      <MoveToTownObject questId="1" stepId="1" Type="NephalemObelisk" />
+
+      <IsVariableSet Key="KeyOrder" Value="Highest">
+        <OpenRiftPortal Keystone="Tiered" KeystoneHighest="True" />
+      </IsVariableSet>
+
+      <WaitTimer questId="1" stepId="1" waitTime="2500" />
+
+      <OpenRiftPortal Keystone="Tiered" />
+      <WaitTimer questId="1" stepId="1" waitTime="5000" />
+    </While>
+
+    <LoadProfile file="Tiered_Rift.xml" />
+  </Order>
+</Profile>

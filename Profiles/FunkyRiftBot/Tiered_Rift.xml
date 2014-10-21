@@ -1,0 +1,109 @@
+<Profile>
+  <Name>Funky Rift Bot (Tiered)</Name>
+  <KillMonsters>True</KillMonsters>
+  <PickupLoot>True</PickupLoot>
+  <GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+
+  <TargetBlacklists>
+    <TargetBlacklist actorId="355635"/>
+    <!-- Furnace -->
+    <TargetBlacklist actorId="157531"/>
+    <!-- Broken Watermill in Oasis -->
+    <TargetBlacklist actorId="170913"/>
+    <!-- Broken door -->
+  </TargetBlacklists>
+
+  <Order>
+    <ToggleTargeting questId="312429" stepId="2" combat="True" looting="True" lootRadius="150" killRadius="80" />
+
+    <If condition="Me.IsInTown ">
+      <LoadProfile file="_Starter_Default.xml" />
+    </If>
+
+    <While condition="not ActorExistsAt(135248, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100) and
+					  not Me.IsInTown">
+      <FunkyWhile condition="QuestAndStepActive(337492, 16)">
+        <LogMessage quest="1" step="2" output="[Rift Bot] Boss Spawned" />
+        <ExploreDungeon questId="337492" stepId="16" until="FullyExplored" markerDistance="60" boxSize="10" pathPrecision="20" boxTolerance="0.4"/>
+      </FunkyWhile>
+      <If condition="QuestAndStepActive(337492, 13)">
+        <If condition="(CurrentWorldId == 288454 and MarkerExistsAt(1938876094, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288685 and MarkerExistsAt(1938876095, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288687 and MarkerExistsAt(1938876096, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288798 and MarkerExistsAt(1938876097, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288800 and MarkerExistsAt(1938876098, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288802 and MarkerExistsAt(1938876099, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288804 and MarkerExistsAt(1938876100, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288810 and MarkerExistsAt(1938876101, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100)) or 
+						   (CurrentWorldId == 288814 and MarkerExistsAt(1938876102, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 100))">
+          <MoveToMapMarker questId="337492" stepId="13" isPortal="True" destinationWorldId="-1"/>
+          <WaitTimer questId="337492" stepId="13" waitTime="500" />
+        </If>
+        <LoadProfile file="Tiered_RiftExplore.xml" />
+      </If>
+
+      <!-- Talk to reward NPC-->
+      <FunkyWhile condition="QuestAndStepActive(337492, 34)">
+        <LogMessage quest="1" step="2" output="[Rift Bot] Reward NPC Spawned" />
+        <MoveToActor questId="337492" stepId="34" actorId="398682" interactRange="9" pathPrecision="5" pathPointLimit="250" statusText="" />
+       
+        <IsVariableSet Key="RiftReward" Value="Gem">
+          <AcceptTieredRiftReward quest="337492" step="34" Reward="Gem" />
+        </IsVariableSet>
+
+        <AcceptTieredRiftReward quest="337492" step="34" />
+      </FunkyWhile>
+
+      <If condition="QuestAndStepActive(337492, 10)">
+        <LogMessage quest="1" step="2" output="[Rift Bot] Rift is finished" />
+        <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+        <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+        <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+        <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+        <LoadProfile file="Tiered Rift.xml"/>
+      </If>
+      <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+    </While>
+
+    <While condition="not Me.IsInTown ">
+      <If condition="QuestAndStepActive(337492, 13)">
+        <LogMessage quest="1" step="2" output="[Rift Bot] Townstone found" />
+        <If condition="not Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBC') or CurrentWorldId == 288454">
+          <LogMessage quest="1" step="2" output="[Rift Bot] Explore current level" />
+          <ExploreDungeon questId="337492" stepId="1" until="FullyExplored" markerDistance="60" boxSize="10" pathPrecision="20" boxTolerance="0.4"/>
+          <WaitTimer questId="1" stepId="1" waitTime="500"/>
+        </If>
+      </If>
+      <If condition="QuestAndStepActive(337492, 13) and not Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBC')">
+        <LogMessage quest="1" step="2" output="[Rift Bot] Not able to spawn the boss with the last level fully explored" />
+      </If>
+      <If condition="QuestAndStepActive(337492, 16)">
+        <LogMessage quest="1" step="2" output="[Rift Bot] Boss Spawned" />
+        <ExploreDungeon questId="337492" stepId="16" until="FullyExplored" markerDistance="60" boxSize="10" pathPrecision="40" boxTolerance="0.4"/>
+      </If>
+
+
+      <If condition="QuestAndStepActive(337492, 10)">
+        <LogMessage quest="1" step="2" output="[Rift Bot] Rift boss is killed" />
+      </If>
+
+      <!-- 398682 -->
+      <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+      <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+      <WaitTimer questId="1" stepId="1" waitTime="1000"/>
+      <LoadProfile file="Tiered Rift.xml"/>
+    </While>
+
+    <If condition="Me.IsInTown ">
+      <If condition="QuestAndStepActive(337492, 10)">
+        <SafeMoveTo questId="312429" stepId="2" x="449" y="404" z="1" pathPrecision="5" statusText="" />
+        <MoveToActor questId="312429" stepId="2" actorId="396751" interactRange="9" pathPrecision="5" pathPointLimit="250" statusText="" />
+        <WaitTimer questId="1" stepId="1" waitTime="25000"/>
+      </If>
+    </If>
+
+    <LogMessage quest="1" step="2" output="[Rift Bot] Reset and repeat" />
+
+    <LoadProfile file="_Starter_Default.xml" />
+  </Order>
+</Profile>

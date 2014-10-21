@@ -19,7 +19,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location | SkillExecutionFlags.ClusterLocation; } }
 
 		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
-
+        public override bool IsRanged { get { return true; } }
 		public override void Initialize()
 		{
 			Range = 49;

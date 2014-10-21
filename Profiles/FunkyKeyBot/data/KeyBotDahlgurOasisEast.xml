@@ -1,0 +1,122 @@
+<Profile>
+	<Name>Funky - KeyBot Dahlgur Oasis East - Act2</Name>
+	<GameParams quest="-1" step="-1" act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1"  />
+	<KillMonsters>True</KillMonsters>
+	<PickupLoot>True</PickupLoot>
+<Order>
+
+  <FunkySetAdventureMode enabled="False" />
+  <TrinityMaxDeaths questId="1" max="3" />
+  <ToggleTargeting combat="True" looting="True" lootRadius="50" />
+
+  <While condition="CurrentLevelAreaId != 57425">
+    <UseWaypoint waypointNumber="23" questId="1"/>
+    <WaitTimer questId="1" waitTime="2500" />
+  </While>
+  <FunkyClustering>
+    <ExceptionList>
+      <ClusterException sno="256022" />
+    </ExceptionList>
+  </FunkyClustering>
+  <FunkyWhileActorPresent sno="256022" present="False">
+		
+		<SafeMoveTo questId="1" x="2841.330" y="4524.561" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2772.865" y="4441.448" z="99.89552" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2831.511" y="4347.504" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2872.298" y="4317.512" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2886.671" y="4404.864" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2895.242" y="4480.076" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2880.301" y="4564.233" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2964.144" y="4623.256" z="100.2000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2925.227" y="4571.180" z="100.0591" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3018.496" y="4562.938" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3108.132" y="4586.420" z="100.0847" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3173.116" y="4614.742" z="97.97285" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3206" y="4651" z="97" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3236" y="4674" z="97" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3236.293" y="4676.145" z="97.34128" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3145.613" y="4581.113" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3130.429" y="4485.988" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3127.831" y="4416.633" z="100.0844" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3219.305" y="4450.483" z="98.64787" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3125.338" y="4402.431" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3188.022" y="4345.583" z="100.0674" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3105.968" y="4279.407" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3123.370" y="4241.901" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3036.797" y="4265.542" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2924.173" y="4311.383" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2937.621" y="4225.854" z="100.2000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="2997.580" y="4202.249" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3029.303" y="4107.481" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3055.941" y="4018.537" z="100.1584" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3040.484" y="3941.407" z="100.1995" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3137.076" y="4058.074" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3175.962" y="4075.295" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3120.932" y="4209.064" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3201.250" y="4270.422" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3284.044" y="4196.650" z="98.14394" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3364.008" y="4257.627" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3334.372" y="4339.917" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3298.225" y="4322.167" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3375.751" y="4375.911" z="100.0864" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3489.134" y="4389.385" z="100.1060" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3515.253" y="4302.258" z="100.1548" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3589.077" y="4321.108" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3590.077" y="4194.662" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3494.219" y="4170.249" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3515.271" y="4090.459" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3611.242" y="4109.080" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3535.891" y="4010.541" z="100.1100" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3461.918" y="3960.907" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3515.311" y="3933.790" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3609.337" y="4028.871" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3700.607" y="4070.762" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3757.418" y="4081.911" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3807.846" y="3978.588" z="100.1530" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3884.787" y="4051.521" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3837.107" y="4139.275" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3927.867" y="4175.559" z="100.1599" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3968.225" y="4227.863" z="97.60000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3861.489" y="4246.654" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3832.627" y="4304.658" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3715.985" y="4317.199" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3659.914" y="4353.271" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3704.681" y="4438.862" z="99.30394" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3776.607" y="4439.236" z="100.0838" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3842.635" y="4435.386" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3884.101" y="4339.162" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3897.955" y="4450.376" z="108.4132" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3934.682" y="4494.491" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3832.746" y="4508.113" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3807.390" y="4558.812" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3841.192" y="4613.000" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3898.680" y="4645.867" z="99.63013" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3917.350" y="4703.001" z="97.45358" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3956.916" y="4737.542" z="97.55318" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3991.440" y="4688.492" z="97.59999" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4022.541" y="4625.398" z="99.55162" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3956.978" y="4549.469" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="3957.973" y="4472.827" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4041.321" y="4476.148" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4115.600" y="4492.597" z="100.1189" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4158.286" y="4525.628" z="100.1314" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4125.788" y="4604.603" z="98.08345" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4188" y="4676" z="97" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4164" y="4653" z="97" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4107.419" y="4598.277" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4037.972" y="4552.602" z="100.1000" pathPrecision="30"/>
+		<SafeMoveTo questId="1" x="4003.199" y="4621.488" z="99.76048" pathPrecision="30"/>
+		
+		<ToggleTargeting questId="1" combat="True" />
+	</FunkyWhileActorPresent>
+
+
+  <FunkyWhileActorPresent sno="256022" present="True">
+    <MoveTo questId="1" actorId="256022" pathPrecision="20" />
+    <WaitTimer questId="1" waitTime="2000" />
+  </FunkyWhileActorPresent>
+  <WaitTimer questId="1" waitTime="6000" />
+
+  <LoadProfile file="Loader.xml" />
+</Order>
+</Profile>

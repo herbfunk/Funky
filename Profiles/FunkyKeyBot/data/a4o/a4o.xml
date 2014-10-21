@@ -1,0 +1,9 @@
+<Profile>
+<Name>FunkyKeyBot Act4 Only</Name>
+<KillMonsters>True</KillMonsters>
+<PickupLoot>True</PickupLoot>
+<GameParams act="OpenWorld" resumeFromSave="False" isPrivate="True" numGames="-1" />
+<Order>
+	<LoadProfile file="../Loader.xml" />
+</Order>
+</Profile>
