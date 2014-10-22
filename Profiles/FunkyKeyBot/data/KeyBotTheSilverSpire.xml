@@ -16,7 +16,7 @@
 
 
     <FunkyWhileActorPresent sno="256054" present="False">
-      <TrinityExploreDungeon questId="1" stepId="2" until="ObjectFound" actorId="256054" objectDistance="60" boxTolerance="0.20" boxSize="45" timeoutType="Timer" timeoutValue="240" townPortalOnTimeout="false">
+      <TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" boxTolerance="0.20" boxSize="45" timeoutType="Timer" timeoutValue="240" townPortalOnTimeout="false">
         <PrioritizeScenes>
           <PriorityScene sceneName="Portal" />
         </PrioritizeScenes>
@@ -28,6 +28,7 @@
           <IgnoreScene sceneName="_W_" />
         </IgnoreScenes>
       </TrinityExploreDungeon>
+      <LoadProfile file="Loader.xml" />
     </FunkyWhileActorPresent>
 
     <FunkyWhileActorPresent sno="256054" present="True">
@@ -40,7 +41,7 @@
       <MoveTo questId="1" actorId="256054" pathPrecision="20" />
       <WaitTimer questId="1" waitTime="2000" />
     </FunkyWhileActorPresent>
-    
+
     <WaitTimer questId="1" waitTime="6000" />
     <LoadProfile file="Loader.xml" />
   </Order>

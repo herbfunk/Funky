@@ -9,22 +9,22 @@
     <SetVariable Key="RiftBot" Value="Trial" />
     
     <!-- Check Normal Rift Active -->
-    <If condition="IsActiveQuestAndStep(337492, 1) or IsActiveQuestAndStep(337492, 3)">
+    <If condition="QuestAndStepActive(337492, 1) or QuestAndStepActive(337492, 3)">
       <LoadProfile file="Normal Rift.xml" />
     </If>
     
     <!-- Check Tiered Rift Active -->
-    <If condition="IsActiveQuestAndStep(337492, 13) or IsActiveQuestAndStep(337492, 16)">
+    <If condition="QuestAndStepActive(337492, 13) or QuestAndStepActive(337492, 16)">
       <LoadProfile file="Tiered Rift.xml" />
     </If>
 
     <!-- Check Trial Rift Active -->
-    <If condition="IsActiveQuestAndStep(405695, 13) or IsActiveQuestAndStep(405695, 1)">
+    <If condition="QuestAndStepActive(405695, 13) or QuestAndStepActive(405695, 1)">
       <LoadProfile file="Trial Rift.xml" />
     </If>
 
     <!-- Check Rift Finished -->
-    <While condition="IsActiveQuestAndStep(337492, 10) or IsActiveQuestAndStep(337492, 34) or IsActiveQuestAndStep(405695, 9)">
+    <While condition="QuestAndStepActive(337492, 10) or QuestAndStepActive(337492, 34) or QuestAndStepActive(405695, 9)">
       <MoveToTownObject questId="1" stepId="1" Type="NephalemNPC" />
       <WaitTimer questId="1" stepId="1" waitTime="2500"/>
       <MoveToActor questId="312429" stepId="2" actorId="363744" interactRange="9" pathPrecision="5" pathPointLimit="250" statusText="" />

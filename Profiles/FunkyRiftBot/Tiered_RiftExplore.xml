@@ -61,7 +61,7 @@
 					   CurrentLevelAreaId == 347961">  
 			<LogMessage quest="1" step="2" output="[Rift Bot] Explore Open Area @ 50/30/0.05" />
 			<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBF')">
-				<ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="100" boxSize="50" pathPrecision="30" boxTolerance="0.05">
+				<ExploreDungeon questId="1" stepId="2" until="RiftCompleteOrFullyExplored" markerDistance="100" boxSize="50" pathPrecision="30" boxTolerance="0.05">
 					<PriorityScenes>
 					<PriorityScene sceneName="Exit"/>
 					<PriorityScene sceneName="Entrance"/>
@@ -70,7 +70,7 @@
 				</ExploreDungeon>
 				<LoadProfile file="Tiered_Rift.xml" />
 			</If>
-			<ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="100" boxSize="50" pathPrecision="30" boxTolerance="0.05">
+			<ExploreDungeon questId="1" stepId="2" until="RiftCompleteOrFullyExplored" markerDistance="100" boxSize="50" pathPrecision="30" boxTolerance="0.05">
 				<PriorityScenes>
 					<PriorityScene sceneName="Exit"/>
 					<PriorityScene sceneName="Entrance"/>
@@ -83,7 +83,7 @@
 		<!-- This default setting works very well in narrow dungeons-->
 		<LogMessage quest="1" step="2" output="[Rift Bot] Explore Narrow Area @ 10/40/0.4" />
 		<If condition="Zeta.Bot.Settings.GlobalSettings.Instance.LastProfile.Contains('RBF')">
-			<ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="100" boxSize="10" pathPrecision="40" boxTolerance="0.4">
+			<ExploreDungeon questId="1" stepId="2" until="RiftCompleteOrFullyExplored" markerDistance="100" boxSize="10" pathPrecision="40" boxTolerance="0.4">
 				<PriorityScenes>
 					<PriorityScene sceneName="Exit"/>
 					<PriorityScene sceneName="Entrance"/>
@@ -92,7 +92,7 @@
 			</ExploreDungeon>
 			<LoadProfile file="Tiered_Rift.xml" />
 		</If>
-		<ExploreDungeon questId="1" stepId="2" until="PortalExitFound" markerDistance="100" boxSize="10" pathPrecision="40" boxTolerance="0.4">
+		<ExploreDungeon questId="1" stepId="2" until="RiftCompleteOrFullyExplored" markerDistance="100" boxSize="10" pathPrecision="40" boxTolerance="0.4">
 			<PriorityScenes>
 				<PriorityScene sceneName="Exit"/>
 				<PriorityScene sceneName="Entrance"/>

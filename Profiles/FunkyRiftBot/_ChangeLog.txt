@@ -1,5 +1,7 @@
 ﻿v0008
-Changed ExploreDungeon tag until condition to PortalExitFound in Normal_RiftExplore.xml
+Changed ExploreDungeon tag until condition to RiftCompleteOrFullyExplored
+Replaced some of the While tags to use FunkyWhile (breaks current tag when condition fails)
+Replaced the condition IsActiveQuestandStep to use custom condition "QuestAndStepActive" (uses funky quest cache)
 
 
 v0007

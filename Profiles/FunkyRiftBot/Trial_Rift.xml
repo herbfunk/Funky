@@ -6,7 +6,6 @@
 
   <Order>
     <ToggleTargeting questId="1" combat="True" looting="True" lootRadius="150" killRadius="300" />
-    <FunkyClustering enabled="false" />
     <WaitTimer questId="1" stepId="1" waitTime="5000" />
 
 
