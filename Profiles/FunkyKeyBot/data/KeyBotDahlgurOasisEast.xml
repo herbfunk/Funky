@@ -13,11 +13,7 @@
     <UseWaypoint waypointNumber="23" questId="1"/>
     <WaitTimer questId="1" waitTime="2500" />
   </While>
-  <FunkyClustering>
-    <ExceptionList>
-      <ClusterException sno="256022" />
-    </ExceptionList>
-  </FunkyClustering>
+
   <FunkyWhileActorPresent sno="256022" present="False">
 		
 		<SafeMoveTo questId="1" x="2841.330" y="4524.561" z="100.1000" pathPrecision="30"/>

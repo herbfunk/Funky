@@ -12,12 +12,7 @@
   <WaitTimer questId="1" waitTime="1000" />
   <ToggleTargeting combat="True" looting="True" lootRadius="50" />
 
-  <FunkyClustering>
-    <ExceptionList>
-      <ClusterException sno="256022" />
-    </ExceptionList>
-  </FunkyClustering>
-  
+
 	<If condition="ActorExistsAt(Me.ActorSNO, 3509, 3983, 102, 20) or
 				   ActorExistsAt(Me.ActorSNO, 3898, 4169, 102, 20)">
 		<LoadProfile profile="KeyBotDahlgurOasisWest.xml" />

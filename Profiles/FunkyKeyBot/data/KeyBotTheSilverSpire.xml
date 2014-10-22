@@ -14,11 +14,6 @@
       <WaitTimer questId="1" waitTime="2500" />
     </While>
 
-    <FunkyClustering>
-      <ExceptionList>
-        <ClusterException sno="256054" />
-      </ExceptionList>
-    </FunkyClustering>
 
     <FunkyWhileActorPresent sno="256054" present="False">
       <TrinityExploreDungeon questId="1" stepId="2" until="ObjectFound" actorId="256054" objectDistance="60" boxTolerance="0.20" boxSize="45" timeoutType="Timer" timeoutValue="240" townPortalOnTimeout="false">

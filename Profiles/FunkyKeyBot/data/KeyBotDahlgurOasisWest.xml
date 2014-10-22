@@ -13,12 +13,6 @@
     <WaitTimer questId="1" waitTime="2500" />
   </While>
 
-  <FunkyClustering>
-    <ExceptionList>
-      <ClusterException sno="256022" />
-    </ExceptionList>
-  </FunkyClustering>
-  
   <FunkyWhileActorPresent sno="256022" present="False">
 
 		<SafeMoveTo questId="1" x="3723.294" y="4072.128" z="100.1" pathPrecision="30"/>

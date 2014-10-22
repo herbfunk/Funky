@@ -14,11 +14,6 @@
 		<WaitTimer questId="1" waitTime="2500" />
 	</While>
 	
-	<FunkyClustering>
-		<ExceptionList>
-			<ClusterException sno="256040" />
-		</ExceptionList>
-	</FunkyClustering>
 
 	<FunkyWhileActorPresent sno="256040" present="False">
 

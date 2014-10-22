@@ -8,11 +8,11 @@ using fBaseXtensions.Helpers;
 using Zeta.Common;
 using Zeta.TreeSharp;
 using Zeta.XmlEngine;
-
+using Logger = fBaseXtensions.Helpers.Logger;
 namespace fBaseXtensions.XML
 {
     [XmlElement("FunkyWhile")]
-    class WhileActiveQuestTag : BaseWhileComplexNodeTag
+    class FunkyWhileTag : BaseWhileComplexNodeTag
     {
         [XmlAttribute("condition")]
         public string Condition { get; set; }

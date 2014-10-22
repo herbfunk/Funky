@@ -4,15 +4,12 @@
   <KillMonsters>True</KillMonsters>
   <PickupLoot>True</PickupLoot>
   <Order>
-    
-    <FunkyProfile>
-      <Cluster enabled="False" />
-      
-      <ObjectWeighting>
-        <ObjectWeight sno="1000" weight="10000" />
-      </ObjectWeighting>
-    </FunkyProfile>
-    
-    <LogMessage questId="312429" stepId="2" output="Checking Profile!" />
+
+    <FunkyWhile condition="not ActorPresent(256040)">
+      <WaitTimer questId="1" waitTime="2000" />
+      <LogMessage questId="312429" stepId="2" output="Checking Profile!" />
+    </FunkyWhile>
+
+
   </Order>
 </Profile>

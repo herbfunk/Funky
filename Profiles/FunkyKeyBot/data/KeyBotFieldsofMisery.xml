@@ -8,12 +8,7 @@
 	<FunkySetAdventureMode enabled="False" />
 	<TrinityMaxDeaths questId="1" max="3" />
 	<ToggleTargeting combat="True" looting="True" lootRadius="50" />
-	<FunkyClustering>
-		<ExceptionList>
-			<ClusterException sno="255704" />
-		</ExceptionList>
-	</FunkyClustering>
-	
+
 	<While condition="CurrentWorldId != 71150">
     <UseWaypoint waypointNumber="7" questId="1"/>	
 		<WaitTimer questId="1" waitTime="2500" />

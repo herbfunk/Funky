@@ -1156,7 +1156,7 @@
     <Compile Include="XML\OpenRiftPortalTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="XML\WhileActiveQuestTag.cs">
+    <Compile Include="XML\FunkyWhileTag.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="XML\WhileActorExists.cs">
