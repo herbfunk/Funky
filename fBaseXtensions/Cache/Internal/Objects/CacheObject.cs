@@ -402,8 +402,18 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public virtual bool IsStillValid()
 		{
 			//Check DiaObject first
-			if (ref_DiaObject == null || !ref_DiaObject.IsValid || ref_DiaObject.BaseAddress == IntPtr.Zero || ref_DiaObject.CommonData == null || !ref_DiaObject.CommonData.IsValid || ref_DiaObject.CommonData.ACDGuid == -1)
-				return false;
+		    if (ref_DiaObject == null || !ref_DiaObject.IsValid || ref_DiaObject.BaseAddress == IntPtr.Zero)
+		    {
+                //Logger.Write(LogLevel.Cache, "Reference DiaObject not valid for {0}", DebugStringSimple);
+                return false;
+		    }
+
+		    if (ref_DiaObject.CommonData == null || !ref_DiaObject.CommonData.IsValid || ref_DiaObject.CommonData.ACDGuid == -1)
+		    {
+                //Logger.Write(LogLevel.Cache, "Reference DiaObject -- CommonData not valid for {0}", DebugStringSimple);
+                return false;
+		    }
+				
 
 			return true;
 		}

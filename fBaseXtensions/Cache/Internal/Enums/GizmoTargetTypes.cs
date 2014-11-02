@@ -23,6 +23,11 @@ namespace fBaseXtensions.Cache.Internal.Enums
 
 		ArmorRack=1024,
 		WeaponRack=2048,
+        PylonShrine = 4096,
+
+
+        Containers=Chest|Corpse|Resplendant|MiscContainer|FloorContainer|ArmorRack|WeaponRack,
+
 
 	}
 }

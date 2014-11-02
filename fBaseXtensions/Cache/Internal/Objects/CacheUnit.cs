@@ -423,7 +423,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public bool UpdateHitPoints()
 		{
 			//Last Target skips the counter checks
-			if (this == FunkyGame.Targeting.Cache.LastCachedTarget)
+			if (Equals(FunkyGame.Targeting.Cache.LastCachedTarget))
 			{
 				UpdateCurrentHitPoints();
 				return true;
@@ -458,8 +458,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					{
 						dThisCurrentHealth = ref_DiaUnit.HitpointsCurrent;
 					}
-					catch (NullReferenceException)
+					catch (Exception ex)
 					{
+					    CurrentHealthPct = null;
 						return;
 					}
 
@@ -994,7 +995,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 				#region Validations
 				// Unit is already dead
-				if (CurrentHealthPct.HasValue && (CurrentHealthPct.Value <= 0d || CurrentHealthPct.Value>1d))
+                if (!CurrentHealthPct.HasValue || (CurrentHealthPct.Value <= 0d || CurrentHealthPct.Value > 1d) || !MaximumHealth.HasValue || MaximumHealth.Value<=0d)
 				{
 					//Respawnable Units -- Only when they are not elite/rare/uniques!
 					if (!ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Revivable) || IsEliteRareUnique)
@@ -1480,12 +1481,20 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 			if (CurrentHealthPct.HasValue)
 			{
-				if (CurrentHealthPct.Value <= 0d)
+				if (CurrentHealthPct.Value <= 0d || CurrentHealthPct.Value > 1d)
 				{
-					//Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
+					Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
 					NeedsRemoved = true;
+				    BlacklistLoops = -1;
 					return false;
 				}
+			}
+			else
+			{
+                Logger.Write(LogLevel.Cache, "Unit failed to update hitpoints {0}", DebugStringSimple);
+                NeedsRemoved = true;
+                BlacklistLoops = -1;
+                return false;
 			}
 
 

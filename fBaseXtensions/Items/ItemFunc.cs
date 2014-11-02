@@ -568,6 +568,14 @@ namespace fBaseXtensions.Items
 									  thisPluginItemTypes == PluginItemTypes.InfernalKey || thisPluginItemTypes == PluginItemTypes.KeyStone;
 			return bIsStackable;
 		}
+        public static bool DetermineIsStackable(PluginDroppedItemTypes thisPluginItemTypes)
+        {
+            bool bIsStackable = thisPluginItemTypes == PluginDroppedItemTypes.CraftingMaterial || thisPluginItemTypes == PluginDroppedItemTypes.Ruby ||
+                                      thisPluginItemTypes == PluginDroppedItemTypes.Diamond || thisPluginItemTypes == PluginDroppedItemTypes.Emerald || thisPluginItemTypes == PluginDroppedItemTypes.Topaz || thisPluginItemTypes == PluginDroppedItemTypes.Amethyst ||
+                                      thisPluginItemTypes == PluginDroppedItemTypes.Potion ||  
+                                      thisPluginItemTypes == PluginDroppedItemTypes.InfernalKey || thisPluginItemTypes == PluginDroppedItemTypes.KeyFragment;
+            return bIsStackable;
+        }
 		public static bool DetermineIsStackable(CacheACDItem item)
 		{
 			PluginItemTypes thisPluginItemTypes = DetermineItemType(item);

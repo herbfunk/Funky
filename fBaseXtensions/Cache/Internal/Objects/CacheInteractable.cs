@@ -41,6 +41,31 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			get
 			{
+                if (GizmoTargetTypes.HasValue)
+                {
+
+                    if (ObjectCache.CheckFlag(GizmoTargetTypes.Value, Enums.GizmoTargetTypes.Containers))
+                    {
+                        if (GizmoTargetTypes.Value == Enums.GizmoTargetTypes.Resplendant)
+                            return FunkyBaseExtension.Settings.Ranges.ContainerOpenRange * 3;
+
+                        return FunkyBaseExtension.Settings.Ranges.ContainerOpenRange;
+                    }
+
+                    if (GizmoTargetTypes.Value == Enums.GizmoTargetTypes.PoolOfReflection)
+                        return FunkyBaseExtension.Settings.Ranges.PoolsOfReflectionRange;
+
+                    if (GizmoTargetTypes.Value == Enums.GizmoTargetTypes.Healthwell)
+                        return FunkyBaseExtension.Settings.Ranges.ShrineRange;
+
+                    if (GizmoTargetTypes.Value == Enums.GizmoTargetTypes.Shrine)
+                        return FunkyBaseExtension.Settings.Ranges.ShrineRange;
+
+                    if (GizmoTargetTypes.Value == Enums.GizmoTargetTypes.PylonShrine)
+                        return FunkyBaseExtension.Settings.Ranges.ShrineRange * 3;
+                }
+
+
 				if (targetType.Value == TargetType.Shrine)
 				{
 					if (Gizmotype == GizmoType.PoolOfReflection)

@@ -875,7 +875,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 			{
 				CombatCriteria += () =>
 				{
-					if (!FunkyGame.Targeting.Cache.CurrentUnitTarget.IgnoresLOSCheck && FunkyGame.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
+                    if (!FunkyGame.Targeting.Cache.CurrentTarget.IgnoresLOSCheck && FunkyGame.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
 					{
 						LOSInfo LOSINFO = FunkyGame.Targeting.Cache.CurrentTarget.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 2000)
@@ -909,7 +909,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 			{//Melee
 				CombatCriteria += () =>
 				{
-					if (!FunkyGame.Targeting.Cache.CurrentUnitTarget.IgnoresLOSCheck && FunkyGame.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
+                    if (!FunkyGame.Targeting.Cache.CurrentTarget.IgnoresLOSCheck && FunkyGame.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
 					{
 						float radiusDistance = FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance;
 						//Check if within interaction range..

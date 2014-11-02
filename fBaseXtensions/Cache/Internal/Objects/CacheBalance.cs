@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
@@ -55,8 +56,16 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			bNeedsUpdated = true;
 		}
 
+	    public override string ToString()
+	    {
+	        return String.Format("BalanceID {0} Level {1} ItemType {2} BaseType {3} FollowerType {4}" +
+	                             "TwoHanded {5} OneHanded {6}",
+                                 iThisBalanceID,iThisItemLevel, thisItemType, thisItemBaseType, thisFollowerType,
+                                 bThisTwoHand,bThisOneHand);
+	    }
 
-		//Property -- Craft Plans
+
+	    //Property -- Craft Plans
 		public bool IsBlacksmithPlanSixProperties
 		{
 			get

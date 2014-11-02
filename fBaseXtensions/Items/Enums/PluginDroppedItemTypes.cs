@@ -1,4 +1,6 @@
-﻿namespace fBaseXtensions.Items.Enums
+﻿using System;
+
+namespace fBaseXtensions.Items.Enums
 {
 	public enum PluginDroppedItemTypes
 	{
@@ -12,6 +14,8 @@
 		Helm,
 		Pants,
 		Shoulders,
+
+        
 
 		Axe,
 		AxeTwoHanded,
@@ -35,6 +39,8 @@
 		SwordTwoHanded,
 		Wand,
 
+        
+
 		Amulet,
 		Ring,
 		FollowerTrinket,
@@ -44,6 +50,8 @@
 		Quiver,
 		Shield,
 		Source,
+
+       
 
 		CraftingMaterial,
 		InfernalKey,
@@ -65,5 +73,6 @@
 		Topaz,
 		LegendaryGem,
 
+        
 	}
 }

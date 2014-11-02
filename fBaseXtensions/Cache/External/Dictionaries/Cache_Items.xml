@@ -1094,6 +1094,13 @@
       <PluginDroppedItemTypes>FlailTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>356321</SnoId>
+      <InternalName>x1_Flail2H_norm_unique_flippy_03-3337</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>FlailTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>145120</SnoId>
       <InternalName>handXBow_norm_base_flippy_06-8485</InternalName>
       <ActorType>Item</ActorType>
@@ -1187,6 +1194,13 @@
     <DroppedItemEntry>
       <SnoId>196906</SnoId>
       <InternalName>handXbow_norm_unique_flippy_04-14756</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>211762</SnoId>
+      <InternalName>handXbow_norm_unique_flippy_06-11173</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
@@ -2249,6 +2263,13 @@
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>345663</SnoId>
+      <InternalName>x1_cruShield_norm_unique_flippy_02-87858</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>194999</SnoId>
       <InternalName>Mojo_norm_unique_flippy_04-12327</InternalName>
       <ActorType>Item</ActorType>
@@ -2433,6 +2454,13 @@
     <DroppedItemEntry>
       <SnoId>192494</SnoId>
       <InternalName>Shield_norm_unique_flippy_06-19615</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>298182</SnoId>
+      <InternalName>x1_Shield_norm_unique_09</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
@@ -4300,6 +4328,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>70416</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>253993</SnoId>
       <ItemType>Gloves</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4820,6 +4853,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>139107</SnoId>
+      <ItemType>CeremonialKnife</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367136</SnoId>
       <ItemType>Dagger</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -5291,6 +5329,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>247385</SnoId>
+      <ItemType>TwoHandFlail</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>247307</SnoId>
       <ItemType>TwoHandFlail</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -7950,6 +7993,11 @@
       <LegendaryType>Wildwood</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>229716</SnoId>
+      <ItemType>Sword</ItemType>
+      <LegendaryType>ThunderfuryBlessedBladeoftheWindseeker</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>182081</SnoId>
       <ItemType>Wand</ItemType>
       <LegendaryType>Atrophy</LegendaryType>
@@ -8348,6 +8396,11 @@
       <SnoId>299411</SnoId>
       <ItemType>CrusaderShield</ItemType>
       <LegendaryType>PiroMarella</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>299414</SnoId>
+      <ItemType>CrusaderShield</ItemType>
+      <LegendaryType>AkaratsAwakening</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>194995</SnoId>
@@ -9178,6 +9231,11 @@
       <SnoId>336185</SnoId>
       <ItemType>Bracers</ItemType>
       <LegendaryType>KrelmsBuffBulwark</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>211745</SnoId>
+      <ItemType>HandCrossbow</ItemType>
+      <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
   </ItemDataCache>
   <GemCache>

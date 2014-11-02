@@ -1564,7 +1564,24 @@ namespace fBaseXtensions.Settings
 		}
 
 
+        private void btn_DumpItemBalanceCache_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
 
+            try
+            {
+                foreach (var entry in CacheIDLookup.dictGameBalanceCache.Values)
+                {
+                    LBDebug.Controls.Add(new UserControlDebugEntry(entry.ToString()));
+                }
+            }
+            catch 
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
+            }
+
+            LBDebug.Focus();
+        }
 
 		private void flowLayoutPanel_Avoidances_Click(object sender, EventArgs e)
 		{
@@ -1733,6 +1750,8 @@ namespace fBaseXtensions.Settings
 				FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList[selectedIndex] = enummoveUpItemValue;
 			}
 		}
+
+        
 
 
 	}

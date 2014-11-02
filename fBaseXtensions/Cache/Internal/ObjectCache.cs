@@ -78,7 +78,7 @@ namespace fBaseXtensions.Cache.Internal
 		{
 			return (property & flag) != 0;
 		}
-		//
+        //
 
 		///<summary>
 		///Adds/Updates CacheObjects inside collection by Iteration of RactorList
@@ -176,31 +176,31 @@ namespace fBaseXtensions.Cache.Internal
 						tmp_CachedObj.LoopsUnseen = 0;
 
 
-					//Validate (ignore special object SNO Ids)
-					if (!CacheIDLookup.hashSNOSkipCommonDataCheck.Contains(tmp_CachedObj.SNOID))
-					{
-						try
-						{
-							if (thisObj.CommonData == null)
-							{
-								//Logger.Write(LogLevel.Cache, "CommonData is no longer valid! SNOID {0}", tmp_CachedObj.DebugStringSimple);
-								//BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
-								continue;
-							}
-							else if (thisObj.CommonData.ACDGuid != thisObj.ACDGuid)
-							{
-								//Logger.Write(LogLevel.Cache, "ACDGuid Mismatched! SNOID {0}", tmp_CachedObj.DebugStringSimple);
-								//BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
-								continue;
-							}
-						}
-						catch (Exception ex)
-						{
-							//Logger.Write(LogLevel.Cache, "Object is no longer valid! (Exception) SNOID {0}", tmp_CachedObj.DebugStringSimple);
-							//BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
-							continue;
-						}
-					}
+                    ////Validate (ignore special object SNO Ids)
+                    //if (!CacheIDLookup.hashSNOSkipCommonDataCheck.Contains(tmp_CachedObj.SNOID))
+                    //{
+                    //    try
+                    //    {
+                    //        if (thisObj.CommonData == null)
+                    //        {
+                    //            Logger.Write(LogLevel.Cache, "CommonData is no longer valid! {0}", tmp_CachedObj.DebugStringSimple);
+                    //            //BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
+                    //            continue;
+                    //        }
+                    //        if (thisObj.CommonData.ACDGuid != thisObj.ACDGuid)
+                    //        {
+                    //            Logger.Write(LogLevel.Cache, "ACDGuid Mismatched! {0}", tmp_CachedObj.DebugStringSimple);
+                    //            //BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
+                    //            continue;
+                    //        }
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        //Logger.Write(LogLevel.Cache, "Object is no longer valid! (Exception) SNOID {0}", tmp_CachedObj.DebugStringSimple);
+                    //        //BlacklistCache.AddObjectToBlacklist(tmp_CachedObj.RAGUID, BlacklistType.Temporary);
+                    //        continue;
+                    //    }
+                    //}
 
 					//Update any SNO Data.
 					#region SNO_Cache_Update

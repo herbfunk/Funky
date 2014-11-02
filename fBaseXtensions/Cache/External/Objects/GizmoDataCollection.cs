@@ -520,11 +520,12 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(176076, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
 				new GizmoEntry(260331, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
 				new GizmoEntry(260330, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
-				new GizmoEntry(330697, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
-				new GizmoEntry(330699, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
-				new GizmoEntry(330698, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
-				new GizmoEntry(330695, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
-				new GizmoEntry(330696, PluginGizmoType.PowerUp, "", GizmoTargetTypes.Shrine),
+
+				new GizmoEntry(330697, PluginGizmoType.PowerUp, "", GizmoTargetTypes.PylonShrine),//Channeling
+				new GizmoEntry(330699, PluginGizmoType.PowerUp, "", GizmoTargetTypes.PylonShrine),//Speed
+				new GizmoEntry(330698, PluginGizmoType.PowerUp, "", GizmoTargetTypes.PylonShrine),//Shield
+				new GizmoEntry(330695, PluginGizmoType.PowerUp, "", GizmoTargetTypes.PylonShrine),//Power
+				new GizmoEntry(330696, PluginGizmoType.PowerUp, "", GizmoTargetTypes.PylonShrine),//Conduit
 			};
 		}
 

@@ -112,11 +112,32 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 			159631, //barbarian_frenzyRune_blood_swipe
 			181195, //a2dun_Cald_Belial_Acid_Attack
 			205459, //NoSpawnActor75feet
+
+            //Destructibles (non-essential)
+            334973,//x1_Pand_Ext_Ledge_Breakable_Large_A
+            334996,//x1_Pand_Ext_Ledge_Breakable_Top_Pillar_Small
+            245047,//(x1_BogCave_Breakable_Stalagmites_A-45399)
+            245120,//(x1_BogCave_Breakable_Stalagmites_B-45385)
+            245448,//(x1_BogCave_Breakable_Stalagmites_C-45404)
+            252580,//(x1_BogCave_Breakable_Stalagmites_E-45392)
+            255791,//(x1_BogCave_Breakable_Stalagmites_G-45390)            254851,//(x1_BogCave_Stalagmite_Group_A-45397)            254854,//(x1_BogCave_Stalagmite_Group_B-45405)            254857,//(x1_BogCave_Stalagmite_Group_C-45394)            254859,//(x1_BogCave_Stalagmite_Group_D-45387)            255245,//(x1_BogCave_Stalagmite_Fungus_A-80949)
+            255247,//(x1_BogCave_Stalagmite_Fungus_B-80917)
+            255252,//(x1_BogCave_Stalagmite_Fungus_C-80843)
+            255250,//(x1_BogCave_Stalagmite_Fungus_D-80913)
+            255254,//(x1_BogCave_Stalagmite_Fungus_E-80830)
+            255257,//(x1_BogCave_Stalagmite_Fungus_F-82345)
+            
+           
+
         };
 
 
 		// When did we last clear the temporary blacklist?
 		private static DateTime dateSinceTemporaryBlacklistClear = DateTime.Today;
+	    private static DateTime dateSincePermBlacklistClear = DateTime.Today;
+	    private const int PermBlacklistClearMinutes = 5;
+	    private const int TempBlacklistClearSeconds = 90;
+
 		// And the full blacklist?
 		// These are blacklists used to blacklist objects/monsters/items either for the rest of the current game, or for a shorter period
 		private static HashSet<int> hashRGUIDTemporaryIgnoreBlacklist = new HashSet<int>();
@@ -135,8 +156,11 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 		}
 		internal static void ClearBlacklistCollections()
 		{
-			hashRGUIDIgnoreBlacklist = new HashSet<int>();
-			hashRGUIDTemporaryIgnoreBlacklist = new HashSet<int>();
+			hashRGUIDIgnoreBlacklist.Clear();
+			hashRGUIDTemporaryIgnoreBlacklist.Clear();
+
+            dateSinceTemporaryBlacklistClear = DateTime.Today;
+            dateSincePermBlacklistClear = DateTime.Today;
 		}
 
 		internal static readonly HashSet<ActorType> IgnoredActorTypes = new HashSet<ActorType>
@@ -149,15 +173,25 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 				  ActorType.Invalid
 			  };
 
-		internal static void CheckRefreshBlacklists(int minimumSeconds = 90)
+		internal static void CheckRefreshBlacklists(int minimumSeconds = TempBlacklistClearSeconds)
 		{
 			// Clear the temporary blacklist every 90 seconds
 			if (DateTime.Now.Subtract(dateSinceTemporaryBlacklistClear).TotalSeconds > minimumSeconds)
 			{
 				dateSinceTemporaryBlacklistClear = DateTime.Now;
-				hashRGUIDTemporaryIgnoreBlacklist = new HashSet<int>();
+				hashRGUIDTemporaryIgnoreBlacklist.Clear();
 			}
 		}
+
+	    internal static void CheckPermBlacklist()
+	    {
+            // Clear the perm blacklist every 10 minutes
+            if (DateTime.Now.Subtract(dateSincePermBlacklistClear).TotalMinutes > PermBlacklistClearMinutes)
+            {
+                dateSincePermBlacklistClear = DateTime.Now;
+                hashRGUIDIgnoreBlacklist.Clear();
+            }
+	    }
 
 
 		internal static void AddObjectToBlacklist(int RAGUID, BlacklistType blacklist)
@@ -203,13 +237,6 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 				return true;
 
 			return false;
-		}
-		internal static void IgnoreThisObject(int RAGUID, int SNOID)
-		{
-			//Add to our blacklist so we don't create it again..
-			hashRGUIDIgnoreBlacklist.Add(RAGUID);
-			//Blacklist SNO so we don't create it ever again!
-			BlacklistSnoIDs.Add(SNOID);
 		}
 
 		internal static void IgnoreThisObject(CachedSNOEntry snoObj, int RAGUID, bool removal = true, bool blacklistSNOID = true)

@@ -23,6 +23,11 @@ namespace fBaseXtensions
 {
     public class FunkyBaseExtension : IPlugin
     {
+        public Version Version
+        {
+            get { return new Version(1, 1, 3, 1); }
+        }
+
 		public static PluginSettings Settings { get; set; }
 
 
@@ -111,10 +116,7 @@ namespace fBaseXtensions
 			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been disabled!", Version.ToString());
 	    }
 
-		public Version Version
-		{
-			get { return new Version(1, 1, 3, 0); }
-		}
+		
 		public string Author
 		{
 			get { return "HerbFunk"; }

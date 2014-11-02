@@ -59,6 +59,7 @@ namespace FunkyDebug
 				using (ZetaDia.Memory.SaveCacheState())
 				{
 					ZetaDia.Memory.DisableCache();
+				    ZetaDia.Actors.Clear();
 					ZetaDia.Actors.Update();
 
 					double iType = -1;
@@ -89,6 +90,15 @@ namespace FunkyDebug
 
 						iType = DumpGizmos(gizmos, iType);
 					}
+
+				    if (tabControl_Objects.SelectedTab.Text == "Misc")
+				    {
+                        var objects = ZetaDia.Actors.GetActorsOfType<DiaObject>(true, false)
+                            .Where(o => o.IsValid && (o.ActorType == ActorType.ServerProp || o.ActorType == ActorType.Environment || o.ActorType == ActorType.CustomBrain))
+                            .OrderBy(o => o.Distance);
+
+                        DumpObjects(objects, 0);
+				    }
 				}
 			}
 			catch (Exception ex)
@@ -99,6 +109,45 @@ namespace FunkyDebug
 			flowLayout_OutPut.Focus();
 		}
 
+	    private double DumpObjects(IEnumerable<DiaObject> objects, double iType)
+	    {
+            foreach (DiaObject o in objects)
+            {
+                if (!o.IsValid)
+                    continue;
+
+                string attributesFound = "";
+
+                foreach (ActorAttributeType aType in Enum.GetValues(typeof(ActorAttributeType)))
+                {
+                    try
+                    {
+                        var attribute = GetAttribute<int>(o, aType);
+
+                        if (attribute > 0)
+                        {
+                            attributesFound += aType.ToString() + "=" + attribute.ToString() + ", ";
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                try
+                {
+
+                    flowLayout_OutPut.Controls.Add(
+                        new UserControlDebugEntry(String.Format("Object Type: {2} ActorSNO: {0} Name: {1}" +
+                                                                " Position: {3}" +
+                                                                " has Attributes:\r\n{4}\n",
+                                            o.ActorSNO, o.Name, o.ActorType, o.Position, attributesFound)));
+                }
+                catch { }
+
+            }
+            return iType;
+	    }
 		private double DumpUnits(IEnumerable<DiaUnit> units, double iType)
 		{
 
@@ -180,31 +229,44 @@ namespace FunkyDebug
 				if (!o.IsValid)
 					continue;
 
-				try
-				{
-					flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Item ActorSNO: {0} ACDGuid: {30} DynamicID: {31} Name: {1} ItemType: {2} ItemBaseType: {3}\r\n" +
-											"Position: {29}" +
-											"IsArmor: {4} IsCrafted: {5} IsCraftingPage: {6} IsCraftingReagent: {7}\r\n" +
-											"IsElite: {8} IsEquipped: {9} IsGem: {10} IsMiscItem: {11}\r\n" +
-											"IsOneHand: {12} IsPotion: {13} IsRare: {14} IsTwoHand: {15}\r\n" +
-											"IsTwoSquareItem: {16} IsUnidentified: {17} IsUnique: {18} IsVendorBought: {19}\r\n" +
-											"Level: {20} RequiredLevel: {21} ItemLevelRequirementReduction: {22}" +
-											"ItemQuality: {23} GemQuality: {24}" +
-											"MaxStackCount: {25} MaxDurability: {26} NumSockets: {27}" +
-											"Stats: {28}\n",
-											o.ActorSNO, o.Name,
-											o.CommonData.ItemType, o.CommonData.ItemBaseType,
-											o.CommonData.IsArmor, o.CommonData.IsCrafted, o.CommonData.IsCraftingPage, o.CommonData.IsCraftingReagent,
-											o.CommonData.IsElite, o.CommonData.IsEquipped, o.CommonData.IsGem, o.CommonData.IsMiscItem,
-											o.CommonData.IsOneHand, o.CommonData.IsPotion, o.CommonData.IsRare, o.CommonData.IsTwoHand,
-											o.CommonData.IsTwoSquareItem, o.CommonData.IsUnidentified, o.CommonData.IsUnique, o.CommonData.IsVendorBought,
-											o.CommonData.Level, o.CommonData.RequiredLevel, o.CommonData.ItemLevelRequirementReduction,
-											o.CommonData.ItemQualityLevel, o.CommonData.GemQuality,
-											o.CommonData.MaxStackCount, o.CommonData.MaxDurability, o.CommonData.NumSockets,
-											o.CommonData.Stats,
-											o.Position, o.ACDGuid, o.CommonData.DynamicId)));
-				}
-				catch { }
+			    try
+			    {
+                    //flowLayout_OutPut.Controls.Add(
+                    //    new UserControlDebugEntry(
+                    //        String.Format(
+                    //            "Item ActorSNO: {0} ACDGuid: {30} DynamicID: {31} Name: {1} ItemType: {2} ItemBaseType: {3}\r\n" +
+                    //            "Position: {29}" +
+                    //            "IsArmor: {4} IsCrafted: {5} IsCraftingPage: {6} IsCraftingReagent: {7}\r\n" +
+                    //            "IsElite: {8} IsEquipped: {9} IsGem: {10} IsMiscItem: {11}\r\n" +
+                    //            "IsOneHand: {12} IsPotion: {13} IsRare: {14} IsTwoHand: {15}\r\n" +
+                    //            "IsTwoSquareItem: {16} IsUnidentified: {17} IsUnique: {18} IsVendorBought: {19}\r\n" +
+                    //            "Level: {20} RequiredLevel: {21} ItemLevelRequirementReduction: {22}" +
+                    //            "ItemQuality: {23} GemQuality: {24}" +
+                    //            "MaxStackCount: {25} MaxDurability: {26} NumSockets: {27}" +
+                    //            "Stats: {28}\n",
+                    //            o.ActorSNO, o.Name,
+                    //            o.CommonData.ItemType, o.CommonData.ItemBaseType,
+                    //            o.CommonData.IsArmor, o.CommonData.IsCrafted, o.CommonData.IsCraftingPage,
+                    //            o.CommonData.IsCraftingReagent,
+                    //            o.CommonData.IsElite, o.CommonData.IsEquipped, o.CommonData.IsGem, o.CommonData.IsMiscItem,
+                    //            o.CommonData.IsOneHand, o.CommonData.IsPotion, o.CommonData.IsRare, o.CommonData.IsTwoHand,
+                    //            o.CommonData.IsTwoSquareItem, o.CommonData.IsUnidentified, o.CommonData.IsUnique,
+                    //            o.CommonData.IsVendorBought,
+                    //            o.CommonData.Level, o.CommonData.RequiredLevel, o.CommonData.ItemLevelRequirementReduction,
+                    //            o.CommonData.ItemQualityLevel, o.CommonData.GemQuality,
+                    //            o.CommonData.MaxStackCount, o.CommonData.MaxDurability, o.CommonData.NumSockets,
+                    //            o.CommonData.Stats,
+                    //            o.Position, o.ACDGuid, o.CommonData.DynamicId)));
+
+			        flowLayout_OutPut.Controls.Add(
+			            new UserControlDebugEntry(
+			                String.Format("Item SNO {0} ACDGuid {1} Name {2}", 
+                                o.ActorSNO, o.ACDGuid, o.Name)));
+			    }
+			    catch(Exception ex)
+			    {
+			        flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(String.Format("Error dumping DiaItem\r\n{0}", ex.StackTrace)));
+			    }
 
 			}
 			return iType;
@@ -233,6 +295,18 @@ namespace FunkyDebug
 				return (double)(-1);
 			}
 		}
+
+        private static T GetAttribute<T>(DiaObject o, ActorAttributeType a) where T : struct
+	    {
+            try
+            {
+                return o.CommonData.GetAttribute<T>(a);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+	    }
 
 		private void entryDoubleClick(object sender, EventArgs e)
 		{

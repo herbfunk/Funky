@@ -1,4 +1,12 @@
-﻿v1.1.3.0
+﻿v1.1.3.1
+CacheUnit now checks maximum health value during targeting valid check.
+Items will no longer be temporary blacklisted during target handler loot confirmation checks.
+Added check "perm" blacklist RAGUID list clearing during level area change incase game never changes.
+CacheItem -- misc items that have an sno entry will skip use of common data and balance data lookups.
+
+
+
+v1.1.3.0
 
 CacheACDItem now has try/catch wrappers on values during constructor.
 

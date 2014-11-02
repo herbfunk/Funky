@@ -48,8 +48,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				
 				if (targetType.Value == TargetType.Item)
 				{
-					if (BalanceData.thisItemType == ItemType.Potion && BalanceData.IsRegularPotion)
-						return FunkyBaseExtension.Settings.Ranges.PotionRange;
+				    if (ItemDropType.HasValue && ItemDropType.Value == PluginDroppedItemTypes.Potion)
+				    {
+				        if (ItemFunc.ReturnPotionType(SNOID) == PotionTypes.Regular)
+                            return FunkyBaseExtension.Settings.Ranges.PotionRange;
+				    }
 
 					int maxLootRange = (int)FunkyGame.Targeting.Cache.iCurrentMaxLootRadius;
 					return maxLootRange + FunkyBaseExtension.Settings.Ranges.ItemRange;
@@ -152,10 +155,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						if (Equals(FunkyGame.Targeting.Cache.LastCachedTarget))
 							Weight += 600;
 						// Give yellows more weight
-						if (Itemquality.Value >= ItemQuality.Rare4)
+                        if (Itemquality.HasValue && Itemquality.Value >= ItemQuality.Rare4)
 							Weight += 6000d;
 						// Give legendaries more weight
-						if (Itemquality.Value >= ItemQuality.Legendary)
+                        if (Itemquality.HasValue && Itemquality.Value >= ItemQuality.Legendary)
 						{
 							Weight += 10000d;
 
@@ -425,35 +428,57 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
-			//if (!IsStillValid())
-			//{
-			//	//Logger.Write(LogLevel.Cache, "ref object not valid for {0}", DebugStringSimple);
-			//	NeedsRemoved = true;
-			//	return false;
-			//}
+		    bool skippingCommonDataUpdates = false;
+            //Check if item is not a misc item (requires common data)
+		    if (ItemDropType.HasValue)
+		    {
+
+		        var baseItemType = ItemFunc.DetermineBaseItemType(ItemDropType.Value);
+
+		        skippingCommonDataUpdates = (baseItemType == PluginBaseItemTypes.Misc ||
+		                                     baseItemType == PluginBaseItemTypes.Gem ||
+		                                     baseItemType == PluginBaseItemTypes.HealthGlobe);
+
+                if (!skippingCommonDataUpdates)
+		        {
+                    if (!IsStillValid())
+                    {
+                        NeedsRemoved = true;
+                        return false;
+                    }
+		        }
+		    }
+            else if (!IsStillValid())
+            {
+                NeedsRemoved = true;
+                return false;
+            }
+            
 
 			if (targetType.Value == TargetType.Item)
 			{
 				#region Item
-				#region DynamicID
-				if (!DynamicID.HasValue)
-				{
-					try
-					{
 
-						DynamicID = ref_DiaItem.CommonData.DynamicId;
-					}
-					catch
-					{
-						Logger.Write(LogLevel.Cache, "Failure to get Dynamic ID for {0}", InternalName);
+                //#region DynamicID
+                //if (!DynamicID.HasValue)
+                //{
+                //    try
+                //    {
 
-						return false;
-					}
-				}
-				#endregion
+                //        DynamicID = ref_DiaItem.CommonData.DynamicId;
+                       
+                //    }
+                //    catch
+                //    {
+                //        Logger.Write(LogLevel.Cache, "Failure to get Dynamic ID for {0}", InternalName);
+
+                //        return false;
+                //    }
+                //}
+                //#endregion
 
 				//Gamebalance Update
-				if (!BalanceID.HasValue)
+				if (!skippingCommonDataUpdates && !BalanceID.HasValue)
 				{
 					try
 					{
@@ -468,7 +493,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 				//Check if game balance needs updated
 				#region GameBalance
-				if (BalanceData == null || BalanceData.bNeedsUpdated)
+                if (!skippingCommonDataUpdates && (BalanceData == null || BalanceData.bNeedsUpdated))
 				{
 					CacheBalance thisnewGamebalance;
 
@@ -513,7 +538,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 				//Item Quality / Recheck
 				#region ItemQuality
-				if (!Itemquality.HasValue || ItemQualityRechecked == false)
+                if (!skippingCommonDataUpdates && (!Itemquality.HasValue || ItemQualityRechecked == false))
 				{
 
 					try
@@ -607,8 +632,27 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 		public override bool IsStillValid()
 		{
-			if (ref_DiaItem == null || !ref_DiaItem.IsValid || ref_DiaItem.BaseAddress == IntPtr.Zero || ref_DiaItem.CommonData == null || !ref_DiaItem.CommonData.IsValid || ref_DiaItem.CommonData.ACDGuid == -1)
-				return false;
+		    if (ref_DiaItem == null || !ref_DiaItem.IsValid || ref_DiaItem.BaseAddress == IntPtr.Zero)
+		    {
+                //Logger.Write(LogLevel.Cache, "Reference DiaItem not valid for {0}", DebugStringSimple);
+                return false;
+		    }
+		    if (ref_DiaItem.CommonData == null)
+		    {
+                //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData is null {0}", DebugStringSimple);
+                return false;
+		    }
+		    if (!ref_DiaItem.CommonData.IsValid)
+		    {
+                //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData not valid for {0}", DebugStringSimple);
+                return false;
+		    }
+		    if (ref_DiaItem.CommonData.ACDGuid == -1)
+		    {
+                //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData ACDGuid is -1 {0}", DebugStringSimple);
+                return false;
+		    }
+				
 			return base.IsStillValid();
 		}
 

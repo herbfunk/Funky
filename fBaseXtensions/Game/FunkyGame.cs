@@ -332,8 +332,16 @@ namespace fBaseXtensions.Game
 			//	}
 			//}
 
+           
 			// Calculate giles item types and base types etc.
-			PluginItemTypes thisPluginItemType = ItemFunc.DetermineItemType(item.InternalName, item.BalanceData.thisItemType, item.BalanceData.thisFollowerType, item.SNOID);
+			PluginItemTypes thisPluginItemType = PluginItemTypes.Unknown;
+
+		    if (item.BalanceID.HasValue && item.BalanceData != null)
+		        thisPluginItemType = ItemFunc.DetermineItemType(item.InternalName, item.BalanceData.thisItemType,
+		            item.BalanceData.thisFollowerType, item.SNOID);
+		    else
+		        thisPluginItemType = ItemFunc.DetermineItemType(item.InternalName, ItemType.Unknown, FollowerType.None, item.SNOID);
+
 			PluginBaseItemTypes thisGilesBaseType = ItemFunc.DetermineBaseType(thisPluginItemType);
 
 			if (thisPluginItemType == PluginItemTypes.MiscBook)
@@ -344,7 +352,7 @@ namespace fBaseXtensions.Game
 
 			// Error logging for DemonBuddy item mis-reading
 			ItemType gilesDBItemType = ItemFunc.PluginItemTypeToDBItemType(thisPluginItemType);
-			if (gilesDBItemType != item.BalanceData.thisItemType)
+            if (item.BalanceID.HasValue && item.BalanceData != null && gilesDBItemType != item.BalanceData.thisItemType)
 			{
 				Logger.DBLog.InfoFormat("GSError: Item type mis-match detected: Item Internal=" + item.InternalName + ". DemonBuddy ItemType thinks item type is=" + item.BalanceData.thisItemType + ". Giles thinks item type is=" +
 					 gilesDBItemType + ". [pickup]", true);
@@ -385,7 +393,7 @@ namespace fBaseXtensions.Game
 					if (thisPluginItemType == PluginItemTypes.LegendaryGem)
 						return true;
 
-					GemQualityTypes qualityType = ItemFunc.ReturnGemQualityType(item.SNOID, item.BalanceData.iThisItemLevel);
+                    GemQualityTypes qualityType = ItemFunc.ReturnGemQualityType(item.SNOID, item.BalanceData!=null?item.BalanceData.iThisItemLevel:-1);
 					int qualityLevel = (int)qualityType;
 
 					if (qualityLevel < FunkyBaseExtension.Settings.Loot.MinimumGemItemLevel ||
@@ -450,7 +458,8 @@ namespace fBaseXtensions.Game
 					// Potion filtering
 					if (thisPluginItemType == PluginItemTypes.HealthPotion)
 					{
-						if (item.BalanceData.IsRegularPotion)
+					    PotionTypes potionType = ItemFunc.ReturnPotionType(item.SNOID);
+                        if (potionType== PotionTypes.Regular)
 						{
 							if (FunkyBaseExtension.Settings.Loot.MaximumHealthPotions <= 0)
 								return false;

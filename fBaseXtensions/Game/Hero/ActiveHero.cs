@@ -3,10 +3,12 @@ using System.Linq;
 using fBaseXtensions.Cache;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.External.Enums;
+using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Game.Hero.Class;
 using fBaseXtensions.Monitor;
 using fBaseXtensions.Navigation;
 using fBaseXtensions.Settings;
+using Zeta.Bot;
 using Zeta.Bot.Dungeons;
 using Zeta.Bot.Logic;
 using Zeta.Bot.Navigation;
@@ -300,6 +302,12 @@ namespace fBaseXtensions.Game.Hero
 				ObjectCache.Objects.Clear();
 				//ObjectCache.cacheSnoCollection.ClearDictionaryCacheEntries();
 				ObjectCache.RemovalCheck = false;
+
+                //Every ten minutes clear perm RAGUID list
+			    BlacklistCache.CheckPermBlacklist();
+
+			    ZetaDia.Actors.Clear();
+			    ZetaDia.Actors.Update();
 
 				//Reset Skip Ahead Cache
 				SkipAheadCache.ClearCache();

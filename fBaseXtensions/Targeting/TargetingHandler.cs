@@ -132,23 +132,34 @@ namespace fBaseXtensions.Targeting
 				string statusText = "[Item Confirmation] Current recheck count " + Cache.recheckCount;
 
 				CacheItem thisCacheItem = (CacheItem)Cache.CurrentTarget;
-				bool LootedSuccess = Backpack.ContainsItem(thisCacheItem.BalanceID.Value, thisCacheItem.Itemquality.Value);
+			    bool LootedSuccess = false;
+
+                if (thisCacheItem.BalanceID.HasValue && thisCacheItem.Itemquality.HasValue)
+                    LootedSuccess= Backpack.ContainsItem(thisCacheItem.BalanceID.Value, thisCacheItem.Itemquality.Value);
+                else
+                    LootedSuccess = Backpack.ContainsItem(thisCacheItem.SNOID);
 
 				statusText += " [ItemFound=" + LootedSuccess + "]";
 				if (LootedSuccess)
 				{
 					//Logger.DBLog.Info("Item Looted Successfully!");
-					GameEvents.FireItemLooted(Cache.CurrentTarget.AcdGuid.Value);
+					
 
 					if (FunkyBaseExtension.Settings.Debugging.DebugStatusBar) BotMain.StatusText = statusText;
 
 					//This is where we should manipulate information of both what dropped and what was looted.
-					//Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem);
-					PluginItemTypes itemType = ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
-					PluginBaseItemTypes itembaseType = ItemFunc.DetermineBaseType(itemType);
 
-					if (FunkyGame.CurrentGameStats != null)
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(itemType, itembaseType, thisCacheItem.Itemquality.Value);
+                    if (thisCacheItem.BalanceID.HasValue && thisCacheItem.BalanceData != null && thisCacheItem.Itemquality.HasValue)
+				    {
+                        GameEvents.FireItemLooted(Cache.CurrentTarget.AcdGuid.Value);
+
+                        PluginItemTypes itemType = ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
+                        PluginBaseItemTypes itembaseType = ItemFunc.DetermineBaseType(itemType);
+
+                        if (FunkyGame.CurrentGameStats != null)
+                            FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(itemType, itembaseType, thisCacheItem.Itemquality.Value);
+				    }
+					
 
 					//Remove item from cache..
 					Cache.CurrentTarget.NeedsRemoved = true;
@@ -162,7 +173,7 @@ namespace fBaseXtensions.Targeting
 
 					statusText += " [Quality";
 					//Quality of the item determines the recheck attempts.
-					ItemQuality curQuality = thisObjItem.Itemquality.Value;
+				    ItemQuality curQuality = thisObjItem.Itemquality.HasValue ? thisObjItem.Itemquality.Value : ItemQuality.Normal;
 					#region QualityRecheckSwitch
 					switch (curQuality)
 					{
@@ -217,8 +228,13 @@ namespace fBaseXtensions.Targeting
 					}
 
 					//We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
-					bool stackableItem = ItemFunc.DetermineIsStackable(thisObjItem.BalanceData.GetGItemType(thisObjItem.InternalName));
-					if (thisObjItem.Itemquality.Value > ItemQuality.Magic3 || stackableItem)
+				    bool stackableItem = false;
+				    if (thisObjItem.BalanceID.HasValue && thisObjItem.BalanceData != null)
+				        stackableItem = ItemFunc.DetermineIsStackable(thisObjItem.BalanceData.GetGItemType(thisObjItem.InternalName));
+                    else if (thisObjItem.ItemDropType.HasValue)
+                        stackableItem = ItemFunc.DetermineIsStackable(thisObjItem.ItemDropType.Value);
+
+                    if (stackableItem || (thisObjItem.Itemquality.HasValue && thisObjItem.Itemquality.Value > ItemQuality.Magic3))
 					{
 						//Items above rare quality don't get blacklisted, just ignored for a few loops.
 						//This will force a movement if stuck.. but 5 loops is only 750ms
@@ -229,12 +245,13 @@ namespace fBaseXtensions.Targeting
 					else
 					{
 						//Blacklist items below rare quality!
-						Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
-						Cache.CurrentTarget.NeedsRemoved = true;
+						//Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
+						//Cache.CurrentTarget.NeedsRemoved = true;
+					    Cache.CurrentTarget.BlacklistLoops = 50;
 					}
 				}
 
-				// Now tell Trinity to get a new target!
+				// Now get a new target!
 				Cache.bForceTargetUpdate = true;
 
 				//Reset flag, and continue..
