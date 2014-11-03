@@ -55,9 +55,9 @@ namespace fItemPlugin
 			ItemRuleCustomPath="";
 
 			StashHoradricCache = false;
-			EnableBloodShardGambling = false;
+			EnableBloodShardGambling = true;
 		    UseAltGambling = false;
-			MinimumBloodShards = 100;
+			MinimumBloodShards = 500;
 			BloodShardGambleItems = BloodShardGambleItems.All;
 			BuyPotionsDuringTownRun = false;
 			PotionsCount = 100;

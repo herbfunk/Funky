@@ -69,6 +69,19 @@ namespace fBaseXtensions.Game
 
             }
         }
+        public static bool NormalRiftIsActiveQuest
+        {
+            get
+            {
+                return FunkyGame.Bounty.ActiveBounty != null &&
+                    FunkyGame.Bounty.ActiveBounty.QuestSNO == ADVENTUREMODE_RIFTID &&
+                    FunkyGame.Bounty.ActiveBounty.State == QuestState.InProgress &&
+                    FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_RIFTID) &&
+                    (FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step == 1 ||
+                    FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step == 3 ||
+                    FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step == 10);
+            }
+        }
 		public static bool GreaterRiftIsActiveQuest
 		{
 			get

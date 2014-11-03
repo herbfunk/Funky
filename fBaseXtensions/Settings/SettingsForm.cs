@@ -1807,16 +1807,14 @@ namespace fBaseXtensions.Settings
             {
                 bool heroindexFileFound = File.Exists(BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
 
-                if (!heroindexFileFound)
+                if (CharacterControl.HeroIndexInfo.Characters.Count==0)
                 {
                     groupBox_BnetControl_Setup.Enabled = true;
-                    CharacterControl.HeroIndexInfo = new BnetCharacterIndexInfo();
                 }
                 else
                 {
                     groupBox_BnetControl_Setup.Enabled = false;
                     groupBox_BnetControl_AltHero.Enabled = true;
-                    CharacterControl.HeroIndexInfo = BnetCharacterIndexInfo.DeserializeFromXML(BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
                     UpdateBnetHeroComboBox();
                 }
             }

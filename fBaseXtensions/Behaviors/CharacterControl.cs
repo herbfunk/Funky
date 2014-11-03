@@ -17,7 +17,22 @@ namespace fBaseXtensions.Behaviors
 {
     public static class CharacterControl
     {
-        public static BnetCharacterIndexInfo HeroIndexInfo = new BnetCharacterIndexInfo();
+        private static BnetCharacterIndexInfo _heroindexinfo = new BnetCharacterIndexInfo();
+
+        public static BnetCharacterIndexInfo HeroIndexInfo
+        {
+            get
+            {
+                if (_heroindexinfo.Characters.Count == 0)
+                {
+                    if (File.Exists(BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath))
+                    {
+                        _heroindexinfo = BnetCharacterIndexInfo.DeserializeFromXML();
+                    }
+                }
+                return _heroindexinfo;
+            }
+        }
 
         /// <summary>
         /// If we are engaging a character switch to preform a town run with.
@@ -31,7 +46,7 @@ namespace fBaseXtensions.Behaviors
 
         public static RunStatus GamblingCharacterSwitchBehavior()
         {
-            if (!_delayer.Test(3d))
+            if (!_delayer.Test(5d))
                 return RunStatus.Running;
 
             if (GamblingCharacterSwitchToMain)
@@ -64,39 +79,47 @@ namespace fBaseXtensions.Behaviors
             if (AltHeroInfo == null)
                 return UpdateAltHero();
 
-            if (!ZetaDia.IsInGame)
-            {
-                BotMain.StatusText = "[Funky] Hero Switch *Loading Profile!*";
 
-                //Load Adventure Mode Profile!
-                string NewGameProfile = Path.Combine(FolderPaths.PluginPath, "Behaviors","Profiles", "AdventureMode.xml");
+            //Finished for now.. lets load the new game and let combat control take over!
+            FunkyGame.ShouldRefreshAccountDetails = true;
+            GamblingCharacterSwitch = false;
+            AltHeroGamblingEnabled = true;
+            return RunStatus.Success;
+
+
+            //if (!ZetaDia.IsInGame)
+            //{
+            //    BotMain.StatusText = "[Funky] Hero Switch *Loading Profile!*";
+
+            //    //Load Adventure Mode Profile!
+            //    string NewGameProfile = Path.Combine(FolderPaths.PluginPath, "Behaviors","Profiles", "AdventureMode.xml");
 
                 
 
-                if (ProfileManager.CurrentProfile.Path != NewGameProfile)
-                {
-                    Logger.Write(LogLevel.OutOfGame, "Current Profile Path: {0}\r\nAdventureMode Profile Path {1}",
-                    ProfileManager.CurrentProfile.Path, NewGameProfile);
+            //    if (ProfileManager.CurrentProfile.Path != NewGameProfile)
+            //    {
+            //        Logger.Write(LogLevel.OutOfGame, "Current Profile Path: {0}\r\nAdventureMode Profile Path {1}",
+            //        ProfileManager.CurrentProfile.Path, NewGameProfile);
 
-                    if (File.Exists(NewGameProfile))
-                    {
-                        Logger.Write(LogLevel.OutOfGame, "Loading UpdateAltHero profile");
-                        ProfileManager.Load(NewGameProfile,false);
-                        return RunStatus.Running;
-                    }
+            //        if (File.Exists(NewGameProfile))
+            //        {
+            //            Logger.Write(LogLevel.OutOfGame, "Loading UpdateAltHero profile");
+            //            ProfileManager.Load(NewGameProfile,false);
+            //            return RunStatus.Running;
+            //        }
 
-                    //Could not find file!
-                    return RunStatus.Success;
-                }
-                else
-                {
-                    //Finished for now.. lets load the new game and let combat control take over!
-                    FunkyGame.ShouldRefreshAccountDetails = true;
-                    GamblingCharacterSwitch = false;
-                    AltHeroGamblingEnabled = true;
-                    return RunStatus.Success;
-                }
-            }
+            //        //Could not find file!
+            //        return RunStatus.Success;
+            //    }
+            //    else
+            //    {
+            //        //Finished for now.. lets load the new game and let combat control take over!
+            //        FunkyGame.ShouldRefreshAccountDetails = true;
+            //        GamblingCharacterSwitch = false;
+            //        AltHeroGamblingEnabled = true;
+            //        return RunStatus.Success;
+            //    }
+            //}
 
             
             return RunStatus.Success;
@@ -122,6 +145,7 @@ namespace fBaseXtensions.Behaviors
                     GamblingCharacterSwitch = true;
                     _startingBloodShardCount = -1;
                     _forcedTownRun = false;
+                    _delayer.Reset();
                     ProfileManager.Load(_lastProfilePath, false);
                     return RunStatus.Success;
                 }
@@ -155,16 +179,9 @@ namespace fBaseXtensions.Behaviors
 
             if (HeroIndexInfo.Characters.Count == 0)
             {
-                bool heroindexFileFound = File.Exists(BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
-                if (!heroindexFileFound)
-                {
-                    Logger.DBLog.InfoFormat("Hero Index Info not setup!");
-                    BotMain.Stop();
-                    return RunStatus.Success;
-                }
-
-                HeroIndexInfo = BnetCharacterIndexInfo.DeserializeFromXML();
-                return RunStatus.Running;
+                Logger.DBLog.InfoFormat("Hero Index Info not setup!");
+                BotMain.Stop();
+                return RunStatus.Success;
             }
 
             if (MainHeroInfo == null)

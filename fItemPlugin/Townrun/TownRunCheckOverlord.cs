@@ -56,10 +56,19 @@ namespace fItemPlugin.Townrun
 							int curBloodShardCount = Backpack.GetBloodShardCount();
 							if (curBloodShardCount != -1 && curBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards)
 							{
-							    if (FunkyTownRunPlugin.PluginSettings.UseAltGambling)
+							    if (FunkyTownRunPlugin.PluginSettings.UseAltGambling && //Alt Hero Setting
+                                    fBaseXtensions.FunkyBaseExtension.PluginIsEnabled && //Check fBaseXtensions Enabled
+                                    fBaseXtensions.FunkyBaseExtension.Settings.General.AltHeroIndex>=0 &&  //Check if AltHero setting index set
+                                    fBaseXtensions.Behaviors.CharacterControl.HeroIndexInfo.Characters.Count>0) //Check if Hero Indexes is setup
 							    {
-							        fBaseXtensions.Behaviors.CharacterControl.GamblingCharacterSwitch = true;
-							        fBaseXtensions.Behaviors.ExitGameBehavior.ShouldExitGame = true;
+                                    //Lets make sure we are not doing any special quests!
+							        if (!BountyCache.GreaterRiftIsActiveQuest && 
+                                        !BountyCache.RiftTrialIsActiveQuest && 
+                                        !BountyCache.NormalRiftIsActiveQuest)
+							        {
+                                        fBaseXtensions.Behaviors.CharacterControl.GamblingCharacterSwitch = true;
+                                        fBaseXtensions.Behaviors.ExitGameBehavior.ShouldExitGame = true;
+							        }
 							    }
 							    else
 							    {

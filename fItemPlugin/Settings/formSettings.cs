@@ -68,12 +68,10 @@ namespace fItemPlugin
 		    if (FunkyTownRunPlugin.PluginSettings.UseAltGambling)
 		    {
 		        radioButton_Gambling_Alt.Checked = true;
-		        flowLayoutPanel_GamblingItemTypes.Enabled = false;
 		    }
 		    else
 		    {
 		        radioButton_Gambling_Normal.Checked = true;
-		        flowLayoutPanel_GamblingItemTypes.Enabled = true;
 		    }
 
 		    radioButton_Gambling_Alt.CheckedChanged += radioButton_Gambling_CheckedChanged;
@@ -228,12 +226,10 @@ namespace fItemPlugin
             if (Convert.ToString(cbSender.Tag) == "Alt")
             {
                 FunkyTownRunPlugin.PluginSettings.UseAltGambling = true;
-		        flowLayoutPanel_GamblingItemTypes.Enabled = false;
             }
             else
             {
                 FunkyTownRunPlugin.PluginSettings.UseAltGambling = false;
-                flowLayoutPanel_GamblingItemTypes.Enabled = true;
             }
         }
 
