@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
+using fBaseXtensions.Behaviors;
 using fBaseXtensions.Cache.External.Debugging;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal;
@@ -12,6 +16,7 @@ using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Helpers;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
 using fBaseXtensions.Stats;
@@ -505,7 +510,9 @@ namespace fBaseXtensions.Settings
 						listBox_GemUpgrading_UnusedGems.Items.Add(fRetrieveLegendaryGemsNames(gem));
 				}
 
-				//radioButton_GemUpgrading_CheckedChanged
+
+
+
 
 
 				comboBox_LootLegendaryItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 61 ? 1 : 2;
@@ -1679,11 +1686,11 @@ namespace fBaseXtensions.Settings
 			LBDebug.Focus();
 		}
 
+	    
 		private void btn_Test_Click(object sender, EventArgs e)
 		{
-			LBDebug.Controls.Clear();
-		    LBDebug.Controls.Add(new UserControlDebugEntry(UI.UIElementString(UI.Game.SalvageAllNormal)));
-			LBDebug.Focus();
+            LBDebug.Controls.Clear();
+            
 		}
 
 		private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1751,6 +1758,99 @@ namespace fBaseXtensions.Settings
 			}
 		}
 
+        private int curIndex = 0;
+        private void btn_CharacterControl_Setup_Click(object sender, EventArgs e)
+        {
+            if (BotMain.IsRunning || BotMain.IsPaused) return;
+
+            if (ZetaDia.IsInGame) return;
+
+            if (!UI.ValidateUIElement(UI.GameMenu.SwitchHeroButton)) return;
+
+            int MaxHeroSlots = ZetaDia.Service.GameAccount.MaxHeroSlots;
+
+            if (curIndex == MaxHeroSlots - 1)
+            {
+                Logger.DBLog.InfoFormat("Creating file with a total of {0} hero entries", CharacterControl.HeroIndexInfo.Characters.Count);
+                BnetCharacterIndexInfo.SerializeToXML(CharacterControl.HeroIndexInfo, BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
+                curIndex = 0;
+                groupBox_BnetControl_Setup.Enabled = false;
+                groupBox_BnetControl_AltHero.Enabled = true;
+                UpdateBnetHeroComboBox();
+                return;
+            }
+
+            Logger.DBLog.InfoFormat("Switching to index {0}", curIndex);
+            ZetaDia.Service.GameAccount.SwitchHero(curIndex);
+            Thread.Sleep(3000);
+
+            //Clear Cache -- and get hero info
+            ZetaDia.Memory.ClearCache();
+            CharacterControl.HeroInfo hinfo = new CharacterControl.HeroInfo(ZetaDia.Service.Hero);
+            BnetCharacterIndexInfo.BnetCharacterEntry entry = new BnetCharacterIndexInfo.BnetCharacterEntry(curIndex,hinfo.Name, hinfo.Class);
+            //Add entry
+            CharacterControl.HeroIndexInfo.Characters.Add(entry);
+            Logger.DBLog.InfoFormat("Recording hero info for index {0}\r\n{1}", curIndex, hinfo.ToString());
+
+            if (curIndex == 0)
+            {
+                btn_CharacterControl_Setup.Text = "Next";
+            }
+
+            curIndex++;
+
+        }
+
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl2.SelectedTab.Text == "Bnet Control")
+            {
+                bool heroindexFileFound = File.Exists(BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
+
+                if (!heroindexFileFound)
+                {
+                    groupBox_BnetControl_Setup.Enabled = true;
+                    CharacterControl.HeroIndexInfo = new BnetCharacterIndexInfo();
+                }
+                else
+                {
+                    groupBox_BnetControl_Setup.Enabled = false;
+                    groupBox_BnetControl_AltHero.Enabled = true;
+                    CharacterControl.HeroIndexInfo = BnetCharacterIndexInfo.DeserializeFromXML(BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
+                    UpdateBnetHeroComboBox();
+                }
+            }
+        }
+
+	    private void UpdateBnetHeroComboBox()
+	    {
+	        comboBox_BnetControl_Heros.Items.Clear();
+	        int herocount = CharacterControl.HeroIndexInfo.Characters.Count;
+	        if (herocount > 0)
+	        {
+	            comboBox_BnetControl_Heros.SelectedIndexChanged -= comboBox_BnetControl_Heros_SelectedIndexChanged;
+                foreach (var entry in CharacterControl.HeroIndexInfo.Characters)
+                {
+                    comboBox_BnetControl_Heros.Items.Add(String.Format("{0} -- {1} [{2}]",
+                                                        entry.Index, entry.Name, entry.Class));
+                }
+
+	            if (FunkyBaseExtension.Settings.General.AltHeroIndex != -1 &&
+	                FunkyBaseExtension.Settings.General.AltHeroIndex <= herocount)
+	            {
+	                comboBox_BnetControl_Heros.SelectedIndex = FunkyBaseExtension.Settings.General.AltHeroIndex;
+	            }
+                comboBox_BnetControl_Heros.SelectedIndexChanged += comboBox_BnetControl_Heros_SelectedIndexChanged;
+	        }
+	    }
+
+        private void comboBox_BnetControl_Heros_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_BnetControl_Heros.SelectedIndex >= 0)
+            {
+                FunkyBaseExtension.Settings.General.AltHeroIndex = comboBox_BnetControl_Heros.SelectedIndex;
+            }
+        }
         
 
 

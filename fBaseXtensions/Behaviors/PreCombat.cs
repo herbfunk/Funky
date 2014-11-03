@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using fBaseXtensions.Game;
 using FunkyBot.DBHandlers.CharacterMule;
 using Zeta.Bot;
+using Zeta.Bot.Logic;
 using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors.Gizmos;
@@ -39,11 +40,16 @@ namespace fBaseXtensions.Behaviors
 					}
 				}
 			}
-			else if (ExitGame.ShouldExitGame)
+			else if (ExitGameBehavior.ShouldExitGame)
 			{
-				ExitGame.BehaviorEngaged = true;
+				ExitGameBehavior.BehaviorEngaged = true;
 				return true;
 			}
+            else if (CharacterControl.AltHeroGamblingEnabled)
+            {
+                if (!BrainBehavior.IsVendoring)
+                    return true;
+            }
 			//else if(FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications && BountyCache.RiftTrialIsActiveQuest && FunkyGame.Hero.iCurrentLevelID == 405915)
 			//{
 			//	Logger.DBLog.Info("Performing Trial Rift Handler Behavior!");
@@ -73,11 +79,18 @@ namespace fBaseXtensions.Behaviors
 				return NewMuleGame.FinishMuleBehavior();
 			}
 
+		    if (CharacterControl.AltHeroGamblingEnabled)
+		    {
+		        return CharacterControl.GamblingCharacterCombatHandler();
+		    }
+
 			//Exit Game!!
-			if (ExitGame.BehaviorEngaged)
+			if (ExitGameBehavior.BehaviorEngaged)
 			{
-				return ExitGame.Behavior();
+				return ExitGameBehavior.Behavior();
 			}
+
+
 
 			//Trial Rift!
 			//if (FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications && BountyCache.RiftTrialIsActiveQuest && FunkyGame.Hero.iCurrentLevelID == 405915)

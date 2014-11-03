@@ -28,6 +28,7 @@ namespace fItemPlugin
 
 		public bool EnableBloodShardGambling { get; set; }
 		public int MinimumBloodShards { get; set; }
+        public bool UseAltGambling { get; set; }
 		public BloodShardGambleItems BloodShardGambleItems { get; set; }
 		
 
@@ -55,6 +56,7 @@ namespace fItemPlugin
 
 			StashHoradricCache = false;
 			EnableBloodShardGambling = false;
+		    UseAltGambling = false;
 			MinimumBloodShards = 100;
 			BloodShardGambleItems = BloodShardGambleItems.All;
 			BuyPotionsDuringTownRun = false;

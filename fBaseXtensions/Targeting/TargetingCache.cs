@@ -153,14 +153,14 @@ namespace fBaseXtensions.Targeting
 			else
 			{
 
-				if (ExitGame.ShouldExitGame)
+				if (ExitGameBehavior.ShouldExitGame)
 				{
 					//Have not started exit behavior.. global overlord will begin so lets exit!
-					if (!ExitGame.BehaviorEngaged)
+					if (!ExitGameBehavior.BehaviorEngaged)
 					{
 						CurrentTarget = null;
 					}
-					else if (DateTime.Now.Subtract(ExitGame.BehaviorEngagedTime).TotalSeconds > 60)
+					else if (DateTime.Now.Subtract(ExitGameBehavior.BehaviorEngagedTime).TotalSeconds > 60)
 					{//We started behavior over a minute ago.. lets just exit already!!
 						Logger.DBLog.InfoFormat("[Funky] Forcing Exiting behavior after one minute!");
 						CurrentTarget = null;

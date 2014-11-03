@@ -43,7 +43,7 @@ namespace fBaseXtensions.Game
 				//OOC IDing, Town Portal Casting, Town Run
 				return ((Profile.CurrentProfileBehaviorType!= Profile.ProfileBehaviorTypes.Unknown 
 							&& Profile.ProfileBehaviorIsOutOfCombat) || 
-					ExitGame.BehaviorEngaged || 
+					ExitGameBehavior.BehaviorEngaged || 
 					TownPortalBehavior.FunkyTPBehaviorFlag || 
 					BrainBehavior.IsVendoring ||
 					Game.ForceOutOfCombatBehavior);

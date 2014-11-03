@@ -1,4 +1,16 @@
-﻿v1.3.0
+﻿v1.4.0
+
+Added Alternative Hero Gambling Option
+	-Requires fBaseXtensions to be enabled.
+	-Requires setup of hero control indexes (fBaseXtensions settings General -> Bnet Control tab)
+	-Both the Main and Alt hero should have settings with gambling enabled with the same bloodshard count!
+
+
+v1.3.1
+Removed Coinage and Repair Cost Checks for Reparing Items. (Make sure you have enough gold!)
+
+
+v1.3.0
 Added UI Salvage All Check for players who don't have salvage all unlocked.
 
 

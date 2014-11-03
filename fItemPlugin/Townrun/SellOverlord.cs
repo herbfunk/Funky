@@ -26,10 +26,8 @@ namespace fItemPlugin.Townrun
 		private static int PotionDynamicID = 0;
 		private static ACDItem PotionMerchantACDItem;
 
-		// **********************************************************************************************
-		// *****  Sell Overlord - determines if we should visit the vendor for repairs or selling   *****
-		// **********************************************************************************************
-		internal static bool GilesSellOverlord(object ret)
+
+		internal static bool SellOverlord(object ret)
 		{
 			townRunItemCache.SellItems.Clear();
 
@@ -143,7 +141,7 @@ namespace fItemPlugin.Townrun
 			return bShouldVisitVendor;
 		}
 
-		internal static RunStatus VendorMovement(object ret)
+		internal static RunStatus SellMovement(object ret)
 		{
 			if (FunkyGame.GameIsInvalid)
 			{
@@ -210,7 +208,7 @@ namespace fItemPlugin.Townrun
 			return RunStatus.Success;
 		}
 
-		internal static RunStatus GilesOptimisedSell(object ret)
+		internal static RunStatus SellInteraction(object ret)
 		{
 			if (FunkyGame.GameIsInvalid)
 			{
@@ -330,13 +328,13 @@ namespace fItemPlugin.Townrun
 
 				if (!Delay.Test()) return RunStatus.Running;
 
-				int playerCoinage = ZetaDia.Me.Inventory.Coinage;
-				int repairCost = ZetaDia.Me.Inventory.GetRepairCost(false);
-				if (playerCoinage < 100000)
-				{
-					FunkyTownRunPlugin.DBLog.InfoFormat("Emergency Stop: You need repairs but don't have enough money. Current Coinage {0} -- Repair Cost {1}", playerCoinage, repairCost);
-					BotMain.Stop(false, "Not enough gold to repair item(s)!");
-				}
+                //int playerCoinage = ZetaDia.Me.Inventory.Coinage;
+                //int repairCost = ZetaDia.Me.Inventory.GetRepairCost(false);
+                //if (playerCoinage > 0 && playerCoinage < repairCost)
+                //{
+                //    FunkyTownRunPlugin.DBLog.InfoFormat("Emergency Stop: You need repairs but don't have enough money. Current Coinage {0} -- Repair Cost {1}", playerCoinage, repairCost);
+                //    BotMain.Stop(false, "Not enough gold to repair item(s)!");
+                //}
 
 				ZetaDia.Me.Inventory.RepairEquippedItems();
 				bNeedsEquipmentRepairs = false;
@@ -348,7 +346,7 @@ namespace fItemPlugin.Townrun
 			return RunStatus.Success;
 		}
 
-		internal static RunStatus GilesOptimisedPreSell(object ret)
+		internal static RunStatus PreSell(object ret)
 		{
 			//if (Bot.Settings.Debug.DebugStatusBar)
 			BotMain.StatusText = "Town run: Vendor routine started";
@@ -370,7 +368,7 @@ namespace fItemPlugin.Townrun
 
 			return RunStatus.Success;
 		}
-		internal static RunStatus GilesOptimisedPostSell(object ret)
+		internal static RunStatus PostSell(object ret)
 		{
 			if (!Delay.Test()) return RunStatus.Running;
 

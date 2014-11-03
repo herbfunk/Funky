@@ -1,4 +1,18 @@
-﻿v1.1.3.1
+﻿v1.1.4.0
+
+Added Alternative Character Gambling Switch Behavior
+	-Used by fItemPlugin
+	-Setup required in fBaseXtensions Settings (General Tab -> Bnet Control)
+		-To setup you must be at the main game menu with the switch hero button showing.
+		-Click Setup Button to start
+		-Continue Clicking the button until it finishes (not rapidly, new log will show up after each hero is recorded)
+		-Once finished you can choose the alt hero you wish to use by using the combo box.
+
+CacheUnit dead checks will now blacklist the unit temporary.
+Containers will be ignored during greater and trial rifts.
+
+
+v1.1.3.1
 CacheUnit now checks maximum health value during targeting valid check.
 Items will no longer be temporary blacklisted during target handler loot confirmation checks.
 Added check "perm" blacklist RAGUID list clearing during level area change incase game never changes.

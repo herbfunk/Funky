@@ -207,8 +207,10 @@ namespace fBaseXtensions.Cache.Internal
 					if (tmp_CachedObj.ref_DiaObject == null || tmp_CachedObj.ContainsNullValues())
 					{
 						if (!tmp_CachedObj.UpdateData(thisObj, tmp_CachedObj.RAGUID))
+                        { 
 							continue;
-					}
+					    }
+                    }
 					else if (!tmp_CachedObj.IsFinalized)
 					{//Finalize this data by recreating it and updating the Sno cache with a new finalized entry, this also clears our all Sno cache dictionaries since we no longer need them!
 						cacheSnoCollection.FinalizeEntry(tmp_CachedObj.SNOID);
@@ -487,10 +489,9 @@ namespace fBaseXtensions.Cache.Internal
 					item.NeedsRemoved = true;
 				}
 
-				CheckForCacheRemoval();
 			}
 
-			
+            CheckForCacheRemoval();
 
 			_lastUpdatedCacheCollection=DateTime.Now;
 			return true;

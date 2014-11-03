@@ -17,7 +17,7 @@ namespace fItemPlugin
 {
 	public partial class FunkyTownRunPlugin : IPlugin
 	{
-		public Version Version { get { return new Version(1, 3, 0); } }
+		public Version Version { get { return new Version(1, 4, 0); } }
 		public string Name { get { return "fItemPlugin"; } }
 		public string Author { get { return "HerbFunk"; } }
 		public string Description
@@ -254,14 +254,23 @@ namespace fItemPlugin
 
 			Settings.LoadSettings();
 
+           
 			if (PluginSettings.UseItemRules)
 				ItemRulesEval = new Interpreter();
+
+		    EventHandling.OnGameIDChanged += FunkyNewGameHandler;
 		}
 		private void FunkyBotStop(IBot bot)
 		{
 			RunningTrinity = false;
 			TreehookHandling.initTreeHooks = false;
 			HookHandler.RestoreHook(HookHandler.HookType.VendorRun);
+            EventHandling.OnGameIDChanged -= FunkyNewGameHandler;
 		}
+
+	    private void FunkyNewGameHandler()
+	    {
+            Settings.LoadSettings();
+	    }
 	}
 }

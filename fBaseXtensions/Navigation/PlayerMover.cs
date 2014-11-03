@@ -183,13 +183,13 @@ namespace fBaseXtensions.Navigation
 			if (iTimesReachedMaxUnstucks == 2)
 			{
 				Logger.DBLog.InfoFormat("[Funky] Anti-stuck measures failed. Now attempting to reload current profile.");
-				ExitGame.ShouldExitGame = true;
+				ExitGameBehavior.ShouldExitGame = true;
 			}
 			// Exit the game and reload the profile
 			if (FunkyBaseExtension.Settings.Debugging.RestartGameOnLongStucks && DateTime.Now.Subtract(timeLastRestartedGame).TotalMinutes >= 15)
 			{
 				timeLastRestartedGame = DateTime.Now;
-				ExitGame.ShouldExitGame = true;
+				ExitGameBehavior.ShouldExitGame = true;
 			}
 			else
 			{

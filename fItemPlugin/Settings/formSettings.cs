@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using fItemPlugin.Townrun;
 using Zeta.Bot;
@@ -64,7 +65,21 @@ namespace fItemPlugin
 			trackBar_GamblingBloodShards.ValueChanged += MinimumBloodShardSliderChanged;
 			textBox_GamblingBloodShards.Text = FunkyTownRunPlugin.PluginSettings.MinimumBloodShards.ToString();
 
-			bool noFlags = FunkyTownRunPlugin.PluginSettings.BloodShardGambleItems.Equals(BloodShardGambleItems.None);
+		    if (FunkyTownRunPlugin.PluginSettings.UseAltGambling)
+		    {
+		        radioButton_Gambling_Alt.Checked = true;
+		        flowLayoutPanel_GamblingItemTypes.Enabled = false;
+		    }
+		    else
+		    {
+		        radioButton_Gambling_Normal.Checked = true;
+		        flowLayoutPanel_GamblingItemTypes.Enabled = true;
+		    }
+
+		    radioButton_Gambling_Alt.CheckedChanged += radioButton_Gambling_CheckedChanged;
+            radioButton_Gambling_Normal.CheckedChanged += radioButton_Gambling_CheckedChanged;
+
+		    bool noFlags = FunkyTownRunPlugin.PluginSettings.BloodShardGambleItems.Equals(BloodShardGambleItems.None);
 			var gambleItems = Enum.GetValues(typeof(BloodShardGambleItems));
 			Func<object, string> fRetrieveNames = s => Enum.GetName(typeof(BloodShardGambleItems), s);
 			foreach (var gambleItem in gambleItems)
@@ -78,6 +93,8 @@ namespace fItemPlugin
 					Name = gambleItemName,
 					Text = gambleItemName,
 					Checked = !noFlags && FunkyTownRunPlugin.PluginSettings.BloodShardGambleItems.HasFlag(thisGambleItem),
+                    Size=new Size(Size.Width+10, Size.Height+10),
+                    AutoSize =  true,
 				};
 				cb.CheckedChanged += BloodShardGambleItemsChanged;
 				flowLayoutPanel_GamblingItemTypes.Controls.Add(cb);
@@ -203,6 +220,22 @@ namespace fItemPlugin
 
 			base.OnClosed(e);
 		}
+
+        private void radioButton_Gambling_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton cbSender = (RadioButton) sender;
+
+            if (Convert.ToString(cbSender.Tag) == "Alt")
+            {
+                FunkyTownRunPlugin.PluginSettings.UseAltGambling = true;
+		        flowLayoutPanel_GamblingItemTypes.Enabled = false;
+            }
+            else
+            {
+                FunkyTownRunPlugin.PluginSettings.UseAltGambling = false;
+                flowLayoutPanel_GamblingItemTypes.Enabled = true;
+            }
+        }
 
 	}
 }

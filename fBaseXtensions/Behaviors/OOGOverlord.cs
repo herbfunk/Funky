@@ -54,28 +54,22 @@ namespace fBaseXtensions.Behaviors
 					return true;
 			}
 
+		    if (CharacterControl.GamblingCharacterSwitch)
+		    {
+		        return true;
+		    }
 
-			return ExitGame.BehaviorEngaged;
+
+			return ExitGameBehavior.BehaviorEngaged;
 		}
 
 		public static RunStatus OutOfGameBehavior(object ret)
 		{
-			if (ExitGame.BehaviorEngaged)
-			{
-				//Get First or Last Used Profile..
+		    if (CharacterControl.GamblingCharacterSwitch)
+		    {
+		        return CharacterControl.GamblingCharacterSwitchBehavior();
+		    }
 
-				string profile = FunkyGame.CurrentGameStats.Profiles.Count > 0 ? FunkyGame.CurrentGameStats.Profiles.First().ProfileName :
-								GlobalSettings.Instance.LastProfile;
-
-				//Load Profile and Fire our left game handler
-				ProfileManager.Load(profile);
-				//EventHandlers.FunkyOnLeaveGame(null, null);
-
-				//Finally disable this..
-				ExitGame.BehaviorEngaged = false;
-				ExitGame.ShouldExitGame = false;
-				return RunStatus.Success;
-			}
 
 			if (MuleBehavior)
 			{
@@ -131,6 +125,24 @@ namespace fBaseXtensions.Behaviors
 				return RunStatus.Running;
 
 			}
+
+
+            if (ExitGameBehavior.BehaviorEngaged)
+            {
+                //Get First or Last Used Profile..
+
+                string profile = FunkyGame.CurrentGameStats.Profiles.Count > 0 ? FunkyGame.CurrentGameStats.Profiles.First().ProfileName :
+                                GlobalSettings.Instance.LastProfile;
+
+                //Load Profile and Fire our left game handler
+                ProfileManager.Load(profile);
+                //EventHandlers.FunkyOnLeaveGame(null, null);
+
+                //Finally disable this..
+                ExitGameBehavior.BehaviorEngaged = false;
+                ExitGameBehavior.ShouldExitGame = false;
+                return RunStatus.Success;
+            }
 
 			return RunStatus.Success;
 		}

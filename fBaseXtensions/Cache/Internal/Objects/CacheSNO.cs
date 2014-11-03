@@ -892,7 +892,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 									targetType = TargetType.CursedChest;
 								else
 									targetType = TargetType.Container;
-							}
+
+                                if (FunkyGame.AdventureMode && BountyCache.IsParticipatingInTieredLootRun)
+                                { 
+                                    BlacklistCache.AddObjectToBlacklist(raguid, BlacklistType.Temporary);
+                                    return false;
+                                }
+                            }
 							else if (thisGizmoType == GizmoType.BreakableDoor)
 								targetType = TargetType.Barricade;
 							else if (thisGizmoType == GizmoType.Door)
@@ -1041,7 +1047,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				catch
 				{
 					Logger.Write(LogLevel.Cache, "Safely Handled MonsterInfo Exception for Object {0}", InternalName);
-					return false;
+                    BlacklistCache.AddObjectToBlacklist(raguid, BlacklistType.Temporary);
+                    return false;
 				}
 
 

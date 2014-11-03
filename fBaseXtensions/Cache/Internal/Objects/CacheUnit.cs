@@ -1000,9 +1000,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					//Respawnable Units -- Only when they are not elite/rare/uniques!
 					if (!ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Revivable) || IsEliteRareUnique)
 					{
-						//Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
+						Logger.Write(LogLevel.Cache, "Unit Is Dead (OIVFT) {0} RAGUID {1}", DebugStringSimple, RAGUID);
 						BlacklistLoops = -1;
 						NeedsRemoved = true;
+                        BlacklistFlag = BlacklistType.Temporary;
 						return false;
 					}
 					BlacklistLoops = 5;
@@ -1483,9 +1484,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				if (CurrentHealthPct.Value <= 0d || CurrentHealthPct.Value > 1d)
 				{
-					Logger.Write(LogLevel.Cache, "Unit Is Dead {0}", DebugStringSimple);
+					Logger.Write(LogLevel.Cache, "Unit Is Dead {0} RAGUID {1}", DebugStringSimple, RAGUID);
 					NeedsRemoved = true;
 				    BlacklistLoops = -1;
+                    BlacklistFlag = BlacklistType.Temporary;
 					return false;
 				}
 			}

@@ -55,6 +55,20 @@ namespace fBaseXtensions.Game
 		private int lastCheckedQuestSNO = -1;
 		private Act CurrentAct = Act.Invalid;
 
+        public static bool IsParticipatingInTieredLootRun
+        {
+            get
+            {
+                FunkyGame.Bounty.RefreshActiveQuests();
+
+                return (ZetaDia.Me.IsParticipatingInTieredLootRun &&
+                (FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_RIFTID) &&
+                (FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step != 34 && FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_RIFTID].Step != 10)) ||
+                (FunkyGame.Bounty.ActiveQuests.ContainsKey(ADVENTUREMODE_GREATERRIFT_TRIAL) &&
+                FunkyGame.Bounty.ActiveQuests[ADVENTUREMODE_GREATERRIFT_TRIAL].Step != 9));
+
+            }
+        }
 		public static bool GreaterRiftIsActiveQuest
 		{
 			get

@@ -2032,13 +2032,6 @@
       <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
     <UnitEntry>
-      <SnoId>171193</SnoId>
-      <InternalName>a2dun_Spider_EggSack_Clusters-9339</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
       <SnoId>171283</SnoId>
       <InternalName>a3dun_battlefield_Demon_GroundTrap_GasChamber-15803</InternalName>
       <ActorType>Monster</ActorType>
@@ -2321,13 +2314,6 @@
     <UnitEntry>
       <SnoId>210502</SnoId>
       <InternalName>TentacleBear_A-8478</InternalName>
-      <ActorType>Monster</ActorType>
-      <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
-    </UnitEntry>
-    <UnitEntry>
-      <SnoId>210591</SnoId>
-      <InternalName>a2dun_Spider_EggSack_Clusters_E-9340</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
@@ -3461,7 +3447,7 @@
     </UnitEntry>
     <UnitEntry>
       <SnoId>346563</SnoId>
-      <InternalName>X1_LR_Boss_UNKNOWN</InternalName>
+      <InternalName>InfernalMaiden</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>AdventureModeBoss</UnitFlags>
@@ -3503,14 +3489,14 @@
     </UnitEntry>
     <UnitEntry>
       <SnoId>353823</SnoId>
-      <InternalName>X1_LR_Boss_UNKNOWN</InternalName>
+      <InternalName>Raiziel</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>AdventureModeBoss</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>353874</SnoId>
-      <InternalName>X1_LR_Boss_UNKNOWN</InternalName>
+      <InternalName>X1_LR_Boss_westmarchBrute</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>AdventureModeBoss</UnitFlags>
@@ -3524,7 +3510,7 @@
     </UnitEntry>
     <UnitEntry>
       <SnoId>354144</SnoId>
-      <InternalName>X1_LR_Boss_UNKNOWN</InternalName>
+      <InternalName>X1_LR_Boss_BigRed_Izual</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>AdventureModeBoss</UnitFlags>

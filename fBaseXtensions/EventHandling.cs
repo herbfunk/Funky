@@ -51,8 +51,8 @@ namespace fBaseXtensions
 			FunkyGame.CurrentGameID = new GameId();
 			FunkyGame.AdventureMode = false;
 			FunkyGame.ShouldRefreshAccountDetails = true;
-			ExitGame.ShouldExitGame = false;
-			ExitGame.BehaviorEngaged = false;
+			ExitGameBehavior.ShouldExitGame = false;
+			ExitGameBehavior.BehaviorEngaged = false;
 			SetVariableTag.VariableDictionary.Clear();
 
 			if (FunkyBaseExtension.PluginIsEnabled)

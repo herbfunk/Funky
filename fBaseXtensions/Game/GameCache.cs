@@ -55,7 +55,7 @@ namespace fBaseXtensions.Game
 		internal static void GoldInactivityTimerTrippedHandler()
 		{
 			Logger.DBLog.Info("[Funky] Gold Timeout Breached.. enabling exit behavior!");
-			ExitGame.ShouldExitGame = true;
+			ExitGameBehavior.ShouldExitGame = true;
 		}
 
 		

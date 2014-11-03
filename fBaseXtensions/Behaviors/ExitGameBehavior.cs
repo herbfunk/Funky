@@ -5,12 +5,12 @@ using Zeta.TreeSharp;
 
 namespace fBaseXtensions.Behaviors
 {
-	internal class ExitGame
+	public static class ExitGameBehavior
 	{
 		public static bool ShouldExitGame = false;
 
 		private static bool _behaviorEngaged;
-		public static bool BehaviorEngaged
+		internal static bool BehaviorEngaged
 		{
 			get { return _behaviorEngaged; }
 			set
@@ -20,12 +20,13 @@ namespace fBaseXtensions.Behaviors
 				BehaviorEngagedTime = value ? DateTime.Now : DateTime.MaxValue;
 			}
 		}
-		public static DateTime BehaviorEngagedTime = DateTime.MaxValue;
+
+        internal static DateTime BehaviorEngagedTime = DateTime.MaxValue;
 
 		///<summary>
 		///Exiting Game Behavior
 		///</summary>
-		public static RunStatus Behavior()
+        internal static RunStatus Behavior()
 		{
 
 			//Run Town Portal Behavior.. 

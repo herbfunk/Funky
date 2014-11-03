@@ -20,12 +20,12 @@ namespace fItemPlugin.Townrun
     {
         private static bool bSalvageAllMagic, bSalvageAllNormal, bSalvageAllRare;
 
-        internal static bool GilesSalvageOverlord(object ret)
+        internal static bool SalvageOverlord(object ret)
         {
             townRunItemCache.SalvageItems.Clear();
 
             //Doing Greater Rift? (But not completed yet..) then skip salvaging.
-            if (IsParticipatingInTieredLootRun)
+            if (BountyCache.IsParticipatingInTieredLootRun)
                 return false;
 
 
@@ -140,32 +140,6 @@ namespace fItemPlugin.Townrun
             }
         }
 
-        // **********************************************************************************************
-        // *****             Pre Salvage sets everything up ready for our blacksmith run            *****
-        // **********************************************************************************************
-
-        internal static RunStatus GilesOptimisedPreSalvage(object ret)
-        {
-            //if (Bot.Settings.Debug.DebugStatusBar)
-            BotMain.StatusText = "Town run: Salvage routine started";
-            FunkyTownRunPlugin.DBLog.DebugFormat("GSDebug: Salvage routine started.");
-
-            if (ZetaDia.Actors.Me == null)
-            {
-                ActionsChecked = false;
-                FunkyTownRunPlugin.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [PreSalvage-1]");
-                return RunStatus.Failure;
-            }
-
-            bLoggedJunkThisStash = false;
-            MovedToSafetyLocation = false;
-            Delay.Reset();
-            return RunStatus.Success;
-        }
-
-        // **********************************************************************************************
-        // *****                 Nice smooth one-at-a-time salvaging replacement                    *****
-        // **********************************************************************************************
         internal static RunStatus GilesOptimisedSalvage(object ret)
         {
             if (FunkyGame.GameIsInvalid)
@@ -351,11 +325,26 @@ namespace fItemPlugin.Townrun
                 FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.SalvagedItemLog(item);
         }
 
-        // **********************************************************************************************
-        // *****         Post salvage cleans up and signs off junk log file after salvaging         *****
-        // **********************************************************************************************
+        internal static RunStatus PreSalvage(object ret)
+        {
+            //if (Bot.Settings.Debug.DebugStatusBar)
+            BotMain.StatusText = "Town run: Salvage routine started";
+            FunkyTownRunPlugin.DBLog.DebugFormat("GSDebug: Salvage routine started.");
 
-        internal static RunStatus GilesOptimisedPostSalvage(object ret)
+            if (ZetaDia.Actors.Me == null)
+            {
+                ActionsChecked = false;
+                FunkyTownRunPlugin.DBLog.DebugFormat("GSError: Diablo 3 memory read error, or item became invalid [PreSalvage-1]");
+                return RunStatus.Failure;
+            }
+
+            bLoggedJunkThisStash = false;
+            MovedToSafetyLocation = false;
+            Delay.Reset();
+            return RunStatus.Success;
+        }
+
+        internal static RunStatus PostSalvage(object ret)
         {
             FunkyTownRunPlugin.DBLog.DebugFormat("GSDebug: Salvage routine ending sequence...");
 
@@ -364,7 +353,6 @@ namespace fItemPlugin.Townrun
         }
 
 
-        //
     }
 
 }

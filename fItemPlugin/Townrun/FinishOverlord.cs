@@ -1,4 +1,5 @@
 ﻿using System;
+using fBaseXtensions;
 using fBaseXtensions.Behaviors;
 using fBaseXtensions.Game;
 using fBaseXtensions.Monitor;
@@ -61,6 +62,7 @@ namespace fItemPlugin.Townrun
 			ResetCache = false;
 			FunkyGame.Targeting.Cache.bFailedToLootLastItem = false;
 
+            
 			Logger.DBLog.Info("Finished Town Run Behavior!");
 			return RunStatus.Success;
 		}

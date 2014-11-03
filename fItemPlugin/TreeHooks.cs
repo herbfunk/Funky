@@ -101,10 +101,10 @@ namespace fItemPlugin
 			#region Salvage
 
 			// Replace DB salvaging behavior tree with my optimized & "one-at-a-time" version
-			CanRunDecoratorDelegate canRunDelegateSalvageGilesOverlord = TownRunManager.GilesSalvageOverlord;
-			ActionDelegate actionDelegatePreSalvage = TownRunManager.GilesOptimisedPreSalvage;
+			CanRunDecoratorDelegate canRunDelegateSalvageGilesOverlord = TownRunManager.SalvageOverlord;
+			ActionDelegate actionDelegatePreSalvage = TownRunManager.PreSalvage;
 			ActionDelegate actionDelegateSalvage = TownRunManager.GilesOptimisedSalvage;
-			ActionDelegate actionDelegatePostSalvage = TownRunManager.GilesOptimisedPostSalvage;
+			ActionDelegate actionDelegatePostSalvage = TownRunManager.PostSalvage;
 			Sequence sequenceSalvage = new Sequence(
 					new Zeta.TreeSharp.Action(actionDelegatePreSalvage),
 					new Zeta.TreeSharp.Action(actionDelegateSalvage),
@@ -149,11 +149,11 @@ namespace fItemPlugin
 			#region Vendor
 
 			// Replace DB vendoring behavior tree with my optimized & "one-at-a-time" version
-			CanRunDecoratorDelegate canRunDelegateSellGilesOverlord = TownRunManager.GilesSellOverlord;
-			ActionDelegate actionDelegatePreSell = TownRunManager.GilesOptimisedPreSell;
-			ActionDelegate actionDelegateMovement = TownRunManager.VendorMovement;
-			ActionDelegate actionDelegateSell = TownRunManager.GilesOptimisedSell;
-			ActionDelegate actionDelegatePostSell = TownRunManager.GilesOptimisedPostSell;
+			CanRunDecoratorDelegate canRunDelegateSellGilesOverlord = TownRunManager.SellOverlord;
+			ActionDelegate actionDelegatePreSell = TownRunManager.PreSell;
+			ActionDelegate actionDelegateMovement = TownRunManager.SellMovement;
+			ActionDelegate actionDelegateSell = TownRunManager.SellInteraction;
+			ActionDelegate actionDelegatePostSell = TownRunManager.PostSell;
 			Sequence sequenceSell = new Sequence(
 					new Zeta.TreeSharp.Action(actionDelegatePreSell),
 					new Zeta.TreeSharp.Action(actionDelegateMovement),

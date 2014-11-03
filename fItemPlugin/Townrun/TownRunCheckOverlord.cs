@@ -1,6 +1,7 @@
 ﻿using System;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
+using fBaseXtensions.Helpers;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
 using Zeta.Bot.Logic;
@@ -16,6 +17,9 @@ namespace fItemPlugin.Townrun
 {
 	internal static partial class TownRunManager
 	{
+        /// <summary>
+        /// The method for checking if we should start the town run behavior.
+        /// </summary>
 		internal static bool TownRunCheckOverlord(object ret)
 		{
 			bWantToTownRun = false;
@@ -35,7 +39,7 @@ namespace fItemPlugin.Townrun
 					//our result of checking various things for town run.
 					bool _checkResult = false;
 
-					if (!IsParticipatingInTieredLootRun && ZetaDia.Me.Inventory.NumFreeBackpackSlots <= 2)
+                    if (!BountyCache.IsParticipatingInTieredLootRun && ZetaDia.Me.Inventory.NumFreeBackpackSlots <= 2)
 					{
 						_checkResult = true;
 						FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (No Space Left In Backpack)");
@@ -47,13 +51,21 @@ namespace fItemPlugin.Townrun
 							_checkResult = true;
 							FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (Items Need Repaired)");
 						}
-						else if (!IsParticipatingInTieredLootRun && FunkyTownRunPlugin.PluginSettings.EnableBloodShardGambling && FunkyTownRunPlugin.PluginSettings.MinimumBloodShards > 5)
+                        else if (!BountyCache.IsParticipatingInTieredLootRun && FunkyTownRunPlugin.PluginSettings.EnableBloodShardGambling && FunkyTownRunPlugin.PluginSettings.MinimumBloodShards > 5)
 						{
 							int curBloodShardCount = Backpack.GetBloodShardCount();
 							if (curBloodShardCount != -1 && curBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards)
 							{
-								_checkResult = true;
-								FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (Gambling)");
+							    if (FunkyTownRunPlugin.PluginSettings.UseAltGambling)
+							    {
+							        fBaseXtensions.Behaviors.CharacterControl.GamblingCharacterSwitch = true;
+							        fBaseXtensions.Behaviors.ExitGameBehavior.ShouldExitGame = true;
+							    }
+							    else
+							    {
+                                    _checkResult = true;
+                                    FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (Gambling)");
+							    }
 							}
 						}
 					}
@@ -76,60 +88,52 @@ namespace fItemPlugin.Townrun
 
 				if (!ZetaDia.IsInTown)
 				{
-					bPreStashPauseDone = false;
-					return true;
+				    return true;
 				}
 			}
 
 			return bWantToTownRun;
 		}
 
-		private static bool bPreStashPauseDone;
-
-		internal static bool bLoggedAnythingThisStash = false;
+	    internal static bool bLoggedAnythingThisStash = false;
 		internal static bool bLoggedJunkThisStash = false;
-
 		internal static bool bWantToTownRun = false;
 		private static bool bLastTownRunCheckResult;
 		private static DateTime TimeLastCheckedForTownRun = DateTime.Today;
-
 		internal static ItemCache townRunItemCache = new ItemCache();
 		internal static Delayer Delay = new Delayer();
+		
 
-
-		private static bool ActionsChecked = false;
-		internal static bool ActionsEvaluatedOverlord(object ret)
-		{
-			return !ActionsChecked;
-		}
-
-		private static int CurrentQuestSNO = -1;
-		private static bool IsInAdventureMode = false;
-		private static bool RequiresRepair = false;
+	    private static bool RequiresRepair = false;
 		private static Act CurrentAct = Act.Invalid;
 		private static string VendorName = String.Empty;
-		private static readonly string SalvageName = "PT_Blacksmith_RepairShortcut";
-		private static Vector3 SafetyVendorLocation, SafetySalvageLocation, SafetyStashLocation, SafetyIdenifyLocation, SafetyGambleLocation;
+	    private const string SalvageName = "PT_Blacksmith_RepairShortcut";
+	    private static Vector3 SafetyVendorLocation, SafetySalvageLocation, SafetyStashLocation, SafetyIdenifyLocation, SafetyGambleLocation;
 		private static bool MovedToSafetyLocation = false;
+        private static bool ActionsChecked = false;
 
+        /// <summary>
+        /// Check if we should update our town run variables
+        /// </summary>
+        internal static bool ActionsEvaluatedOverlord(object ret)
+        {
+            return !ActionsChecked;
+        }
+        /// <summary>
+        /// Refreshes the town run variables based on current act
+        /// </summary>
 		internal static RunStatus ActionsEvaluatedBehavior(object ret)
 		{
-			//Player.UpdatePotions();
-			//townRunItemCache.UpdateLists(Player.CacheItemList.Values.ToList());
-			//FunkyTownRunPlugin.DBLog.Info(townRunItemCache.GetListString());
 			Navigator.Clear();
 			Navigator.SearchGridProvider.Update();
-
 			MovedToSafetyLocation = false;
-			//CurrentQuestSNO = GetQuestSNO();
-			//IsInAdventureMode = (CurrentQuestSNO == 312429);
+
 
 			if (FunkyGame.AdventureMode)
 				CurrentAct = GameCache.FindActByTownLevelAreaID(ZetaDia.CurrentLevelAreaId);
 			else
-			{
 				CurrentAct = ZetaDia.CurrentAct;
-			}
+			
 			
 
 			switch (CurrentAct)
@@ -145,6 +149,7 @@ namespace fItemPlugin.Townrun
 				case Act.A5:
 					VendorName = "x1_a5_uniquevendor_collector"; break;
 			}
+
 			RequiresRepair = Equipment.ShouldRepairItems(CharacterSettings.Instance.RepairWhenDurabilityBelow);
 			SafetyVendorLocation = GameCache.ReturnTownRunMovementVector(GameCache.TownRunBehavior.Sell, CurrentAct);
 			SafetySalvageLocation = GameCache.ReturnTownRunMovementVector(GameCache.TownRunBehavior.Salvage, CurrentAct);
@@ -162,9 +167,13 @@ namespace fItemPlugin.Townrun
 			FunkyGame.Bounty.RefreshActiveQuests();
 
 			FunkyTownRunPlugin.DBLog.DebugFormat("Current Act: {0} VendorName: {1} Requires Repair: {2}", CurrentAct, VendorName, RequiresRepair);
-			ActionsChecked = true;
+			
+            ActionsChecked = true;
 			return RunStatus.Success;
 		}
+        /// <summary>
+        /// Resets the town run variables!
+        /// </summary>
 		internal static RunStatus ActionsEvaluatedEndingBehavior(object ret)
 		{
 			//FunkyTownRunPlugin.TownRunStats.TownRuns++;
@@ -187,6 +196,7 @@ namespace fItemPlugin.Townrun
 			Logger.DBLog.InfoFormat("[FunkyTownRun] Finished Behavior.");
 			return RunStatus.Success;
 		}
+
 
 		internal static bool StashValidation(CacheACDItem thisitem)
 		{
@@ -365,18 +375,7 @@ namespace fItemPlugin.Townrun
 			return false;
 		}
 
-		internal static bool IsParticipatingInTieredLootRun
-		{
-			get
-			{
-				return (ZetaDia.Me.IsParticipatingInTieredLootRun &&
-				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_RIFTID) &&
-				(FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 34 && FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_RIFTID].Step != 10)) ||
-				(FunkyGame.Bounty.ActiveQuests.ContainsKey(BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL) &&
-				FunkyGame.Bounty.ActiveQuests[BountyCache.ADVENTUREMODE_GREATERRIFT_TRIAL].Step != 9));
 
-			}
-		}
 
 	}
 

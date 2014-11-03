@@ -133,31 +133,8 @@ namespace fItemPlugin.Townrun
 		internal static RunStatus PostStash(object ret)
 		{
 			FunkyTownRunPlugin.DBLog.DebugFormat("GSDebug: Stash routine ending sequence...");
-			// See if there's any legendary items we should send Prowl notifications about
-			//while (Prowl.pushQueue.Count > 0) { Prowl.SendNotification(Prowl.pushQueue.Dequeue()); }
-			/*
-			 if (bLoggedAnythingThisStash)
-			 {
-				   FileStream LogStream = null;
-				   try
-				   {
-						LogStream = File.Open(PluginPath + ZetaDia.Service.CurrentHero.BattleTagName + " - StashLog - " + ZetaDia.Actors.Me.ActorClass.ToString() + ".log", FileMode.Append, FileAccess.Write, FileShare.Read);
-						using (StreamWriter LogWriter = new StreamWriter(LogStream))
-							 LogWriter.WriteLine("");
-						LogStream.Close();
-				   }
-				   catch (IOException)
-				   {
-						FunkyTownRunPlugin.DBLog.InfoFormat("Fatal Error: File access error for signing off the stash log file.");
-						if (LogStream != null)
-							 LogStream.Close();
-				   }
-				   bLoggedAnythingThisStash = false;
-			 }
-			   */
-			//Bot.Character.Data.lastPreformedNonCombatAction = DateTime.Now;
-			
-
+            //
+            //
 			FunkyTownRunPlugin.DBLog.InfoFormat("Funky Stash Routine Finished.");
 			return RunStatus.Success;
 		}
@@ -578,8 +555,7 @@ namespace fItemPlugin.Townrun
 
 		internal static RunStatus GilesStashPrePause(object ret)
 		{
-			bPreStashPauseDone = true;
-			iPreStashLoops = 0;
+		    iPreStashLoops = 0;
 			return RunStatus.Success;
 		}
 		internal static RunStatus GilesStashPause(object ret)

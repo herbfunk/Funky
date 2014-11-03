@@ -294,11 +294,17 @@
             this.btn_DumpSkillsCache = new System.Windows.Forms.Button();
             this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
             this.btn_DumpBountyCache = new System.Windows.Forms.Button();
+            this.btn_DumpItemBalanceCache = new System.Windows.Forms.Button();
             this.btn_DumpProfileBehavior = new System.Windows.Forms.Button();
             this.btn_DumpInventory = new System.Windows.Forms.Button();
             this.btn_Test = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btn_DumpItemBalanceCache = new System.Windows.Forms.Button();
+            this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.groupBox_BnetControl_Setup = new System.Windows.Forms.GroupBox();
+            this.btn_CharacterControl_Setup = new System.Windows.Forms.Button();
+            this.lbl_BnetControl_Setup = new System.Windows.Forms.Label();
+            this.groupBox_BnetControl_AltHero = new System.Windows.Forms.GroupBox();
+            this.comboBox_BnetControl_Heros = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl_Combat.SuspendLayout();
@@ -397,6 +403,9 @@
             this.tabPage15.SuspendLayout();
             this.tabPage16.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.tabPage19.SuspendLayout();
+            this.groupBox_BnetControl_Setup.SuspendLayout();
+            this.groupBox_BnetControl_AltHero.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -2102,12 +2111,14 @@
             this.tabControl2.Controls.Add(this.tabPage12);
             this.tabControl2.Controls.Add(this.tabPage18);
             this.tabControl2.Controls.Add(this.tabPage17);
+            this.tabControl2.Controls.Add(this.tabPage19);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(3, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(665, 555);
             this.tabControl2.TabIndex = 0;
+            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
             // tabPage12
             // 
@@ -3277,6 +3288,16 @@
             this.btn_DumpBountyCache.UseVisualStyleBackColor = true;
             this.btn_DumpBountyCache.Click += new System.EventHandler(this.btn_DumpBountyCache_Click);
             // 
+            // btn_DumpItemBalanceCache
+            // 
+            this.btn_DumpItemBalanceCache.Location = new System.Drawing.Point(3, 61);
+            this.btn_DumpItemBalanceCache.Name = "btn_DumpItemBalanceCache";
+            this.btn_DumpItemBalanceCache.Size = new System.Drawing.Size(137, 23);
+            this.btn_DumpItemBalanceCache.TabIndex = 12;
+            this.btn_DumpItemBalanceCache.Text = "Dump Item Balance";
+            this.btn_DumpItemBalanceCache.UseVisualStyleBackColor = true;
+            this.btn_DumpItemBalanceCache.Click += new System.EventHandler(this.btn_DumpItemBalanceCache_Click);
+            // 
             // btn_DumpProfileBehavior
             // 
             this.btn_DumpProfileBehavior.Location = new System.Drawing.Point(146, 61);
@@ -3313,15 +3334,67 @@
             this.toolTip1.InitialDelay = 1000;
             this.toolTip1.ReshowDelay = 500;
             // 
-            // btn_DumpItemBalanceCache
+            // tabPage19
             // 
-            this.btn_DumpItemBalanceCache.Location = new System.Drawing.Point(3, 61);
-            this.btn_DumpItemBalanceCache.Name = "btn_DumpItemBalanceCache";
-            this.btn_DumpItemBalanceCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpItemBalanceCache.TabIndex = 12;
-            this.btn_DumpItemBalanceCache.Text = "Dump Item Balance";
-            this.btn_DumpItemBalanceCache.UseVisualStyleBackColor = true;
-            this.btn_DumpItemBalanceCache.Click += new System.EventHandler(this.btn_DumpItemBalanceCache_Click);
+            this.tabPage19.Controls.Add(this.groupBox_BnetControl_AltHero);
+            this.tabPage19.Controls.Add(this.groupBox_BnetControl_Setup);
+            this.tabPage19.Location = new System.Drawing.Point(4, 22);
+            this.tabPage19.Name = "tabPage19";
+            this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage19.Size = new System.Drawing.Size(657, 529);
+            this.tabPage19.TabIndex = 3;
+            this.tabPage19.Text = "Bnet Control";
+            this.tabPage19.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_BnetControl_Setup
+            // 
+            this.groupBox_BnetControl_Setup.Controls.Add(this.lbl_BnetControl_Setup);
+            this.groupBox_BnetControl_Setup.Controls.Add(this.btn_CharacterControl_Setup);
+            this.groupBox_BnetControl_Setup.Enabled = false;
+            this.groupBox_BnetControl_Setup.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_BnetControl_Setup.Name = "groupBox_BnetControl_Setup";
+            this.groupBox_BnetControl_Setup.Size = new System.Drawing.Size(645, 52);
+            this.groupBox_BnetControl_Setup.TabIndex = 0;
+            this.groupBox_BnetControl_Setup.TabStop = false;
+            this.groupBox_BnetControl_Setup.Text = "Setup";
+            // 
+            // btn_CharacterControl_Setup
+            // 
+            this.btn_CharacterControl_Setup.Location = new System.Drawing.Point(6, 19);
+            this.btn_CharacterControl_Setup.Name = "btn_CharacterControl_Setup";
+            this.btn_CharacterControl_Setup.Size = new System.Drawing.Size(75, 23);
+            this.btn_CharacterControl_Setup.TabIndex = 0;
+            this.btn_CharacterControl_Setup.Text = "Start Setup";
+            this.btn_CharacterControl_Setup.UseVisualStyleBackColor = true;
+            this.btn_CharacterControl_Setup.Click += new System.EventHandler(this.btn_CharacterControl_Setup_Click);
+            // 
+            // lbl_BnetControl_Setup
+            // 
+            this.lbl_BnetControl_Setup.AutoSize = true;
+            this.lbl_BnetControl_Setup.Location = new System.Drawing.Point(87, 29);
+            this.lbl_BnetControl_Setup.Name = "lbl_BnetControl_Setup";
+            this.lbl_BnetControl_Setup.Size = new System.Drawing.Size(0, 13);
+            this.lbl_BnetControl_Setup.TabIndex = 1;
+            // 
+            // groupBox_BnetControl_AltHero
+            // 
+            this.groupBox_BnetControl_AltHero.Controls.Add(this.comboBox_BnetControl_Heros);
+            this.groupBox_BnetControl_AltHero.Enabled = false;
+            this.groupBox_BnetControl_AltHero.Location = new System.Drawing.Point(6, 64);
+            this.groupBox_BnetControl_AltHero.Name = "groupBox_BnetControl_AltHero";
+            this.groupBox_BnetControl_AltHero.Size = new System.Drawing.Size(645, 100);
+            this.groupBox_BnetControl_AltHero.TabIndex = 1;
+            this.groupBox_BnetControl_AltHero.TabStop = false;
+            this.groupBox_BnetControl_AltHero.Text = "Alt Hero";
+            // 
+            // comboBox_BnetControl_Heros
+            // 
+            this.comboBox_BnetControl_Heros.FormattingEnabled = true;
+            this.comboBox_BnetControl_Heros.Location = new System.Drawing.Point(6, 19);
+            this.comboBox_BnetControl_Heros.Name = "comboBox_BnetControl_Heros";
+            this.comboBox_BnetControl_Heros.Size = new System.Drawing.Size(255, 21);
+            this.comboBox_BnetControl_Heros.TabIndex = 0;
+            this.comboBox_BnetControl_Heros.SelectedIndexChanged += new System.EventHandler(this.comboBox_BnetControl_Heros_SelectedIndexChanged);
             // 
             // SettingsForm
             // 
@@ -3487,6 +3560,10 @@
             this.tabPage16.ResumeLayout(false);
             this.tabPage16.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.tabPage19.ResumeLayout(false);
+            this.groupBox_BnetControl_Setup.ResumeLayout(false);
+            this.groupBox_BnetControl_Setup.PerformLayout();
+            this.groupBox_BnetControl_AltHero.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
@@ -3766,6 +3843,12 @@
 		private System.Windows.Forms.CheckBox cb_adventuremode_allowcombatmodification;
 		private System.Windows.Forms.CheckBox cb_adventuremode_NavigateMinimapMarkers;
         private System.Windows.Forms.Button btn_DumpItemBalanceCache;
+        private System.Windows.Forms.TabPage tabPage19;
+        private System.Windows.Forms.GroupBox groupBox_BnetControl_Setup;
+        private System.Windows.Forms.Button btn_CharacterControl_Setup;
+        private System.Windows.Forms.Label lbl_BnetControl_Setup;
+        private System.Windows.Forms.GroupBox groupBox_BnetControl_AltHero;
+        private System.Windows.Forms.ComboBox comboBox_BnetControl_Heros;
 		//
 	}
 }

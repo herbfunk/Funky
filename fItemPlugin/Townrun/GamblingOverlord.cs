@@ -47,7 +47,11 @@ namespace fItemPlugin.Townrun
 
 
 				int currentBloodShardCount=ZetaDia.CPlayer.BloodshardCount;
-				return currentBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards;
+			    if (currentBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards)
+			    {
+			        return !FunkyTownRunPlugin.PluginSettings.UseAltGambling;
+			    }
+				 
 			}
 
 			return false;

@@ -424,6 +424,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				{
 					Logger.Write(LogLevel.Cache, "Failure to convert obj {0} to DiaItem!", InternalName);
 					NeedsRemoved = true;
+                    BlacklistFlag=BlacklistType.Temporary;
 					return false;
 				}
 			}

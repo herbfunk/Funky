@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
@@ -25,7 +26,7 @@ namespace fBaseXtensions
     {
         public Version Version
         {
-            get { return new Version(1, 1, 3, 1); }
+            get { return new Version(1, 1, 4, 0); }
         }
 
 		public static PluginSettings Settings { get; set; }
@@ -95,16 +96,23 @@ namespace fBaseXtensions
 			Logger.DBLog.DebugFormat("fBaseXtensions OnShutdown Finished");
 	    }
 
-		private static bool _pluginIsEnabled = false;
 		public static bool PluginIsEnabled
 		{
-			get { return _pluginIsEnabled; }
+		    get
+		    {
+		        var plugin= PluginManager.Plugins.First(p => p.Plugin.Name == "fBaseXtensions");
+		        if (plugin != null)
+		        {
+		            return plugin.Enabled;
+		        }
+		        return false; //?
+		        
+		    }
 		}
 		
 	    public void OnEnabled()
 	    {
 			UIControl.InstallSettingsButton();
-			_pluginIsEnabled = true;
 			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been enabled!", Version.ToString());
 			if (BotMain.IsRunning) EventHandling.OnBotStart(null);
 	    }
@@ -112,7 +120,6 @@ namespace fBaseXtensions
 	    public void OnDisabled()
 	    {
 			UIControl.UninstallSettingsButton();
-			_pluginIsEnabled = false;
 			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been disabled!", Version.ToString());
 	    }
 
