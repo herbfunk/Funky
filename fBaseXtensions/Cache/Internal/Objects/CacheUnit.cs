@@ -257,7 +257,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			get
 			{
-				return ((UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Ranged)) || (Monstersize.HasValue && Monstersize.Value == MonsterSize.Ranged));
+				return UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Ranged);
 			}
 		}
 		public bool IsFast
@@ -880,14 +880,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 
-						// Swarmers/boss-likes get more weight
-						if (Monstersize == MonsterSize.Swarm || Monstersize == MonsterSize.Boss)
-							Weight += 900;
-
-						// Standard/big get a small bonus incase of "unknown" monster types being present
-						if (Monstersize == MonsterSize.Standard || Monstersize == MonsterSize.Big)
-							Weight += 150;
-
 						// Lower health gives higher weight - health is worth up to 300 extra weight
 						if (CurrentHealthPct < 0.20)
 							Weight += (300 * (1 - (CurrentHealthPct.Value / 0.5)));
@@ -1218,30 +1210,28 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				return false;
 			}
 
-			ACD CommonData = ref_DiaObject.CommonData;
-			if (CommonData == null || !CommonData.IsValid || CommonData.ACDGuid == -1)
-			{
-				Logger.Write(LogLevel.Cache, "Common Data Null for {0}", DebugStringSimple);
-				NeedsRemoved = true;
-				return false;
-			}
-
-
-			if (!Monstertype.HasValue)
-			{
-				//Logger.Write(LogLevel.Cache, "No Monster Type for object {0}", DebugStringSimple);
-				return false;
-			}
-
-			//Update Monster Type?
-			if (ShouldRefreshMonsterType)
-			{
-				if (!base.UpdateData(ref_DiaObject, RAGUID))
-				{
-					//Logger.Write(LogLevel.Cache, "Monster Refresh Failed for object {0}", DebugStringSimple);
-					return false;
-				}
-			}
+		    if (!UnitPropertyFlags.HasValue)
+		    {
+		        try
+		        {
+                    MonsterType monstertype = ref_DiaUnit.MonsterInfo.MonsterType;
+		            if (monstertype == MonsterType.Ally || monstertype == MonsterType.Scenery ||
+		                monstertype == MonsterType.Team || monstertype == MonsterType.Helper)
+		            {
+                        //Unit is a non-hostile type.. lets ignore it if its not an exception!
+		                if (!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
+		                {
+                            BlacklistCache.IgnoreThisObject(this);
+		                    return false;
+		                }
+		            }
+		        }
+		        catch (Exception)
+		        {
+                    Logger.Write(LogLevel.Cache, "Handled MonsterInfo for Unit {0}", DebugStringSimple);
+		        }
+		        
+		    }
 
 			//NPC Check
 			bool isNPC = false;
@@ -1261,7 +1251,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 			// Make sure it's a valid monster type
-			if (!MonsterTypeIsHostile() || isNPC)
+			if (isNPC)
 			{
 				if (FunkyGame.Hero.bIsInTown)
 				{
@@ -1423,7 +1413,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				try
 				{
-					CheckMonsterAffixes(CommonData.MonsterAffixes);
+					CheckMonsterAffixes(ref_DiaUnit.CommonData.MonsterAffixes);
 				}
 				catch
 				{
@@ -1442,7 +1432,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					{
 						try
 						{
-							SummonerID = CommonData.GetAttribute<int>(ActorAttributeType.SummonedByACDID);
+                            SummonerID = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.SummonedByACDID);
 						}
 						catch (Exception ex)
 						{
@@ -1471,6 +1461,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				catch
 				{
 					NeedsRemoved = true;
+				    BlacklistFlag = BlacklistType.Temporary;
 					Logger.Write(LogLevel.Cache, "Failure to get maximum health for {0}", DebugStringSimple);
 					return false;
 				}

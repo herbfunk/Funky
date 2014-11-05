@@ -1769,7 +1769,7 @@ namespace fBaseXtensions.Settings
 
             int MaxHeroSlots = ZetaDia.Service.GameAccount.MaxHeroSlots;
 
-            if (curIndex == MaxHeroSlots - 1)
+            if (curIndex == MaxHeroSlots)
             {
                 Logger.DBLog.InfoFormat("Creating file with a total of {0} hero entries", CharacterControl.HeroIndexInfo.Characters.Count);
                 BnetCharacterIndexInfo.SerializeToXML(CharacterControl.HeroIndexInfo, BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
@@ -1782,7 +1782,7 @@ namespace fBaseXtensions.Settings
 
             Logger.DBLog.InfoFormat("Switching to index {0}", curIndex);
             ZetaDia.Service.GameAccount.SwitchHero(curIndex);
-            Thread.Sleep(3000);
+            Thread.Sleep(1500);
 
             //Clear Cache -- and get hero info
             ZetaDia.Memory.ClearCache();
@@ -1805,8 +1805,6 @@ namespace fBaseXtensions.Settings
         {
             if (tabControl2.SelectedTab.Text == "Bnet Control")
             {
-                bool heroindexFileFound = File.Exists(BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
-
                 if (CharacterControl.HeroIndexInfo.Characters.Count==0)
                 {
                     groupBox_BnetControl_Setup.Enabled = true;
@@ -1847,6 +1845,35 @@ namespace fBaseXtensions.Settings
             if (comboBox_BnetControl_Heros.SelectedIndex >= 0)
             {
                 FunkyBaseExtension.Settings.General.AltHeroIndex = comboBox_BnetControl_Heros.SelectedIndex;
+            }
+        }
+
+        private void btn_BnetControl_TestSwitch_Click(object sender, EventArgs e)
+        {
+            if (BotMain.IsRunning || BotMain.IsPaused) return;
+
+            if (ZetaDia.IsInGame) return;
+
+            if (!UI.ValidateUIElement(UI.GameMenu.SwitchHeroButton)) return;
+
+            if (comboBox_BnetControl_Heros.SelectedIndex >= 0)
+            {
+                int index = comboBox_BnetControl_Heros.SelectedIndex;
+                Logger.DBLog.InfoFormat("Switching to index {0}", index);
+                ZetaDia.Service.GameAccount.SwitchHero(index);
+            }
+        }
+
+        private void btn_BnetControl_ResetIndexes_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.DialogResult result = MessageBox.Show("Please confirm you wish to delete the current hero indexes file", "Delete Current Hero Indexes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                File.Delete(BnetCharacterIndexInfo.BnetCharacterInfoSettingsPath);
+                CharacterControl.HeroIndexInfo.Characters.Clear();
+                comboBox_BnetControl_Heros.Items.Clear();
+                groupBox_BnetControl_Setup.Enabled = true;
+                groupBox_BnetControl_AltHero.Enabled = false;
             }
         }
         

@@ -238,6 +238,12 @@
             this.cb_adventuremode_allowcombatmodification = new System.Windows.Forms.CheckBox();
             this.cb_adventuremode_NavigateMinimapMarkers = new System.Windows.Forms.CheckBox();
             this.cb_AdventureModeEnabled = new System.Windows.Forms.CheckBox();
+            this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.groupBox_BnetControl_AltHero = new System.Windows.Forms.GroupBox();
+            this.comboBox_BnetControl_Heros = new System.Windows.Forms.ComboBox();
+            this.groupBox_BnetControl_Setup = new System.Windows.Forms.GroupBox();
+            this.lbl_BnetControl_Setup = new System.Windows.Forms.Label();
+            this.btn_CharacterControl_Setup = new System.Windows.Forms.Button();
             this.tabPage13 = new System.Windows.Forms.TabPage();
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.tabPage20 = new System.Windows.Forms.TabPage();
@@ -299,12 +305,9 @@
             this.btn_DumpInventory = new System.Windows.Forms.Button();
             this.btn_Test = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tabPage19 = new System.Windows.Forms.TabPage();
-            this.groupBox_BnetControl_Setup = new System.Windows.Forms.GroupBox();
-            this.btn_CharacterControl_Setup = new System.Windows.Forms.Button();
-            this.lbl_BnetControl_Setup = new System.Windows.Forms.Label();
-            this.groupBox_BnetControl_AltHero = new System.Windows.Forms.GroupBox();
-            this.comboBox_BnetControl_Heros = new System.Windows.Forms.ComboBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.btn_BnetControl_TestSwitch = new System.Windows.Forms.Button();
+            this.btn_BnetControl_ResetIndexes = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl_Combat.SuspendLayout();
@@ -386,6 +389,9 @@
             this.contextMenuStrip_GemUpgrading_PriorityList.SuspendLayout();
             this.groupBox17.SuspendLayout();
             this.groupBox18.SuspendLayout();
+            this.tabPage19.SuspendLayout();
+            this.groupBox_BnetControl_AltHero.SuspendLayout();
+            this.groupBox_BnetControl_Setup.SuspendLayout();
             this.tabPage13.SuspendLayout();
             this.tabControl4.SuspendLayout();
             this.tabPage20.SuspendLayout();
@@ -403,9 +409,6 @@
             this.tabPage15.SuspendLayout();
             this.tabPage16.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.tabPage19.SuspendLayout();
-            this.groupBox_BnetControl_Setup.SuspendLayout();
-            this.groupBox_BnetControl_AltHero.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -2636,6 +2639,71 @@
         "gs based on bounty and rift quests.");
             this.cb_AdventureModeEnabled.UseVisualStyleBackColor = true;
             // 
+            // tabPage19
+            // 
+            this.tabPage19.Controls.Add(this.groupBox_BnetControl_AltHero);
+            this.tabPage19.Controls.Add(this.groupBox_BnetControl_Setup);
+            this.tabPage19.Location = new System.Drawing.Point(4, 22);
+            this.tabPage19.Name = "tabPage19";
+            this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage19.Size = new System.Drawing.Size(657, 529);
+            this.tabPage19.TabIndex = 3;
+            this.tabPage19.Text = "Bnet Control";
+            this.tabPage19.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_BnetControl_AltHero
+            // 
+            this.groupBox_BnetControl_AltHero.Controls.Add(this.btn_BnetControl_ResetIndexes);
+            this.groupBox_BnetControl_AltHero.Controls.Add(this.btn_BnetControl_TestSwitch);
+            this.groupBox_BnetControl_AltHero.Controls.Add(this.label33);
+            this.groupBox_BnetControl_AltHero.Controls.Add(this.comboBox_BnetControl_Heros);
+            this.groupBox_BnetControl_AltHero.Enabled = false;
+            this.groupBox_BnetControl_AltHero.Location = new System.Drawing.Point(6, 64);
+            this.groupBox_BnetControl_AltHero.Name = "groupBox_BnetControl_AltHero";
+            this.groupBox_BnetControl_AltHero.Size = new System.Drawing.Size(645, 100);
+            this.groupBox_BnetControl_AltHero.TabIndex = 1;
+            this.groupBox_BnetControl_AltHero.TabStop = false;
+            this.groupBox_BnetControl_AltHero.Text = "Alt Hero";
+            // 
+            // comboBox_BnetControl_Heros
+            // 
+            this.comboBox_BnetControl_Heros.FormattingEnabled = true;
+            this.comboBox_BnetControl_Heros.Location = new System.Drawing.Point(9, 32);
+            this.comboBox_BnetControl_Heros.Name = "comboBox_BnetControl_Heros";
+            this.comboBox_BnetControl_Heros.Size = new System.Drawing.Size(255, 21);
+            this.comboBox_BnetControl_Heros.TabIndex = 0;
+            this.comboBox_BnetControl_Heros.SelectedIndexChanged += new System.EventHandler(this.comboBox_BnetControl_Heros_SelectedIndexChanged);
+            // 
+            // groupBox_BnetControl_Setup
+            // 
+            this.groupBox_BnetControl_Setup.Controls.Add(this.lbl_BnetControl_Setup);
+            this.groupBox_BnetControl_Setup.Controls.Add(this.btn_CharacterControl_Setup);
+            this.groupBox_BnetControl_Setup.Enabled = false;
+            this.groupBox_BnetControl_Setup.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_BnetControl_Setup.Name = "groupBox_BnetControl_Setup";
+            this.groupBox_BnetControl_Setup.Size = new System.Drawing.Size(645, 52);
+            this.groupBox_BnetControl_Setup.TabIndex = 0;
+            this.groupBox_BnetControl_Setup.TabStop = false;
+            this.groupBox_BnetControl_Setup.Text = "Setup";
+            // 
+            // lbl_BnetControl_Setup
+            // 
+            this.lbl_BnetControl_Setup.AutoSize = true;
+            this.lbl_BnetControl_Setup.Location = new System.Drawing.Point(87, 29);
+            this.lbl_BnetControl_Setup.Name = "lbl_BnetControl_Setup";
+            this.lbl_BnetControl_Setup.Size = new System.Drawing.Size(0, 13);
+            this.lbl_BnetControl_Setup.TabIndex = 1;
+            // 
+            // btn_CharacterControl_Setup
+            // 
+            this.btn_CharacterControl_Setup.Location = new System.Drawing.Point(6, 19);
+            this.btn_CharacterControl_Setup.Name = "btn_CharacterControl_Setup";
+            this.btn_CharacterControl_Setup.Size = new System.Drawing.Size(75, 23);
+            this.btn_CharacterControl_Setup.TabIndex = 0;
+            this.btn_CharacterControl_Setup.Text = "Start Setup";
+            this.btn_CharacterControl_Setup.UseVisualStyleBackColor = true;
+            this.btn_CharacterControl_Setup.Click += new System.EventHandler(this.btn_CharacterControl_Setup_Click);
+            // 
             // tabPage13
             // 
             this.tabPage13.Controls.Add(this.tabControl4);
@@ -3334,67 +3402,34 @@
             this.toolTip1.InitialDelay = 1000;
             this.toolTip1.ReshowDelay = 500;
             // 
-            // tabPage19
+            // label33
             // 
-            this.tabPage19.Controls.Add(this.groupBox_BnetControl_AltHero);
-            this.tabPage19.Controls.Add(this.groupBox_BnetControl_Setup);
-            this.tabPage19.Location = new System.Drawing.Point(4, 22);
-            this.tabPage19.Name = "tabPage19";
-            this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(657, 529);
-            this.tabPage19.TabIndex = 3;
-            this.tabPage19.Text = "Bnet Control";
-            this.tabPage19.UseVisualStyleBackColor = true;
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 16);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(41, 13);
+            this.label33.TabIndex = 1;
+            this.label33.Text = "Heroes";
             // 
-            // groupBox_BnetControl_Setup
+            // btn_BnetControl_TestSwitch
             // 
-            this.groupBox_BnetControl_Setup.Controls.Add(this.lbl_BnetControl_Setup);
-            this.groupBox_BnetControl_Setup.Controls.Add(this.btn_CharacterControl_Setup);
-            this.groupBox_BnetControl_Setup.Enabled = false;
-            this.groupBox_BnetControl_Setup.Location = new System.Drawing.Point(6, 6);
-            this.groupBox_BnetControl_Setup.Name = "groupBox_BnetControl_Setup";
-            this.groupBox_BnetControl_Setup.Size = new System.Drawing.Size(645, 52);
-            this.groupBox_BnetControl_Setup.TabIndex = 0;
-            this.groupBox_BnetControl_Setup.TabStop = false;
-            this.groupBox_BnetControl_Setup.Text = "Setup";
+            this.btn_BnetControl_TestSwitch.Location = new System.Drawing.Point(270, 30);
+            this.btn_BnetControl_TestSwitch.Name = "btn_BnetControl_TestSwitch";
+            this.btn_BnetControl_TestSwitch.Size = new System.Drawing.Size(75, 23);
+            this.btn_BnetControl_TestSwitch.TabIndex = 2;
+            this.btn_BnetControl_TestSwitch.Text = "Test Switch";
+            this.btn_BnetControl_TestSwitch.UseVisualStyleBackColor = true;
+            this.btn_BnetControl_TestSwitch.Click += new System.EventHandler(this.btn_BnetControl_TestSwitch_Click);
             // 
-            // btn_CharacterControl_Setup
+            // btn_BnetControl_ResetIndexes
             // 
-            this.btn_CharacterControl_Setup.Location = new System.Drawing.Point(6, 19);
-            this.btn_CharacterControl_Setup.Name = "btn_CharacterControl_Setup";
-            this.btn_CharacterControl_Setup.Size = new System.Drawing.Size(75, 23);
-            this.btn_CharacterControl_Setup.TabIndex = 0;
-            this.btn_CharacterControl_Setup.Text = "Start Setup";
-            this.btn_CharacterControl_Setup.UseVisualStyleBackColor = true;
-            this.btn_CharacterControl_Setup.Click += new System.EventHandler(this.btn_CharacterControl_Setup_Click);
-            // 
-            // lbl_BnetControl_Setup
-            // 
-            this.lbl_BnetControl_Setup.AutoSize = true;
-            this.lbl_BnetControl_Setup.Location = new System.Drawing.Point(87, 29);
-            this.lbl_BnetControl_Setup.Name = "lbl_BnetControl_Setup";
-            this.lbl_BnetControl_Setup.Size = new System.Drawing.Size(0, 13);
-            this.lbl_BnetControl_Setup.TabIndex = 1;
-            // 
-            // groupBox_BnetControl_AltHero
-            // 
-            this.groupBox_BnetControl_AltHero.Controls.Add(this.comboBox_BnetControl_Heros);
-            this.groupBox_BnetControl_AltHero.Enabled = false;
-            this.groupBox_BnetControl_AltHero.Location = new System.Drawing.Point(6, 64);
-            this.groupBox_BnetControl_AltHero.Name = "groupBox_BnetControl_AltHero";
-            this.groupBox_BnetControl_AltHero.Size = new System.Drawing.Size(645, 100);
-            this.groupBox_BnetControl_AltHero.TabIndex = 1;
-            this.groupBox_BnetControl_AltHero.TabStop = false;
-            this.groupBox_BnetControl_AltHero.Text = "Alt Hero";
-            // 
-            // comboBox_BnetControl_Heros
-            // 
-            this.comboBox_BnetControl_Heros.FormattingEnabled = true;
-            this.comboBox_BnetControl_Heros.Location = new System.Drawing.Point(6, 19);
-            this.comboBox_BnetControl_Heros.Name = "comboBox_BnetControl_Heros";
-            this.comboBox_BnetControl_Heros.Size = new System.Drawing.Size(255, 21);
-            this.comboBox_BnetControl_Heros.TabIndex = 0;
-            this.comboBox_BnetControl_Heros.SelectedIndexChanged += new System.EventHandler(this.comboBox_BnetControl_Heros_SelectedIndexChanged);
+            this.btn_BnetControl_ResetIndexes.Location = new System.Drawing.Point(538, 71);
+            this.btn_BnetControl_ResetIndexes.Name = "btn_BnetControl_ResetIndexes";
+            this.btn_BnetControl_ResetIndexes.Size = new System.Drawing.Size(101, 23);
+            this.btn_BnetControl_ResetIndexes.TabIndex = 3;
+            this.btn_BnetControl_ResetIndexes.Text = "Reset Indexes";
+            this.btn_BnetControl_ResetIndexes.UseVisualStyleBackColor = true;
+            this.btn_BnetControl_ResetIndexes.Click += new System.EventHandler(this.btn_BnetControl_ResetIndexes_Click);
             // 
             // SettingsForm
             // 
@@ -3534,6 +3569,11 @@
             this.groupBox17.PerformLayout();
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
+            this.tabPage19.ResumeLayout(false);
+            this.groupBox_BnetControl_AltHero.ResumeLayout(false);
+            this.groupBox_BnetControl_AltHero.PerformLayout();
+            this.groupBox_BnetControl_Setup.ResumeLayout(false);
+            this.groupBox_BnetControl_Setup.PerformLayout();
             this.tabPage13.ResumeLayout(false);
             this.tabControl4.ResumeLayout(false);
             this.tabPage20.ResumeLayout(false);
@@ -3560,10 +3600,6 @@
             this.tabPage16.ResumeLayout(false);
             this.tabPage16.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.tabPage19.ResumeLayout(false);
-            this.groupBox_BnetControl_Setup.ResumeLayout(false);
-            this.groupBox_BnetControl_Setup.PerformLayout();
-            this.groupBox_BnetControl_AltHero.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
@@ -3849,6 +3885,9 @@
         private System.Windows.Forms.Label lbl_BnetControl_Setup;
         private System.Windows.Forms.GroupBox groupBox_BnetControl_AltHero;
         private System.Windows.Forms.ComboBox comboBox_BnetControl_Heros;
+        private System.Windows.Forms.Button btn_BnetControl_ResetIndexes;
+        private System.Windows.Forms.Button btn_BnetControl_TestSwitch;
+        private System.Windows.Forms.Label label33;
 		//
 	}
 }

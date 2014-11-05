@@ -547,8 +547,6 @@ namespace fBaseXtensions.Cache.Internal
 		internal static Dictionary<int, PluginDroppedItemTypes?> dictBaseItemTypes = new Dictionary<int, PluginDroppedItemTypes?>();
 		internal static Dictionary<int, ActorType?> dictActorType = new Dictionary<int, ActorType?>();
 		internal static Dictionary<int, TargetType?> dictTargetType = new Dictionary<int, TargetType?>();
-		internal static Dictionary<int, MonsterSize?> dictMonstersize = new Dictionary<int, MonsterSize?>();
-		internal static Dictionary<int, MonsterType?> dictMonstertype = new Dictionary<int, MonsterType?>();
 		internal static Dictionary<int, float?> dictCollisionRadius = new Dictionary<int, float?>();
 		internal static Dictionary<int, String> dictInternalName = new Dictionary<int, String>();
 		internal static Dictionary<int, ObstacleType?> dictObstacleType = new Dictionary<int, ObstacleType?>();

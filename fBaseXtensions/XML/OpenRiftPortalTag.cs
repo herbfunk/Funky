@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using fBaseXtensions.Game;
+using fBaseXtensions.Items;
+using fBaseXtensions.Items.Enums;
 using Zeta.Bot.Profile;
 using Zeta.Game;
 using Zeta.Game.Internals;
@@ -52,24 +54,34 @@ namespace fBaseXtensions.XML
 
 		private ACDItem GetKeystoneItem()
 		{
-			var items = ZetaDia.Me.Inventory.Backpack;
+			IEnumerable<ACDItem> itemEnumerableSource = ZetaDia.Me.Inventory.Backpack;
+		    List<CacheACDItem> items = new List<CacheACDItem>();
+            foreach (var i in itemEnumerableSource)
+		    {
+		        if (i.BaseAddress != IntPtr.Zero)
+		        {
+		            CacheACDItem cacheitem = new CacheACDItem(i);
+		            items.Add(cacheitem);
+		        }
+		    }
+
 			if (KeyType == KeystoneType.Tiered)
 			{
 				if (!KeyStoneHighest)
-					items = items.OrderBy(i => i.TieredLootRunKeyLevel);
+					items = items.OrderBy(i => i.KeystoneRank).ToList();
 				else
-					items = items.OrderByDescending(i => i.TieredLootRunKeyLevel);
+                    items = items.OrderByDescending(i => i.KeystoneRank).ToList();
 			}
 
 			foreach (var tempitem in items)
 			{
-				if (tempitem.BaseAddress != IntPtr.Zero && tempitem.ItemType == ItemType.KeystoneFragment)
+				if (tempitem.ItemType == PluginItemTypes.KeyStone)
 				{
-					int tieredLevel = tempitem.TieredLootRunKeyLevel;
+					int tieredLevel = tempitem.KeystoneRank;
 					if (KeyType == KeystoneType.Fragment)
 					{
 						if (tieredLevel == -1)
-							return tempitem;
+							return tempitem.ACDItem;
 
 						continue;
 					}
@@ -77,7 +89,7 @@ namespace fBaseXtensions.XML
 					if (KeyType == KeystoneType.Trial)
 					{
 						if (tieredLevel == 0)
-							return tempitem;
+                            return tempitem.ACDItem;
 
 						continue;
 					}
@@ -85,7 +97,7 @@ namespace fBaseXtensions.XML
 					if (KeyType == KeystoneType.Tiered)
 					{
 						if (tieredLevel > 0 && tieredLevel <= FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed)
-							return tempitem;
+                            return tempitem.ACDItem;
 					}
 				}
 			}

@@ -1250,6 +1250,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(408158, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank28
 				new ItemDataEntry(408159, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank29
 				new ItemDataEntry(408160, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank30
+
 				new ItemDataEntry(408161, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank31
 				new ItemDataEntry(408162, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank32
 				new ItemDataEntry(408163, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank33
@@ -1258,6 +1259,25 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(408166, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank36
 				new ItemDataEntry(408167, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank37
 				new ItemDataEntry(408168, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank38
+                new ItemDataEntry(408169, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank39
+                new ItemDataEntry(408170, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank40
+
+                new ItemDataEntry(408171, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank41
+				new ItemDataEntry(408172, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank42
+				new ItemDataEntry(408173, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank43
+				new ItemDataEntry(408174, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank44
+				new ItemDataEntry(408175, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank45
+				new ItemDataEntry(408176, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank46
+				new ItemDataEntry(408177, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank47
+				new ItemDataEntry(408178, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank48
+                new ItemDataEntry(408179, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank49
+                new ItemDataEntry(408180, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank50
+
+                new ItemDataEntry(408181, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank51
+                new ItemDataEntry(408182, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank52
+                new ItemDataEntry(408183, PluginItemTypes.KeyStone),//GreaterRiftKeystoneRank53
+
+
 
 				//Gems
 				new ItemDataEntry(56888, PluginItemTypes.Emerald),

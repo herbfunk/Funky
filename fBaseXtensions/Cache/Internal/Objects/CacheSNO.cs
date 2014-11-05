@@ -45,8 +45,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				_itemdroptype = thisEntry.ItemDropType;
 				_actortype = thisEntry.Actortype;
 				_targettype = thisEntry.targetType;
-				_monstersize = thisEntry.Monstersize;
-				_monstertype = thisEntry.Monstertype;
 				_collisionradius = thisEntry.CollisionRadius;
 				_actorsphereradius = thisEntry.ActorSphereRadius;
 				_CanBurrow = thisEntry.CanBurrow;
@@ -61,15 +59,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				IsFinalized = thisEntry.IsFinalized;
 			}
 		}
-		public SNO(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
+		public SNO(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, float? collisionradius = null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
 		{
 			//Creates the perm data
 			SNOID = sno;
 			_actortype = actortype;
 			_targettype = targettype;
 			_collisionradius = collisionradius;
-			_monstersize = monstersize;
-			_monstertype = monstertype;
 			_internalname = internalname;
 			_CanBurrow = canburrow;
 			_IsBarricade = isbarricade;
@@ -88,8 +84,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			SNOID = sno.SNOID;
 			_actortype = sno.Actortype;
 			_targettype = sno.targetType;
-			_monstersize = sno.Monstersize;
-			_monstertype = sno.Monstertype;
 			_collisionradius = sno.CollisionRadius;
 			_actorsphereradius = sno.ActorSphereRadius;
 			_CanBurrow = sno.CanBurrow;
@@ -283,46 +277,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 		}
 
-		private MonsterType? _monstertype;
-		public MonsterType? Monstertype
-		{
-			get
-			{
-				if (IsFinalized) return _monstertype;
-
-				if (ObjectCache.dictMonstertype.ContainsKey(SNOID)) return ObjectCache.dictMonstertype[SNOID];
-				return null;
-			}
-			set
-			{
-				if (IsFinalized)
-				{
-					_monstertype = value;
-					return;
-				}
-
-				ObjectCache.dictMonstertype[SNOID] = value;
-			}
-		}
-
-		private readonly MonsterSize? _monstersize;
-		public MonsterSize? Monstersize
-		{
-			get
-			{
-				if (IsFinalized) return _monstersize;
-
-				if (ObjectCache.dictMonstersize.ContainsKey(SNOID)) return ObjectCache.dictMonstersize[SNOID];
-				return null;
-			}
-			set
-			{
-				if (IsFinalized) return;
-
-				ObjectCache.dictMonstersize[SNOID] = value;
-
-			}
-		}
 
 		private readonly PluginDroppedItemTypes? _itemdroptype;
 		public PluginDroppedItemTypes? ItemDropType
@@ -450,12 +404,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				debugstring += CollisionRadius.HasValue ? "CollisionRadius: " + CollisionRadius.Value.ToString(CultureInfo.InvariantCulture) + " " : "";
 				debugstring += ActorSphereRadius.HasValue ? "ActorSphereRadius: " + ActorSphereRadius.Value.ToString(CultureInfo.InvariantCulture) + " " + "\r\n" : "" + "\r\n";
 
-				debugstring += Monstertype.HasValue ? "Monstertype: " + Monstertype.Value.ToString() + " " : "";
-				debugstring += Monstersize.HasValue ? "Monstersize: " + Monstersize.Value.ToString() + " " + "\r\n" : "";
-				//debugstring+=RunningRate.HasValue?"RunningRate: "+RunningRate.Value.ToString()+" "+"\r\n":"";
-
-				//debugstring += GrantsNoXP.HasValue ? "GrantsNoXP: " + GrantsNoXP.Value.ToString() + " " : "";
-				//debugstring += DropsNoLoot.HasValue ? "DropsNoLoot: " + DropsNoLoot.Value.ToString() + " " : "";
+				
 				debugstring += IsBarricade.HasValue ? "IsBarricade: " + IsBarricade.Value.ToString() + " " + "\r\n" : "";
 				debugstring += ItemDropType.HasValue ? "ItemBaseType: " + ItemDropType.Value.ToString() + " " + "\r\n" : "";
 				debugstring += UnitPropertyFlags.HasValue ? "UnitFlags: " + UnitPropertyFlags.Value.ToString() + " " + "\r\n" : "";
@@ -600,11 +549,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			if (!targetType.HasValue || !Actortype.HasValue || InternalName == null || !Obstacletype.HasValue)
 				return true;
 
-			if (targetType.Value == TargetType.Unit)
-			{
-				if (!Monstertype.HasValue || !Monstersize.HasValue) return true; //||!this.RunningRate.HasValue
-			}
-
 			if (targetType.Value != TargetType.Item && targetType.Value != TargetType.Avoidance)
 			{
 				if (!CollisionRadius.HasValue || !ActorSphereRadius.HasValue) return true;
@@ -629,8 +573,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 	public class CachedSNOEntry : SNO
 	{
 
-		public CachedSNOEntry(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, MonsterType? monstertype = null, MonsterSize? monstersize = null, float? collisionradius = null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
-			: base(sno, internalname,  actortype,  targettype,  monstertype,  monstersize,  collisionradius,  canburrow, isbarricade,  obstacletype,  actorsphereradius,  gizmotype,  baseitemtype,  unitflags, gizmotargettypes, snoentry)
+		public CachedSNOEntry(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, float? collisionradius = null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
+			: base(sno, internalname,  actortype,  targettype, collisionradius,  canburrow, isbarricade,  obstacletype,  actorsphereradius,  gizmotype,  baseitemtype,  unitflags, gizmotargettypes, snoentry)
 		{
 		}
 
@@ -645,29 +589,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		}
 
 
-		public bool ShouldRefreshMonsterType
-		{
-			get
-			{
-				if (!Monstertype.HasValue)
-					return true;
-				return ((Monstertype == MonsterType.Ally || Monstertype == MonsterType.Scenery ||
-						 Monstertype == MonsterType.Helper || Monstertype == MonsterType.Team));
-			}
-		}
-		public bool MonsterTypeIsHostile()
-		{
-			switch (Monstertype.Value)
-			{
-				case MonsterType.Ally:
-				case MonsterType.Scenery:
-				case MonsterType.Helper:
-				case MonsterType.Team:
-					return false;
-			}
 
-			return true;
-		}
 
 
 		///<summary>
@@ -1035,54 +957,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 			if (!Obstacletype.HasValue)
 				Obstacletype = ObstacleType.None;
-
-
-			if (ObjectCache.CheckFlag(targetType.Value, TargetType.Unit))
-			{
-				SNORecordMonster monsterInfo;
-				try
-				{
-					monsterInfo = thisObj.CommonData.MonsterInfo;
-				}
-				catch
-				{
-					Logger.Write(LogLevel.Cache, "Safely Handled MonsterInfo Exception for Object {0}", InternalName);
-                    BlacklistCache.AddObjectToBlacklist(raguid, BlacklistType.Temporary);
-                    return false;
-				}
-
-
-				if (!Monstertype.HasValue || ShouldRefreshMonsterType)
-				{
-					#region MonsterType
-					try
-					{
-						Monstertype = monsterInfo.MonsterType;
-					}
-					catch
-					{
-						Logger.Write(LogLevel.Cache, "Failure to get MonsterType for SNO: {0}", SNOID);
-
-						failureDuringUpdate = true;
-					}
-					#endregion
-				}
-				if (!Monstersize.HasValue)
-				{
-					#region MonsterSize
-					try
-					{
-						Monstersize = monsterInfo.MonsterSize;
-					}
-					catch
-					{
-						Logger.Write(LogLevel.Cache, "Failure to get MonsterSize for SNO: {0}", SNOID);
-
-						failureDuringUpdate = true;
-					}
-					#endregion
-				}
-			}
 
 
 			if (Actortype.HasValue && targetType.HasValue &&

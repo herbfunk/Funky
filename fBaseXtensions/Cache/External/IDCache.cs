@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.External.Objects;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Items.Enums;
+using Zeta.Game.Internals.SNO;
 
 namespace fBaseXtensions.Cache.External
 {
@@ -80,7 +82,13 @@ namespace fBaseXtensions.Cache.External
 			GizmoEntries.Clear();
 			foreach (var entry in Gizmos.GizmoCache)
 			{
-				GizmoEntries.Add(entry.SnoId, new CacheGizmoEntry(entry));
+                var pluginGizmoType = (PluginGizmoType)entry.ObjectType;
+
+                GizmoEntries.Add(entry.SnoId, 
+                    new CacheGizmoEntry(entry.SnoId, 
+                        (GizmoType)Enum.Parse(typeof(GizmoType), pluginGizmoType.ToString()),
+                        entry.InternalName,
+                        entry.GizmotargetType));
 			}
 
 
@@ -90,6 +98,7 @@ namespace fBaseXtensions.Cache.External
 			AvoidanceEntries.Clear();
 			foreach (var entry in Avoidance.AvoidanceCache)
 			{
+                
 				AvoidanceEntries.Add(entry.SnoId, new CacheAvoidanceEntry(entry.SnoId, (AvoidanceType)entry.ObjectType, entry.InternalName));
 			}
 

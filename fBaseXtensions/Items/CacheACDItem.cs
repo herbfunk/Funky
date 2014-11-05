@@ -59,6 +59,7 @@ namespace fBaseXtensions.Items
         private DyeType _thisDyeType= DyeType.None;
 	   
 		public int LegendaryGemRank { get; set; }
+        public int KeystoneRank { get; set; }
 		public LegendaryGemTypes LegendaryGemType { get; set; }
 		public int ThisBalanceID { get; set; }
 		public int ThisDynamicID { get; set; }
@@ -120,9 +121,8 @@ namespace fBaseXtensions.Items
 
 		public CacheACDItem(ACDItem item)
 		{
-			
+            ACDItem = item;
 			SNO=item.ActorSNO;
-			ThisBalanceID = item.GameBalanceId;
 			ThisInternalName = item.InternalName;
 
 		    try
@@ -154,99 +154,15 @@ namespace fBaseXtensions.Items
 			IsStackableItem = ItemFunc.DetermineIsStackable(ItemType);
 			IsTwoSlot = ItemFunc.DetermineIsTwoSlot(ItemType);
 
-			if (BaseItemType== PluginBaseItemTypes.Armor || BaseItemType== PluginBaseItemTypes.Jewelry || BaseItemType== PluginBaseItemTypes.Offhand || BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || BaseItemType == PluginBaseItemTypes.WeaponTwoHand)
+            //Armor / Jewelery / Weapons / Offhand / Follower Items
+			if (BaseItemType== PluginBaseItemTypes.Armor || BaseItemType== PluginBaseItemTypes.Jewelry || BaseItemType== PluginBaseItemTypes.Offhand || BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || BaseItemType == PluginBaseItemTypes.WeaponTwoHand || BaseItemType == PluginBaseItemTypes.FollowerItem)
 			{
 				if (BaseItemType == PluginBaseItemTypes.WeaponOneHand)
 					ThisOneHanded = true;
 				else if (BaseItemType == PluginBaseItemTypes.WeaponTwoHand)
 					TwoHanded = true;
-			}
 
 
-			
-			ACDItem = item;
-			ACDGUID = item.ACDGuid;
-			ThisDynamicID = item.DynamicId;
-
-
-            try
-            {
-                _thisRealName = item.Name;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item name {0} \r\n {1}", SimpleDebugString, ex.Message);
-            }
-
-            try
-            {
-                _thisGoldAmount = item.Gold;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item gold amount {0} \r\n {1}", SimpleDebugString, ex.Message);
-            }
-
-            try
-            {
-                _thisQuality = item.ItemQualityLevel;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item quality {0} \r\n {1}", SimpleDebugString, ex.Message);
-            }
-
-            try
-            {
-                _thisItemStackQuantity = item.ItemStackQuantity;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item stack quanity {0} \r\n {1}", SimpleDebugString, ex.Message);
-            }
-
-            try
-            {
-                _isUnidentified = item.IsUnidentified;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item is identified {0} \r\n {1}", SimpleDebugString, ex.Message);
-            }
-
-            try
-            {
-                _thisDyeType = item.DyeType;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item dye type {0} \r\n {1}", SimpleDebugString, ex.Message);
-            }
-
-            try
-            {
-                _isVendorBought = item.IsVendorBought;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item is vendor bought {0} \r\n {1}", SimpleDebugString, ex.Message);
-            }
-
-			ThisOneHanded = item.IsOneHand;
-			TwoHanded = item.IsTwoHand;
-
-			IsPotion = ItemType == PluginItemTypes.HealthPotion;
-			if (IsPotion)
-				PotionType = ItemFunc.ReturnPotionType(SNO);
-			
-
-			invRow = item.InventoryRow;
-			invCol = item.InventoryColumn;
-
-			
-
-			if (BaseItemType== PluginBaseItemTypes.Armor || BaseItemType== PluginBaseItemTypes.Jewelry || BaseItemType== PluginBaseItemTypes.Offhand || BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || BaseItemType == PluginBaseItemTypes.WeaponTwoHand|| BaseItemType== PluginBaseItemTypes.FollowerItem)
-			{
                 try
                 {
                     ItemStats thesestats = item.Stats;
@@ -259,6 +175,7 @@ namespace fBaseXtensions.Items
                 }
 
 
+                #region Durability
                 try
                 {
                     //Durability
@@ -269,32 +186,185 @@ namespace fBaseXtensions.Items
                 catch (Exception ex)
                 {
                     Logger.Write(LogLevel.Items, "Failed to retrieve item durability {0} \r\n {1}", SimpleDebugString, ex.Message);
+                } 
+                #endregion
+
+                #region ItemQualityLevel
+                try
+                {
+                    _thisQuality = item.ItemQualityLevel;
                 }
+                catch (Exception ex)
+                {
+                    Logger.Write(LogLevel.Items, "Failed to retrieve item quality {0} \r\n {1}", SimpleDebugString, ex.Message);
+                }
+                #endregion
+
+			}
+			else
+			{//Gem, Misc
+
+                if (ItemType == PluginItemTypes.KeyStone)
+                {
+                    KeystoneRank = ItemFunc.GetGreaterRiftKeystoneRank(SNO);
+
+                    if (KeystoneRank == -1)
+                    {
+                        try
+                        {
+                            KeystoneRank = item.TieredLootRunKeyLevel;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.DBLog.DebugFormat("Failed to get TieredLootRunKeyLevel for Keystone!{0} \r\n {1}", SimpleDebugString, ex.Message);
+                        }
+
+                    }
+                }
+                else if (BaseItemType == PluginBaseItemTypes.Gem && ItemType == PluginItemTypes.LegendaryGem)
+                {
+                    try
+                    {
+                        LegendaryGemRank = item.JewelRank;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.DBLog.DebugFormat("Failed to get Jewel Rank for Legendary Gem!{0} \r\n {1}", SimpleDebugString, ex.Message);
+                    }
+
+                    try
+                    {
+                        LegendaryGemType = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), SNO.ToString());
+                    }
+                    catch (Exception)
+                    {
+                        LegendaryGemType = LegendaryGemTypes.None;
+                    }
+
+                }
+                else
+                {
+                    IsPotion = ItemType == PluginItemTypes.HealthPotion;
+                    if (IsPotion)
+                        PotionType = ItemFunc.ReturnPotionType(SNO);
+                }
+
+                #region DyeType
+                try
+                {
+                    _thisDyeType = item.DyeType;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(LogLevel.Items, "Failed to retrieve item dye type {0} \r\n {1}", SimpleDebugString, ex.Message);
+                }
+                #endregion
 			}
 
-			if (BaseItemType == PluginBaseItemTypes.Gem && ItemType == PluginItemTypes.LegendaryGem)
-			{
-				try
-				{
-					LegendaryGemRank = item.JewelRank;
-				}
-				catch (Exception ex)
-				{
-                    Logger.DBLog.DebugFormat("Failed to get Jewel Rank for Legendary Gem!{0} \r\n {1}", SimpleDebugString, ex.Message);
-				}
+            
+            #region GameBalanceId
+            try
+            {
+                ThisBalanceID = item.GameBalanceId;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item GameBalanceId {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+            #endregion
 
-				try
-				{
-					LegendaryGemType = (LegendaryGemTypes)Enum.Parse(typeof(LegendaryGemTypes), SNO.ToString());
-				}
-				catch (Exception)
-				{
-					LegendaryGemType= LegendaryGemTypes.None;
-				}
-					
-			}
+            #region ACDGuid
+            try
+            {
+                ACDGUID = item.ACDGuid;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item ACDGUID {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+            #endregion
 
-			if (itemEntry==null && !_isUnidentified)
+            #region DynamicId
+            try
+            {
+                ThisDynamicID = item.DynamicId;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item DynamicId {0} \r\n {1}", SimpleDebugString, ex.Message);
+            }
+            
+            #endregion
+
+            #region Name
+            try
+            {
+                _thisRealName = item.Name;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item name {0} \r\n {1}", SimpleDebugString, ex.Message);
+            } 
+            #endregion
+
+            #region Gold
+            try
+            {
+                _thisGoldAmount = item.Gold;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item gold amount {0} \r\n {1}", SimpleDebugString, ex.Message);
+            } 
+            #endregion
+
+            #region ItemStackQuantity
+            try
+            {
+                _thisItemStackQuantity = item.ItemStackQuantity;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item stack quanity {0} \r\n {1}", SimpleDebugString, ex.Message);
+            } 
+            #endregion
+
+            #region IsUnidentified
+            try
+            {
+                _isUnidentified = item.IsUnidentified;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item is identified {0} \r\n {1}", SimpleDebugString, ex.Message);
+            } 
+            #endregion
+
+            #region IsVendorBought
+            try
+            {
+                _isVendorBought = item.IsVendorBought;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item is vendor bought {0} \r\n {1}", SimpleDebugString, ex.Message);
+            } 
+            #endregion
+
+            #region InventoryRow/Column
+            try
+            {
+               invRow = item.InventoryRow;
+               invCol = item.InventoryColumn;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(LogLevel.Items, "Failed to retrieve item inventory row/column {0} \r\n {1}", SimpleDebugString, ex.Message);
+            } 
+            #endregion
+			
+
+			if (itemEntry==null && !_isUnidentified && ItemType!= PluginItemTypes.Unknown && _thisRealName!=String.Empty)
 			{
 				if (FunkyBaseExtension.Settings.Debugging.DebuggingData && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(DebugDataTypes.Items))
 				{

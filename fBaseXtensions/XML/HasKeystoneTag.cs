@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using fBaseXtensions.Items;
+using fBaseXtensions.Items.Enums;
 using Zeta.Bot.Profile;
 using Zeta.Game;
 using Zeta.Game.Internals.Actors;
@@ -61,9 +63,14 @@ namespace fBaseXtensions.XML
 			{
 				foreach (ACDItem tempitem in ZetaDia.Me.Inventory.StashItems)
 				{
-					if (tempitem.BaseAddress != IntPtr.Zero && tempitem.ItemType==ItemType.KeystoneFragment)
+				    
+
+					if (tempitem.BaseAddress != IntPtr.Zero)
 					{
-						int tieredLevel=tempitem.TieredLootRunKeyLevel;
+                        CacheACDItem cacheItem = new CacheACDItem(tempitem);
+					    if (cacheItem.ItemType != PluginItemTypes.KeyStone) continue;
+
+					    int tieredLevel = cacheItem.KeystoneRank;
 						if (Type == KeystoneType.Fragment)
 						{
 							if (tieredLevel == -1)
@@ -92,9 +99,12 @@ namespace fBaseXtensions.XML
 			{
 				foreach (ACDItem tempitem in ZetaDia.Me.Inventory.Backpack)
 				{
-					if (tempitem.BaseAddress != IntPtr.Zero && tempitem.ItemType == ItemType.KeystoneFragment)
+					if (tempitem.BaseAddress != IntPtr.Zero)
 					{
-						int tieredLevel = tempitem.TieredLootRunKeyLevel;
+                        CacheACDItem cacheItem = new CacheACDItem(tempitem);
+                        if (cacheItem.ItemType != PluginItemTypes.KeyStone) continue;
+
+                        int tieredLevel = cacheItem.KeystoneRank;
 						if (Type == KeystoneType.Fragment)
 						{
 							if (tieredLevel == -1)

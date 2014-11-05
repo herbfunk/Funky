@@ -1,4 +1,13 @@
-﻿v1.1.4.0
+﻿v1.1.4.1
+Bnet Control Settings now include a button to test hero switching and a button to remove the current index file.
+Switching back to main hero after switching to alternative hero no longer uses alt hero setting instead it uses indexes to determine possible index of main hero.
+
+Added GetGreaterRiftKeystoneRank method to ItemFunc class which uses SNOId to determine rank of keystone up to level 53.
+Removed MonsterType and MonsterSize from CacheSNO object. MonsterType will be checked only when no cache entry is found to blacklist non-hostile units.
+HasKeystone, OpenRiftPortal, and MoveItem tags will now create and use CacheACDItem for items.
+
+
+v1.1.4.0
 
 Added Alternative Character Gambling Switch Behavior
 	-Used by fItemPlugin

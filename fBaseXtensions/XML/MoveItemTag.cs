@@ -126,63 +126,72 @@ namespace fBaseXtensions.XML
 		{
 			Logger.DBLog.DebugFormat("Updating Moving Items!");
 
-			List<ACDItem> Items = 
-				Itemsource == ItemSource.Stash ? ZetaDia.Me.Inventory.StashItems.ToList() : 
-				ZetaDia.Me.Inventory.Backpack.ToList();
+			IEnumerable<ACDItem> ItemEnumerableSource = 
+				Itemsource == ItemSource.Stash ? ZetaDia.Me.Inventory.StashItems : 
+				ZetaDia.Me.Inventory.Backpack;
+
+		    List<CacheACDItem> Items = new List<CacheACDItem>();
+            foreach (var i in ItemEnumerableSource)
+		    {
+		        if (i.BaseAddress != IntPtr.Zero)
+		        {
+		            CacheACDItem cacheItem = new CacheACDItem(i);
+		            Items.Add(cacheItem);
+		        }
+		    }
 
 
 			if (KeyType != KeystoneType.None)
 			{
 				if (!_keyStoneHighest)
-					Items = Items.OrderBy(i => i.TieredLootRunKeyLevel).ThenByDescending(i => i.ItemStackQuantity).ToList();
+					Items = Items.OrderBy(i => i.KeystoneRank).ThenByDescending(i => i.ThisItemStackQuantity).ToList();
 				else
-					Items = Items.OrderByDescending(i => i.TieredLootRunKeyLevel).ThenByDescending(i => i.ItemStackQuantity).ToList();
+                    Items = Items.OrderByDescending(i => i.KeystoneRank).ThenByDescending(i => i.ThisItemStackQuantity).ToList();
 			}
 
-			foreach (ACDItem tempitem in Items)
+			foreach (var tempitem in Items)
 			{
-				if (tempitem.BaseAddress != IntPtr.Zero)
-				{
-					if (KeyType != KeystoneType.None)
-					{
-						int tieredLevel = tempitem.TieredLootRunKeyLevel;
-						if (KeyType == KeystoneType.Fragment)
-						{
-							if (tieredLevel == -1)
-							{
-								MovingItemList.Add(new CacheACDItem(tempitem));
-								if (!All) break;
-							}
 
-							continue;
-						}
+                if (KeyType != KeystoneType.None)
+                {
+                    int tieredLevel = tempitem.KeystoneRank;
+                    if (KeyType == KeystoneType.Fragment)
+                    {
+                        if (tieredLevel == -1)
+                        {
+                            MovingItemList.Add(tempitem);
+                            if (!All) break;
+                        }
 
-						if (KeyType == KeystoneType.Trial)
-						{
-							if (tieredLevel == 0)
-							{
-								MovingItemList.Add(new CacheACDItem(tempitem));
-								if (!All) break;
-							}
-							continue;
-						}
+                        continue;
+                    }
 
-						if (KeyType == KeystoneType.Tiered)
-						{
-							if (tieredLevel > 0 && tieredLevel <= FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed)
-							{
-								MovingItemList.Add(new CacheACDItem(tempitem));
-								if (!All) break;
-							}
-						}
-					}
-					else if (tempitem.ActorSNO == Sno)
-					{
-						MovingItemList.Add(new CacheACDItem(tempitem));
-						if (!All) break;
-					}
-				}
-			}
+                    if (KeyType == KeystoneType.Trial)
+                    {
+                        if (tieredLevel == 0)
+                        {
+                            MovingItemList.Add(tempitem);
+                            if (!All) break;
+                        }
+                        continue;
+                    }
+
+                    if (KeyType == KeystoneType.Tiered)
+                    {
+                        if (tieredLevel > 0 && tieredLevel <= FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed)
+                        {
+                            MovingItemList.Add(tempitem);
+                            if (!All) break;
+                        }
+                    }
+                }
+                else if (tempitem.SNO == Sno)
+                {
+                    MovingItemList.Add(tempitem);
+                    if (!All) break;
+                }
+
+            }
 
 			updatedItemList = true;
 			Logger.DBLog.InfoFormat("Found a total of {0} items to be moved!", MovingItemList.Count);

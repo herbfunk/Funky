@@ -773,7 +773,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			get
 			{
 				return String.Format("RAGUID {0}: Created {13} seconds ago" +
-				                     "\r\n{1} Position[{14}] Distance (Centre{2} / Radius{3})" +
+				                     "\r\n{1} Position[{14}] Distance (Centre{2} / Radius{3}) Weight {16}" +
 				                     "\r\nSnoAnim={9} -- AnimState={10}" +
 				                     "\r\nReqLOS={4} -- {5} -- [LOSV3: {6}]" +
 				                     "\r\nBotFacing={7}" +
@@ -781,7 +781,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					  RAGUID.ToString(CultureInfo.InvariantCulture), base.DebugString, CentreDistance.ToString(CultureInfo.InvariantCulture), RadiusDistance.ToString(CultureInfo.InvariantCulture),
 					  RequiresLOSCheck, LineOfSight != null ? String.Format("-- {0} --", LineOfSight.DebugString) : "", LOSV3,
 					  BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), SnoAnim, AnimState, LoopsUnseen, IgnoredType,
-					  DateTime.Now.Subtract(CreationTime).TotalSeconds, Position.ToString(), NeedsRemoved);
+					  DateTime.Now.Subtract(CreationTime).TotalSeconds, Position.ToString(), NeedsRemoved, Weight);
 			}
 		}
 

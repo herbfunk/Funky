@@ -847,5 +847,127 @@ namespace fBaseXtensions.Items
 			return 0;
 
 		}
+
+	    public static int GetGreaterRiftKeystoneRank(int SnoID)
+	    {
+            switch (SnoID)
+	        {
+                case 408130:
+	                return 1;
+                case 408131:
+                    return 2;
+                case 408132:
+                    return 3;
+                case 408133:
+                    return 4;
+                case 408134:
+                    return 5;
+                case 408135:
+                    return 6;
+                case 408136:
+                    return 7;
+                case 408137:
+                    return 8;
+                case 408138:
+                    return 9;
+                case 408140:
+                    return 10;
+
+
+                case 408141:
+                    return 11;
+                case 408142:
+                    return 12;
+                case 408143:
+                    return 13;
+                case 408144:
+                    return 14;
+                case 408145:
+                    return 15;
+                case 408146:
+                    return 16;
+                case 408147:
+                    return 17;
+                case 408148:
+                    return 18;
+                case 408149:
+                    return 19;
+                case 408150:
+                    return 20;
+
+                case 408151:
+                    return 21;
+                case 408152:
+                    return 22;
+                case 408153:
+                    return 23;
+                case 408154:
+                    return 24;
+                case 408155:
+                    return 25;
+                case 408156:
+                    return 26;
+                case 408157:
+                    return 27;
+                case 408158:
+                    return 28;
+                case 408159:
+                    return 29;
+                case 408160:
+                    return 30;
+
+                case 408161:
+                    return 31;
+                case 408162:
+                    return 32;
+                case 408163:
+                    return 33;
+                case 408164:
+                    return 34;
+                case 408165:
+                    return 35;
+                case 408166:
+                    return 36;
+                case 408167:
+                    return 37;
+                case 408168:
+                    return 38;
+                case 408169:
+                    return 39;
+                case 408170:
+                    return 40;
+
+                case 408171:
+                    return 41;
+                case 408172:
+                    return 42;
+                case 408173:
+                    return 43;
+                case 408174:
+                    return 44;
+                case 408175:
+                    return 45;
+                case 408176:
+                    return 46;
+                case 408177:
+                    return 47;
+                case 408178:
+                    return 48;
+                case 408179:
+                    return 49;
+                case 408180:
+                    return 50;
+
+                case 408181:
+                    return 51;
+                case 408182:
+                    return 52;
+                case 408183:
+                    return 53;
+
+	        }
+
+	        return -1;
+	    }
 	}
 }

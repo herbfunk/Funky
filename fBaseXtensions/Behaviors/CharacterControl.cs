@@ -44,6 +44,7 @@ namespace fBaseXtensions.Behaviors
         //To switch back after finished!
         internal static bool GamblingCharacterSwitchToMain = false;
 
+        private static List<int> _mainHeroIndexes = new List<int>(); 
         public static RunStatus GamblingCharacterSwitchBehavior()
         {
             if (!_delayer.Test(5d))
@@ -55,17 +56,31 @@ namespace fBaseXtensions.Behaviors
                 HeroInfo curheroinfo = new HeroInfo(ZetaDia.Service.Hero);
 
                 if (!curheroinfo.Equals(MainHeroInfo))
-                    ZetaDia.Service.GameAccount.SwitchHero(FunkyBaseExtension.Settings.General.AltHeroIndex);
-                else
-                {
-                    
-                    FunkyGame.ShouldRefreshAccountDetails = true;
+                {//Need To Switch back to main hero!
 
+                    if (_mainHeroIndexes.Count == 0)
+                    {//Get a list of possible heroes using our index list (matching hero class and name)
+                        foreach (var c in HeroIndexInfo.Characters.Where(c => c.Class == MainHeroInfo.Class && c.Name == MainHeroInfo.Name))
+                        {
+                            _mainHeroIndexes.Add(c.Index);
+                        }
+                    }
+                    else
+                    {//Switch and remove index from list
+                        int mainheroIndex = _mainHeroIndexes.First();
+                        ZetaDia.Service.GameAccount.SwitchHero(mainheroIndex);
+                        _mainHeroIndexes.RemoveAt(0);
+                    }
+                }
+                else
+                {//Finished! Reset the variables.
+
+                    FunkyGame.ShouldRefreshAccountDetails = true;
                     MainHeroInfo = null;
                     AltHeroInfo = null;
                     GamblingCharacterSwitch = false;
                     GamblingCharacterSwitchToMain = false;
-
+                    _mainHeroIndexes.Clear();
                     return RunStatus.Success;
                 }
 

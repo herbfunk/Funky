@@ -126,7 +126,7 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
             255250,//(x1_BogCave_Stalagmite_Fungus_D-80913)
             255254,//(x1_BogCave_Stalagmite_Fungus_E-80830)
             255257,//(x1_BogCave_Stalagmite_Fungus_F-82345)
-            
+            358104,//(x1_Catacombs_Breakable_Corner_Wall
            
 
         };
