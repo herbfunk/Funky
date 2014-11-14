@@ -52,6 +52,7 @@ namespace fBaseXtensions.Behaviors
 
             if (GamblingCharacterSwitchToMain)
             {
+                BotMain.StatusText = "[Funky] Switching to Main Hero";
                 ZetaDia.Memory.ClearCache();
                 HeroInfo curheroinfo = new HeroInfo(ZetaDia.Service.Hero);
 
@@ -86,6 +87,9 @@ namespace fBaseXtensions.Behaviors
 
                 return RunStatus.Running;
             }
+
+            BotMain.StatusText = "[Funky] Switching to Alt Hero";
+
             //Update Main Hero Info and Switch to Alt Hero!
             if (MainHeroInfo == null)
                 return CharacterSwitch();
@@ -226,6 +230,8 @@ namespace fBaseXtensions.Behaviors
             if (AltHeroInfo.Equals(MainHeroInfo))
             {
                 //Switch Failed or Values were incorrect!
+                Logger.DBLog.InfoFormat("[Funky] Hero Switch (Incorrect Hero Info!)");
+                AltHeroInfo = null;
                 return RunStatus.Success;
             }
 

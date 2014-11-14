@@ -1,4 +1,9 @@
-﻿v1.1.4.1
+﻿v1.1.4.2
+Fixed bug with switching heroes when alt hero was equal to main hero
+Added Item Balance Null Checks during PickupItemValidation (thanks to bopohaa)
+
+
+v1.1.4.1
 Bnet Control Settings now include a button to test hero switching and a button to remove the current index file.
 Switching back to main hero after switching to alternative hero no longer uses alt hero setting instead it uses indexes to determine possible index of main hero.
 

@@ -367,7 +367,7 @@ namespace fBaseXtensions.Game
 				case PluginBaseItemTypes.Offhand:
 				case PluginBaseItemTypes.Jewelry:
 				case PluginBaseItemTypes.FollowerItem:
-					if (item.Itemquality.HasValue)
+                    if (item.Itemquality.HasValue && item.BalanceID.HasValue && item.BalanceData != null)
 					{
 						switch (item.Itemquality.Value)
 						{
@@ -419,23 +419,23 @@ namespace fBaseXtensions.Game
 					{
 						if (!FunkyBaseExtension.Settings.Loot.PickupCraftPlans) return false;
 
-						int gamebalanceID = item.BalanceID.Value;
+                        if (item.BalanceID.HasValue && item.BalanceData != null)
+                        {
+                            if (item.BalanceData.IsBlacksmithPlanSixProperties && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanSix) return false;
+                            if (item.BalanceData.IsBlacksmithPlanFiveProperties && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanFive) return false;
+                            if (item.BalanceData.IsBlacksmithPlanFourProperties && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanFour) return false;
 
-						if (item.BalanceData.IsBlacksmithPlanSixProperties && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanSix) return false;
-						if (item.BalanceData.IsBlacksmithPlanFiveProperties && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanFive) return false;
-						if (item.BalanceData.IsBlacksmithPlanFourProperties && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanFour) return false;
-
-						if (item.BalanceData.IsBlacksmithPlanArchonSpaulders && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanArchonSpaulders) return false;
-						if (item.BalanceData.IsBlacksmithPlanArchonGauntlets && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanArchonGauntlets) return false;
-						if (item.BalanceData.IsBlacksmithPlanRazorspikes && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanRazorspikes) return false;
+                            if (item.BalanceData.IsBlacksmithPlanArchonSpaulders && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanArchonSpaulders) return false;
+                            if (item.BalanceData.IsBlacksmithPlanArchonGauntlets && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanArchonGauntlets) return false;
+                            if (item.BalanceData.IsBlacksmithPlanRazorspikes && !FunkyBaseExtension.Settings.Loot.PickupBlacksmithPlanRazorspikes) return false;
 
 
-						if (item.BalanceData.IsJewelcraftDesignAmulet && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignAmulet) return false;
-						if (item.BalanceData.IsJewelcraftDesignFlawlessStarGem && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignFlawlessStar) return false;
-						if (item.BalanceData.IsJewelcraftDesignMarquiseGem && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignMarquise) return false;
-						if (item.BalanceData.IsJewelcraftDesignPerfectStarGem && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignPerfectStar) return false;
-						if (item.BalanceData.IsJewelcraftDesignRadiantStarGem && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignRadiantStar) return false;
-
+                            if (item.BalanceData.IsJewelcraftDesignAmulet && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignAmulet) return false;
+                            if (item.BalanceData.IsJewelcraftDesignFlawlessStarGem && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignFlawlessStar) return false;
+                            if (item.BalanceData.IsJewelcraftDesignMarquiseGem && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignMarquise) return false;
+                            if (item.BalanceData.IsJewelcraftDesignPerfectStarGem && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignPerfectStar) return false;
+                            if (item.BalanceData.IsJewelcraftDesignRadiantStarGem && !FunkyBaseExtension.Settings.Loot.PickupJewelerDesignRadiantStar) return false;
+                        }
 
 					}
 
