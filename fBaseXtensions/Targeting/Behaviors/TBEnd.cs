@@ -53,7 +53,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 						if (FunkyGame.AdventureMode && SettingAdventureMode.AdventureModeSettingsTag.AllowCombatModifications && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.CursedEvent)
 						{
 							Logger.DBLog.Info("[Funky] Cursed Object Found During Cursed Bounty -- Enabling LOS movement for all Units!");
-							SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 10f;
+							SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects = 10;
 							SettingLOSMovement.LOSSettingsTag.MaximumRange = 125;
 							FunkyGame.Game.AllowAnyUnitForLOSMovement = true;
 							SettingCluster.ClusterSettingsTag = SettingCluster.DisabledClustering;

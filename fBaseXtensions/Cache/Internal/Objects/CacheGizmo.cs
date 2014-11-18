@@ -60,8 +60,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if (this.InternalName.ToLower().StartsWith("minimapicon"))
 				{
 					// Minimap icons caused a few problems in the past, so this force-blacklists them
-					this.BlacklistFlag = BlacklistType.Permanent;
-					this.NeedsRemoved = true;
+					BlacklistFlag = BlacklistType.Permanent;
+					NeedsRemoved = true;
 					BlacklistCache.BlacklistSnoIDs.Add(this.SNOID); //SNO blacklist.
 					return false;
 				}

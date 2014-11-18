@@ -17,7 +17,7 @@ namespace fItemPlugin
 {
 	public partial class FunkyTownRunPlugin : IPlugin
 	{
-		public Version Version { get { return new Version(1, 4, 0); } }
+		public Version Version { get { return new Version(1, 4, 1); } }
 		public string Name { get { return "fItemPlugin"; } }
 		public string Author { get { return "HerbFunk"; } }
 		public string Description

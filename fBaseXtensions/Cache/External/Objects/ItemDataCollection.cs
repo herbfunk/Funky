@@ -179,6 +179,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(186576, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_unique_flippy_02-23923"),
 				new DroppedItemEntry(335161, PluginDroppedItemTypes.AxeTwoHanded, "x1_twoHandedAxe_norm_base_flippy_01-20274"),
 				new DroppedItemEntry(191065, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_unique_04-2436"),
+                new DroppedItemEntry(192911, PluginDroppedItemTypes.AxeTwoHanded, "twoHandedAxe_norm_unique_flippy_05-2767"),
 
 				//
 				new DroppedItemEntry(3457, PluginDroppedItemTypes.Bow, "Bow_norm_base_flippy_05-5931"),
@@ -238,6 +239,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(197131, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_03-48215"),
 				new DroppedItemEntry(271750, PluginDroppedItemTypes.Daibo, "x1_combatStaff_norm_unique_flippy_09-90827"),
 				new DroppedItemEntry(197133, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_06-43956"),
+                new DroppedItemEntry(195826, PluginDroppedItemTypes.Daibo, "combatStaff_norm_unique_flippy_04-14841"),
 
 				//
 				new DroppedItemEntry(3913, PluginDroppedItemTypes.Dagger, "Dagger_norm_base_flippy_04-7545"),
@@ -926,6 +928,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(367198, PluginItemTypes.CeremonialKnife),
 				new ItemDataEntry(139105, PluginItemTypes.CeremonialKnife),
                 new ItemDataEntry(139107, PluginItemTypes.CeremonialKnife),
+                new ItemDataEntry(139102, PluginItemTypes.CeremonialKnife),
 
 				new ItemDataEntry(367136, PluginItemTypes.Dagger),
 				new ItemDataEntry(335128, PluginItemTypes.Dagger),
@@ -1618,6 +1621,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(403775, PluginItemTypes.FistWeapon, LegendaryItemTypes.VengefulWind), //VengefulWind
 				new ItemDataEntry(145851, PluginItemTypes.FistWeapon, LegendaryItemTypes.WonKhimLau),
 				new ItemDataEntry(271957, PluginItemTypes.FistWeapon, LegendaryItemTypes.Jawbreaker),
+                new ItemDataEntry(130557, PluginItemTypes.FistWeapon, LegendaryItemTypes.Scarbringer),
 
 				new ItemDataEntry(299435, PluginItemTypes.Flail, LegendaryItemTypes.BalefulRemnant),
 				new ItemDataEntry(299428, PluginItemTypes.Flail, LegendaryItemTypes.Darklight),
@@ -1709,6 +1713,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(192836, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.Hellrack),
 				new ItemDataEntry(204874, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.PusSpitter),
 				new ItemDataEntry(221760, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.Manticore),
+                new ItemDataEntry(271884, PluginItemTypes.TwoHandCrossbow, LegendaryItemTypes.ChanonBolter),
 
 				new ItemDataEntry(195145, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.Balance),
 				new ItemDataEntry(197065, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.FlyingDragon),
@@ -1718,6 +1723,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(197072, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.TheFlowofEternity),
 				new ItemDataEntry(197068, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.ThePaddle),
 				new ItemDataEntry(271765, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.WarstaffofGeneralQuang),
+                new ItemDataEntry(271749, PluginItemTypes.TwoHandDaibo, LegendaryItemTypes.StaffofKyro),
 
 				new ItemDataEntry(59633, PluginItemTypes.TwoHandMace, LegendaryItemTypes.ArthefsSparkofLife),
 				new ItemDataEntry(99227, PluginItemTypes.TwoHandMace, LegendaryItemTypes.Crushbane),
@@ -1773,6 +1779,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(299417, PluginItemTypes.CrusaderShield, LegendaryItemTypes.TheFinalWitness),
 				new ItemDataEntry(299411, PluginItemTypes.CrusaderShield, LegendaryItemTypes.PiroMarella),
                 new ItemDataEntry(299414, PluginItemTypes.CrusaderShield, LegendaryItemTypes.AkaratsAwakening),
+                new ItemDataEntry(405514, PluginItemTypes.CrusaderShield, LegendaryItemTypes.UnrelentingPhalanx), //UnrelentingPhalanx
+                new ItemDataEntry(405429, PluginItemTypes.CrusaderShield, LegendaryItemTypes.FrydehrsWrath), //FrydehrsWrath
 
 				new ItemDataEntry(194995, PluginItemTypes.Mojo, LegendaryItemTypes.GazingDemise),
 				new ItemDataEntry(194991, PluginItemTypes.Mojo, LegendaryItemTypes.Homunculus),
@@ -1789,6 +1797,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(197628, PluginItemTypes.Quiver, LegendaryItemTypes.SilverStarPiercers),
 				new ItemDataEntry(197625, PluginItemTypes.Quiver, LegendaryItemTypes.SinSeekers),
 				new ItemDataEntry(298170, PluginItemTypes.Quiver, LegendaryItemTypes.TheNinthCirriSatchel),
+                new ItemDataEntry(197627, PluginItemTypes.Quiver, LegendaryItemTypes.HolyPointShot),
 
 				new ItemDataEntry(298191, PluginItemTypes.Shield, LegendaryItemTypes.CovensCriterion), //CovensCriterion
 				new ItemDataEntry(298182, PluginItemTypes.Shield, LegendaryItemTypes.DefenderofWestmarch),
@@ -1809,6 +1818,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(184199, PluginItemTypes.Source, LegendaryItemTypes.WinterFlurry),
 				
 				new ItemDataEntry(366979, PluginItemTypes.FollowerEnchantress, LegendaryItemTypes.None), //SmokingThurible
+                new ItemDataEntry(366980, PluginItemTypes.FollowerEnchantress, LegendaryItemTypes.None), //HandoftheProphet
 				new ItemDataEntry(366971, PluginItemTypes.FollowerScoundrel, LegendaryItemTypes.None), //SlipkasLetterOpener
 				new ItemDataEntry(366969, PluginItemTypes.FollowerTemplar, LegendaryItemTypes.None), //HillenbrandsTrainingSword
 				new ItemDataEntry(366968, PluginItemTypes.FollowerTemplar, LegendaryItemTypes.None), //EnchantingFavor
@@ -1968,6 +1978,15 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(336986, PluginItemTypes.Pants, LegendaryItemTypes.TheLegacyofRaekor), //RaekorsBreeches
 				new ItemDataEntry(336989, PluginItemTypes.Shoulders, LegendaryItemTypes.TheLegacyofRaekor), //RaekorsBurden
 
+                //Roland's Legacy
+                new ItemDataEntry(404094, PluginItemTypes.Boots, LegendaryItemTypes.RolandsLegacy), //RolandsStride
+                new ItemDataEntry(404095, PluginItemTypes.Chest, LegendaryItemTypes.RolandsLegacy), //RolandsBearing
+                new ItemDataEntry(332362, PluginItemTypes.Gloves, LegendaryItemTypes.RolandsLegacy), //TheShadowsGrasp
+                new ItemDataEntry(404096, PluginItemTypes.Gloves, LegendaryItemTypes.RolandsLegacy), //RolandsGrasp
+                new ItemDataEntry(404700, PluginItemTypes.Helm, LegendaryItemTypes.RolandsLegacy), //RolandsVisage
+                new ItemDataEntry(404097, PluginItemTypes.Pants, LegendaryItemTypes.RolandsLegacy), //RolandsDetermination
+                new ItemDataEntry(404699, PluginItemTypes.Shoulders, LegendaryItemTypes.RolandsLegacy), //RolandsMantle
+
 				//ShenlongsSpirit
 				new ItemDataEntry(208996, PluginItemTypes.FistWeapon, LegendaryItemTypes.ShenlongsSpirit), //ShenlongsFistofLegend
 				new ItemDataEntry(208898, PluginItemTypes.FistWeapon, LegendaryItemTypes.ShenlongsSpirit), //ShenlongsRelentlessAssault
@@ -1998,6 +2017,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(205612, PluginItemTypes.Chest, LegendaryItemTypes.DemonsHide), //DemonsMarrow
 				new ItemDataEntry(224397, PluginItemTypes.Shoulders, LegendaryItemTypes.DemonsHide), //DemonsAileron
 				new ItemDataEntry(222740, PluginItemTypes.Belt, LegendaryItemTypes.DemonsHide), //DemonsRestraint
+
+                //Hallowed Protectors
+                new ItemDataEntry(223758, PluginItemTypes.Shield, LegendaryItemTypes.HallowedProtectors), //HallowedBarricade
 
 				//Cain's Fate
 				new ItemDataEntry(197210, PluginItemTypes.Gloves, LegendaryItemTypes.CainsFate), //CainsScribe

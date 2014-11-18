@@ -122,6 +122,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(187107, PluginGizmoType.Chest, "a4dun_Spire_Chest_Rare-58008", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(289797, PluginGizmoType.Chest, "X1_PandExt_Chest_Rare-70672", GizmoTargetTypes.Resplendant),
 				new GizmoEntry(190708, PluginGizmoType.Chest, "a2dun_Aqd_Chest_Rare_FacePuzzleSmall-14922", GizmoTargetTypes.Resplendant),
+                new GizmoEntry(249362, PluginGizmoType.Chest, "x1_BogCave_Chest_Rare-42256", GizmoTargetTypes.Resplendant),
+                new GizmoEntry(289856, PluginGizmoType.Chest, "x1_Fortress_Chest_Rare-35353", GizmoTargetTypes.Resplendant),
 
 				//============== Chests ==============//
 				new GizmoEntry(62865, PluginGizmoType.Chest, "TrOut_Highlands_Chest-18282", GizmoTargetTypes.Chest),
@@ -173,6 +175,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(199584, PluginGizmoType.Chest, "CaOut_BoneYard_WormCave_Chest-45908", GizmoTargetTypes.Chest),
 				new GizmoEntry(108122, PluginGizmoType.Chest, "caOut_StingingWinds_Chest-21069", GizmoTargetTypes.Chest),
 				new GizmoEntry(191734, PluginGizmoType.Chest, "caOut_StingingWinds_Chest_CultistCamp-13499", GizmoTargetTypes.Chest),
+                new GizmoEntry(197018, PluginGizmoType.Chest, "a2dun_Cave_EggSack__Chest-54543", GizmoTargetTypes.Chest),
 
 				//============== Floor Switches ==============//
 				new GizmoEntry(5759, PluginGizmoType.Chest, "trDun_Cath_FloorSpawner_02-670", GizmoTargetTypes.FloorContainer),
@@ -435,6 +438,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(309401, PluginGizmoType.Chest, "x1_Westm_Corpse_D_03-17426", GizmoTargetTypes.Corpse),
 				new GizmoEntry(193019, PluginGizmoType.Chest, "LootType3_GraveGuard_B_Corpse_05-50003", GizmoTargetTypes.Corpse),
 				new GizmoEntry(193031, PluginGizmoType.Chest, "LootType3_GraveGuard_D_Corpse_04-12723", GizmoTargetTypes.Corpse),
+                new GizmoEntry(193020, PluginGizmoType.Chest, "LootType3_GraveGuard_B_Corpse_06-21296", GizmoTargetTypes.Corpse),
 				#endregion
 
 				//============== Weapon Rack ==============//

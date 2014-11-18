@@ -182,6 +182,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						FunkyGame.Targeting.Cache.lastSeenCursedShrine = DateTime.Now;
 						LoopsUnseen = 0;
 					}
+					else
+					{
+					    NeedsRemoved = true;
+                        RemovalType= RemovalTypes.DeadorUsed;
+					}
 					IgnoredType = TargetingIgnoreTypes.GizmoHasBeenUsed;
 					return false;
 				}

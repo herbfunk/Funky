@@ -15,7 +15,7 @@
   </While>
 
 
-  <FunkyWhileActorPresent sno="256022" present="False">
+  <FunkyWhile condition="not ActorPresent(256022)">
 		
 		<SafeMoveTo questId="1" x="3509.329" y="4328.116" z="100.1" pathPrecision="30"/>
 		<SafeMoveTo questId="1" x="3421.504" y="4316.669" z="100.1" pathPrecision="30"/>
@@ -98,12 +98,13 @@
 		<SafeMoveTo questId="1" x="3819.823" y="4515.182" z="100.1" pathPrecision="30"/>
 		
 		<ToggleTargeting questId="1" combat="True" />
-	</FunkyWhileActorPresent>
+	</FunkyWhile>
 
-  <FunkyWhileActorPresent sno="256022" present="True">
+   <FunkyWhile condition="ActorPresent(256022)">
     <MoveTo questId="1" actorId="256022" pathPrecision="20" />
     <WaitTimer questId="1" waitTime="2000" />
-  </FunkyWhileActorPresent>
+  </FunkyWhile>
+  
   <WaitTimer questId="1" waitTime="6000" />
 
   <LoadProfile file="Loader.xml" />

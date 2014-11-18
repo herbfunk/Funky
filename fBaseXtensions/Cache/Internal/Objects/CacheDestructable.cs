@@ -56,6 +56,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if (currentAnimState != AnimationState.Idle)
 				{
 					NeedsRemoved = true;
+                    RemovalType= RemovalTypes.DeadorUsed;
 					BlacklistFlag = BlacklistType.Permanent;
 					//Logger.Write(LogLevel.Cache, "Removing destructible {0} due to invalid AnimationState of {1} -- SNOAnim {2}", InternalName, currentAnimState.ToString(), SnoAnim.ToString());
 					return false;

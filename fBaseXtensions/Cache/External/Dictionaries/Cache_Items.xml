@@ -436,6 +436,13 @@
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>192911</SnoId>
+      <InternalName>twoHandedAxe_norm_unique_flippy_05-2767</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>3457</SnoId>
       <InternalName>Bow_norm_base_flippy_05-5931</InternalName>
       <ActorType>Item</ActorType>
@@ -788,6 +795,13 @@
     <DroppedItemEntry>
       <SnoId>197133</SnoId>
       <InternalName>combatStaff_norm_unique_flippy_06-43956</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
+      <SnoId>195826</SnoId>
+      <InternalName>combatStaff_norm_unique_flippy_04-14841</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
@@ -4858,6 +4872,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>139102</SnoId>
+      <ItemType>CeremonialKnife</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>367136</SnoId>
       <ItemType>Dagger</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -7813,6 +7832,11 @@
       <LegendaryType>Jawbreaker</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>130557</SnoId>
+      <ItemType>FistWeapon</ItemType>
+      <LegendaryType>Scarbringer</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>299435</SnoId>
       <ItemType>Flail</ItemType>
       <LegendaryType>BalefulRemnant</LegendaryType>
@@ -8203,6 +8227,11 @@
       <LegendaryType>Manticore</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>271884</SnoId>
+      <ItemType>TwoHandCrossbow</ItemType>
+      <LegendaryType>ChanonBolter</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>195145</SnoId>
       <ItemType>TwoHandDaibo</ItemType>
       <LegendaryType>Balance</LegendaryType>
@@ -8241,6 +8270,11 @@
       <SnoId>271765</SnoId>
       <ItemType>TwoHandDaibo</ItemType>
       <LegendaryType>WarstaffofGeneralQuang</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>271749</SnoId>
+      <ItemType>TwoHandDaibo</ItemType>
+      <LegendaryType>StaffofKyro</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>59633</SnoId>
@@ -8478,6 +8512,16 @@
       <LegendaryType>AkaratsAwakening</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>405514</SnoId>
+      <ItemType>CrusaderShield</ItemType>
+      <LegendaryType>UnrelentingPhalanx</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>405429</SnoId>
+      <ItemType>CrusaderShield</ItemType>
+      <LegendaryType>FrydehrsWrath</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>194995</SnoId>
       <ItemType>Mojo</ItemType>
       <LegendaryType>GazingDemise</LegendaryType>
@@ -8546,6 +8590,11 @@
       <SnoId>298170</SnoId>
       <ItemType>Quiver</ItemType>
       <LegendaryType>TheNinthCirriSatchel</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>197627</SnoId>
+      <ItemType>Quiver</ItemType>
+      <LegendaryType>HolyPointShot</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>298191</SnoId>
@@ -8629,6 +8678,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>366979</SnoId>
+      <ItemType>FollowerEnchantress</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>366980</SnoId>
       <ItemType>FollowerEnchantress</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
@@ -9158,6 +9212,41 @@
       <LegendaryType>TheLegacyofRaekor</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>404094</SnoId>
+      <ItemType>Boots</ItemType>
+      <LegendaryType>RolandsLegacy</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>404095</SnoId>
+      <ItemType>Chest</ItemType>
+      <LegendaryType>RolandsLegacy</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>332362</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>RolandsLegacy</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>404096</SnoId>
+      <ItemType>Gloves</ItemType>
+      <LegendaryType>RolandsLegacy</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>404700</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>RolandsLegacy</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>404097</SnoId>
+      <ItemType>Pants</ItemType>
+      <LegendaryType>RolandsLegacy</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>404699</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>RolandsLegacy</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>208996</SnoId>
       <ItemType>FistWeapon</ItemType>
       <LegendaryType>ShenlongsSpirit</LegendaryType>
@@ -9236,6 +9325,11 @@
       <SnoId>222740</SnoId>
       <ItemType>Belt</ItemType>
       <LegendaryType>DemonsHide</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>223758</SnoId>
+      <ItemType>Shield</ItemType>
+      <LegendaryType>HallowedProtectors</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>197210</SnoId>

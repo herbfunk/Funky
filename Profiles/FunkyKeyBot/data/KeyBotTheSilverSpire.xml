@@ -15,7 +15,7 @@
     </While>
 
 
-    <FunkyWhileActorPresent sno="256054" present="False">
+    <FunkyWhile condition="not ActorPresent(256054)">
       <TrinityExploreDungeon questId="1" stepId="2" until="FullyExplored" boxTolerance="0.20" boxSize="45" timeoutType="Timer" timeoutValue="240" townPortalOnTimeout="false">
         <PrioritizeScenes>
           <PriorityScene sceneName="Portal" />
@@ -29,18 +29,18 @@
         </IgnoreScenes>
       </TrinityExploreDungeon>
       <LoadProfile file="Loader.xml" />
-    </FunkyWhileActorPresent>
+    </FunkyWhile>
 
-    <FunkyWhileActorPresent sno="256054" present="True">
+    <FunkyWhile condition="ActorPresent(256054)">
       <MoveTo questId="1" actorId="256054" pathPrecision="20" />
       <WaitTimer questId="1" waitTime="2000" />
-    </FunkyWhileActorPresent>
+    </FunkyWhile>
 
     <!--<If condition="ActorExistsAt(256054, ZetaDia.Me.Position.X, ZetaDia.Me.Position.Y, ZetaDia.Me.Position.Z, 300)">-->
-    <FunkyWhileActorPresent sno="256054" present="True">
+    <FunkyWhile condition="ActorPresent(256054)">
       <MoveTo questId="1" actorId="256054" pathPrecision="20" />
       <WaitTimer questId="1" waitTime="2000" />
-    </FunkyWhileActorPresent>
+    </FunkyWhile>
 
     <WaitTimer questId="1" waitTime="6000" />
     <LoadProfile file="Loader.xml" />

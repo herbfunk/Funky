@@ -19,25 +19,30 @@ namespace fBaseXtensions.Behaviors
 	public static class GoblinBehavior
 	{
 
-		/*
-		 * 
-		 * 
-		 * 
-		 * Rainbow Goblin
-		   worldid 409093
-		   levelareaid 409094
+        /*
+         * 
+         * 
+         * 
+         * Rainbow Goblin
+           worldid 409093
+           levelareaid 409094
 		   
-		 * Goblin Realm
+         * Goblin Realm
 WorldID: 379962
 LevelAreaID: 380773
-		 * 
-		 * WorldID: 380753
+         * 
+         * WorldID: 380753
 LevelAreaID: 380774
 Name: p1_TGoblin_Realm_BossRoom
 The Inner Sanctum
-		 */
+         * 
+         * 
+         * 
+         * GizmoType: Portal Name: p1_Greed_Portal-6428 ActorSNO: 393030 
+         * 
+         */
 
-		internal static bool BehaviorEngaged = false;
+        internal static bool BehaviorEngaged = false;
 
 
 		private static CacheObject _portal;

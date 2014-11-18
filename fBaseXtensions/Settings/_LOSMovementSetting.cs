@@ -14,8 +14,8 @@
 		public bool AllowEventSwitches { get; set; }
 		public int MaximumRange { get; set; }
 
-		public float MiniumRangeObjects { get; set; }
-		public float MinimumRangeMarkers { get; set; }
+		public int MiniumRangeObjects { get; set; }
+        public int MinimumRangeMarkers { get; set; }
 
         public SettingLOSMovement()
         {

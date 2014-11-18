@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using Zeta.Common;
 
@@ -66,19 +67,22 @@ namespace fBaseXtensions.Cache.Internal.Collections
             public int SNO { get; set; }
             public int RAGUID { get; set; }
             public int ACDGUID { get; set; }
+            public RemovalTypes RemovalType { get; set; }
 
 	        public ObjectRemovedArgs(CacheObject obj)
 	        {
 	            SNO = obj.SNOID;
 	            RAGUID = obj.RAGUID;
 	            ACDGUID = obj.AcdGuid.HasValue ? obj.AcdGuid.Value : -1;
+	            RemovalType = obj.RemovalType;
 	        }
 
-	        public ObjectRemovedArgs(int sno, int raguid, int acdguid)
+	        public ObjectRemovedArgs(int sno, int raguid, int acdguid, RemovalTypes removaltype)
 	        {
 	            SNO = sno;
 	            RAGUID = raguid;
 	            ACDGUID = acdguid;
+	            RemovalType = removaltype;
 	        }
 	    }
 		public delegate void ObjectRemovedFromCollection(ObjectRemovedArgs args);

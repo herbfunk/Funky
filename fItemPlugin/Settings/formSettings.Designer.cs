@@ -565,12 +565,12 @@
             this.trackBar_GamblingBloodShards.LargeChange = 10;
             this.trackBar_GamblingBloodShards.Location = new System.Drawing.Point(6, 20);
             this.trackBar_GamblingBloodShards.Maximum = 500;
-            this.trackBar_GamblingBloodShards.Minimum = 5;
+            this.trackBar_GamblingBloodShards.Minimum = 25;
             this.trackBar_GamblingBloodShards.Name = "trackBar_GamblingBloodShards";
             this.trackBar_GamblingBloodShards.Size = new System.Drawing.Size(193, 42);
             this.trackBar_GamblingBloodShards.TabIndex = 9;
             this.trackBar_GamblingBloodShards.TickFrequency = 25;
-            this.trackBar_GamblingBloodShards.Value = 5;
+            this.trackBar_GamblingBloodShards.Value = 25;
             // 
             // checkBox_EnableGambling
             // 

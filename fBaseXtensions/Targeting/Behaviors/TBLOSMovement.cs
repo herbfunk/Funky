@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using fBaseXtensions.Cache.External.Enums;
+using fBaseXtensions.Cache.Internal;
+using fBaseXtensions.Cache.Internal.Collections;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game;
@@ -26,7 +28,10 @@ namespace fBaseXtensions.Targeting.Behaviors
 		*/
 		private float MinimumDistance = SettingLOSMovement.LOSSettingsTag.MiniumRangeObjects;
 
-		public TBLOSMovement() : base() { }
+	    public TBLOSMovement() : base()
+	    {
+            ObjectCache.Objects.OnObjectRemovedFromCollection += OnObjectRemoved;
+	    }
 		public override TargetBehavioralTypes TargetBehavioralTypeType { get { return TargetBehavioralTypes.LineOfSight; } }
 		public override bool BehavioralCondition
 		{
@@ -188,5 +193,17 @@ namespace fBaseXtensions.Targeting.Behaviors
 				return false;
 			};
 		}
+
+	    private void OnObjectRemoved(ObjectCollection.ObjectRemovedArgs args)
+	    {
+            //Check for a valid, non-mini-map marker object, that matches the removed object.
+	        if (FunkyGame.Navigation.LOSmovementObject != null && 
+                !FunkyGame.Navigation.LOSmovementObject.IgnoringCacheCheck && 
+                FunkyGame.Navigation.LOSmovementObject.OrginCacheObjectRAGUID==args.RAGUID &&
+                args.RemovalType== RemovalTypes.DeadorUsed)
+	        {
+                FunkyGame.Navigation.LOSmovementObject = null;
+	        }
+	    }
 	}
 }

@@ -19,8 +19,8 @@
 			<ClusterException sno="255704" />
 		</ExceptionList>
 	</FunkyClustering>-->
-	
-	<FunkyWhileActorPresent sno="255704" present="False">
+
+  <FunkyWhile condition="not ActorPresent(255704)">
 		<TrinityMoveTo questId="1" x="2121.814" y="1752.232" z="0.1000008" NoSkip="false" pathPrecision="10"/> 
 		<TrinityMoveTo questId="1" x="2100.219" y="1677.018" z="0.1000005" NoSkip="false" pathPrecision="10"/> 
 		<TrinityMoveTo questId="1" x="2091.422" y="1623.293" z="2.680532" NoSkip="false" pathPrecision="10"/>
@@ -108,12 +108,13 @@
 		<TrinityMoveTo questId="1" x="1563.451" y="824.5952" z="22.32685" NoSkip="false" pathPrecision="30"/>
 		
 		<ToggleTargeting questId="1" combat="True" />
-	</FunkyWhileActorPresent>
+	</FunkyWhile>
 
-	<FunkyWhileActorPresent sno="255704" present="True">
+   <FunkyWhile condition="ActorPresent(255704)">
     <FunkyMoveToSno questId="1" Sno="255704" pathPrecision="20" />
 		<WaitTimer questId="1" waitTime="2000" />
-	</FunkyWhileActorPresent>
+	</FunkyWhile>
+  
 	<WaitTimer questId="1" waitTime="6000" />
   
   <LoadProfile file="Loader.xml" />

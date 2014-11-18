@@ -385,6 +385,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		}
 		internal bool removal_;
 
+	    public RemovalTypes RemovalType
+	    {
+            get { return _removaltype; }
+            set { _removaltype = value; }
+	    }
+        private RemovalTypes _removaltype = RemovalTypes.Unknown;
+
 		///<summary>
 		///This is evaluated during removal and when set to something other than none it will be blacklisted.
 		///</summary>
@@ -777,11 +784,11 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				                     "\r\nSnoAnim={9} -- AnimState={10}" +
 				                     "\r\nReqLOS={4} -- {5} -- [LOSV3: {6}]" +
 				                     "\r\nBotFacing={7}" +
-									 "\r\nBlackListLoops[{8}] UnseenLoops[{11}] IgnoreReason: {12} NeedsRemoved: {15}\r\n",
+									 "\r\nBlackListLoops[{8}] UnseenLoops[{11}] IgnoreReason: {12} NeedsRemoved: {15} RemovalType: {17}\r\n",
 					  RAGUID.ToString(CultureInfo.InvariantCulture), base.DebugString, CentreDistance.ToString(CultureInfo.InvariantCulture), RadiusDistance.ToString(CultureInfo.InvariantCulture),
 					  RequiresLOSCheck, LineOfSight != null ? String.Format("-- {0} --", LineOfSight.DebugString) : "", LOSV3,
 					  BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), SnoAnim, AnimState, LoopsUnseen, IgnoredType,
-					  DateTime.Now.Subtract(CreationTime).TotalSeconds, Position.ToString(), NeedsRemoved, Weight);
+					  DateTime.Now.Subtract(CreationTime).TotalSeconds, Position.ToString(), NeedsRemoved, Weight, RemovalType);
 			}
 		}
 

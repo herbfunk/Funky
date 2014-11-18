@@ -383,6 +383,14 @@ namespace fBaseXtensions.Settings
 				flowLayout_TargetRanges.Controls.Add(GoblinRange);
 
 
+			    trackBar_LOS_MaxRange.Value = FunkyBaseExtension.Settings.LOSMovement.MaximumRange;
+			    textBox_LOS_MaxRange.Text = FunkyBaseExtension.Settings.LOSMovement.MaximumRange.ToString();
+			    trackBar_LOS_MaxRange.ValueChanged += trackbar_LOS_MaxRange_ValueChanged;
+
+			    trackBar_LOS_MinRange.Value = FunkyBaseExtension.Settings.LOSMovement.MiniumRangeObjects;
+			    textBox_LOS_MinRange.Text = FunkyBaseExtension.Settings.LOSMovement.MiniumRangeObjects.ToString();
+			    trackBar_LOS_MinRange.ValueChanged += trackbar_LOS_MinRange_ValueChanged;
+
 				cb_TargetRangeIgnoreKillRangeProfile.Checked = FunkyBaseExtension.Settings.Ranges.IgnoreCombatRange;
 				cb_TargetRangeIgnoreKillRangeProfile.CheckedChanged += cb_TargetRangeIgnoreKillRangeProfile_CheckedChanged;
 
@@ -1068,10 +1076,6 @@ namespace fBaseXtensions.Settings
 
 
 
-		private void button1_Click_1(object sender, EventArgs e)
-		{
-			MessageBox.Show(FunkyBaseExtension.Settings.Ranges.ContainerOpenRange.ToString());
-		}
 
 		private void cb_TargetRangeIgnoreKillRangeProfile_CheckedChanged(object sender, EventArgs e)
 		{
@@ -1087,6 +1091,21 @@ namespace fBaseXtensions.Settings
 		{
 			FunkyBaseExtension.Settings.Ranges.IgnoreLootRange = !FunkyBaseExtension.Settings.Ranges.IgnoreLootRange;
 		}
+
+        private void trackbar_LOS_MaxRange_ValueChanged(object sender, EventArgs e)
+        {
+            TrackBar slider_sender = (TrackBar)sender;
+            int Value = (int)slider_sender.Value;
+            FunkyBaseExtension.Settings.LOSMovement.MaximumRange = Value;
+            textBox_LOS_MaxRange.Text = Value.ToString();
+        }
+        private void trackbar_LOS_MinRange_ValueChanged(object sender, EventArgs e)
+        {
+            TrackBar slider_sender = (TrackBar)sender;
+            int Value = (int)slider_sender.Value;
+            FunkyBaseExtension.Settings.LOSMovement.MiniumRangeObjects = Value;
+            textBox_LOS_MinRange.Text = Value.ToString();
+        }
 
 		private void cb_TargetLOSGoblins_CheckedChanged(object sender, EventArgs e)
 		{

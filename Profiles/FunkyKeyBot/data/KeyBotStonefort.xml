@@ -13,9 +13,9 @@
     <UseWaypoint waypointNumber="27" questId="1"/>	
 		<WaitTimer questId="1" waitTime="2500" />
 	</While>
-	
 
-	<FunkyWhileActorPresent sno="256040" present="False">
+
+  <FunkyWhile condition="not ActorPresent(256040)">
 
 		<!-- Checkpoint near door of Skycrown-->
 		<If condition="ActorExistsAt(3795, 4263.047, 4200.328, -25.00001, 100) and CurrentWorldId == 93099">
@@ -97,12 +97,12 @@
 		</If>
 		
 		<ToggleTargeting questId="1" combat="True" />
-	</FunkyWhileActorPresent>
+	</FunkyWhile>
 
-	<FunkyWhileActorPresent sno="256040" present="True">
+  <FunkyWhile condition="ActorPresent(256040)">
     <MoveTo questId="1" actorId="256040" pathPrecision="20" />
 		<WaitTimer questId="1" waitTime="2000" />
-	</FunkyWhileActorPresent>
+	</FunkyWhile>
 	<WaitTimer questId="1" waitTime="6000" />
 
 

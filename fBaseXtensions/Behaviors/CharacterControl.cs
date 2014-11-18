@@ -59,6 +59,9 @@ namespace fBaseXtensions.Behaviors
                 if (!curheroinfo.Equals(MainHeroInfo))
                 {//Need To Switch back to main hero!
 
+                    Logger.DBLog.DebugFormat("Current Hero Info Mismatched -- Current Hero {0}\r\nMain Hero{1}",
+                        curheroinfo.ToString(), MainHeroInfo.ToString());
+
                     if (_mainHeroIndexes.Count == 0)
                     {//Get a list of possible heroes using our index list (matching hero class and name)
                         foreach (var c in HeroIndexInfo.Characters.Where(c => c.Class == MainHeroInfo.Class && c.Name == MainHeroInfo.Name))
@@ -69,6 +72,7 @@ namespace fBaseXtensions.Behaviors
                     else
                     {//Switch and remove index from list
                         int mainheroIndex = _mainHeroIndexes.First();
+                        Logger.DBLog.InfoFormat("[Funky] Switching to Main Hero -- Index {0}", mainheroIndex);
                         ZetaDia.Service.GameAccount.SwitchHero(mainheroIndex);
                         _mainHeroIndexes.RemoveAt(0);
                     }
@@ -104,44 +108,6 @@ namespace fBaseXtensions.Behaviors
             GamblingCharacterSwitch = false;
             AltHeroGamblingEnabled = true;
             return RunStatus.Success;
-
-
-            //if (!ZetaDia.IsInGame)
-            //{
-            //    BotMain.StatusText = "[Funky] Hero Switch *Loading Profile!*";
-
-            //    //Load Adventure Mode Profile!
-            //    string NewGameProfile = Path.Combine(FolderPaths.PluginPath, "Behaviors","Profiles", "AdventureMode.xml");
-
-                
-
-            //    if (ProfileManager.CurrentProfile.Path != NewGameProfile)
-            //    {
-            //        Logger.Write(LogLevel.OutOfGame, "Current Profile Path: {0}\r\nAdventureMode Profile Path {1}",
-            //        ProfileManager.CurrentProfile.Path, NewGameProfile);
-
-            //        if (File.Exists(NewGameProfile))
-            //        {
-            //            Logger.Write(LogLevel.OutOfGame, "Loading UpdateAltHero profile");
-            //            ProfileManager.Load(NewGameProfile,false);
-            //            return RunStatus.Running;
-            //        }
-
-            //        //Could not find file!
-            //        return RunStatus.Success;
-            //    }
-            //    else
-            //    {
-            //        //Finished for now.. lets load the new game and let combat control take over!
-            //        FunkyGame.ShouldRefreshAccountDetails = true;
-            //        GamblingCharacterSwitch = false;
-            //        AltHeroGamblingEnabled = true;
-            //        return RunStatus.Success;
-            //    }
-            //}
-
-            
-            return RunStatus.Success;
         }
 
 
@@ -158,6 +124,7 @@ namespace fBaseXtensions.Behaviors
                 if (_startingBloodShardCount != Backpack.GetBloodShardCount() || _forcedTownRun)
                 {
                     //Finished!
+                    Logger.DBLog.InfoFormat("[Funky] Finished Alternative Gambling!");
                     ExitGameBehavior.ShouldExitGame = true;
                     AltHeroGamblingEnabled = false;
                     GamblingCharacterSwitchToMain = true;
@@ -165,7 +132,6 @@ namespace fBaseXtensions.Behaviors
                     _startingBloodShardCount = -1;
                     _forcedTownRun = false;
                     _delayer.Reset();
-                    ProfileManager.Load(_lastProfilePath, false);
                     return RunStatus.Success;
                 }
                 else
@@ -238,6 +204,16 @@ namespace fBaseXtensions.Behaviors
             return RunStatus.Running;
         }
 
+        internal static void ResetVars()
+        {
+            MainHeroInfo = null;
+            AltHeroInfo = null;
+            AltHeroGamblingEnabled = false;
+            GamblingCharacterSwitch = false;
+            GamblingCharacterSwitchToMain = false;
+            _mainHeroIndexes.Clear();
+        }
+
         /// <summary>
         /// Used as a temporary wrapper of hero info
         /// </summary>
@@ -299,8 +275,8 @@ namespace fBaseXtensions.Behaviors
                         (Name == p.Name) && 
                         (Level == p.Level) && 
                         (Class == p.Class) &&
-                        (ParagonLevel == p.ParagonLevel) &&
-                        (TimePlayed == p.TimePlayed);
+                        (ParagonLevel == p.ParagonLevel);
+                        //&& (TimePlayed == p.TimePlayed);
                 }
             }
         }

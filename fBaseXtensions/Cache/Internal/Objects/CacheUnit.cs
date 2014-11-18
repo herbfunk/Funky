@@ -995,6 +995,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						Logger.Write(LogLevel.Cache, "Unit Is Dead (OIVFT) {0} RAGUID {1}", DebugStringSimple, RAGUID);
 						BlacklistLoops = -1;
 						NeedsRemoved = true;
+                        RemovalType= RemovalTypes.DeadorUsed;
                         BlacklistFlag = BlacklistType.Temporary;
 						return false;
 					}
@@ -1477,6 +1478,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				{
 					Logger.Write(LogLevel.Cache, "Unit Is Dead {0} RAGUID {1}", DebugStringSimple, RAGUID);
 					NeedsRemoved = true;
+                    RemovalType= RemovalTypes.DeadorUsed;
 				    BlacklistLoops = -1;
                     BlacklistFlag = BlacklistType.Temporary;
 					return false;

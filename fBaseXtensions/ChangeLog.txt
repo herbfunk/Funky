@@ -1,4 +1,9 @@
-﻿v1.1.4.2
+﻿v1.1.4.3
+Hero switching info no longer uses Time Played for equal method.
+Added setting controls for Line of Sight ranges (min and max)
+Added RemovalTypes enum, a property to CacheObject, and a property to ObjectRemovedArgs class.
+
+v1.1.4.2
 Fixed bug with switching heroes when alt hero was equal to main hero
 Added Item Balance Null Checks during PickupItemValidation (thanks to bopohaa)
 

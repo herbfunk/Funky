@@ -331,8 +331,11 @@ namespace fBaseXtensions.Targeting
 						// PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
 						if (Cache.CurrentTarget.targetType.Value == TargetType.Unit)
 						{
-							if (Cache.CurrentTarget.IsTreasureGoblin && FunkyBaseExtension.Settings.Targeting.GoblinPriority >= 3) bBlacklistThis = false;
-							if (DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds <= 120) bBlacklistThis = false;
+							if (Cache.CurrentTarget.IsTreasureGoblin && FunkyBaseExtension.Settings.Targeting.GoblinPriority >= 3) 
+                                bBlacklistThis = false;
+
+							if (DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds <= 120) 
+                                bBlacklistThis = false;
 						}
 
 						if (bBlacklistThis)
@@ -440,6 +443,7 @@ namespace fBaseXtensions.Targeting
 				{
 					Skill.SetupAbilityForUse(ref Cache.InteractionSkill);
 					FunkyGame.Hero.Class.PowerPrime = Cache.InteractionSkill;
+				    Cache.bWaitingAfterPower = false;
 				}
 			}
 			#endregion

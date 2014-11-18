@@ -55,11 +55,11 @@ namespace fBaseXtensions.Behaviors
 			//	Logger.DBLog.Info("Performing Trial Rift Handler Behavior!");
 			//	return true;
 			//}
-			//else if (GoblinBehavior.BehaviorEngaged && GoblinBehavior.ShouldRunBehavior())
-			//{
-			//	Logger.DBLog.Info("Starting Goblin Behavior.");
-			//	return true;
-			//}
+            //else if (GoblinBehavior.BehaviorEngaged && GoblinBehavior.ShouldRunBehavior())
+            //{
+            //    Logger.DBLog.Info("Starting Goblin Behavior.");
+            //    return true;
+            //}
 
 			return false;
 		}
@@ -98,8 +98,8 @@ namespace fBaseXtensions.Behaviors
 			//	return TrialRiftBehavior.Behavior();
 			//}
 
-			//if (GoblinBehavior.BehaviorEngaged)
-			//	return GoblinBehavior.Behavior();
+            if (GoblinBehavior.BehaviorEngaged)
+                return GoblinBehavior.Behavior();
 
 			return RunStatus.Success;
 		}

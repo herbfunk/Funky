@@ -202,6 +202,9 @@
     <Compile Include="Cache\Internal\Enums\PetTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Cache\Internal\Enums\RemovalTypes.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Cache\Internal\Enums\ShrineTypes.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

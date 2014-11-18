@@ -141,8 +141,7 @@ namespace fBaseXtensions.Game.Hero.Class
 			{
 				Skill newAbility = FunkyGame.Hero.Class.CreateAbility(item.Power);
 
-				if (newAbility.IsPrimarySkill) 
-					ContainsAnyPrimarySkill = true;
+				if (newAbility.IsPrimarySkill) ContainsAnyPrimarySkill = true;
 
 				//combat ability set property
 				if (ObjectCache.CheckFlag((SkillExecutionFlags.ClusterLocation | SkillExecutionFlags.ClusterTarget | SkillExecutionFlags.ClusterTargetNearest | SkillExecutionFlags.Location | SkillExecutionFlags.Target), newAbility.ExecutionType))
@@ -160,6 +159,8 @@ namespace fBaseXtensions.Game.Hero.Class
 			{
 				Skill skill = item.Value;
 				skill.Initialize();
+                if (skill.IsPrimarySkill) ContainsAnyPrimarySkill = true;
+
 				Skill.CreateSkillLogicConditions(ref skill);
 				skill.SuccessfullyUsed += AbilitySuccessfullyUsed;
 				Abilities.Add(item.Key, skill);

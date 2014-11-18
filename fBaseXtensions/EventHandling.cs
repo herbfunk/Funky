@@ -54,6 +54,7 @@ namespace fBaseXtensions
 			ExitGameBehavior.ShouldExitGame = false;
 			ExitGameBehavior.BehaviorEngaged = false;
 			SetVariableTag.VariableDictionary.Clear();
+		    CharacterControl.ResetVars();
 
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{

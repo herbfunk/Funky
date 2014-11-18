@@ -626,6 +626,22 @@
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>249362</SnoId>
+      <InternalName>x1_BogCave_Chest_Rare-42256</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>289856</SnoId>
+      <InternalName>x1_Fortress_Chest_Rare-35353</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>62865</SnoId>
       <InternalName>TrOut_Highlands_Chest-18282</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -1012,6 +1028,14 @@
     <GizmoEntry>
       <SnoId>191734</SnoId>
       <InternalName>caOut_StingingWinds_Chest_CultistCamp-13499</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Chest</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>197018</SnoId>
+      <InternalName>a2dun_Cave_EggSack__Chest-54543</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>
@@ -3074,6 +3098,14 @@
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>193020</SnoId>
+      <InternalName>LootType3_GraveGuard_B_Corpse_06-21296</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Corpse</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>464</SnoId>
       <InternalName>trDun_WeaponRack-791</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -3631,7 +3663,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>PowerUp</PluginGizmoType>
-      <GizmotargetType>Shrine</GizmotargetType>
+      <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>330699</SnoId>
@@ -3639,7 +3671,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>PowerUp</PluginGizmoType>
-      <GizmotargetType>Shrine</GizmotargetType>
+      <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>330698</SnoId>
@@ -3647,7 +3679,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>PowerUp</PluginGizmoType>
-      <GizmotargetType>Shrine</GizmotargetType>
+      <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>330695</SnoId>
@@ -3655,7 +3687,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>PowerUp</PluginGizmoType>
-      <GizmotargetType>Shrine</GizmotargetType>
+      <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>330696</SnoId>
@@ -3663,7 +3695,7 @@
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>PowerUp</PluginGizmoType>
-      <GizmotargetType>Shrine</GizmotargetType>
+      <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
   </GizmoCache>
   <GizmoStringCache>

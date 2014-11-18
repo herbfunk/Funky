@@ -31,7 +31,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 			PreCast.Criteria += skill => FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSentry < SentryMax();
 			PreCast.CreatePrecastCriteria();
 
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.Fast));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			//Any unit when our energy is greater than 90%!
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
@@ -41,7 +41,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
 
-			ClusterConditions.Add(new SkillClusterConditions(4d, Range, 3, true));
+			ClusterConditions.Add(new SkillClusterConditions(6d, Range, 3, true));
 
 
 			FcriteriaCombat = () => FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSentry < SentryMax();

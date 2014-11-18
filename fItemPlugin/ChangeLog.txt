@@ -1,4 +1,7 @@
-﻿v1.4.0
+﻿v1.4.1
+Set minimum blood shard count setting to 25 (was 5)
+
+v1.4.0
 
 Added Alternative Hero Gambling Option
 	-Requires fBaseXtensions to be enabled.

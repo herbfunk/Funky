@@ -974,6 +974,28 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(361313, UnitFlags.Unique, "x1_Dark_Angel_Unique_B-4210"),
 				new UnitEntry(361771, UnitFlags.Unique, "x1_BogFamily_Brute_Unique_B-2631"),
 				new UnitEntry(363060, UnitFlags.Unique|UnitFlags.Worm|UnitFlags.Boss, "x1_Rockworm_Pand_Unique_B-5646"),
+
+                new UnitEntry(191592, UnitFlags.Normal, "Corpulent_Frost_A-21800"),
+                new UnitEntry(191921, UnitFlags.Normal, "Swarm_Frost_A-22197"),
+                new UnitEntry(197489, UnitFlags.Unique, "a4dun_Aspect_Terror-60592"),
+                new UnitEntry(257941, UnitFlags.Normal, "Uber_SoulRipper_Despair-6368"),
+                new UnitEntry(364673, UnitFlags.Unique, "Uber_Gluttony_Diablo-8481"),
+                new UnitEntry(364765, UnitFlags.Unique, "Uber_ZoltunKulle_Diablo-8811"),
+                new UnitEntry(257940, UnitFlags.Normal, "Uber_Gluttony_slime-9078"),
+                new UnitEntry(256092, UnitFlags.Normal | UnitFlags.Ranged, "Uber_SkeletonArcher_Red-16295"),
+                new UnitEntry(256090, UnitFlags.Normal, "Uber_skeleton_twoHander_Red-16294"),
+                new UnitEntry(256088, UnitFlags.Normal, "Uber_Shield_Skeleton_Red-16293"),
+                new UnitEntry(257939, UnitFlags.Normal, "Uber_Berserker_MaghdaPet-17062"),
+                new UnitEntry(367772, UnitFlags.Unique | UnitFlags.Fast, "Uber_SkeletonKingRed_Diablo-2903"),
+                new UnitEntry(375486, UnitFlags.Normal | UnitFlags.Ranged, "Uber_SkeletonArcher_Red_Diablo-3502"),
+                new UnitEntry(375474, UnitFlags.Normal, "Uber_Shield_Skeleton_Red_Diablo-3500"),
+                new UnitEntry(375479, UnitFlags.Normal, "Uber_skeleton_twoHander_Red_Diablo-3501"),
+                new UnitEntry(367769, UnitFlags.Unique, "Uber_Despair_Diablo-3265"),
+                new UnitEntry(181465, UnitFlags.Normal, "FallenGrunt_A_Rakanishu-8794"),
+                new UnitEntry(260229, UnitFlags.Unique | UnitFlags.Fast, "FallenGrunt_A_Rakanishu_Unique-9238"),
+                new UnitEntry(332236, UnitFlags.Normal, "Diablo_shadowClone_Crusader_Male"),
+                new UnitEntry(143995, UnitFlags.Normal, "Diablo_shadowClone_DemonHunter_Female"),
+                new UnitEntry(218656, UnitFlags.Unique, "TriuneCultist_A_Unique_01-13151"),
 			};
 			
 			#endregion

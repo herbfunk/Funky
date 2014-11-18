@@ -20,9 +20,8 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects
 			Range = 7;
 			Priority = SkillPriority.None;
 
-			WaitVars = new WaitLoops(2, 2, true);
+			WaitVars = new WaitLoops(0, 2, true);
 			PreCast = new SkillPreCast(SkillPrecastFlags.None);
-
 		}
 	}
 }

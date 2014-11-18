@@ -254,6 +254,10 @@ namespace fBaseXtensions.Cache.Internal
 						{
 							GoblinBehavior.Portal = tmp_CachedObj;
 						}
+                        else if (tmp_CachedObj.SNOID == 393030)
+                        {
+                            GoblinBehavior.Portal = tmp_CachedObj;
+                        }
 
 						//Do not add to main cache!
 						continue;

@@ -233,6 +233,8 @@
 		TheFinalWitness,
 		PiroMarella,
 		Salvation,
+        UnrelentingPhalanx,
+        FrydehrsWrath,
 
 		//Mojos
 		GazingDemise,
@@ -546,7 +548,7 @@
 		BulKathossOath,
 		ShenlongsSpirit,
 		IstvansPairedBlades,
-		
+		RolandsLegacy,
 		KrelmsBuffBulwark,
 	}
 }

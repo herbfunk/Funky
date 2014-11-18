@@ -48,8 +48,7 @@
 		<TrinityMaxDeaths questId="1" max="3" />
 		
 		<LogMessage output="[KeyBot] => This waypoint is unknown" />
-    <FunkyWhileActorPresent sno="256022" present="False">
-		
+    <FunkyWhile condition="not ActorPresent(256022)">
 			<SafeMoveTo questId="1" x="4219.11" y="4387.877" z="94.4203" pathPrecision="8" navigation="true" />
 			<SafeMoveTo questId="1" x="4161.401" y="4504.677" z="100.0547" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
 			<SafeMoveTo questId="1" x="4111.484" y="4595.857" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" />
@@ -133,12 +132,12 @@
 			<SafeMoveTo questId="1" x="3198.814" y="4321.397" z="100.1" pathPrecision="8" unsafeRandomDistance="3" navigation="true" noskip="true" />
 		
 			<ToggleTargeting questId="1" combat="True" />
-		</FunkyWhileActorPresent>
+		</FunkyWhile>
 
-    <FunkyWhileActorPresent sno="256022" present="True">
+    <FunkyWhile condition="ActorPresent(256022)">
       <MoveTo questId="1" actorId="256022" pathPrecision="20" />
       <WaitTimer questId="1" waitTime="2000" />
-    </FunkyWhileActorPresent>
+    </FunkyWhile>
     <WaitTimer questId="1" waitTime="6000" />
 
     <LoadProfile file="Loader.xml" />
