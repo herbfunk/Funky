@@ -340,8 +340,6 @@ namespace fBaseXtensions.Game.Hero
 			{
 				FunkyGame.Game.ResetCombatModifiers();
 
-			    if (!SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode) return;
-
 				if (!FunkyGame.Bounty.IsInRiftWorld)
 				{
 					//We could check that active bounty has been completed..

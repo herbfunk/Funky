@@ -19,7 +19,7 @@ namespace fBaseXtensions.XML
 		{
 			return new Action(ret =>
 			{
-				SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode = Enabled;
+				SettingAdventureMode.AdventureModeSettingsTag.AllowCombatModifications = Enabled;
 				Logger.DBLog.InfoFormat("[Funky] Adventureing Mode has been set to {0}", Enabled);
 				m_IsDone=true;
 			});

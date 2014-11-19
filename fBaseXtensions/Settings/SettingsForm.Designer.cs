@@ -178,15 +178,25 @@
             this.cb_TargetRangeIgnoreLootProfileRange = new System.Windows.Forms.CheckBox();
             this.cb_TargetRangeIgnoreKillRangeProfile = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
+            this.cb_TargetLOSGoblins = new System.Windows.Forms.CheckBox();
             this.cb_LOSEventSwitches = new System.Windows.Forms.CheckBox();
+            this.cb_TargetLOSRareElite = new System.Windows.Forms.CheckBox();
             this.cb_TargetLOSCursedChestShrine = new System.Windows.Forms.CheckBox();
+            this.cb_TargetLOSBossUniques = new System.Windows.Forms.CheckBox();
             this.cb_TargetLOSRareChests = new System.Windows.Forms.CheckBox();
+            this.cb_TargetLOSRanged = new System.Windows.Forms.CheckBox();
             this.cb_TargetLOSSpawnerUnits = new System.Windows.Forms.CheckBox();
             this.cb_TargetLOSSucideBombers = new System.Windows.Forms.CheckBox();
-            this.cb_TargetLOSRanged = new System.Windows.Forms.CheckBox();
-            this.cb_TargetLOSBossUniques = new System.Windows.Forms.CheckBox();
-            this.cb_TargetLOSRareElite = new System.Windows.Forms.CheckBox();
-            this.cb_TargetLOSGoblins = new System.Windows.Forms.CheckBox();
+            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.label35 = new System.Windows.Forms.Label();
+            this.textBox_LOS_MinRange = new System.Windows.Forms.TextBox();
+            this.trackBar_LOS_MinRange = new System.Windows.Forms.TrackBar();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.label34 = new System.Windows.Forms.Label();
+            this.textBox_LOS_MaxRange = new System.Windows.Forms.TextBox();
+            this.trackBar_LOS_MaxRange = new System.Windows.Forms.TrackBar();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage12 = new System.Windows.Forms.TabPage();
@@ -237,7 +247,6 @@
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.cb_adventuremode_allowcombatmodification = new System.Windows.Forms.CheckBox();
             this.cb_adventuremode_NavigateMinimapMarkers = new System.Windows.Forms.CheckBox();
-            this.cb_AdventureModeEnabled = new System.Windows.Forms.CheckBox();
             this.tabPage19 = new System.Windows.Forms.TabPage();
             this.groupBox_BnetControl_AltHero = new System.Windows.Forms.GroupBox();
             this.btn_BnetControl_ResetIndexes = new System.Windows.Forms.Button();
@@ -308,16 +317,6 @@
             this.btn_DumpInventory = new System.Windows.Forms.Button();
             this.btn_Test = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox23 = new System.Windows.Forms.GroupBox();
-            this.groupBox24 = new System.Windows.Forms.GroupBox();
-            this.panel16 = new System.Windows.Forms.Panel();
-            this.trackBar_LOS_MaxRange = new System.Windows.Forms.TrackBar();
-            this.textBox_LOS_MaxRange = new System.Windows.Forms.TextBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.panel22 = new System.Windows.Forms.Panel();
-            this.label35 = new System.Windows.Forms.Label();
-            this.textBox_LOS_MinRange = new System.Windows.Forms.TextBox();
-            this.trackBar_LOS_MinRange = new System.Windows.Forms.TrackBar();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl_Combat.SuspendLayout();
@@ -381,6 +380,12 @@
             this.tabPage5.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.groupBox23.SuspendLayout();
+            this.groupBox24.SuspendLayout();
+            this.panel22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_LOS_MinRange)).BeginInit();
+            this.panel16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_LOS_MaxRange)).BeginInit();
             this.tabPage7.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage12.SuspendLayout();
@@ -419,12 +424,6 @@
             this.tabPage15.SuspendLayout();
             this.tabPage16.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.groupBox23.SuspendLayout();
-            this.groupBox24.SuspendLayout();
-            this.panel16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_LOS_MaxRange)).BeginInit();
-            this.panel22.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_LOS_MinRange)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -2008,6 +2007,36 @@
             this.tabPage6.Text = "LOS";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // groupBox23
+            // 
+            this.groupBox23.Controls.Add(this.cb_TargetLOSGoblins);
+            this.groupBox23.Controls.Add(this.cb_LOSEventSwitches);
+            this.groupBox23.Controls.Add(this.cb_TargetLOSRareElite);
+            this.groupBox23.Controls.Add(this.cb_TargetLOSCursedChestShrine);
+            this.groupBox23.Controls.Add(this.cb_TargetLOSBossUniques);
+            this.groupBox23.Controls.Add(this.cb_TargetLOSRareChests);
+            this.groupBox23.Controls.Add(this.cb_TargetLOSRanged);
+            this.groupBox23.Controls.Add(this.cb_TargetLOSSpawnerUnits);
+            this.groupBox23.Controls.Add(this.cb_TargetLOSSucideBombers);
+            this.groupBox23.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox23.Location = new System.Drawing.Point(3, 189);
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.Size = new System.Drawing.Size(651, 337);
+            this.groupBox23.TabIndex = 9;
+            this.groupBox23.TabStop = false;
+            this.groupBox23.Text = "Targets";
+            // 
+            // cb_TargetLOSGoblins
+            // 
+            this.cb_TargetLOSGoblins.AutoSize = true;
+            this.cb_TargetLOSGoblins.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_TargetLOSGoblins.Location = new System.Drawing.Point(6, 19);
+            this.cb_TargetLOSGoblins.Name = "cb_TargetLOSGoblins";
+            this.cb_TargetLOSGoblins.Size = new System.Drawing.Size(165, 24);
+            this.cb_TargetLOSGoblins.TabIndex = 0;
+            this.cb_TargetLOSGoblins.Text = "Treasure Goblins";
+            this.cb_TargetLOSGoblins.UseVisualStyleBackColor = true;
+            // 
             // cb_LOSEventSwitches
             // 
             this.cb_LOSEventSwitches.AutoSize = true;
@@ -2018,6 +2047,17 @@
             this.cb_LOSEventSwitches.TabIndex = 8;
             this.cb_LOSEventSwitches.Text = "Event Switches";
             this.cb_LOSEventSwitches.UseVisualStyleBackColor = true;
+            // 
+            // cb_TargetLOSRareElite
+            // 
+            this.cb_TargetLOSRareElite.AutoSize = true;
+            this.cb_TargetLOSRareElite.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_TargetLOSRareElite.Location = new System.Drawing.Point(6, 49);
+            this.cb_TargetLOSRareElite.Name = "cb_TargetLOSRareElite";
+            this.cb_TargetLOSRareElite.Size = new System.Drawing.Size(152, 24);
+            this.cb_TargetLOSRareElite.TabIndex = 1;
+            this.cb_TargetLOSRareElite.Text = "Rare and Elites";
+            this.cb_TargetLOSRareElite.UseVisualStyleBackColor = true;
             // 
             // cb_TargetLOSCursedChestShrine
             // 
@@ -2030,6 +2070,17 @@
             this.cb_TargetLOSCursedChestShrine.Text = "Cursed Shrines and Chests";
             this.cb_TargetLOSCursedChestShrine.UseVisualStyleBackColor = true;
             // 
+            // cb_TargetLOSBossUniques
+            // 
+            this.cb_TargetLOSBossUniques.AutoSize = true;
+            this.cb_TargetLOSBossUniques.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_TargetLOSBossUniques.Location = new System.Drawing.Point(6, 79);
+            this.cb_TargetLOSBossUniques.Name = "cb_TargetLOSBossUniques";
+            this.cb_TargetLOSBossUniques.Size = new System.Drawing.Size(193, 24);
+            this.cb_TargetLOSBossUniques.TabIndex = 2;
+            this.cb_TargetLOSBossUniques.Text = "Bosses and Uniques";
+            this.cb_TargetLOSBossUniques.UseVisualStyleBackColor = true;
+            // 
             // cb_TargetLOSRareChests
             // 
             this.cb_TargetLOSRareChests.AutoSize = true;
@@ -2040,6 +2091,17 @@
             this.cb_TargetLOSRareChests.TabIndex = 6;
             this.cb_TargetLOSRareChests.Text = "Rare Chests";
             this.cb_TargetLOSRareChests.UseVisualStyleBackColor = true;
+            // 
+            // cb_TargetLOSRanged
+            // 
+            this.cb_TargetLOSRanged.AutoSize = true;
+            this.cb_TargetLOSRanged.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_TargetLOSRanged.Location = new System.Drawing.Point(6, 109);
+            this.cb_TargetLOSRanged.Name = "cb_TargetLOSRanged";
+            this.cb_TargetLOSRanged.Size = new System.Drawing.Size(138, 24);
+            this.cb_TargetLOSRanged.TabIndex = 3;
+            this.cb_TargetLOSRanged.Text = "Ranged Units";
+            this.cb_TargetLOSRanged.UseVisualStyleBackColor = true;
             // 
             // cb_TargetLOSSpawnerUnits
             // 
@@ -2063,49 +2125,93 @@
             this.cb_TargetLOSSucideBombers.Text = "Sucide Bombers";
             this.cb_TargetLOSSucideBombers.UseVisualStyleBackColor = true;
             // 
-            // cb_TargetLOSRanged
+            // groupBox24
             // 
-            this.cb_TargetLOSRanged.AutoSize = true;
-            this.cb_TargetLOSRanged.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_TargetLOSRanged.Location = new System.Drawing.Point(6, 109);
-            this.cb_TargetLOSRanged.Name = "cb_TargetLOSRanged";
-            this.cb_TargetLOSRanged.Size = new System.Drawing.Size(138, 24);
-            this.cb_TargetLOSRanged.TabIndex = 3;
-            this.cb_TargetLOSRanged.Text = "Ranged Units";
-            this.cb_TargetLOSRanged.UseVisualStyleBackColor = true;
+            this.groupBox24.Controls.Add(this.panel22);
+            this.groupBox24.Controls.Add(this.panel16);
+            this.groupBox24.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox24.Location = new System.Drawing.Point(3, 3);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(651, 186);
+            this.groupBox24.TabIndex = 10;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "Range";
             // 
-            // cb_TargetLOSBossUniques
+            // panel22
             // 
-            this.cb_TargetLOSBossUniques.AutoSize = true;
-            this.cb_TargetLOSBossUniques.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_TargetLOSBossUniques.Location = new System.Drawing.Point(6, 79);
-            this.cb_TargetLOSBossUniques.Name = "cb_TargetLOSBossUniques";
-            this.cb_TargetLOSBossUniques.Size = new System.Drawing.Size(193, 24);
-            this.cb_TargetLOSBossUniques.TabIndex = 2;
-            this.cb_TargetLOSBossUniques.Text = "Bosses and Uniques";
-            this.cb_TargetLOSBossUniques.UseVisualStyleBackColor = true;
+            this.panel22.Controls.Add(this.label35);
+            this.panel22.Controls.Add(this.textBox_LOS_MinRange);
+            this.panel22.Controls.Add(this.trackBar_LOS_MinRange);
+            this.panel22.Location = new System.Drawing.Point(6, 95);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(308, 70);
+            this.panel22.TabIndex = 1;
             // 
-            // cb_TargetLOSRareElite
+            // label35
             // 
-            this.cb_TargetLOSRareElite.AutoSize = true;
-            this.cb_TargetLOSRareElite.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_TargetLOSRareElite.Location = new System.Drawing.Point(6, 49);
-            this.cb_TargetLOSRareElite.Name = "cb_TargetLOSRareElite";
-            this.cb_TargetLOSRareElite.Size = new System.Drawing.Size(152, 24);
-            this.cb_TargetLOSRareElite.TabIndex = 1;
-            this.cb_TargetLOSRareElite.Text = "Rare and Elites";
-            this.cb_TargetLOSRareElite.UseVisualStyleBackColor = true;
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(3, 9);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(83, 13);
+            this.label35.TabIndex = 2;
+            this.label35.Text = "Minimum Range";
             // 
-            // cb_TargetLOSGoblins
+            // textBox_LOS_MinRange
             // 
-            this.cb_TargetLOSGoblins.AutoSize = true;
-            this.cb_TargetLOSGoblins.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_TargetLOSGoblins.Location = new System.Drawing.Point(6, 19);
-            this.cb_TargetLOSGoblins.Name = "cb_TargetLOSGoblins";
-            this.cb_TargetLOSGoblins.Size = new System.Drawing.Size(165, 24);
-            this.cb_TargetLOSGoblins.TabIndex = 0;
-            this.cb_TargetLOSGoblins.Text = "Treasure Goblins";
-            this.cb_TargetLOSGoblins.UseVisualStyleBackColor = true;
+            this.textBox_LOS_MinRange.Location = new System.Drawing.Point(199, 25);
+            this.textBox_LOS_MinRange.Name = "textBox_LOS_MinRange";
+            this.textBox_LOS_MinRange.ReadOnly = true;
+            this.textBox_LOS_MinRange.Size = new System.Drawing.Size(74, 20);
+            this.textBox_LOS_MinRange.TabIndex = 1;
+            // 
+            // trackBar_LOS_MinRange
+            // 
+            this.trackBar_LOS_MinRange.Location = new System.Drawing.Point(3, 25);
+            this.trackBar_LOS_MinRange.Maximum = 100;
+            this.trackBar_LOS_MinRange.Minimum = 10;
+            this.trackBar_LOS_MinRange.Name = "trackBar_LOS_MinRange";
+            this.trackBar_LOS_MinRange.Size = new System.Drawing.Size(190, 42);
+            this.trackBar_LOS_MinRange.TabIndex = 0;
+            this.trackBar_LOS_MinRange.TickFrequency = 10;
+            this.trackBar_LOS_MinRange.Value = 10;
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.label34);
+            this.panel16.Controls.Add(this.textBox_LOS_MaxRange);
+            this.panel16.Controls.Add(this.trackBar_LOS_MaxRange);
+            this.panel16.Location = new System.Drawing.Point(6, 19);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(308, 70);
+            this.panel16.TabIndex = 0;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(3, 9);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(86, 13);
+            this.label34.TabIndex = 2;
+            this.label34.Text = "Maximum Range";
+            // 
+            // textBox_LOS_MaxRange
+            // 
+            this.textBox_LOS_MaxRange.Location = new System.Drawing.Point(199, 25);
+            this.textBox_LOS_MaxRange.Name = "textBox_LOS_MaxRange";
+            this.textBox_LOS_MaxRange.ReadOnly = true;
+            this.textBox_LOS_MaxRange.Size = new System.Drawing.Size(74, 20);
+            this.textBox_LOS_MaxRange.TabIndex = 1;
+            // 
+            // trackBar_LOS_MaxRange
+            // 
+            this.trackBar_LOS_MaxRange.Location = new System.Drawing.Point(3, 25);
+            this.trackBar_LOS_MaxRange.Maximum = 500;
+            this.trackBar_LOS_MaxRange.Minimum = 100;
+            this.trackBar_LOS_MaxRange.Name = "trackBar_LOS_MaxRange";
+            this.trackBar_LOS_MaxRange.Size = new System.Drawing.Size(190, 42);
+            this.trackBar_LOS_MaxRange.TabIndex = 0;
+            this.trackBar_LOS_MaxRange.TickFrequency = 50;
+            this.trackBar_LOS_MaxRange.Value = 100;
             // 
             // tabPage7
             // 
@@ -2343,9 +2449,9 @@
             this.groupBox16.Controls.Add(this.groupBox_PriorityGemUpgrading);
             this.groupBox16.Controls.Add(this.groupBox17);
             this.groupBox16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox16.Location = new System.Drawing.Point(3, 103);
+            this.groupBox16.Location = new System.Drawing.Point(3, 70);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(651, 423);
+            this.groupBox16.Size = new System.Drawing.Size(651, 456);
             this.groupBox16.TabIndex = 20;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Gem Upgrading";
@@ -2605,19 +2711,18 @@
             // 
             this.groupBox18.Controls.Add(this.cb_adventuremode_allowcombatmodification);
             this.groupBox18.Controls.Add(this.cb_adventuremode_NavigateMinimapMarkers);
-            this.groupBox18.Controls.Add(this.cb_AdventureModeEnabled);
             this.groupBox18.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox18.Location = new System.Drawing.Point(3, 3);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(651, 100);
+            this.groupBox18.Size = new System.Drawing.Size(651, 67);
             this.groupBox18.TabIndex = 21;
             this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "groupBox18";
+            this.groupBox18.Text = "Modifiers";
             // 
             // cb_adventuremode_allowcombatmodification
             // 
             this.cb_adventuremode_allowcombatmodification.AutoSize = true;
-            this.cb_adventuremode_allowcombatmodification.Location = new System.Drawing.Point(6, 72);
+            this.cb_adventuremode_allowcombatmodification.Location = new System.Drawing.Point(6, 42);
             this.cb_adventuremode_allowcombatmodification.Name = "cb_adventuremode_allowcombatmodification";
             this.cb_adventuremode_allowcombatmodification.Size = new System.Drawing.Size(155, 17);
             this.cb_adventuremode_allowcombatmodification.TabIndex = 21;
@@ -2627,26 +2732,12 @@
             // cb_adventuremode_NavigateMinimapMarkers
             // 
             this.cb_adventuremode_NavigateMinimapMarkers.AutoSize = true;
-            this.cb_adventuremode_NavigateMinimapMarkers.Location = new System.Drawing.Point(6, 49);
+            this.cb_adventuremode_NavigateMinimapMarkers.Location = new System.Drawing.Point(6, 19);
             this.cb_adventuremode_NavigateMinimapMarkers.Name = "cb_adventuremode_NavigateMinimapMarkers";
             this.cb_adventuremode_NavigateMinimapMarkers.Size = new System.Drawing.Size(152, 17);
             this.cb_adventuremode_NavigateMinimapMarkers.TabIndex = 20;
             this.cb_adventuremode_NavigateMinimapMarkers.Text = "Navigate Minimap Markers";
             this.cb_adventuremode_NavigateMinimapMarkers.UseVisualStyleBackColor = true;
-            // 
-            // cb_AdventureModeEnabled
-            // 
-            this.cb_AdventureModeEnabled.AutoSize = true;
-            this.cb_AdventureModeEnabled.Enabled = false;
-            this.cb_AdventureModeEnabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_AdventureModeEnabled.Location = new System.Drawing.Point(6, 19);
-            this.cb_AdventureModeEnabled.Name = "cb_AdventureModeEnabled";
-            this.cb_AdventureModeEnabled.Size = new System.Drawing.Size(234, 24);
-            this.cb_AdventureModeEnabled.TabIndex = 19;
-            this.cb_AdventureModeEnabled.Text = "Enable Adventuring Mode";
-            this.toolTip1.SetToolTip(this.cb_AdventureModeEnabled, "Adventuring Mode enables Funky Bot to automatically move and change combat settin" +
-        "gs based on bounty and rift quests.");
-            this.cb_AdventureModeEnabled.UseVisualStyleBackColor = true;
             // 
             // tabPage19
             // 
@@ -3440,113 +3531,6 @@
             this.toolTip1.InitialDelay = 1000;
             this.toolTip1.ReshowDelay = 500;
             // 
-            // groupBox23
-            // 
-            this.groupBox23.Controls.Add(this.cb_TargetLOSGoblins);
-            this.groupBox23.Controls.Add(this.cb_LOSEventSwitches);
-            this.groupBox23.Controls.Add(this.cb_TargetLOSRareElite);
-            this.groupBox23.Controls.Add(this.cb_TargetLOSCursedChestShrine);
-            this.groupBox23.Controls.Add(this.cb_TargetLOSBossUniques);
-            this.groupBox23.Controls.Add(this.cb_TargetLOSRareChests);
-            this.groupBox23.Controls.Add(this.cb_TargetLOSRanged);
-            this.groupBox23.Controls.Add(this.cb_TargetLOSSpawnerUnits);
-            this.groupBox23.Controls.Add(this.cb_TargetLOSSucideBombers);
-            this.groupBox23.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox23.Location = new System.Drawing.Point(3, 189);
-            this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(651, 337);
-            this.groupBox23.TabIndex = 9;
-            this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "Targets";
-            // 
-            // groupBox24
-            // 
-            this.groupBox24.Controls.Add(this.panel22);
-            this.groupBox24.Controls.Add(this.panel16);
-            this.groupBox24.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox24.Location = new System.Drawing.Point(3, 3);
-            this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(651, 186);
-            this.groupBox24.TabIndex = 10;
-            this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "Range";
-            // 
-            // panel16
-            // 
-            this.panel16.Controls.Add(this.label34);
-            this.panel16.Controls.Add(this.textBox_LOS_MaxRange);
-            this.panel16.Controls.Add(this.trackBar_LOS_MaxRange);
-            this.panel16.Location = new System.Drawing.Point(6, 19);
-            this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(308, 70);
-            this.panel16.TabIndex = 0;
-            // 
-            // trackBar_LOS_MaxRange
-            // 
-            this.trackBar_LOS_MaxRange.Location = new System.Drawing.Point(3, 25);
-            this.trackBar_LOS_MaxRange.Maximum = 500;
-            this.trackBar_LOS_MaxRange.Minimum = 100;
-            this.trackBar_LOS_MaxRange.Name = "trackBar_LOS_MaxRange";
-            this.trackBar_LOS_MaxRange.Size = new System.Drawing.Size(190, 42);
-            this.trackBar_LOS_MaxRange.TabIndex = 0;
-            this.trackBar_LOS_MaxRange.TickFrequency = 50;
-            this.trackBar_LOS_MaxRange.Value = 100;
-            // 
-            // textBox_LOS_MaxRange
-            // 
-            this.textBox_LOS_MaxRange.Location = new System.Drawing.Point(199, 25);
-            this.textBox_LOS_MaxRange.Name = "textBox_LOS_MaxRange";
-            this.textBox_LOS_MaxRange.ReadOnly = true;
-            this.textBox_LOS_MaxRange.Size = new System.Drawing.Size(74, 20);
-            this.textBox_LOS_MaxRange.TabIndex = 1;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(3, 9);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(86, 13);
-            this.label34.TabIndex = 2;
-            this.label34.Text = "Maximum Range";
-            // 
-            // panel22
-            // 
-            this.panel22.Controls.Add(this.label35);
-            this.panel22.Controls.Add(this.textBox_LOS_MinRange);
-            this.panel22.Controls.Add(this.trackBar_LOS_MinRange);
-            this.panel22.Location = new System.Drawing.Point(6, 95);
-            this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(308, 70);
-            this.panel22.TabIndex = 1;
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(3, 9);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(83, 13);
-            this.label35.TabIndex = 2;
-            this.label35.Text = "Minimum Range";
-            // 
-            // textBox_LOS_MinRange
-            // 
-            this.textBox_LOS_MinRange.Location = new System.Drawing.Point(199, 25);
-            this.textBox_LOS_MinRange.Name = "textBox_LOS_MinRange";
-            this.textBox_LOS_MinRange.ReadOnly = true;
-            this.textBox_LOS_MinRange.Size = new System.Drawing.Size(74, 20);
-            this.textBox_LOS_MinRange.TabIndex = 1;
-            // 
-            // trackBar_LOS_MinRange
-            // 
-            this.trackBar_LOS_MinRange.Location = new System.Drawing.Point(3, 25);
-            this.trackBar_LOS_MinRange.Maximum = 100;
-            this.trackBar_LOS_MinRange.Minimum = 10;
-            this.trackBar_LOS_MinRange.Name = "trackBar_LOS_MinRange";
-            this.trackBar_LOS_MinRange.Size = new System.Drawing.Size(190, 42);
-            this.trackBar_LOS_MinRange.TabIndex = 0;
-            this.trackBar_LOS_MinRange.TickFrequency = 10;
-            this.trackBar_LOS_MinRange.Value = 10;
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3658,6 +3642,15 @@
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             this.tabPage6.ResumeLayout(false);
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
+            this.groupBox24.ResumeLayout(false);
+            this.panel22.ResumeLayout(false);
+            this.panel22.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_LOS_MinRange)).EndInit();
+            this.panel16.ResumeLayout(false);
+            this.panel16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_LOS_MaxRange)).EndInit();
             this.tabPage7.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage12.ResumeLayout(false);
@@ -3715,15 +3708,6 @@
             this.tabPage16.ResumeLayout(false);
             this.tabPage16.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.groupBox23.ResumeLayout(false);
-            this.groupBox23.PerformLayout();
-            this.groupBox24.ResumeLayout(false);
-            this.panel16.ResumeLayout(false);
-            this.panel16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_LOS_MaxRange)).EndInit();
-            this.panel22.ResumeLayout(false);
-            this.panel22.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_LOS_MinRange)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -3892,8 +3876,7 @@
 		private System.Windows.Forms.TextBox txt_GeneralEndOfCombatDelayValue;
 		private System.Windows.Forms.TrackBar tb_GeneralEndOfCombatDelayValue;
 		private System.Windows.Forms.CheckBox cb_GeneralAllowBuffInTown;
-		private System.Windows.Forms.TabPage tabPage17;
-		private System.Windows.Forms.CheckBox cb_AdventureModeEnabled;
+        private System.Windows.Forms.TabPage tabPage17;
 		private System.Windows.Forms.GroupBox groupBox22;
 		private System.Windows.Forms.CheckBox cb_DebugDataLogging;
 		private System.Windows.Forms.CheckBox cb_DebugStatusBar;

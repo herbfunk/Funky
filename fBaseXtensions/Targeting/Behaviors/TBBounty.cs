@@ -22,7 +22,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 		{
 			get
 			{
-				return SettingAdventureMode.AdventureModeSettingsTag.EnableAdventuringMode && FunkyGame.Bounty.ActiveBounty != null && FunkyGame.Bounty.CurrentBountyCacheEntry != null;
+				return FunkyGame.AdventureMode && FunkyGame.Bounty.ActiveBounty != null && FunkyGame.Bounty.CurrentBountyCacheEntry != null;
 			}
 		}
 		public override void Initialize()

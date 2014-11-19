@@ -277,32 +277,33 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					case TargetType.Door:
 
 
-						if (targetType.Value == TargetType.Door
-							   && PriorityCounter == 0
-							   && radiusDistance > 5f)
-						{
-							Vector3 BarricadeTest = Position;
-							if (radiusDistance > 1f)
-							{
+                        //if (targetType.Value == TargetType.Door
+                        //       && PriorityCounter == 0
+                        //       && radiusDistance > 5f)
+                        //{
+                        //    Vector3 BarricadeTest = Position;
+                        //    if (radiusDistance > 1f)
+                        //    {
 
-								BarricadeTest = MathEx.GetPointAt(Position, 10f, Navigation.Navigation.FindDirection(FunkyGame.Hero.Position, Position, true));
-								bool intersectionTest = !MathEx.IntersectsPath(Position, CollisionRadius.Value, FunkyGame.Hero.Position, BarricadeTest);
-								if (!intersectionTest)
-								{
-									IgnoredType = TargetingIgnoreTypes.IntersectionFailed;
-									return false;
-								}
+                        //        BarricadeTest = MathEx.GetPointAt(Position, 10f, Navigation.Navigation.FindDirection(FunkyGame.Hero.Position, Position, true));
+                        //        bool intersectionTest = !MathEx.IntersectsPath(Position, CollisionRadius.Value, FunkyGame.Hero.Position, BarricadeTest);
+                        //        if (!intersectionTest)
+                        //        {
+                        //            IgnoredType = TargetingIgnoreTypes.IntersectionFailed;
+                        //            return false;
+                        //        }
 
-							}
-						}
+                        //    }
+                        //}
 
-						if (centreDistance > 50f)
+						if (centreDistance > 60f)
 						{
 							IgnoredType = TargetingIgnoreTypes.DistanceFailure;
 							BlacklistLoops = 3;
 							return false;
 						}
 
+                        
 						return true;
 					#endregion
 					#region Shrine
@@ -428,6 +429,21 @@ namespace fBaseXtensions.Cache.Internal.Objects
 						if (Equals(FunkyGame.Targeting.Cache.LastCachedTarget) && centreDistance <= 25f)
 							Weight += 1000;
 
+                        //Check doors against intersection of current target unit when using ranged skill
+				        if (targetType.Value == TargetType.Door)
+				        {
+                            if (FunkyGame.Targeting.Cache.CurrentTarget != null &&
+                            FunkyGame.Targeting.Cache.CurrentUnitTarget != null &&
+                            FunkyGame.Hero.Class.LastUsedAbility.IsRanged)
+                            {
+                                if (MathEx.IntersectsPath(Position, CollisionRadius.Value, FunkyGame.Hero.Position,
+                                    FunkyGame.Targeting.Cache.CurrentTarget.Position))
+                                {
+                                    Helpers.Logger.DBLog.InfoFormat("[Funky] Door Blocking current target when using ranged skill!");
+                                    Weight += 10000;
+                                }
+                            }
+				        }
 						
 
 						break;

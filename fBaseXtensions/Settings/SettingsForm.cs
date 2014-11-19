@@ -469,10 +469,6 @@ namespace fBaseXtensions.Settings
 				cb_DeathWaitForSkillsCooldown.Checked = FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
 				cb_DeathWaitForSkillsCooldown.CheckedChanged += cb_DeathSkills_CheckedChanged;
 
-
-				cb_AdventureModeEnabled.Checked = FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode;
-				cb_AdventureModeEnabled.CheckedChanged += cb_AdventureModeEnabled_CheckedChanged;
-
 				cb_adventuremode_NavigateMinimapMarkers.Checked = FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest;
 				cb_adventuremode_NavigateMinimapMarkers.CheckedChanged += cb_adventuremode_NavigateMinimapMarkers_CheckedChanged;
 			
@@ -507,19 +503,23 @@ namespace fBaseXtensions.Settings
 
 				var legendarGems = Enum.GetValues(typeof(LegendaryGemTypes));
 				Func<object, string> fRetrieveLegendaryGemsNames = s => Enum.GetName(typeof(LegendaryGemTypes), s);
+
+                foreach (var gem in FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList)
+			    {
+                    LegendaryGemTypes thisLegendaryGem = (LegendaryGemTypes)gem;
+                    if (thisLegendaryGem.Equals(LegendaryGemTypes.None)) continue;
+
+			        listBox_GemUpgrading_PriorityList.Items.Add(fRetrieveLegendaryGemsNames(gem));
+			    }
+
 				foreach (var gem in legendarGems)
 				{
 					LegendaryGemTypes thisLegendaryGem = (LegendaryGemTypes)gem;
 					if (thisLegendaryGem.Equals(LegendaryGemTypes.None)) continue;
 
-					if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Contains(thisLegendaryGem))
-						listBox_GemUpgrading_PriorityList.Items.Add(fRetrieveLegendaryGemsNames(gem));
-					else
+					if (!FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Contains(thisLegendaryGem))
 						listBox_GemUpgrading_UnusedGems.Items.Add(fRetrieveLegendaryGemsNames(gem));
 				}
-
-
-
 
 
 
@@ -1194,10 +1194,6 @@ namespace fBaseXtensions.Settings
 		private void cb_DeathSkills_CheckedChanged(object sender, EventArgs e)
 		{
 			FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown = !FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
-		}
-		private void cb_AdventureModeEnabled_CheckedChanged(object sender, EventArgs e)
-		{
-			FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode = !FunkyBaseExtension.Settings.AdventureMode.EnableAdventuringMode;
 		}
 		private void cb_adventuremode_NavigateMinimapMarkers_CheckedChanged(object sender, EventArgs e)
 		{

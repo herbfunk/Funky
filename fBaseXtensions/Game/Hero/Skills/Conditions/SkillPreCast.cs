@@ -78,8 +78,8 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
 						if (s.IsRanged || s.Range > 0)
 							FunkyGame.Hero.Class.CanUseDefaultAttack = true;
 					}
-					else if (s.IsSpecialAbility)
-						FunkyGame.Hero.Class.bWaitingForSpecial = false;
+					//else if (s.IsSpecialAbility)
+						//FunkyGame.Hero.Class.bWaitingForSpecial = false;
 
 					return cancast;
 				});

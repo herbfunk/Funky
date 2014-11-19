@@ -327,8 +327,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 
 		#endregion
 
-
-
+        
 		#region Test Methods
 		internal bool AbilityUseTimer(bool bReCheck = false)
 		{
@@ -785,18 +784,25 @@ namespace fBaseXtensions.Game.Hero.Skills
 
 		public string DebugString()
 		{
+
 			return String.Format("Skill: {0} [RuneIndex={1}] " + " Cost=" + Cost + "\r\n" +
 									  "Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] Usage {6} \r\n" +
 									  "Last Condition {7} -- Last Used {8} \r\n" +
 									  "Used Successfully=[{9}] -- CanCastFlags={10}\r\n" +
 									  "IsPrimarySkill {11} IsBuff {12} IsDestructiblePower {13}\r\n" +
-									  "IsRanged {14} IsProjectile {15}",
-																	Power, RuneIndex,
-																	Range, Cooldown, Priority, ExecutionType,
-																	UseageType,
-																	LastConditionPassed, LastUsedMilliseconds < 100000 ? LastUsedMilliseconds + "ms" : "Never",
-																	SuccessUsed.HasValue ? SuccessUsed.Value.ToString() : "NULL", CanCastFlags,
-																	IsPrimarySkill, IsBuff, IsDestructiblePower, IsRanged, IsProjectile);
+									  "IsRanged {14} IsProjectile {15}\r\n" +
+			                          "{16}{17}{18}{19}",
+
+									Power, RuneIndex,
+									Range, Cooldown, Priority, ExecutionType,
+									UseageType,
+									LastConditionPassed, LastUsedMilliseconds < 100000 ? LastUsedMilliseconds + "ms" : "Never",
+									SuccessUsed.HasValue ? SuccessUsed.Value.ToString() : "NULL", CanCastFlags,
+									IsPrimarySkill, IsBuff, IsDestructiblePower, IsRanged, IsProjectile,
+                                    IsSpecialAbility?" IsSpecialAbility ":"",
+                                    ShouldTrack?" ShouldTrack ":"",
+                                    IsChanneling?" IsChanneling ":"",
+                                    IsMovementSkill?" IsMovementSkill ":"");
 		}
 
 
