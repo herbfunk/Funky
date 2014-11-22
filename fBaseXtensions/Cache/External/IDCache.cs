@@ -34,7 +34,7 @@ namespace fBaseXtensions.Cache.External
 
 		public IDCache()
 		{
-			Logger.DBLog.Info("[fBaseXtensions] Loading External Cache..");
+			Logger.DBLog.Info("[fBaseXtensions] Loading The External Cache...");
 
 			var unitdata = UnitDataCollection.DeserializeFromXML();
 			//var unitdata = new UnitDataCollection(); UnitDataCollection.SerializeToXML(unitdata);
@@ -44,12 +44,14 @@ namespace fBaseXtensions.Cache.External
 			{
 				UnitEntries.Add(entry.SnoId, new CacheUnitEntry(entry.SnoId, (UnitFlags)entry.ObjectType, entry.InternalName));
 			}
+            Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Unit Entries", UnitEntries.Count);
+
 			UnitPetEntries.Clear();
 			foreach (var entry in unitdata.UnitPetEntries)
 			{
 				UnitPetEntries.Add(entry.SnoId, new CacheUnitPetEntry(entry.SnoId, (PetTypes)entry.ObjectType, entry.InternalName));
 			}
-
+            Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Pet Entries", UnitPetEntries.Count);
 
 			var Items = ItemDataCollection.DeserializeFromXML();
 			//var Items = new ItemDataCollection(); ItemDataCollection.SerializeToXML(Items);
@@ -59,21 +61,28 @@ namespace fBaseXtensions.Cache.External
 			{
 				ItemDroppedEntries.Add(entry.SnoId, new CacheDroppedItemEntry(entry.SnoId, (PluginDroppedItemTypes)entry.ObjectType, entry.InternalName));
 			}
+            Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Dropped Item Entries", ItemDroppedEntries.Count);
+
 			ItemDataEntries.Clear();
 			foreach (var entry in Items.ItemDataCache)
 			{
 				ItemDataEntries.Add(entry.SnoId, entry);
 			}
+            Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Item Entries", ItemDataEntries.Count);
+
 			ItemGemEntries.Clear();
 			foreach (var entry in Items.GemCache)
 			{
 				ItemGemEntries.Add(entry.SnoId, new CacheItemGemEntry(entry));
 			}
+            Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Gem Entries", ItemGemEntries.Count);
+
 			ItemDroppedInternalNames.Clear();
 			foreach (var entry in Items.DroppedItemInternalNames)
 			{
 				ItemDroppedInternalNames.Add(entry);
 			}
+            //Logger.DBLog.InfoFormat("[fBaseXtensions] Loaded {0} Item Name Entries", ItemDroppedInternalNames.Count);
 
 
 			var Gizmos = GizmoDataCollection.DeserializeFromXML();
@@ -90,6 +99,7 @@ namespace fBaseXtensions.Cache.External
                         entry.InternalName,
                         entry.GizmotargetType));
 			}
+            Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Gizmo Entries", GizmoEntries.Count);
 
 
 			var Avoidance = AvoidanceDataCollection.DeserializeFromXML();
@@ -101,6 +111,9 @@ namespace fBaseXtensions.Cache.External
                 
 				AvoidanceEntries.Add(entry.SnoId, new CacheAvoidanceEntry(entry.SnoId, (AvoidanceType)entry.ObjectType, entry.InternalName));
 			}
+            Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Avoidance Entries", AvoidanceEntries.Count);
+
+            Logger.DBLog.InfoFormat("[fBaseXtensions] Finished Loading The External Cache!");
 
 		}
 

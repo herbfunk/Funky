@@ -13,7 +13,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects
 
 		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
-		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
+		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Buff; } }
 
 		public override void Initialize()
 		{

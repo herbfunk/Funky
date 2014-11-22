@@ -8,9 +8,9 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 		public override SNOPower Power { get { return SNOPower.Barbarian_Overpower; } }
 
 
-		public override double Cooldown { get { return 200; } }
+		public override double Cooldown { get { return 12000; } }
 
-		private readonly WaitLoops _waitVars = new WaitLoops(4, 4, true);
+		private readonly WaitLoops _waitVars = new WaitLoops(0, 4, true);
 		public override WaitLoops WaitVars { get { return _waitVars; } }
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Self; } }
@@ -19,13 +19,16 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 
 		public override void Initialize()
 		{
+		    Range = 9;
 			Priority = SkillPriority.Medium;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckEnergy |
-									  SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 10,
-				falseConditionalFlags: TargetProperties.Fast));
-			ClusterConditions.Add(new SkillClusterConditions(5d, 7, 2, false));
-			FcriteriaCombat = () => true;
+
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
+
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, falseConditionalFlags: TargetProperties.Normal));
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, falseConditionalFlags: TargetProperties.Fast|TargetProperties.LowHealth));
+
+			ClusterConditions.Add(new SkillClusterConditions(5d, Range, 2, true, useRadiusDistance: true));
+
 		}
 
 	}

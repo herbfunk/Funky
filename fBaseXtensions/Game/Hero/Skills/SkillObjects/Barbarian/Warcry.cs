@@ -24,9 +24,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
 			FcriteriaBuff = () => !Hotbar.HasBuff(SNOPower.X1_Barbarian_WarCry_v2);
+
+		    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 50));
 			FcriteriaCombat = () => (!Hotbar.HasBuff(SNOPower.X1_Barbarian_WarCry_v2) ||
 								   (Hotbar.PassivePowers.Contains(SNOPower.Barbarian_Passive_InspiringPresence) && LastUsedMilliseconds > 59) ||
-									FunkyGame.Hero.dCurrentEnergyPct < 0.10);
+									FunkyGame.Hero.dCurrentEnergyPct < (FunkyGame.Hero.Class.ContainsAnyPrimarySkill?0.10:0.50)); //10% with a primary skill, 50% without one!
 		}
 
 	}

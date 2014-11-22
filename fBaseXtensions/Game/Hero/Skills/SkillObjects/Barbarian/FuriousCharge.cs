@@ -1,4 +1,5 @@
-﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+﻿using fBaseXtensions.Cache.Internal;
+using fBaseXtensions.Game.Hero.Skills.Conditions;
 using Zeta.Common;
 using Zeta.Game.Internals.Actors;
 
@@ -24,19 +25,33 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 		public override void Initialize()
 		{
 			Priority = SkillPriority.Medium;
-			Range = 35;
+			Range = 60;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated);
 
-			ClusterConditions.Add(new SkillClusterConditions(7d, 35f, 4, false, minDistance: 15f, useRadiusDistance: true));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, falseConditionalFlags: TargetProperties.Normal));
+            ClusterConditions.Add(new SkillClusterConditions(4d, Range, 3, false, useRadiusDistance: true));
+
+		    var IntersectingUnitTargetConditions =
+		        new UnitTargetConditions
+		        {
+		            TrueConditionFlags = TargetProperties.None,
+		            MaximumDistance = Range,
+		            Criteria = () =>
+		                    ObjectCache.Objects.TotalIntersectingUnits(FunkyGame.Targeting.Cache.CurrentTarget.Position, 8f)>2
+		        };
+
+		    SingleUnitCondition.Add(IntersectingUnitTargetConditions);
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, falseConditionalFlags: TargetProperties.Normal));
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Summoner, Range, falseConditionalFlags: TargetProperties.LowHealth));
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.AvoidanceSummoner, Range, falseConditionalFlags: TargetProperties.LowHealth));
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Debuffing, Range, falseConditionalFlags: TargetProperties.LowHealth));
 
 			FCombatMovement = v =>
 			{
 				float fDistanceFromTarget = FunkyGame.Hero.Position.Distance(v);
 				if (FunkyBaseExtension.Settings.General.OutOfCombatMovement && !FunkyGame.Hero.Class.bWaitingForSpecial && FunkyBaseExtension.Difference(FunkyGame.Hero.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
 				{
-					if (fDistanceFromTarget > 35f)
-						return MathEx.CalculatePointFrom(v, FunkyGame.Hero.Position, 35f);
+                    if (fDistanceFromTarget > Range)
+                        return MathEx.CalculatePointFrom(v, FunkyGame.Hero.Position, Range);
 					return v;
 				}
 
@@ -47,8 +62,8 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 				float fDistanceFromTarget = FunkyGame.Hero.Position.Distance(v);
 				if (FunkyBaseExtension.Difference(FunkyGame.Hero.Position.Z, v.Z) <= 4 && fDistanceFromTarget >= 20f)
 				{
-					if (fDistanceFromTarget > 35f)
-						return MathEx.CalculatePointFrom(v, FunkyGame.Hero.Position, 35f);
+                    if (fDistanceFromTarget > Range)
+                        return MathEx.CalculatePointFrom(v, FunkyGame.Hero.Position, Range);
 					return v;
 				}
 

@@ -8,7 +8,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 		public override SNOPower Power { get { return SNOPower.Barbarian_BattleRage; } }
 
 
-		public override double Cooldown { get { return 118000; } }
+		public override double Cooldown { get { return 120000; } }
 
 
 		public override bool IsBuff { get { return true; } }
@@ -25,7 +25,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			Priority = SkillPriority.High;
 			Cost = 20;
 			Range = 35;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
 			FcriteriaBuff = () => !Hotbar.HasBuff(SNOPower.Barbarian_BattleRage);
 			FcriteriaCombat = () => !Hotbar.HasBuff(SNOPower.Barbarian_BattleRage) ||
 				//Only if we cannot spam sprint..

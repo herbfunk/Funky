@@ -636,21 +636,25 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		    if (ref_DiaItem == null || !ref_DiaItem.IsValid || ref_DiaItem.BaseAddress == IntPtr.Zero)
 		    {
                 //Logger.Write(LogLevel.Cache, "Reference DiaItem not valid for {0}", DebugStringSimple);
+                _IsStillValid = false;
                 return false;
 		    }
 		    if (ref_DiaItem.CommonData == null)
 		    {
                 //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData is null {0}", DebugStringSimple);
+                _IsStillValid = false;
                 return false;
 		    }
 		    if (!ref_DiaItem.CommonData.IsValid)
 		    {
                 //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData not valid for {0}", DebugStringSimple);
+                _IsStillValid = false;
                 return false;
 		    }
 		    if (ref_DiaItem.CommonData.ACDGuid == -1)
 		    {
                 //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData ACDGuid is -1 {0}", DebugStringSimple);
+                _IsStillValid = false;
                 return false;
 		    }
 				

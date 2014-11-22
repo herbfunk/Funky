@@ -117,45 +117,68 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			//}
 
 			if ((ObjectCache.CheckFlag(targetType.Value, TargetType.Interactables))
-				 && (!this.GizmoHasBeenUsed.HasValue || !this.GizmoHasBeenUsed.Value))
+				 && (!GizmoHasBeenUsed.HasValue || !GizmoHasBeenUsed.Value))
 			{
 				try
 				{
+				    bool updatedProperty = false;
+					if (Gizmotype.Value == GizmoType.PowerUp)
+					{
+                        try
+                        {
+                            GizmoShrine gizmoShrine = ref_Gizmo as GizmoShrine;
+                            GizmoHasBeenUsed = gizmoShrine.GizmoState == 1;
+                            updatedProperty = true;
+                        }
+                        catch (NullReferenceException ex)
+                        {
 
-					if (base.Gizmotype.Value == GizmoType.PowerUp)
-					{
-						//this.HandleAsAvoidanceObject = true;
-						GizmoShrine gizmoShrine = this.ref_Gizmo as GizmoShrine;
-						this.GizmoHasBeenUsed = gizmoShrine.GizmoState == 1;
+                        }
 					}
-					else if (base.Gizmotype.Value == GizmoType.HealingWell)
+					else if (Gizmotype.Value == GizmoType.HealingWell)
 					{
-						//this.HandleAsAvoidanceObject = true;
-						GizmoHealthwell gizmoHealthWell = this.ref_Gizmo as GizmoHealthwell;
-						this.GizmoHasBeenUsed = gizmoHealthWell.HasBeenOperated;
-					}
-					else if (base.Gizmotype.Value == GizmoType.Door)
-					{
-						GizmoDoor gizmoDoor = this.ref_Gizmo as GizmoDoor;
-						this.GizmoHasBeenUsed = gizmoDoor.HasBeenOperated;
-						//this.HandleAsAvoidanceObject = true;
-					}
-					else if (base.Gizmotype.Value == GizmoType.Chest)
-					{
-						//if (this.IsChestContainer)
-						//this.HandleAsAvoidanceObject = true;
+                        try
+                        {
+                            GizmoHealthwell gizmoHealthWell = ref_Gizmo as GizmoHealthwell;
+                            GizmoHasBeenUsed = gizmoHealthWell.HasBeenOperated;
+                            updatedProperty = true;
+                        }
+                        catch (NullReferenceException ex)
+                        {
 
-						GizmoLootContainer gizmoContainer = this.ref_Gizmo as GizmoLootContainer;
-						this.GizmoHasBeenUsed = gizmoContainer.IsOpen;
+                        }
 					}
-					else if (Gizmotype.Value == GizmoType.Switch)
+					else if (Gizmotype.Value == GizmoType.Door)
 					{
-						this.GizmoHasBeenUsed = this.ref_Gizmo.HasBeenOperated;
+                        try
+                        {
+                            GizmoDoor gizmoDoor = ref_Gizmo as GizmoDoor;
+                            GizmoHasBeenUsed = gizmoDoor.HasBeenOperated;
+                            updatedProperty = true;
+                        }
+                        catch (NullReferenceException ex)
+                        {
+
+                        }
 					}
-					else if (Gizmotype.Value == GizmoType.PoolOfReflection)
+					else if (Gizmotype.Value == GizmoType.Chest)
 					{
-						this.GizmoHasBeenUsed = this.ref_Gizmo.HasBeenOperated;
+                        try
+                        {
+                            GizmoLootContainer gizmoContainer = ref_Gizmo as GizmoLootContainer;
+                            GizmoHasBeenUsed = gizmoContainer.IsOpen;
+                            updatedProperty = true;
+                        }
+                        catch (NullReferenceException ex)
+                        {
+
+                        }
 					}
+
+				    if (!updatedProperty)
+				    {
+                        GizmoHasBeenUsed = ref_Gizmo.HasBeenOperated;
+				    }
 				}
 				catch
 				{
@@ -167,7 +190,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 
 				//Used Doors we remove from obstacle cache!
-				if (Gizmotype.Value == GizmoType.Door && GizmoHasBeenUsed.HasValue && GizmoHasBeenUsed.Value && ObjectCache.Obstacles.ContainsKey(RAGUID))
+				if (Gizmotype.Value == GizmoType.Door && GizmoHasBeenUsed.Value && ObjectCache.Obstacles.ContainsKey(RAGUID))
 				{
 					ObjectCache.Obstacles.Remove(RAGUID);
 					Obstacletype = ObstacleType.None;
@@ -246,10 +269,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 		public override bool IsStillValid()
 		{
-			if (ref_Gizmo == null || !ref_Gizmo.IsValid || ref_Gizmo.BaseAddress == IntPtr.Zero)
-				return false;
+		    if (ref_Gizmo == null || !ref_Gizmo.IsValid || ref_Gizmo.BaseAddress == IntPtr.Zero)
+		    {
+		        _IsStillValid = false;
+                return false;
+		    }
 
-			return base.IsStillValid();
+		    return base.IsStillValid();
 		}
 
 		public override string DebugString

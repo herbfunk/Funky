@@ -80,10 +80,14 @@ namespace fBaseXtensions.Game.Hero.Skills
 
 			if (SuccessUsed.HasValue && SuccessUsed.Value)
 			{
-				OnSuccessfullyUsed();
+			    _failureToUseCounter = 0;
+                OnSuccessfullyUsed();
+
 			}
 			else
 			{
+			    _lastFailureDateTime = DateTime.Now;
+			    _failureToUseCounter++;
 				PowerCacheLookup.dictAbilityLastFailed[Power] = DateTime.Now;
 			}
 
@@ -305,7 +309,15 @@ namespace fBaseXtensions.Game.Hero.Skills
 		}
 		private double _cooldown = 0;
 
-
+        /// <summary>
+        /// Adds/Updates Entries to the object it was used upon. (Power/Date)
+        /// </summary>
+        public virtual bool ShouldTrack
+        {
+            get { return _shouldtrack; }
+            set { _shouldtrack = value; }
+        }
+        private bool _shouldtrack = false;
 
 
 		///<summary>
@@ -315,16 +327,22 @@ namespace fBaseXtensions.Game.Hero.Skills
 
 		public bool IsCombat { get; set; }
 
-		/// <summary>
-		/// Adds/Updates Entries to the object it was used upon. (Power/Date)
-		/// </summary>
-		public virtual bool ShouldTrack
-		{
-			get { return _shouldtrack; }
-			set { _shouldtrack = value; }
-		}
-		private bool _shouldtrack = false;
+	   
+	    
 
+        public int FailureToUseCounter
+        {
+            get { return _failureToUseCounter; }
+            set { _failureToUseCounter = value; }
+        }
+        private int _failureToUseCounter=0;
+
+        public DateTime LastFailureDateTime
+        {
+            get { return _lastFailureDateTime; }
+            set { _lastFailureDateTime = value; }
+        }
+        private DateTime _lastFailureDateTime=DateTime.Now;
 		#endregion
 
         
@@ -653,7 +671,8 @@ namespace fBaseXtensions.Game.Hero.Skills
 				}
 				else
 				{
-					ability.TargetACDGUID = FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.Value;
+                    if (FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.HasValue)
+					    ability.TargetACDGUID = FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.Value;
 				}
 
 				return;
@@ -667,7 +686,9 @@ namespace fBaseXtensions.Game.Hero.Skills
 				if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTarget) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster ACDGUID
 				{
 					ClusterUnit = FunkyGame.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].GetNearestUnitToCenteroid();
-					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
+                    if (ClusterUnit.AcdGuid.HasValue)
+                        ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
+
 					ability.Target_ = ClusterUnit;
 					return;
 				}
@@ -687,7 +708,9 @@ namespace fBaseXtensions.Game.Hero.Skills
 				if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTargetNearest) && CheckClusterConditions(ability.LastClusterConditionSuccessful)) //Cluster Target Position
 				{
 					ClusterUnit = FunkyGame.Targeting.Cache.Clusters.AbilityClusterCache(ability.LastClusterConditionSuccessful)[0].ListUnits[0];
-					ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
+                    if (ClusterUnit.AcdGuid.HasValue)
+                        ability.TargetACDGUID = ClusterUnit.AcdGuid.Value;
+
 					ability.Target_ = ClusterUnit;
 					return;
 				}
@@ -709,8 +732,11 @@ namespace fBaseXtensions.Game.Hero.Skills
 			}
 			else if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.Target)) //Current Target ACDGUID
 			{
-				ability.Target_ = FunkyGame.Targeting.Cache.CurrentUnitTarget;
-				ability.TargetACDGUID = FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.Value;
+                if (FunkyGame.Targeting.Cache.CurrentUnitTarget!=null)
+			        ability.Target_ = FunkyGame.Targeting.Cache.CurrentUnitTarget;
+
+                if (FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.HasValue)
+				    ability.TargetACDGUID = FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.Value;
 			}
 		}
 
@@ -789,6 +815,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 									  "Range={2} ReuseMS={3} Priority [{4}] UseType [{5}] Usage {6} \r\n" +
 									  "Last Condition {7} -- Last Used {8} \r\n" +
 									  "Used Successfully=[{9}] -- CanCastFlags={10}\r\n" +
+			                          "Last Failed Use=[{20}secs] Total Failure Count={21}\r\n" +
 									  "IsPrimarySkill {11} IsBuff {12} IsDestructiblePower {13}\r\n" +
 									  "IsRanged {14} IsProjectile {15}\r\n" +
 			                          "{16}{17}{18}{19}",
@@ -802,7 +829,8 @@ namespace fBaseXtensions.Game.Hero.Skills
                                     IsSpecialAbility?" IsSpecialAbility ":"",
                                     ShouldTrack?" ShouldTrack ":"",
                                     IsChanneling?" IsChanneling ":"",
-                                    IsMovementSkill?" IsMovementSkill ":"");
+                                    IsMovementSkill?" IsMovementSkill ":"",
+                                    DateTime.Now.Subtract(LastFailureDateTime).TotalSeconds, FailureToUseCounter);
 		}
 
 
@@ -816,9 +844,9 @@ namespace fBaseXtensions.Game.Hero.Skills
 			get { return SNOPower.None; }
 		}
 
+	    
 
-
-		#endregion
+	    #endregion
 
 
 		#region Skill Logic Functions

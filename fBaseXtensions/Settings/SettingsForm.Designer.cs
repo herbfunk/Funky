@@ -317,6 +317,9 @@
             this.btn_DumpInventory = new System.Windows.Forms.Button();
             this.btn_Test = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.comboBox_SettingFiles = new System.Windows.Forms.ComboBox();
+            this.button_saveSettings = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl_Combat.SuspendLayout();
@@ -424,6 +427,7 @@
             this.tabPage15.SuspendLayout();
             this.tabPage16.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.panel23.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -436,10 +440,10 @@
             this.tabControl1.Controls.Add(this.tabPage15);
             this.tabControl1.Controls.Add(this.tabPage16);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(0, 47);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(679, 587);
+            this.tabControl1.Size = new System.Drawing.Size(679, 650);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -448,7 +452,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(671, 561);
+            this.tabPage1.Size = new System.Drawing.Size(671, 624);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Combat";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -470,7 +474,7 @@
             this.tabControl_Combat.Location = new System.Drawing.Point(3, 3);
             this.tabControl_Combat.Name = "tabControl_Combat";
             this.tabControl_Combat.SelectedIndex = 0;
-            this.tabControl_Combat.Size = new System.Drawing.Size(665, 555);
+            this.tabControl_Combat.Size = new System.Drawing.Size(665, 618);
             this.tabControl_Combat.TabIndex = 0;
             // 
             // tabPage3
@@ -480,7 +484,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(657, 529);
+            this.tabPage3.Size = new System.Drawing.Size(657, 592);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "General";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1397,7 +1401,7 @@
             this.tabPage_Barbarian.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Barbarian.Name = "tabPage_Barbarian";
             this.tabPage_Barbarian.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Barbarian.Size = new System.Drawing.Size(657, 529);
+            this.tabPage_Barbarian.Size = new System.Drawing.Size(657, 592);
             this.tabPage_Barbarian.TabIndex = 5;
             this.tabPage_Barbarian.Text = "Barbarian";
             this.tabPage_Barbarian.UseVisualStyleBackColor = true;
@@ -1469,7 +1473,7 @@
             this.tabPage_Monk.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Monk.Name = "tabPage_Monk";
             this.tabPage_Monk.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Monk.Size = new System.Drawing.Size(657, 529);
+            this.tabPage_Monk.Size = new System.Drawing.Size(657, 592);
             this.tabPage_Monk.TabIndex = 7;
             this.tabPage_Monk.Text = "Monk";
             this.tabPage_Monk.UseVisualStyleBackColor = true;
@@ -1499,7 +1503,7 @@
             this.tabPage_WitchDoctor.Location = new System.Drawing.Point(4, 22);
             this.tabPage_WitchDoctor.Name = "tabPage_WitchDoctor";
             this.tabPage_WitchDoctor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_WitchDoctor.Size = new System.Drawing.Size(657, 529);
+            this.tabPage_WitchDoctor.Size = new System.Drawing.Size(657, 592);
             this.tabPage_WitchDoctor.TabIndex = 8;
             this.tabPage_WitchDoctor.Text = "Witch Doctor";
             this.tabPage_WitchDoctor.UseVisualStyleBackColor = true;
@@ -1514,7 +1518,7 @@
             this.tabPage_Wizard.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Wizard.Name = "tabPage_Wizard";
             this.tabPage_Wizard.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Wizard.Size = new System.Drawing.Size(657, 529);
+            this.tabPage_Wizard.Size = new System.Drawing.Size(657, 592);
             this.tabPage_Wizard.TabIndex = 9;
             this.tabPage_Wizard.Text = "Wizard";
             this.tabPage_Wizard.UseVisualStyleBackColor = true;
@@ -1574,7 +1578,7 @@
             this.tabPage_Crusader.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Crusader.Name = "tabPage_Crusader";
             this.tabPage_Crusader.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Crusader.Size = new System.Drawing.Size(657, 529);
+            this.tabPage_Crusader.Size = new System.Drawing.Size(657, 592);
             this.tabPage_Crusader.TabIndex = 10;
             this.tabPage_Crusader.Text = "Crusader";
             this.tabPage_Crusader.UseVisualStyleBackColor = true;
@@ -1587,7 +1591,7 @@
             this.tabPage_DemonHunter.Location = new System.Drawing.Point(4, 22);
             this.tabPage_DemonHunter.Name = "tabPage_DemonHunter";
             this.tabPage_DemonHunter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_DemonHunter.Size = new System.Drawing.Size(657, 529);
+            this.tabPage_DemonHunter.Size = new System.Drawing.Size(657, 592);
             this.tabPage_DemonHunter.TabIndex = 11;
             this.tabPage_DemonHunter.Text = "Demon hunter";
             this.tabPage_DemonHunter.UseVisualStyleBackColor = true;
@@ -1627,7 +1631,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(671, 561);
+            this.tabPage2.Size = new System.Drawing.Size(671, 624);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Targeting";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1641,7 +1645,7 @@
             this.tabControl3.Location = new System.Drawing.Point(3, 3);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(665, 555);
+            this.tabControl3.Size = new System.Drawing.Size(665, 618);
             this.tabControl3.TabIndex = 0;
             // 
             // tabPage4
@@ -1650,7 +1654,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(657, 529);
+            this.tabPage4.Size = new System.Drawing.Size(657, 592);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "General";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2219,7 +2223,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(671, 561);
+            this.tabPage7.Size = new System.Drawing.Size(671, 624);
             this.tabPage7.TabIndex = 2;
             this.tabPage7.Text = "General";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -2234,7 +2238,7 @@
             this.tabControl2.Location = new System.Drawing.Point(3, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(665, 555);
+            this.tabControl2.Size = new System.Drawing.Size(665, 618);
             this.tabControl2.TabIndex = 0;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
@@ -2246,7 +2250,7 @@
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(657, 529);
+            this.tabPage12.Size = new System.Drawing.Size(657, 482);
             this.tabPage12.TabIndex = 0;
             this.tabPage12.Text = "Misc";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -2434,7 +2438,7 @@
             this.tabPage17.Location = new System.Drawing.Point(4, 22);
             this.tabPage17.Name = "tabPage17";
             this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage17.Size = new System.Drawing.Size(657, 529);
+            this.tabPage17.Size = new System.Drawing.Size(657, 592);
             this.tabPage17.TabIndex = 1;
             this.tabPage17.Text = "Adventure Mode";
             this.tabPage17.UseVisualStyleBackColor = true;
@@ -2451,7 +2455,7 @@
             this.groupBox16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox16.Location = new System.Drawing.Point(3, 70);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(651, 456);
+            this.groupBox16.Size = new System.Drawing.Size(651, 519);
             this.groupBox16.TabIndex = 20;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Gem Upgrading";
@@ -3242,7 +3246,7 @@
             this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(671, 561);
+            this.tabPage14.Size = new System.Drawing.Size(671, 514);
             this.tabPage14.TabIndex = 4;
             this.tabPage14.Text = "Advanced";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -3531,13 +3535,44 @@
             this.toolTip1.InitialDelay = 1000;
             this.toolTip1.ReshowDelay = 500;
             // 
+            // panel23
+            // 
+            this.panel23.Controls.Add(this.button_saveSettings);
+            this.panel23.Controls.Add(this.comboBox_SettingFiles);
+            this.panel23.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel23.Location = new System.Drawing.Point(0, 0);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(679, 47);
+            this.panel23.TabIndex = 2;
+            // 
+            // comboBox_SettingFiles
+            // 
+            this.comboBox_SettingFiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_SettingFiles.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comboBox_SettingFiles.FormattingEnabled = true;
+            this.comboBox_SettingFiles.Location = new System.Drawing.Point(408, 12);
+            this.comboBox_SettingFiles.Name = "comboBox_SettingFiles";
+            this.comboBox_SettingFiles.Size = new System.Drawing.Size(259, 21);
+            this.comboBox_SettingFiles.TabIndex = 0;
+            // 
+            // button_saveSettings
+            // 
+            this.button_saveSettings.Location = new System.Drawing.Point(327, 10);
+            this.button_saveSettings.Name = "button_saveSettings";
+            this.button_saveSettings.Size = new System.Drawing.Size(75, 23);
+            this.button_saveSettings.TabIndex = 1;
+            this.button_saveSettings.Text = "Save";
+            this.button_saveSettings.UseVisualStyleBackColor = true;
+            this.button_saveSettings.Click += new System.EventHandler(this.button_saveSettings_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(679, 587);
+            this.ClientSize = new System.Drawing.Size(679, 697);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.panel23);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -3708,6 +3743,7 @@
             this.tabPage16.ResumeLayout(false);
             this.tabPage16.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
@@ -4005,6 +4041,9 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.TextBox textBox_LOS_MaxRange;
         private System.Windows.Forms.TrackBar trackBar_LOS_MaxRange;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.ComboBox comboBox_SettingFiles;
+        private System.Windows.Forms.Button button_saveSettings;
 		//
 	}
 }

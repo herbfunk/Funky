@@ -591,9 +591,12 @@ namespace fBaseXtensions.Game.Hero.Class
 
 		internal void HotbarSkillsChangedHandler()
 		{
-			Logger.DBLog.InfoFormat("Hotbar Skills have changed.");
-			FunkyGame.Hero.Class.RecreateAbilities();
-			ShouldRecreatePlayerClass = true;
+		    if (FunkyGame.Hero.Class != null)
+		    {
+                Logger.DBLog.InfoFormat("Hotbar Skills have changed.");
+                FunkyGame.Hero.Class.RecreateAbilities();
+                ShouldRecreatePlayerClass = true;
+		    }
 		}
 	}
 

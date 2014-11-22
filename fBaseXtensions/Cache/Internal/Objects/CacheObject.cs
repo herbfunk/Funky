@@ -241,7 +241,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 		public virtual void UpdatePosition(bool force = false)
 		{
-			if (!force)
+            if (!force || (UnitPropertyFlags.HasValue && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stationary)))
 			{
 				double lastUpdated=DateTime.Now.Subtract(lastUpdatedPosition).TotalMilliseconds;
 
@@ -406,22 +406,26 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				return true;
 			}
 		}
+
+	    internal bool _IsStillValid = true;
 		public virtual bool IsStillValid()
 		{
 			//Check DiaObject first
 		    if (ref_DiaObject == null || !ref_DiaObject.IsValid || ref_DiaObject.BaseAddress == IntPtr.Zero)
 		    {
                 //Logger.Write(LogLevel.Cache, "Reference DiaObject not valid for {0}", DebugStringSimple);
+		        _IsStillValid = false;
                 return false;
 		    }
 
 		    if (ref_DiaObject.CommonData == null || !ref_DiaObject.CommonData.IsValid || ref_DiaObject.CommonData.ACDGuid == -1)
 		    {
                 //Logger.Write(LogLevel.Cache, "Reference DiaObject -- CommonData not valid for {0}", DebugStringSimple);
+                _IsStillValid = false;
                 return false;
 		    }
-				
 
+            _IsStillValid = true;
 			return true;
 		}
 		#endregion
@@ -784,11 +788,12 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				                     "\r\nSnoAnim={9} -- AnimState={10}" +
 				                     "\r\nReqLOS={4} -- {5} -- [LOSV3: {6}]" +
 				                     "\r\nBotFacing={7}" +
-									 "\r\nBlackListLoops[{8}] UnseenLoops[{11}] IgnoreReason: {12} NeedsRemoved: {15} RemovalType: {17}\r\n",
+									 "\r\nBlackListLoops[{8}] UnseenLoops[{11}]\r\n" +
+                                     "IgnoreReason: {12} NeedsRemoved: {15} RemovalType: {17} IsStillValid: {18}\r\n" ,
 					  RAGUID.ToString(CultureInfo.InvariantCulture), base.DebugString, CentreDistance.ToString(CultureInfo.InvariantCulture), RadiusDistance.ToString(CultureInfo.InvariantCulture),
 					  RequiresLOSCheck, LineOfSight != null ? String.Format("-- {0} --", LineOfSight.DebugString) : "", LOSV3,
 					  BotIsFacing(), BlacklistLoops.ToString(CultureInfo.InvariantCulture), SnoAnim, AnimState, LoopsUnseen, IgnoredType,
-					  DateTime.Now.Subtract(CreationTime).TotalSeconds, Position.ToString(), NeedsRemoved, Weight, RemovalType);
+					  DateTime.Now.Subtract(CreationTime).TotalSeconds, Position.ToString(), NeedsRemoved, Weight, RemovalType, _IsStillValid);
 			}
 		}
 

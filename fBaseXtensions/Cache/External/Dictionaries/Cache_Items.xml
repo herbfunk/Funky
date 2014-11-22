@@ -1556,6 +1556,13 @@
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>193749</SnoId>
+      <InternalName>mightyWeapon_2H_norm_unique_flippy_01</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>4878</SnoId>
       <InternalName>Polearm_norm_base_flippy_06-7575</InternalName>
       <ActorType>Item</ActorType>

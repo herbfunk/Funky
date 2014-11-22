@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Documents;
 using System.Xml.Serialization;
 using fBaseXtensions.Game;
 using fBaseXtensions.Helpers;
@@ -54,14 +57,19 @@ namespace fBaseXtensions.Settings
 
 
 
-			CreateClassSettings();
+            CreateClassSettings(FunkyGame.CurrentActorClass);
 		}
 
-		public void CreateClassSettings()
+	    public void CreateClassSettings()
+	    {
+            CreateClassSettings(FunkyGame.CurrentActorClass);
+	    }
+
+	    public void CreateClassSettings(ActorClass actorclass)
 		{
-			if (FunkyGame.CurrentActorClass != ActorClass.Invalid)
+            if (actorclass != ActorClass.Invalid)
 			{
-				switch (FunkyGame.CurrentActorClass)
+                switch (actorclass)
 				{
 					case ActorClass.Barbarian:
 						Barbarian = new SettingBarbarian();
@@ -85,6 +93,20 @@ namespace fBaseXtensions.Settings
 			}
 		}
 
+	    internal static List<string> ReturnAllSettingFiles()
+	    {
+	        var files = Directory.EnumerateFiles(FolderPaths.sFunkySettingsPath).ToList();
+	        List<string> settingFiles = new List<string>();
+	        foreach (var f in files)
+	        {
+	            if (f.EndsWith("_Plugin.xml"))
+	            {
+                    settingFiles.Add(f.Replace(FolderPaths.sFunkySettingsPath + @"\",""));
+	            }
+	        }
+
+	        return settingFiles;
+	    }
 		internal static string sFunkySettingsCurrentPath
 		{
 			get
@@ -106,10 +128,16 @@ namespace fBaseXtensions.Settings
 
 			FunkyBaseExtension.Settings = DeserializeFromXML(sFunkySettingsCurrentPath);
 		}
-		public static void SerializeToXML(PluginSettings settings)
+
+	    public static void SerializeToXML(PluginSettings settings)
+	    {
+            SerializeToXML(settings, sFunkySettingsCurrentPath);
+	    }
+
+	    public static void SerializeToXML(PluginSettings settings, string path)
 		{
 			XmlSerializer serializer = new XmlSerializer(typeof(PluginSettings));
-			TextWriter textWriter = new StreamWriter(sFunkySettingsCurrentPath);
+            TextWriter textWriter = new StreamWriter(path);
 			serializer.Serialize(textWriter, settings);
 			textWriter.Close();
 		}

@@ -113,7 +113,13 @@ namespace fBaseXtensions.Behaviors
 		internal static bool TallyedDeathCounter = false;
 		internal static bool TallyDeathCanRunDecorator(object ret)
 		{
-			return !TallyedDeathCounter;
+            return ZetaDia.Me != null &&
+                ZetaDia.Me.IsValid &&
+                ZetaDia.Service.IsValid &&
+                ZetaDia.IsInGame &&
+                !ZetaDia.IsLoadingWorld &&
+                ZetaDia.Me.IsDead && 
+                !TallyedDeathCounter;
 		}
 		internal static RunStatus TallyDeathAction(object ret)
 		{

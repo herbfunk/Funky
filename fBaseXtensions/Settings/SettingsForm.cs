@@ -35,637 +35,902 @@ namespace fBaseXtensions.Settings
 		{
 			InitializeComponent();
 
-			try
-			{
+		    var settingFiles = PluginSettings.ReturnAllSettingFiles();
+		    int settingIndex = 0;
+
+            foreach (var s in settingFiles)
+            {
+                comboBox_SettingFiles.Items.Add(s);
+                if (s == FunkyGame.CurrentHeroName + "_Plugin.xml")
+                    settingIndex = comboBox_SettingFiles.Items.Count - 1;
+            }
+		    comboBox_SettingFiles.SelectedIndex = settingIndex;
+		    comboBox_SettingFiles.SelectedIndexChanged += comboBox_SettingFiles_SelectedIndexChanged;
+		    initalizeControls();
+		   
 
-				tb_GlobeHealth.Value = (int)(FunkyBaseExtension.Settings.Combat.GlobeHealthPercent * 100);
-				tb_GlobeHealth.ValueChanged += tb_GlobeHealth_ValueChanged;
-
-				tb_PotionHealth.Value = (int)(FunkyBaseExtension.Settings.Combat.PotionHealthPercent * 100);
-				tb_PotionHealth.ValueChanged += tb_PotionHealth_ValueChanged;
-
-				tb_WellHealth.Value = (int)(FunkyBaseExtension.Settings.Combat.HealthWellHealthPercent * 100);
-				tb_WellHealth.ValueChanged += tb_WellHealth_ValueChanged;
-
-				txt_GlobeHealth.Text = FunkyBaseExtension.Settings.Combat.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
-				txt_WellHealth.Text = FunkyBaseExtension.Settings.Combat.HealthWellHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
-				txt_PotionHealth.Text = FunkyBaseExtension.Settings.Combat.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
-
-				cb_CombatMovementGlobes.Checked = FunkyBaseExtension.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Globe);
-				cb_CombatMovementGlobes.CheckedChanged += MovementTargetGlobeChecked;
-
-				cb_CombatMovementGold.Checked = FunkyBaseExtension.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Gold);
-				cb_CombatMovementGold.CheckedChanged += MovementTargetGoldChecked;
-
-				cb_CombatMovementItems.Checked = FunkyBaseExtension.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Item);
-				cb_CombatMovementItems.CheckedChanged += MovementTargetItemChecked;
-
-				cb_CombatAllowDefaultAttack.Checked = FunkyBaseExtension.Settings.Combat.AllowDefaultAttackAlways;
-				cb_CombatAllowDefaultAttack.CheckedChanged += AllowDefaultAttackAlwaysChecked;
-
-				cb_MovementOutOfCombatSkills.Checked = FunkyBaseExtension.Settings.General.OutOfCombatMovement;
-				cb_MovementOutOfCombatSkills.CheckedChanged += OutOfCombatMovementChecked;
-
-				cb_ClusterTargetLogic.Checked = FunkyBaseExtension.Settings.Cluster.EnableClusteringTargetLogic;
-				cb_ClusterTargetLogic.CheckedChanged += cb_ClusterTargetLogic_CheckedChanged;
-				gb_ClusteringOptions.Enabled = FunkyBaseExtension.Settings.Cluster.EnableClusteringTargetLogic;
-
-				txt_ClusterLogicDisableHealth.Text = FunkyBaseExtension.Settings.Cluster.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture);
-				txt_ClusterLogicDistance.Text = FunkyBaseExtension.Settings.Cluster.ClusterDistance.ToString("F2", CultureInfo.InvariantCulture);
-				txt_ClusterLogicMinimumUnits.Text = FunkyBaseExtension.Settings.Cluster.ClusterMinimumUnitCount.ToString("F2", CultureInfo.InvariantCulture);
-
-				tb_ClusterLogicDisableHealth.Value = (int)(FunkyBaseExtension.Settings.Cluster.IgnoreClusterLowHPValue * 100);
-				tb_ClusterLogicDisableHealth.ValueChanged += tb_ClusterLogicDisableHealth_ValueChanged;
-
-				tb_ClusterLogicDistance.Value = (int)(FunkyBaseExtension.Settings.Cluster.ClusterDistance);
-				tb_ClusterLogicDistance.ValueChanged += tb_ClusterLogicDistance_ValueChanged;
-
-				tb_ClusterLogicMinimumUnits.Value = (int)(FunkyBaseExtension.Settings.Cluster.ClusterMinimumUnitCount);
-				tb_ClusterLogicMinimumUnits.ValueChanged += tb_ClusterLogicMinimumUnits_ValueChanged;
-
-				cb_ClusterUnitException_RareElite.Checked = FunkyBaseExtension.Settings.Cluster.UnitException_RareElites;
-				cb_ClusterUnitException_RareElite.CheckedChanged += cb_ClusterUnitException_RareElite_Checked;
-
-				var unitflagValues = Enum.GetValues(typeof(UnitFlags));
-				Func<object, string> fRetrieveunitflagNames = s => Enum.GetName(typeof(UnitFlags), s);
-				bool noUnitFlags = FunkyBaseExtension.Settings.Cluster.UnitExceptions.Equals(UnitFlags.None);
-				foreach (var logLevel in unitflagValues)
-				{
-					UnitFlags thisloglevel = (UnitFlags)logLevel;
-					if (thisloglevel.Equals(UnitFlags.None)) continue;
-
-					string loglevelName = fRetrieveunitflagNames(logLevel);
-					CheckBox cb = new CheckBox
-					{
-						Name = loglevelName,
-						Text = loglevelName,
-						Font = cb_ClusterUnitException_RareElite.Font,
-						FlatStyle = cb_ClusterUnitException_RareElite.FlatStyle,
-						AutoEllipsis = cb_ClusterUnitException_RareElite.AutoEllipsis,
-						AutoSize = cb_ClusterUnitException_RareElite.AutoSize,
-						Checked = !noUnitFlags && FunkyBaseExtension.Settings.Cluster.UnitExceptions.HasFlag(thisloglevel),
-					};
-					cb.CheckedChanged += ClusterUnitExceptionsChanged;
-
-					flowLayoutPanel_ClusteringUnitExceptions.Controls.Add(cb);
-				}
-
-				cb_GroupingLogic.Checked = FunkyBaseExtension.Settings.Grouping.AttemptGroupingMovements;
-				cb_GroupingLogic.CheckedChanged += GroupingBehaviorChecked;
-
-				txt_GroupingMaxDistance.Text = FunkyBaseExtension.Settings.Grouping.GroupingMaximumDistanceAllowed.ToString();
-				txt_GroupingMinBotHealth.Text = FunkyBaseExtension.Settings.Grouping.GroupingMinimumBotHealth.ToString("F2", CultureInfo.InvariantCulture);
-				txt_GroupingMinCluster.Text = FunkyBaseExtension.Settings.Grouping.GroupingMinimumClusterCount.ToString();
-				txt_GroupingMinDistance.Text = FunkyBaseExtension.Settings.Grouping.GroupingMinimumUnitDistance.ToString();
-				txt_GroupingMinUnitsInCluster.Text = FunkyBaseExtension.Settings.Grouping.GroupingMinimumUnitsInCluster.ToString();
-
-				tb_GroupingMaxDistance.Value = FunkyBaseExtension.Settings.Grouping.GroupingMaximumDistanceAllowed;
-				tb_GroupingMaxDistance.ValueChanged += GroupMaxDistanceSliderChanged;
-
-				tb_GroupingMinBotHealth.Value = (int)(FunkyBaseExtension.Settings.Grouping.GroupingMinimumBotHealth * 100);
-				tb_GroupingMinBotHealth.ValueChanged += GroupBotHealthSliderChanged;
-
-				tb_GroupingMinCluster.Value = FunkyBaseExtension.Settings.Grouping.GroupingMinimumClusterCount;
-				tb_GroupingMinCluster.ValueChanged += GroupMinimumClusterCountSliderChanged;
-
-				tb_GroupingMinDistance.Value = FunkyBaseExtension.Settings.Grouping.GroupingMinimumUnitDistance;
-				tb_GroupingMinDistance.ValueChanged += GroupMinimumUnitDistanceSliderChanged;
-
-				tb_GroupingMinUnitsInCluster.Value = FunkyBaseExtension.Settings.Grouping.GroupingMinimumUnitsInCluster;
-				tb_GroupingMinUnitsInCluster.ValueChanged += GroupMinimumUnitsInClusterSliderChanged;
-
-				cb_AvoidanceLogic.Checked = FunkyBaseExtension.Settings.Avoidance.AttemptAvoidanceMovements;
-				cb_AvoidanceLogic.CheckedChanged += AvoidanceAttemptMovementChecked;
-
-				AvoidanceValue[] avoidanceValues = FunkyBaseExtension.Settings.Avoidance.Avoidances.ToArray();
-				TBavoidanceHealth = new TextBox[avoidanceValues.Length - 1];
-				TBavoidanceRadius = new TextBox[avoidanceValues.Length - 1];
-				TBavoidanceWeight = new TextBox[avoidanceValues.Length - 1];
-
-				int alternatingColor = 0;
-				for (int i = 0; i < avoidanceValues.Length - 1; i++)
-				{
-					UserControlAvoidance ac = new UserControlAvoidance(i);
-
-					flowLayoutPanel_Avoidances.Controls.Add(ac);
-
-					alternatingColor++;
-				}
-
-				cb_EnableFleeing.Checked = FunkyBaseExtension.Settings.Fleeing.EnableFleeingBehavior;
-				cb_EnableFleeing.CheckedChanged += cb_EnableFleeing_CheckedChanged;
-
-				trackbar_FleeMaxMonsterDistance.Value = FunkyBaseExtension.Settings.Fleeing.FleeMaxMonsterDistance;
-				trackbar_FleeMaxMonsterDistance.ValueChanged += trackbar_FleeMaxMonsterDistance_ValueChanged;
-
-				txt_FleeMaxMonsterDistance.Text = FunkyBaseExtension.Settings.Fleeing.FleeMaxMonsterDistance.ToString();
-
-				trackbar_FleeBotMinHealth.Value = (int)(FunkyBaseExtension.Settings.Fleeing.FleeBotMinimumHealthPercent * 100);
-				trackbar_FleeBotMinHealth.ValueChanged += trackbar_FleeBotMinHealth_ValueChanged;
-
-				txt_FleeBotMinHealth.Text = FunkyBaseExtension.Settings.Fleeing.FleeBotMinimumHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
-				groupBox_FleeOptions.Enabled = FunkyBaseExtension.Settings.Fleeing.EnableFleeingBehavior;
-
-
-				cb_FleeUnitElectrified.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitElectrified;
-				cb_FleeUnitElectrified.CheckedChanged += cb_FleeUnitElectrified_CheckedChanged;
-
-				cb_FleeUnitFast.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitIgnoreFast;
-				cb_FleeUnitFast.CheckedChanged += cb_FleeUnitFast_CheckedChanged;
-
-				cb_FleeUnitNormal.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitNormal;
-				cb_FleeUnitNormal.CheckedChanged += cb_FleeUnitNormal_CheckedChanged;
-
-				cb_FleeUnitRanged.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitIgnoreRanged;
-				cb_FleeUnitRanged.CheckedChanged += cb_FleeUnitRanged_CheckedChanged;
-
-				cb_FleeUnitRareElite.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitRareElite;
-				cb_FleeUnitRareElite.CheckedChanged += cb_FleeUnitRareElite_CheckedChanged;
-
-				cb_FleeUnitSucideBomber.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitIgnoreSucideBomber;
-				cb_FleeUnitSucideBomber.CheckedChanged += cb_FleeUnitSucideBomber_CheckedChanged;
-
-				cb_FleeUnitAboveAverageHitPoints.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitAboveAverageHitPoints;
-				cb_FleeUnitAboveAverageHitPoints.CheckedChanged += cb_FleeUnitAboveAverageHitPoints_CheckedChanged;
-
-
-				List<TabPage> RemovalTabPages = new List<TabPage> { tabPage_DemonHunter, tabPage_Barbarian, tabPage_Wizard, tabPage_WitchDoctor, tabPage_Monk, tabPage_Crusader };
-				switch (FunkyGame.CurrentActorClass)
-				{
-					case ActorClass.DemonHunter:
-						trackBar_DemonHunterValutDelay.Value = FunkyBaseExtension.Settings.DemonHunter.iDHVaultMovementDelay;
-						trackBar_DemonHunterValutDelay.ValueChanged += trackBar_DemonHunterValutDelay_ValueChanged;
-						txt_DemonHunterVaultDelay.Text = FunkyBaseExtension.Settings.DemonHunter.iDHVaultMovementDelay.ToString();
-						RemovalTabPages.Remove(tabPage_DemonHunter);
-						break;
-					case ActorClass.Barbarian:
-						cb_BarbFuryDumpAlways.Checked = FunkyBaseExtension.Settings.Barbarian.bBarbUseWOTBAlways;
-						cb_BarbFuryDumpAlways.CheckedChanged += cb_BarbFuryDumpAlways_CheckedChanged;
-
-						cb_BarbFuryDumpWrath.Checked = FunkyBaseExtension.Settings.Barbarian.bFuryDumpWrath;
-						cb_BarbFuryDumpWrath.CheckedChanged += cb_BarbFuryDumpWrath_CheckedChanged;
-
-						cb_BarbGoblinWrath.Checked = FunkyBaseExtension.Settings.Barbarian.bGoblinWrath;
-						cb_BarbGoblinWrath.CheckedChanged += cb_BarbGoblinWrath_CheckedChanged;
-
-						cb_BarbUseWOTBAlways.Checked = FunkyBaseExtension.Settings.Barbarian.bBarbUseWOTBAlways;
-						cb_BarbUseWOTBAlways.CheckedChanged += cb_BarbUseWOTBAlways_CheckedChanged;
-
-						cb_BarbWaitForWrath.Checked = FunkyBaseExtension.Settings.Barbarian.bWaitForWrath;
-						cb_BarbWaitForWrath.CheckedChanged += cb_BarbWaitForWrath_CheckedChanged;
-
-						cb_BarbSelectiveWhirldWind.Checked = FunkyBaseExtension.Settings.Barbarian.bSelectiveWhirlwind;
-						cb_BarbSelectiveWhirldWind.CheckedChanged += cb_BarbSelectiveWhirlwind_CheckedChanged;
-
-						RemovalTabPages.Remove(tabPage_Barbarian);
-						break;
-					case ActorClass.Wizard:
-						cb_WizardKiteOnlyArchon.Checked = FunkyBaseExtension.Settings.Wizard.bKiteOnlyArchon;
-						cb_WizardKiteOnlyArchon.CheckedChanged += cb_WizardKiteOnlyArchon_CheckedChanged;
-
-						cb_WizardTeleportFleeing.Checked = FunkyBaseExtension.Settings.Wizard.bTeleportFleeWhenLowHP;
-						cb_WizardTeleportFleeing.CheckedChanged += cb_WizardTeleportFleeing_CheckedChanged;
-
-						cb_WizardTeleportIntoGroups.Checked = FunkyBaseExtension.Settings.Wizard.bTeleportIntoGrouping;
-						cb_WizardTeleportIntoGroups.CheckedChanged += cb_WizardTeleportIntoGroups_CheckedChanged;
-
-						cb_WizardWaitForArchon.Checked = FunkyBaseExtension.Settings.Wizard.bWaitForArchon;
-						cb_WizardWaitForArchon.CheckedChanged += cb_WizardWaitForArchon_CheckedChanged;
-
-						cb_WizardCancelArchonRebuff.Checked = FunkyBaseExtension.Settings.Wizard.bCancelArchonRebuff;
-						cb_WizardCancelArchonRebuff.CheckedChanged += cb_CacnelArchonRebuff_CheckedChanged;
-
-						RemovalTabPages.Remove(tabPage_Wizard);
-						break;
-					case ActorClass.Witchdoctor:
-						RemovalTabPages.Remove(tabPage_WitchDoctor);
-						break;
-					case ActorClass.Monk:
-						cb_MonkMaintainSweepingWinds.Checked = FunkyBaseExtension.Settings.Monk.bMonkMaintainSweepingWind;
-						cb_MonkMaintainSweepingWinds.CheckedChanged += bMonkMaintainSweepingWindChecked;
-
-						cb_MonkSpamMantra.Checked = FunkyBaseExtension.Settings.Monk.bMonkSpamMantra;
-						cb_MonkSpamMantra.CheckedChanged += bMonkSpamMantraChecked;
-
-						RemovalTabPages.Remove(tabPage_Monk);
-						break;
-					case ActorClass.Crusader:
-						RemovalTabPages.Remove(tabPage_Crusader);
-						break;
-				}
-				foreach (var removalTabPage in RemovalTabPages)
-				{
-					tabControl_Combat.TabPages.Remove(removalTabPage);
-				}
-
-
-
-				cb_TargetingIgnoreCorpses.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreCorpses;
-				cb_TargetingIgnoreCorpses.CheckedChanged += cb_TargetingIgnoreCorpses_CheckedChanged;
-
-				cb_TargetingIgnoreArmorRacks.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreArmorRacks;
-				cb_TargetingIgnoreArmorRacks.CheckedChanged += cb_TargetingIgnoreArmorRacks_CheckedChanged;
-
-				cb_TargetingIgnoreWeaponRacks.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreWeaponRacks;
-				cb_TargetingIgnoreWeaponRacks.CheckedChanged += cb_TargetingIgnoreWeaponRacks_CheckedChanged;
-
-				cb_TargetingIgnoreFloorContainers.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreFloorContainers;
-				cb_TargetingIgnoreFloorContainers.CheckedChanged += cb_TargetingIgnoreFloorContainers_CheckedChanged;
-
-				cb_TargetingIgnoreNormalChests.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreNormalChests;
-				cb_TargetingIgnoreNormalChests.CheckedChanged += cb_TargetingIgnoreNormalChests_CheckedChanged;
-
-				cb_TargetingIgnoreRareChests.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreRareChests;
-				cb_TargetingIgnoreRareChests.CheckedChanged += cb_TargetingIgnoreRareChests_CheckedChanged;
-
-				cb_TargetingIgnoreRareElites.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreAboveAverageMobs;
-				cb_TargetingIgnoreRareElites.CheckedChanged += cb_TargetingIgnoreRareElites_CheckedChanged;
-
-				cb_TargetingIncreaseRangeRareChests.Checked = FunkyBaseExtension.Settings.Targeting.UseExtendedRangeRepChest;
-				cb_TargetingIncreaseRangeRareChests.CheckedChanged += cb_TargetingIncreaseRangeRareChests_CheckedChanged;
-
-				comboBox_TargetingGoblinPriority.SelectedIndex = FunkyBaseExtension.Settings.Targeting.GoblinPriority;
-				comboBox_TargetingGoblinPriority.SelectedIndexChanged += comboBox_TargetingGoblinPriority_SelectedIndexChanged;
-
-				panel_TargetingPriorityCloseRangeMinUnits.Enabled = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeUnits;
-				tb_TargetingPriorityCloseRangeUnitsCount.Value = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeMinimumUnits;
-				tb_TargetingPriorityCloseRangeUnitsCount.ValueChanged += tb_TargetingPriorityCloseRangeUnitsCount_ValueChanged;
-
-				txt_TargetingPriorityCloseRangeUnitsCount.Text = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeMinimumUnits.ToString();
-
-				cb_TargetingPrioritizeCloseRangeUnits.Checked = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeUnits;
-				cb_TargetingPrioritizeCloseRangeUnits.CheckedChanged += cb_TargetingPrioritizeCloseRangeUnits_CheckedChanged;
-
-
-				UserControlTargetRange eliteRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.EliteCombatRange, "Rare/Elite/Unique Unit Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.EliteCombatRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(eliteRange);
-
-				UserControlTargetRange normalRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.NonEliteCombatRange, "Normal Unit Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.NonEliteCombatRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(normalRange);
-
-				UserControlTargetRange shrineRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.ShrineRange, "Shrine Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.ShrineRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(shrineRange);
-
-				UserControlTargetRange CursedshrineRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.CursedShrineRange, "Cursed Shrine Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.CursedShrineRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(CursedshrineRange);
-
-				UserControlTargetRange GoldRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.GoldRange, "Gold Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.GoldRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(GoldRange);
-
-				UserControlTargetRange GlobeRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.GlobeRange, "Globe Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.GlobeRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(GlobeRange);
-
-
-				UserControlTargetRange containerRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.ContainerOpenRange, "Container Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.ContainerOpenRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(containerRange);
-
-				UserControlTargetRange CursedChestRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.CursedChestRange, "Cursed Chest Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.CursedChestRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(CursedChestRange);
-
-				UserControlTargetRange DoorRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.NonEliteCombatRange, "Door Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.DoorRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(DoorRange);
-
-				UserControlTargetRange destructibleRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.DestructibleRange, "Destructible Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.DestructibleRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(destructibleRange);
-
-				UserControlTargetRange PoolsofReflectionRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.PoolsOfReflectionRange, "Pools of Reflection Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.PoolsOfReflectionRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(PoolsofReflectionRange);
-
-				UserControlTargetRange itemRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.ItemRange, "Item Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.ItemRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(itemRange);
-
-				UserControlTargetRange PotionRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.PotionRange, "Potion Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.PotionRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(PotionRange);
-
-				UserControlTargetRange GoblinRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.TreasureGoblinRange, "Goblin Range")
-				{
-					UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.TreasureGoblinRange = i; }
-				};
-				flowLayout_TargetRanges.Controls.Add(GoblinRange);
-
-
-			    trackBar_LOS_MaxRange.Value = FunkyBaseExtension.Settings.LOSMovement.MaximumRange;
-			    textBox_LOS_MaxRange.Text = FunkyBaseExtension.Settings.LOSMovement.MaximumRange.ToString();
-			    trackBar_LOS_MaxRange.ValueChanged += trackbar_LOS_MaxRange_ValueChanged;
-
-			    trackBar_LOS_MinRange.Value = FunkyBaseExtension.Settings.LOSMovement.MiniumRangeObjects;
-			    textBox_LOS_MinRange.Text = FunkyBaseExtension.Settings.LOSMovement.MiniumRangeObjects.ToString();
-			    trackBar_LOS_MinRange.ValueChanged += trackbar_LOS_MinRange_ValueChanged;
-
-				cb_TargetRangeIgnoreKillRangeProfile.Checked = FunkyBaseExtension.Settings.Ranges.IgnoreCombatRange;
-				cb_TargetRangeIgnoreKillRangeProfile.CheckedChanged += cb_TargetRangeIgnoreKillRangeProfile_CheckedChanged;
-
-				cb_TargetRangeIgnoreLootProfileRange.Checked = FunkyBaseExtension.Settings.Ranges.IgnoreLootRange;
-				cb_TargetRangeIgnoreLootProfileRange.CheckedChanged += cb_TargetRangeIgnoreLootProfileRange_CheckedChanged;
-
-				cb_TargetRangeIgnoreProfileBlacklists.Checked = FunkyBaseExtension.Settings.Ranges.IgnoreProfileBlacklists;
-				cb_TargetRangeIgnoreProfileBlacklists.CheckedChanged += cb_TargetRangeIgnoreProfileBlacklists_CheckedChanged;
-
-				cb_TargetLOSBossUniques.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowUniqueBoss;
-				cb_TargetLOSBossUniques.CheckedChanged += cb_TargetLOSBossUniques_CheckedChanged;
-
-				cb_TargetLOSCursedChestShrine.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowCursedChestShrines;
-				cb_TargetLOSCursedChestShrine.CheckedChanged += cb_TargetLOSCursedChestShrine_CheckedChanged;
-
-				cb_TargetLOSGoblins.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowTreasureGoblin;
-				cb_TargetLOSGoblins.CheckedChanged += cb_TargetLOSGoblins_CheckedChanged;
-
-				cb_TargetLOSRanged.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowRanged;
-				cb_TargetLOSRanged.CheckedChanged += cb_TargetLOSRanged_CheckedChanged;
-
-				cb_TargetLOSRareChests.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowRareLootContainer;
-				cb_TargetLOSRareChests.CheckedChanged += cb_TargetLOSRareChests_CheckedChanged;
-
-				cb_TargetLOSRareElite.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowRareElites;
-				cb_TargetLOSRareElite.CheckedChanged += cb_TargetLOSRareElite_CheckedChanged;
-
-				cb_TargetLOSSpawnerUnits.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowSpawnerUnits;
-				cb_TargetLOSSpawnerUnits.CheckedChanged += cb_TargetLOSSpawnerUnits_CheckedChanged;
-
-				cb_TargetLOSSucideBombers.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowSucideBomber;
-				cb_TargetLOSSucideBombers.CheckedChanged += cb_TargetLOSSucideBombers_CheckedChanged;
-
-				cb_LOSEventSwitches.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowEventSwitches;
-				cb_LOSEventSwitches.CheckedChanged += cb_TargetLOSEventSwitches_CheckedChanged;
-
-				cb_TargetingShrineEmpowered.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[5];
-				cb_TargetingShrineEmpowered.CheckedChanged += TargetingShrineCheckedChanged;
-
-				cb_TargetingShrineEnlightnment.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[1];
-				cb_TargetingShrineEnlightnment.CheckedChanged += TargetingShrineCheckedChanged;
-
-				cb_TargetingShrineFleeting.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[0];
-				cb_TargetingShrineFleeting.CheckedChanged += TargetingShrineCheckedChanged;
-
-				cb_TargetingShrineFortune.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[3];
-				cb_TargetingShrineFortune.CheckedChanged += TargetingShrineCheckedChanged;
-
-				cb_TargetingShrineFrenzy.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[2];
-				cb_TargetingShrineFrenzy.CheckedChanged += TargetingShrineCheckedChanged;
-
-				cb_TargetingShrineProtection.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[4];
-				cb_TargetingShrineProtection.CheckedChanged += TargetingShrineCheckedChanged;
-
-				txt_GoldInactivityTimeout.Text = FunkyBaseExtension.Settings.Monitoring.GoldInactivityTimeoutSeconds.ToString();
-				tb_GoldInactivityTimeout.Value = FunkyBaseExtension.Settings.Monitoring.GoldInactivityTimeoutSeconds;
-				tb_GoldInactivityTimeout.ValueChanged += tb_GoldInactivityTimeout_ValueChanged;
-
-				cb_GeneralAllowBuffInTown.Checked = FunkyBaseExtension.Settings.General.AllowBuffingInTown;
-				cb_GeneralAllowBuffInTown.CheckedChanged += cb_GeneralAllowBuffInTown_CheckedChanged;
-
-				txt_GeneralEndOfCombatDelayValue.Text = FunkyBaseExtension.Settings.General.AfterCombatDelay.ToString();
-
-				tb_GeneralEndOfCombatDelayValue.Value = FunkyBaseExtension.Settings.General.AfterCombatDelay;
-				tb_GeneralEndOfCombatDelayValue.ValueChanged += tb_GeneralEndOfCombatDelayValue_ValueChanged;
-
-				cb_GeneralApplyEndDelayToContainers.Checked = FunkyBaseExtension.Settings.General.EnableWaitAfterContainers;
-				cb_GeneralApplyEndDelayToContainers.CheckedChanged += cb_GeneralApplyEndDelayToContainers_CheckedChanged;
-
-				cb_GeneralSkipAhead.Checked = FunkyBaseExtension.Settings.Debugging.SkipAhead;
-				cb_GeneralSkipAhead.CheckedChanged += cb_GeneralSkipAhead_CheckedChanged;
-
-				cb_DeathWaitForPotion.Checked = FunkyBaseExtension.Settings.Death.WaitForPotionCooldown;
-				cb_DeathWaitForPotion.CheckedChanged += cb_DeathPotion_CheckedChanged;
-
-				cb_DeathWaitForSkillsCooldown.Checked = FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
-				cb_DeathWaitForSkillsCooldown.CheckedChanged += cb_DeathSkills_CheckedChanged;
-
-				cb_adventuremode_NavigateMinimapMarkers.Checked = FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest;
-				cb_adventuremode_NavigateMinimapMarkers.CheckedChanged += cb_adventuremode_NavigateMinimapMarkers_CheckedChanged;
-			
-				cb_adventuremode_allowcombatmodification.Checked = FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications;
-				cb_adventuremode_allowcombatmodification.CheckedChanged += cb_adventuremode_allowcombatmodification_CheckedChanged;
-				
-
-				trackBar_TieredRiftKey.Value = FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed;
-				trackBar_TieredRiftKey.ValueChanged += tb_TieredRiftKey_ValueChanged;
-				textBox_MaxTieredRiftKey.Text = FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed.ToString();
-
-				comboBox_GemUpgrading_SuccessRate.Text = (FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate*100).ToString() + "%";
-				comboBox_GemUpgrading_SuccessRate.SelectedIndexChanged += cb_GemUpgrading_SuccessRate_CheckedChanged;
-
-				groupBox_PriorityGemUpgrading.Enabled = false;
-				if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.None)
-					radioButton_GemUpgrading_None.Checked = true;
-				else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.HighestRank)
-					radioButton_GemUpgrading_Highest.Checked = true;
-				else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.LowestRank)
-					radioButton_GemUpgrading_Lowest.Checked = true;
-				else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.Priority)
-				{
-					radioButton_GemUpgrading_Priority.Checked = true;
-					groupBox_PriorityGemUpgrading.Enabled = true;
-				}
-
-				radioButton_GemUpgrading_None.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
-				radioButton_GemUpgrading_Highest.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
-				radioButton_GemUpgrading_Lowest.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
-				radioButton_GemUpgrading_Priority.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
-
-				var legendarGems = Enum.GetValues(typeof(LegendaryGemTypes));
-				Func<object, string> fRetrieveLegendaryGemsNames = s => Enum.GetName(typeof(LegendaryGemTypes), s);
-
-                foreach (var gem in FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList)
-			    {
-                    LegendaryGemTypes thisLegendaryGem = (LegendaryGemTypes)gem;
-                    if (thisLegendaryGem.Equals(LegendaryGemTypes.None)) continue;
-
-			        listBox_GemUpgrading_PriorityList.Items.Add(fRetrieveLegendaryGemsNames(gem));
-			    }
-
-				foreach (var gem in legendarGems)
-				{
-					LegendaryGemTypes thisLegendaryGem = (LegendaryGemTypes)gem;
-					if (thisLegendaryGem.Equals(LegendaryGemTypes.None)) continue;
-
-					if (!FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Contains(thisLegendaryGem))
-						listBox_GemUpgrading_UnusedGems.Items.Add(fRetrieveLegendaryGemsNames(gem));
-				}
-
-
-
-				comboBox_LootLegendaryItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 61 ? 1 : 2;
-				comboBox_LootLegendaryItemQuality.SelectedIndexChanged += ItemLootChanged;
-
-				comboBox_LootMagicItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupMagicItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupMagicItems == 61 ? 1 : 2;
-				comboBox_LootMagicItemQuality.SelectedIndexChanged += ItemLootChanged;
-
-				comboBox_LootRareItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupRareItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupRareItems == 61 ? 1 : 2;
-				comboBox_LootRareItemQuality.SelectedIndexChanged += ItemLootChanged;
-
-				comboBox_LootWhiteItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupWhiteItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupWhiteItems == 61 ? 1 : 2;
-				comboBox_LootWhiteItemQuality.SelectedIndexChanged += ItemLootChanged;
-
-				cb_LootPickupCraftPlans.Checked = FunkyBaseExtension.Settings.Loot.PickupCraftPlans;
-				cb_LootPickupCraftPlans.CheckedChanged += cb_LootPickupCraftPlans_CheckedChanged;
-
-				comboBox_LootGemQuality.Text = Enum.GetName(typeof(GemQualityTypes), FunkyBaseExtension.Settings.Loot.MinimumGemItemLevel).ToString();
-				comboBox_LootGemQuality.SelectedIndexChanged += GemQualityLevelChanged;
-
-				cb_LootGemAMETHYST.Checked = FunkyBaseExtension.Settings.Loot.PickupGems[2];
-				cb_LootGemAMETHYST.CheckedChanged += cb_LootGemAMETHYST_CheckedChanged;
-
-				cb_LootGemDiamond.Checked = FunkyBaseExtension.Settings.Loot.PickupGemDiamond;
-				cb_LootGemDiamond.CheckedChanged += cb_LootGemDiamond_CheckedChanged;
-
-				cb_LootGemEMERALD.Checked = FunkyBaseExtension.Settings.Loot.PickupGems[1];
-				cb_LootGemEMERALD.CheckedChanged += cb_LootGemEMERALD_CheckedChanged;
-
-				cb_LootGemRUBY.Checked = FunkyBaseExtension.Settings.Loot.PickupGems[0];
-				cb_LootGemRUBY.CheckedChanged += cb_LootGemRUBY_CheckedChanged;
-
-				cb_LootGemTOPAZ.Checked = FunkyBaseExtension.Settings.Loot.PickupGems[3];
-				cb_LootGemTOPAZ.CheckedChanged += cb_LootGemTOPAZ_CheckedChanged;
-
-				txt_LootMinimumGold.Text = FunkyBaseExtension.Settings.Loot.MinimumGoldPile.ToString();
-				tb_LootMinimumGold.Value = FunkyBaseExtension.Settings.Loot.MinimumGoldPile;
-				tb_LootMinimumGold.ValueChanged += tb_LootMinimumGold_ValueChanged;
-
-				txt_LootHealthPotions.Text = FunkyBaseExtension.Settings.Loot.MaximumHealthPotions.ToString();
-				tb_LootHealthPotions.Value = FunkyBaseExtension.Settings.Loot.MaximumHealthPotions;
-				tb_LootHealthPotions.ValueChanged += tb_LootHealthPotions_ValueChanged;
-
-				cb_LootCraftMats.Checked = FunkyBaseExtension.Settings.Loot.PickupCraftMaterials;
-				cb_LootCraftMats.CheckedChanged += cb_LootCraftMats_CheckedChanged;
-
-				cb_LootInfernoKeys.Checked = FunkyBaseExtension.Settings.Loot.PickupInfernalKeys;
-				cb_LootInfernoKeys.CheckedChanged += cb_LootInfernoKeys_CheckedChanged;
-
-				cb_LootExpBooks.Checked = FunkyBaseExtension.Settings.Loot.ExpBooks;
-				cb_LootExpBooks.CheckedChanged += cb_LootExpBooks_CheckedChanged;
-
-				cb_LootKeyStones.Checked = FunkyBaseExtension.Settings.Loot.PickupKeystoneFragments;
-				cb_LootKeyStones.CheckedChanged += cb_LootKeyStoneFragments_CheckedChanged;
-
-
-				cb_DebugDataLogging.Checked = FunkyBaseExtension.Settings.Debugging.DebuggingData;
-				cb_DebugDataLogging.CheckedChanged += cb_DebugDataLogging_CheckedChanged;
-
-				cb_DebugStatusBar.Checked = FunkyBaseExtension.Settings.Debugging.DebugStatusBar;
-				cb_DebugStatusBar.CheckedChanged += cb_DebugStatusBar_CheckedChanged;
-
-				var LogLevels = Enum.GetValues(typeof(LogLevel));
-				Func<object, string> fRetrieveLogLevelNames = s => Enum.GetName(typeof(LogLevel), s);
-				bool noLogFlags = FunkyBaseExtension.Settings.Logging.LogFlags.Equals(LogLevel.None);
-				foreach (var logLevel in LogLevels)
-				{
-					LogLevel thisloglevel = (LogLevel)logLevel;
-					if (thisloglevel.Equals(LogLevel.None) || thisloglevel.Equals(LogLevel.All)) continue;
-
-					string loglevelName = fRetrieveLogLevelNames(logLevel);
-					CheckBox cb = new CheckBox
-					{
-						Name = loglevelName,
-						Text = loglevelName,
-						Checked = !noLogFlags && FunkyBaseExtension.Settings.Logging.LogFlags.HasFlag(thisloglevel),
-					};
-					cb.CheckedChanged += FunkyLogLevelChanged;
-
-					flowLayout_DebugFunkyLogLevels.Controls.Add(cb);
-				}
-
-
-
-				//
-				var DebugDataFlags = Enum.GetValues(typeof(DebugDataTypes));
-				Func<object, string> fRetrieveDebugDataFlagsNames = s => Enum.GetName(typeof(DebugDataTypes), s);
-				bool noDebugDataFlags = FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.Equals(DebugDataTypes.None);
-				foreach (var logLevel in DebugDataFlags)
-				{
-					DebugDataTypes thisloglevel = (DebugDataTypes)logLevel;
-					if (thisloglevel.Equals(DebugDataTypes.None)) continue;
-
-					string loglevelName = fRetrieveDebugDataFlagsNames(logLevel);
-					CheckBox cb = new CheckBox
-					{
-						Name = loglevelName,
-						Text = loglevelName,
-						Checked = !noDebugDataFlags && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(thisloglevel),
-					};
-					cb.CheckedChanged += DebugDataTypesChanged;
-
-					flowLayout_DebugDataFlags.Controls.Add(cb);
-				}
-
-				//Misc Stats
-				try
-				{
-
-					fBaseXtensions.Stats.GameStats cur = FunkyGame.CurrentGameStats;
-
-					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
-					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Profiles:{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n Bounties Completed {6}\r\n{5}",
-															cur.Profiles.Count, cur.TotalDeaths, cur.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), cur.TotalGold, cur.TotalXP, cur.TotalLootTracker.ToString(), cur.TotalBountiesCompleted)));
-
-					if (FunkyGame.CurrentGameStats.Profiles.Count > 0)
-					{
-						flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== PROFILES =="));
-						foreach (var item in FunkyGame.CurrentGameStats.Profiles)
-						{
-							flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n{5}",
-								item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalGold, item.TotalXP, item.LootTracker.ToString())));
-						}
-					}
-
-
-					TotalStats all = FunkyGame.TrackingStats;
-					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
-					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Games:{0} -- Total Unique Profiles:{1}\r\nDeaths:{2} TotalTime:{3} TotalGold:{4} TotalXP:{5}\r\n{6}",
-															all.GameCount, all.Profiles.Count, all.TotalDeaths, all.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), all.TotalGold, all.TotalXP, all.TotalLootTracker.ToString())));
-
-
-				}
-				catch
-				{
-					flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("Exception Handled"));
-				}
-
-			}
-			catch (Exception ex)
-			{
-				Logger.DBLog.InfoFormat("Exception During Settings Form Initalize!\r\n{0}\r\n{1}\r\n{2}", ex.Message, ex.Source, ex.StackTrace);
-				throw;
-			}
 		}
+
+	    private void initalizeControls()
+	    {
+	        initalizeControls_Combat();
+	        initalizeControls_Targeting();
+	        initalizeControls_General();
+	        initalizeControls_Items();
+	        initalizeControls_Advanced();
+	        initalizeControls_MiscStats();
+	    }
+
+        #region Initalize Combat Controls
+
+        private void initalizeControls_Combat()
+        {
+            initalizeControls_Combat_General();
+            initalizeControls_Combat_Cluster();
+            initalizeControls_Combat_Grouping();
+            initalizeControls_Combat_Avoidance();
+            initalizeControls_Combat_Fleeing();
+            initalizeControls_Combat_ClassSettings();
+        }
+
+        private void initalizeControls_Combat_General()
+        {
+            tb_GlobeHealth.ValueChanged -= tb_GlobeHealth_ValueChanged;
+            tb_GlobeHealth.Value = (int)(FunkyBaseExtension.Settings.Combat.GlobeHealthPercent * 100);
+            tb_GlobeHealth.ValueChanged += tb_GlobeHealth_ValueChanged;
+
+            tb_PotionHealth.ValueChanged -= tb_PotionHealth_ValueChanged;
+            tb_PotionHealth.Value = (int)(FunkyBaseExtension.Settings.Combat.PotionHealthPercent * 100);
+            tb_PotionHealth.ValueChanged += tb_PotionHealth_ValueChanged;
+
+            tb_WellHealth.ValueChanged -= tb_WellHealth_ValueChanged;
+            tb_WellHealth.Value = (int)(FunkyBaseExtension.Settings.Combat.HealthWellHealthPercent * 100);
+            tb_WellHealth.ValueChanged += tb_WellHealth_ValueChanged;
+
+            txt_GlobeHealth.Text = FunkyBaseExtension.Settings.Combat.GlobeHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
+            txt_WellHealth.Text = FunkyBaseExtension.Settings.Combat.HealthWellHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
+            txt_PotionHealth.Text = FunkyBaseExtension.Settings.Combat.PotionHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
+
+            cb_CombatMovementGlobes.CheckedChanged -= MovementTargetGlobeChecked;
+            cb_CombatMovementGlobes.Checked = FunkyBaseExtension.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Globe);
+            cb_CombatMovementGlobes.CheckedChanged += MovementTargetGlobeChecked;
+
+            cb_CombatMovementGold.CheckedChanged -= MovementTargetGoldChecked;
+            cb_CombatMovementGold.Checked = FunkyBaseExtension.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Gold);
+            cb_CombatMovementGold.CheckedChanged += MovementTargetGoldChecked;
+
+            cb_CombatMovementItems.CheckedChanged -= MovementTargetItemChecked;
+            cb_CombatMovementItems.Checked = FunkyBaseExtension.Settings.Combat.CombatMovementTargetTypes.HasFlag(TargetType.Item);
+            cb_CombatMovementItems.CheckedChanged += MovementTargetItemChecked;
+
+            cb_CombatAllowDefaultAttack.CheckedChanged -= AllowDefaultAttackAlwaysChecked;
+            cb_CombatAllowDefaultAttack.Checked = FunkyBaseExtension.Settings.Combat.AllowDefaultAttackAlways;
+            cb_CombatAllowDefaultAttack.CheckedChanged += AllowDefaultAttackAlwaysChecked;
+        }
+
+        private void initalizeControls_Combat_Cluster()
+        {
+            cb_ClusterTargetLogic.CheckedChanged -= cb_ClusterTargetLogic_CheckedChanged;
+            cb_ClusterTargetLogic.Checked = FunkyBaseExtension.Settings.Cluster.EnableClusteringTargetLogic;
+            cb_ClusterTargetLogic.CheckedChanged += cb_ClusterTargetLogic_CheckedChanged;
+            gb_ClusteringOptions.Enabled = FunkyBaseExtension.Settings.Cluster.EnableClusteringTargetLogic;
+
+            txt_ClusterLogicDisableHealth.Text = FunkyBaseExtension.Settings.Cluster.IgnoreClusterLowHPValue.ToString("F2", CultureInfo.InvariantCulture);
+            txt_ClusterLogicDistance.Text = FunkyBaseExtension.Settings.Cluster.ClusterDistance.ToString("F2", CultureInfo.InvariantCulture);
+            txt_ClusterLogicMinimumUnits.Text = FunkyBaseExtension.Settings.Cluster.ClusterMinimumUnitCount.ToString("F2", CultureInfo.InvariantCulture);
+
+            tb_ClusterLogicDisableHealth.ValueChanged -= tb_ClusterLogicDisableHealth_ValueChanged;
+            tb_ClusterLogicDisableHealth.Value = (int)(FunkyBaseExtension.Settings.Cluster.IgnoreClusterLowHPValue * 100);
+            tb_ClusterLogicDisableHealth.ValueChanged += tb_ClusterLogicDisableHealth_ValueChanged;
+
+            tb_ClusterLogicDistance.ValueChanged -= tb_ClusterLogicDistance_ValueChanged;
+            tb_ClusterLogicDistance.Value = (int)(FunkyBaseExtension.Settings.Cluster.ClusterDistance);
+            tb_ClusterLogicDistance.ValueChanged += tb_ClusterLogicDistance_ValueChanged;
+
+            tb_ClusterLogicMinimumUnits.ValueChanged -= tb_ClusterLogicMinimumUnits_ValueChanged;
+            tb_ClusterLogicMinimumUnits.Value = (int)(FunkyBaseExtension.Settings.Cluster.ClusterMinimumUnitCount);
+            tb_ClusterLogicMinimumUnits.ValueChanged += tb_ClusterLogicMinimumUnits_ValueChanged;
+
+            cb_ClusterUnitException_RareElite.CheckedChanged -= cb_ClusterUnitException_RareElite_Checked;
+            cb_ClusterUnitException_RareElite.Checked = FunkyBaseExtension.Settings.Cluster.UnitException_RareElites;
+            cb_ClusterUnitException_RareElite.CheckedChanged += cb_ClusterUnitException_RareElite_Checked;
+
+
+            flowLayoutPanel_ClusteringUnitExceptions.Controls.Clear();
+            var unitflagValues = Enum.GetValues(typeof(UnitFlags));
+            Func<object, string> fRetrieveunitflagNames = s => Enum.GetName(typeof(UnitFlags), s);
+            bool noUnitFlags = FunkyBaseExtension.Settings.Cluster.UnitExceptions.Equals(UnitFlags.None);
+            foreach (var logLevel in unitflagValues)
+            {
+                UnitFlags thisloglevel = (UnitFlags)logLevel;
+                if (thisloglevel.Equals(UnitFlags.None)) continue;
+
+                string loglevelName = fRetrieveunitflagNames(logLevel);
+                CheckBox cb = new CheckBox
+                {
+                    Name = loglevelName,
+                    Text = loglevelName,
+                    Font = cb_ClusterUnitException_RareElite.Font,
+                    FlatStyle = cb_ClusterUnitException_RareElite.FlatStyle,
+                    AutoEllipsis = cb_ClusterUnitException_RareElite.AutoEllipsis,
+                    AutoSize = cb_ClusterUnitException_RareElite.AutoSize,
+                    Checked = !noUnitFlags && FunkyBaseExtension.Settings.Cluster.UnitExceptions.HasFlag(thisloglevel),
+                };
+                cb.CheckedChanged += ClusterUnitExceptionsChanged;
+
+                flowLayoutPanel_ClusteringUnitExceptions.Controls.Add(cb);
+            }
+        }
+
+        private void initalizeControls_Combat_Grouping()
+        {
+            cb_GroupingLogic.CheckedChanged -= GroupingBehaviorChecked;
+            cb_GroupingLogic.Checked = FunkyBaseExtension.Settings.Grouping.AttemptGroupingMovements;
+            cb_GroupingLogic.CheckedChanged += GroupingBehaviorChecked;
+
+            txt_GroupingMaxDistance.Text = FunkyBaseExtension.Settings.Grouping.GroupingMaximumDistanceAllowed.ToString();
+            txt_GroupingMinBotHealth.Text = FunkyBaseExtension.Settings.Grouping.GroupingMinimumBotHealth.ToString("F2", CultureInfo.InvariantCulture);
+            txt_GroupingMinCluster.Text = FunkyBaseExtension.Settings.Grouping.GroupingMinimumClusterCount.ToString();
+            txt_GroupingMinDistance.Text = FunkyBaseExtension.Settings.Grouping.GroupingMinimumUnitDistance.ToString();
+            txt_GroupingMinUnitsInCluster.Text = FunkyBaseExtension.Settings.Grouping.GroupingMinimumUnitsInCluster.ToString();
+
+            tb_GroupingMaxDistance.ValueChanged -= GroupMaxDistanceSliderChanged;
+            tb_GroupingMaxDistance.Value = FunkyBaseExtension.Settings.Grouping.GroupingMaximumDistanceAllowed;
+            tb_GroupingMaxDistance.ValueChanged += GroupMaxDistanceSliderChanged;
+
+            tb_GroupingMinBotHealth.ValueChanged -= GroupBotHealthSliderChanged;
+            tb_GroupingMinBotHealth.Value = (int)(FunkyBaseExtension.Settings.Grouping.GroupingMinimumBotHealth * 100);
+            tb_GroupingMinBotHealth.ValueChanged += GroupBotHealthSliderChanged;
+
+            tb_GroupingMinCluster.ValueChanged -= GroupMinimumClusterCountSliderChanged;
+            tb_GroupingMinCluster.Value = FunkyBaseExtension.Settings.Grouping.GroupingMinimumClusterCount;
+            tb_GroupingMinCluster.ValueChanged += GroupMinimumClusterCountSliderChanged;
+
+            tb_GroupingMinDistance.ValueChanged -= GroupMinimumUnitDistanceSliderChanged;
+            tb_GroupingMinDistance.Value = FunkyBaseExtension.Settings.Grouping.GroupingMinimumUnitDistance;
+            tb_GroupingMinDistance.ValueChanged += GroupMinimumUnitDistanceSliderChanged;
+
+            tb_GroupingMinUnitsInCluster.ValueChanged -= GroupMinimumUnitsInClusterSliderChanged;
+            tb_GroupingMinUnitsInCluster.Value = FunkyBaseExtension.Settings.Grouping.GroupingMinimumUnitsInCluster;
+            tb_GroupingMinUnitsInCluster.ValueChanged += GroupMinimumUnitsInClusterSliderChanged;
+
+        }
+
+        private void initalizeControls_Combat_Avoidance()
+        {
+            cb_AvoidanceLogic.CheckedChanged -= AvoidanceAttemptMovementChecked;
+            cb_AvoidanceLogic.Checked = FunkyBaseExtension.Settings.Avoidance.AttemptAvoidanceMovements;
+            cb_AvoidanceLogic.CheckedChanged += AvoidanceAttemptMovementChecked;
+
+            flowLayoutPanel_Avoidances.Controls.Clear();
+            AvoidanceValue[] avoidanceValues = FunkyBaseExtension.Settings.Avoidance.Avoidances.ToArray();
+            TBavoidanceHealth = new TextBox[avoidanceValues.Length - 1];
+            TBavoidanceRadius = new TextBox[avoidanceValues.Length - 1];
+            TBavoidanceWeight = new TextBox[avoidanceValues.Length - 1];
+
+            int alternatingColor = 0;
+            for (int i = 0; i < avoidanceValues.Length - 1; i++)
+            {
+                UserControlAvoidance ac = new UserControlAvoidance(i);
+
+                flowLayoutPanel_Avoidances.Controls.Add(ac);
+
+                alternatingColor++;
+            }
+
+        }
+
+        private void initalizeControls_Combat_Fleeing()
+        {
+            cb_EnableFleeing.CheckedChanged -= cb_EnableFleeing_CheckedChanged;
+            cb_EnableFleeing.Checked = FunkyBaseExtension.Settings.Fleeing.EnableFleeingBehavior;
+            cb_EnableFleeing.CheckedChanged += cb_EnableFleeing_CheckedChanged;
+
+            trackbar_FleeMaxMonsterDistance.ValueChanged -= trackbar_FleeMaxMonsterDistance_ValueChanged;
+            trackbar_FleeMaxMonsterDistance.Value = FunkyBaseExtension.Settings.Fleeing.FleeMaxMonsterDistance;
+            trackbar_FleeMaxMonsterDistance.ValueChanged += trackbar_FleeMaxMonsterDistance_ValueChanged;
+
+            txt_FleeMaxMonsterDistance.Text = FunkyBaseExtension.Settings.Fleeing.FleeMaxMonsterDistance.ToString();
+
+            trackbar_FleeBotMinHealth.ValueChanged -= trackbar_FleeBotMinHealth_ValueChanged;
+            trackbar_FleeBotMinHealth.Value = (int)(FunkyBaseExtension.Settings.Fleeing.FleeBotMinimumHealthPercent * 100);
+            trackbar_FleeBotMinHealth.ValueChanged += trackbar_FleeBotMinHealth_ValueChanged;
+
+            txt_FleeBotMinHealth.Text = FunkyBaseExtension.Settings.Fleeing.FleeBotMinimumHealthPercent.ToString("F2", CultureInfo.InvariantCulture);
+            groupBox_FleeOptions.Enabled = FunkyBaseExtension.Settings.Fleeing.EnableFleeingBehavior;
+
+            cb_FleeUnitElectrified.CheckedChanged -= cb_FleeUnitElectrified_CheckedChanged;
+            cb_FleeUnitElectrified.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitElectrified;
+            cb_FleeUnitElectrified.CheckedChanged += cb_FleeUnitElectrified_CheckedChanged;
+
+            cb_FleeUnitFast.CheckedChanged -= cb_FleeUnitFast_CheckedChanged;
+            cb_FleeUnitFast.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitIgnoreFast;
+            cb_FleeUnitFast.CheckedChanged += cb_FleeUnitFast_CheckedChanged;
+
+            cb_FleeUnitNormal.CheckedChanged -= cb_FleeUnitNormal_CheckedChanged;
+            cb_FleeUnitNormal.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitNormal;
+            cb_FleeUnitNormal.CheckedChanged += cb_FleeUnitNormal_CheckedChanged;
+
+            cb_FleeUnitRanged.CheckedChanged -= cb_FleeUnitRanged_CheckedChanged;
+            cb_FleeUnitRanged.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitIgnoreRanged;
+            cb_FleeUnitRanged.CheckedChanged += cb_FleeUnitRanged_CheckedChanged;
+
+            cb_FleeUnitRareElite.CheckedChanged -= cb_FleeUnitRareElite_CheckedChanged;
+            cb_FleeUnitRareElite.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitRareElite;
+            cb_FleeUnitRareElite.CheckedChanged += cb_FleeUnitRareElite_CheckedChanged;
+
+            cb_FleeUnitSucideBomber.CheckedChanged -= cb_FleeUnitSucideBomber_CheckedChanged;
+            cb_FleeUnitSucideBomber.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitIgnoreSucideBomber;
+            cb_FleeUnitSucideBomber.CheckedChanged += cb_FleeUnitSucideBomber_CheckedChanged;
+
+            cb_FleeUnitAboveAverageHitPoints.CheckedChanged -= cb_FleeUnitAboveAverageHitPoints_CheckedChanged;
+            cb_FleeUnitAboveAverageHitPoints.Checked = FunkyBaseExtension.Settings.Fleeing.FleeUnitAboveAverageHitPoints;
+            cb_FleeUnitAboveAverageHitPoints.CheckedChanged += cb_FleeUnitAboveAverageHitPoints_CheckedChanged;
+        }
+
+        private void initalizeControls_Combat_ClassSettings()
+        {
+            //Remove any class tab pages
+            if (tabControl_Combat.TabPages.Contains(tabPage_Barbarian))
+                tabControl_Combat.TabPages.Remove(tabPage_Barbarian);
+
+            if (tabControl_Combat.TabPages.Contains(tabPage_Monk))
+                tabControl_Combat.TabPages.Remove(tabPage_Monk);
+
+            if (tabControl_Combat.TabPages.Contains(tabPage_WitchDoctor))
+                tabControl_Combat.TabPages.Remove(tabPage_WitchDoctor);
+
+            if (tabControl_Combat.TabPages.Contains(tabPage_Wizard))
+                tabControl_Combat.TabPages.Remove(tabPage_Wizard);
+
+            if (tabControl_Combat.TabPages.Contains(tabPage_Crusader))
+                tabControl_Combat.TabPages.Remove(tabPage_Crusader);
+
+            if (tabControl_Combat.TabPages.Contains(tabPage_DemonHunter))
+                tabControl_Combat.TabPages.Remove(tabPage_DemonHunter);
+
+            //Add all class tab pages back -- just to remove them again!
+            tabControl_Combat.TabPages.Add(tabPage_Barbarian);
+            tabControl_Combat.TabPages.Add(tabPage_Monk);
+            tabControl_Combat.TabPages.Add(tabPage_WitchDoctor);
+            tabControl_Combat.TabPages.Add(tabPage_Wizard);
+            tabControl_Combat.TabPages.Add(tabPage_Crusader);
+            tabControl_Combat.TabPages.Add(tabPage_DemonHunter);
+
+            List<TabPage> RemovalTabPages = new List<TabPage> { tabPage_DemonHunter, tabPage_Barbarian, tabPage_Wizard, tabPage_WitchDoctor, tabPage_Monk, tabPage_Crusader };
+
+            if (FunkyBaseExtension.Settings.DemonHunter != null)
+            {
+                trackBar_DemonHunterValutDelay.ValueChanged -= trackBar_DemonHunterValutDelay_ValueChanged;
+                trackBar_DemonHunterValutDelay.Value =
+                    FunkyBaseExtension.Settings.DemonHunter.iDHVaultMovementDelay;
+                trackBar_DemonHunterValutDelay.ValueChanged += trackBar_DemonHunterValutDelay_ValueChanged;
+
+                txt_DemonHunterVaultDelay.Text =
+                    FunkyBaseExtension.Settings.DemonHunter.iDHVaultMovementDelay.ToString();
+                RemovalTabPages.Remove(tabPage_DemonHunter);
+            }
+
+            if (FunkyBaseExtension.Settings.Barbarian != null)
+            {
+                cb_BarbFuryDumpAlways.CheckedChanged -= cb_BarbFuryDumpAlways_CheckedChanged;
+                cb_BarbFuryDumpAlways.Checked = FunkyBaseExtension.Settings.Barbarian.bBarbUseWOTBAlways;
+                cb_BarbFuryDumpAlways.CheckedChanged += cb_BarbFuryDumpAlways_CheckedChanged;
+
+                cb_BarbFuryDumpWrath.CheckedChanged -= cb_BarbFuryDumpWrath_CheckedChanged;
+                cb_BarbFuryDumpWrath.Checked = FunkyBaseExtension.Settings.Barbarian.bFuryDumpWrath;
+                cb_BarbFuryDumpWrath.CheckedChanged += cb_BarbFuryDumpWrath_CheckedChanged;
+
+                cb_BarbGoblinWrath.CheckedChanged -= cb_BarbGoblinWrath_CheckedChanged;
+                cb_BarbGoblinWrath.Checked = FunkyBaseExtension.Settings.Barbarian.bGoblinWrath;
+                cb_BarbGoblinWrath.CheckedChanged += cb_BarbGoblinWrath_CheckedChanged;
+
+                cb_BarbUseWOTBAlways.CheckedChanged -= cb_BarbUseWOTBAlways_CheckedChanged;
+                cb_BarbUseWOTBAlways.Checked = FunkyBaseExtension.Settings.Barbarian.bBarbUseWOTBAlways;
+                cb_BarbUseWOTBAlways.CheckedChanged += cb_BarbUseWOTBAlways_CheckedChanged;
+
+                cb_BarbWaitForWrath.CheckedChanged -= cb_BarbWaitForWrath_CheckedChanged;
+                cb_BarbWaitForWrath.Checked = FunkyBaseExtension.Settings.Barbarian.bWaitForWrath;
+                cb_BarbWaitForWrath.CheckedChanged += cb_BarbWaitForWrath_CheckedChanged;
+
+                cb_BarbSelectiveWhirldWind.CheckedChanged -= cb_BarbSelectiveWhirlwind_CheckedChanged;
+                cb_BarbSelectiveWhirldWind.Checked = FunkyBaseExtension.Settings.Barbarian.bSelectiveWhirlwind;
+                cb_BarbSelectiveWhirldWind.CheckedChanged += cb_BarbSelectiveWhirlwind_CheckedChanged;
+
+                RemovalTabPages.Remove(tabPage_Barbarian);
+            }
+
+            if (FunkyBaseExtension.Settings.Wizard != null)
+            {
+                cb_WizardKiteOnlyArchon.CheckedChanged -= cb_WizardKiteOnlyArchon_CheckedChanged;
+                cb_WizardKiteOnlyArchon.Checked = FunkyBaseExtension.Settings.Wizard.bKiteOnlyArchon;
+                cb_WizardKiteOnlyArchon.CheckedChanged += cb_WizardKiteOnlyArchon_CheckedChanged;
+
+                cb_WizardTeleportFleeing.CheckedChanged -= cb_WizardTeleportFleeing_CheckedChanged;
+                cb_WizardTeleportFleeing.Checked = FunkyBaseExtension.Settings.Wizard.bTeleportFleeWhenLowHP;
+                cb_WizardTeleportFleeing.CheckedChanged += cb_WizardTeleportFleeing_CheckedChanged;
+
+                cb_WizardTeleportIntoGroups.CheckedChanged -= cb_WizardTeleportIntoGroups_CheckedChanged;
+                cb_WizardTeleportIntoGroups.Checked = FunkyBaseExtension.Settings.Wizard.bTeleportIntoGrouping;
+                cb_WizardTeleportIntoGroups.CheckedChanged += cb_WizardTeleportIntoGroups_CheckedChanged;
+
+                cb_WizardWaitForArchon.CheckedChanged -= cb_WizardWaitForArchon_CheckedChanged;
+                cb_WizardWaitForArchon.Checked = FunkyBaseExtension.Settings.Wizard.bWaitForArchon;
+                cb_WizardWaitForArchon.CheckedChanged += cb_WizardWaitForArchon_CheckedChanged;
+
+                cb_WizardCancelArchonRebuff.CheckedChanged -= cb_CacnelArchonRebuff_CheckedChanged;
+                cb_WizardCancelArchonRebuff.Checked = FunkyBaseExtension.Settings.Wizard.bCancelArchonRebuff;
+                cb_WizardCancelArchonRebuff.CheckedChanged += cb_CacnelArchonRebuff_CheckedChanged;
+
+                RemovalTabPages.Remove(tabPage_Wizard);
+            }
+
+            if (FunkyBaseExtension.Settings.WitchDoctor != null)
+            {
+                RemovalTabPages.Remove(tabPage_WitchDoctor);
+            }
+
+            if (FunkyBaseExtension.Settings.Monk != null)
+            {
+                cb_MonkMaintainSweepingWinds.CheckedChanged -= bMonkMaintainSweepingWindChecked;
+                cb_MonkMaintainSweepingWinds.Checked = FunkyBaseExtension.Settings.Monk.bMonkMaintainSweepingWind;
+                cb_MonkMaintainSweepingWinds.CheckedChanged += bMonkMaintainSweepingWindChecked;
+
+                cb_MonkSpamMantra.CheckedChanged -= bMonkSpamMantraChecked;
+                cb_MonkSpamMantra.Checked = FunkyBaseExtension.Settings.Monk.bMonkSpamMantra;
+                cb_MonkSpamMantra.CheckedChanged += bMonkSpamMantraChecked;
+
+                RemovalTabPages.Remove(tabPage_Monk);
+            }
+
+            if (FunkyBaseExtension.Settings.Crusader != null)
+            {
+                RemovalTabPages.Remove(tabPage_Crusader);
+            }
+
+            foreach (var removalTabPage in RemovalTabPages)
+            {
+                tabControl_Combat.TabPages.Remove(removalTabPage);
+            }
+
+        }
+        
+        #endregion
+
+        #region Initalize Targeting Controls
+
+        private void initalizeControls_Targeting()
+        {
+            initalizeControls_Targeting_General();
+            initalizeControls_Targeting_Ranges();
+            initalizeControls_Targeting_LineOfSight();
+
+        }
+
+        private void initalizeControls_Targeting_General()
+        {
+            cb_TargetingShrineEmpowered.CheckedChanged -= TargetingShrineCheckedChanged;
+            cb_TargetingShrineEmpowered.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[5];
+            cb_TargetingShrineEmpowered.CheckedChanged += TargetingShrineCheckedChanged;
+
+            cb_TargetingShrineEnlightnment.CheckedChanged -= TargetingShrineCheckedChanged;
+            cb_TargetingShrineEnlightnment.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[1];
+            cb_TargetingShrineEnlightnment.CheckedChanged += TargetingShrineCheckedChanged;
+
+            cb_TargetingShrineFleeting.CheckedChanged -= TargetingShrineCheckedChanged;
+            cb_TargetingShrineFleeting.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[0];
+            cb_TargetingShrineFleeting.CheckedChanged += TargetingShrineCheckedChanged;
+
+            cb_TargetingShrineFortune.CheckedChanged -= TargetingShrineCheckedChanged;
+            cb_TargetingShrineFortune.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[3];
+            cb_TargetingShrineFortune.CheckedChanged += TargetingShrineCheckedChanged;
+
+            cb_TargetingShrineFrenzy.CheckedChanged -= TargetingShrineCheckedChanged;
+            cb_TargetingShrineFrenzy.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[2];
+            cb_TargetingShrineFrenzy.CheckedChanged += TargetingShrineCheckedChanged;
+
+            cb_TargetingShrineProtection.CheckedChanged -= TargetingShrineCheckedChanged;
+            cb_TargetingShrineProtection.Checked = FunkyBaseExtension.Settings.Targeting.UseShrineTypes[4];
+            cb_TargetingShrineProtection.CheckedChanged += TargetingShrineCheckedChanged;
+
+
+            cb_MovementOutOfCombatSkills.CheckedChanged -= OutOfCombatMovementChecked;
+            cb_MovementOutOfCombatSkills.Checked = FunkyBaseExtension.Settings.General.OutOfCombatMovement;
+            cb_MovementOutOfCombatSkills.CheckedChanged += OutOfCombatMovementChecked;
+
+            cb_TargetingIgnoreCorpses.CheckedChanged -= cb_TargetingIgnoreCorpses_CheckedChanged;
+            cb_TargetingIgnoreCorpses.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreCorpses;
+            cb_TargetingIgnoreCorpses.CheckedChanged += cb_TargetingIgnoreCorpses_CheckedChanged;
+
+            cb_TargetingIgnoreArmorRacks.CheckedChanged -= cb_TargetingIgnoreArmorRacks_CheckedChanged;
+            cb_TargetingIgnoreArmorRacks.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreArmorRacks;
+            cb_TargetingIgnoreArmorRacks.CheckedChanged += cb_TargetingIgnoreArmorRacks_CheckedChanged;
+
+            cb_TargetingIgnoreWeaponRacks.CheckedChanged -= cb_TargetingIgnoreWeaponRacks_CheckedChanged;
+            cb_TargetingIgnoreWeaponRacks.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreWeaponRacks;
+            cb_TargetingIgnoreWeaponRacks.CheckedChanged += cb_TargetingIgnoreWeaponRacks_CheckedChanged;
+
+            cb_TargetingIgnoreFloorContainers.CheckedChanged -= cb_TargetingIgnoreFloorContainers_CheckedChanged;
+            cb_TargetingIgnoreFloorContainers.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreFloorContainers;
+            cb_TargetingIgnoreFloorContainers.CheckedChanged += cb_TargetingIgnoreFloorContainers_CheckedChanged;
+
+            cb_TargetingIgnoreNormalChests.CheckedChanged -= cb_TargetingIgnoreNormalChests_CheckedChanged;
+            cb_TargetingIgnoreNormalChests.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreNormalChests;
+            cb_TargetingIgnoreNormalChests.CheckedChanged += cb_TargetingIgnoreNormalChests_CheckedChanged;
+
+            cb_TargetingIgnoreRareChests.CheckedChanged -= cb_TargetingIgnoreRareChests_CheckedChanged;
+            cb_TargetingIgnoreRareChests.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreRareChests;
+            cb_TargetingIgnoreRareChests.CheckedChanged += cb_TargetingIgnoreRareChests_CheckedChanged;
+
+            cb_TargetingIgnoreRareElites.CheckedChanged -= cb_TargetingIgnoreRareElites_CheckedChanged;
+            cb_TargetingIgnoreRareElites.Checked = FunkyBaseExtension.Settings.Targeting.IgnoreAboveAverageMobs;
+            cb_TargetingIgnoreRareElites.CheckedChanged += cb_TargetingIgnoreRareElites_CheckedChanged;
+
+            cb_TargetingIncreaseRangeRareChests.CheckedChanged -= cb_TargetingIncreaseRangeRareChests_CheckedChanged;
+            cb_TargetingIncreaseRangeRareChests.Checked = FunkyBaseExtension.Settings.Targeting.UseExtendedRangeRepChest;
+            cb_TargetingIncreaseRangeRareChests.CheckedChanged += cb_TargetingIncreaseRangeRareChests_CheckedChanged;
+
+            comboBox_TargetingGoblinPriority.SelectedIndexChanged -= comboBox_TargetingGoblinPriority_SelectedIndexChanged;
+            comboBox_TargetingGoblinPriority.SelectedIndex = FunkyBaseExtension.Settings.Targeting.GoblinPriority;
+            comboBox_TargetingGoblinPriority.SelectedIndexChanged += comboBox_TargetingGoblinPriority_SelectedIndexChanged;
+
+            panel_TargetingPriorityCloseRangeMinUnits.Enabled = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeUnits;
+
+            tb_TargetingPriorityCloseRangeUnitsCount.ValueChanged -= tb_TargetingPriorityCloseRangeUnitsCount_ValueChanged;
+            tb_TargetingPriorityCloseRangeUnitsCount.Value = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeMinimumUnits;
+            tb_TargetingPriorityCloseRangeUnitsCount.ValueChanged += tb_TargetingPriorityCloseRangeUnitsCount_ValueChanged;
+
+            txt_TargetingPriorityCloseRangeUnitsCount.Text = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeMinimumUnits.ToString();
+
+            cb_TargetingPrioritizeCloseRangeUnits.CheckedChanged -= cb_TargetingPrioritizeCloseRangeUnits_CheckedChanged;
+            cb_TargetingPrioritizeCloseRangeUnits.Checked = FunkyBaseExtension.Settings.Targeting.PrioritizeCloseRangeUnits;
+            cb_TargetingPrioritizeCloseRangeUnits.CheckedChanged += cb_TargetingPrioritizeCloseRangeUnits_CheckedChanged;
+
+        }
+
+        private void initalizeControls_Targeting_Ranges()
+        {
+            cb_TargetRangeIgnoreKillRangeProfile.CheckedChanged -= cb_TargetRangeIgnoreKillRangeProfile_CheckedChanged;
+            cb_TargetRangeIgnoreKillRangeProfile.Checked = FunkyBaseExtension.Settings.Ranges.IgnoreCombatRange;
+            cb_TargetRangeIgnoreKillRangeProfile.CheckedChanged += cb_TargetRangeIgnoreKillRangeProfile_CheckedChanged;
+
+            cb_TargetRangeIgnoreLootProfileRange.CheckedChanged -= cb_TargetRangeIgnoreLootProfileRange_CheckedChanged;
+            cb_TargetRangeIgnoreLootProfileRange.Checked = FunkyBaseExtension.Settings.Ranges.IgnoreLootRange;
+            cb_TargetRangeIgnoreLootProfileRange.CheckedChanged += cb_TargetRangeIgnoreLootProfileRange_CheckedChanged;
+
+            cb_TargetRangeIgnoreProfileBlacklists.CheckedChanged -= cb_TargetRangeIgnoreProfileBlacklists_CheckedChanged;
+            cb_TargetRangeIgnoreProfileBlacklists.Checked = FunkyBaseExtension.Settings.Ranges.IgnoreProfileBlacklists;
+            cb_TargetRangeIgnoreProfileBlacklists.CheckedChanged += cb_TargetRangeIgnoreProfileBlacklists_CheckedChanged;
+
+
+            flowLayout_TargetRanges.Controls.Clear();
+
+            UserControlTargetRange eliteRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.EliteCombatRange, "Rare/Elite/Unique Unit Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.EliteCombatRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(eliteRange);
+
+            UserControlTargetRange normalRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.NonEliteCombatRange, "Normal Unit Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.NonEliteCombatRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(normalRange);
+
+            UserControlTargetRange shrineRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.ShrineRange, "Shrine Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.ShrineRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(shrineRange);
+
+            UserControlTargetRange CursedshrineRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.CursedShrineRange, "Cursed Shrine Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.CursedShrineRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(CursedshrineRange);
+
+            UserControlTargetRange GoldRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.GoldRange, "Gold Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.GoldRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(GoldRange);
+
+            UserControlTargetRange GlobeRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.GlobeRange, "Globe Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.GlobeRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(GlobeRange);
+
+
+            UserControlTargetRange containerRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.ContainerOpenRange, "Container Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.ContainerOpenRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(containerRange);
+
+            UserControlTargetRange CursedChestRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.CursedChestRange, "Cursed Chest Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.CursedChestRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(CursedChestRange);
+
+            UserControlTargetRange DoorRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.NonEliteCombatRange, "Door Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.DoorRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(DoorRange);
+
+            UserControlTargetRange destructibleRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.DestructibleRange, "Destructible Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.DestructibleRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(destructibleRange);
+
+            UserControlTargetRange PoolsofReflectionRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.PoolsOfReflectionRange, "Pools of Reflection Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.PoolsOfReflectionRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(PoolsofReflectionRange);
+
+            UserControlTargetRange itemRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.ItemRange, "Item Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.ItemRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(itemRange);
+
+            UserControlTargetRange PotionRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.PotionRange, "Potion Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.PotionRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(PotionRange);
+
+            UserControlTargetRange GoblinRange = new UserControlTargetRange(FunkyBaseExtension.Settings.Ranges.TreasureGoblinRange, "Goblin Range")
+            {
+                UpdateValue = i => { FunkyBaseExtension.Settings.Ranges.TreasureGoblinRange = i; }
+            };
+            flowLayout_TargetRanges.Controls.Add(GoblinRange);
+
+        }
+
+        private void initalizeControls_Targeting_LineOfSight()
+        {
+            trackBar_LOS_MaxRange.ValueChanged -= trackbar_LOS_MaxRange_ValueChanged;
+            trackBar_LOS_MaxRange.Value = FunkyBaseExtension.Settings.LOSMovement.MaximumRange;
+            textBox_LOS_MaxRange.Text = FunkyBaseExtension.Settings.LOSMovement.MaximumRange.ToString();
+            trackBar_LOS_MaxRange.ValueChanged += trackbar_LOS_MaxRange_ValueChanged;
+
+            trackBar_LOS_MinRange.ValueChanged -= trackbar_LOS_MinRange_ValueChanged;
+            trackBar_LOS_MinRange.Value = FunkyBaseExtension.Settings.LOSMovement.MiniumRangeObjects;
+            textBox_LOS_MinRange.Text = FunkyBaseExtension.Settings.LOSMovement.MiniumRangeObjects.ToString();
+            trackBar_LOS_MinRange.ValueChanged += trackbar_LOS_MinRange_ValueChanged;
+
+            cb_TargetLOSBossUniques.CheckedChanged -= cb_TargetLOSBossUniques_CheckedChanged;
+            cb_TargetLOSBossUniques.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowUniqueBoss;
+            cb_TargetLOSBossUniques.CheckedChanged += cb_TargetLOSBossUniques_CheckedChanged;
+
+            cb_TargetLOSCursedChestShrine.CheckedChanged -= cb_TargetLOSCursedChestShrine_CheckedChanged;
+            cb_TargetLOSCursedChestShrine.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowCursedChestShrines;
+            cb_TargetLOSCursedChestShrine.CheckedChanged += cb_TargetLOSCursedChestShrine_CheckedChanged;
+
+            cb_TargetLOSGoblins.CheckedChanged -= cb_TargetLOSGoblins_CheckedChanged;
+            cb_TargetLOSGoblins.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowTreasureGoblin;
+            cb_TargetLOSGoblins.CheckedChanged += cb_TargetLOSGoblins_CheckedChanged;
+
+            cb_TargetLOSRanged.CheckedChanged -= cb_TargetLOSRanged_CheckedChanged;
+            cb_TargetLOSRanged.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowRanged;
+            cb_TargetLOSRanged.CheckedChanged += cb_TargetLOSRanged_CheckedChanged;
+
+            cb_TargetLOSRareChests.CheckedChanged -= cb_TargetLOSRareChests_CheckedChanged;
+            cb_TargetLOSRareChests.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowRareLootContainer;
+            cb_TargetLOSRareChests.CheckedChanged += cb_TargetLOSRareChests_CheckedChanged;
+
+            cb_TargetLOSRareElite.CheckedChanged -= cb_TargetLOSRareElite_CheckedChanged;
+            cb_TargetLOSRareElite.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowRareElites;
+            cb_TargetLOSRareElite.CheckedChanged += cb_TargetLOSRareElite_CheckedChanged;
+
+            cb_TargetLOSSpawnerUnits.CheckedChanged -= cb_TargetLOSSpawnerUnits_CheckedChanged;
+            cb_TargetLOSSpawnerUnits.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowSpawnerUnits;
+            cb_TargetLOSSpawnerUnits.CheckedChanged += cb_TargetLOSSpawnerUnits_CheckedChanged;
+
+            cb_TargetLOSSucideBombers.CheckedChanged -= cb_TargetLOSSucideBombers_CheckedChanged;
+            cb_TargetLOSSucideBombers.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowSucideBomber;
+            cb_TargetLOSSucideBombers.CheckedChanged += cb_TargetLOSSucideBombers_CheckedChanged;
+
+            cb_LOSEventSwitches.CheckedChanged -= cb_TargetLOSEventSwitches_CheckedChanged;
+            cb_LOSEventSwitches.Checked = FunkyBaseExtension.Settings.LOSMovement.AllowEventSwitches;
+            cb_LOSEventSwitches.CheckedChanged += cb_TargetLOSEventSwitches_CheckedChanged;
+
+        }
+        
+        #endregion
+
+	    private void initalizeControls_General()
+	    {
+	        initalizeControls_General_Misc();
+	        initalizeControls_General_Death();
+	        initalizeControls_General_AdventureMode();
+
+            if (CharacterControl.HeroIndexInfo.Characters.Count == 0)
+            {
+                groupBox_BnetControl_Setup.Enabled = true;
+            }
+            else
+            {
+                groupBox_BnetControl_Setup.Enabled = false;
+                groupBox_BnetControl_AltHero.Enabled = true;
+                UpdateBnetHeroComboBox();
+            }
+	    }
+
+	    private void initalizeControls_General_Misc()
+        {
+            tb_GoldInactivityTimeout.ValueChanged -= tb_GoldInactivityTimeout_ValueChanged;
+            txt_GoldInactivityTimeout.Text = FunkyBaseExtension.Settings.Monitoring.GoldInactivityTimeoutSeconds.ToString();
+            tb_GoldInactivityTimeout.Value = FunkyBaseExtension.Settings.Monitoring.GoldInactivityTimeoutSeconds;
+            tb_GoldInactivityTimeout.ValueChanged += tb_GoldInactivityTimeout_ValueChanged;
+
+            cb_GeneralAllowBuffInTown.CheckedChanged -= cb_GeneralAllowBuffInTown_CheckedChanged;
+            cb_GeneralAllowBuffInTown.Checked = FunkyBaseExtension.Settings.General.AllowBuffingInTown;
+            cb_GeneralAllowBuffInTown.CheckedChanged += cb_GeneralAllowBuffInTown_CheckedChanged;
+
+            txt_GeneralEndOfCombatDelayValue.Text = FunkyBaseExtension.Settings.General.AfterCombatDelay.ToString();
+
+            tb_GeneralEndOfCombatDelayValue.ValueChanged -= tb_GeneralEndOfCombatDelayValue_ValueChanged;
+            tb_GeneralEndOfCombatDelayValue.Value = FunkyBaseExtension.Settings.General.AfterCombatDelay;
+            tb_GeneralEndOfCombatDelayValue.ValueChanged += tb_GeneralEndOfCombatDelayValue_ValueChanged;
+
+            cb_GeneralApplyEndDelayToContainers.CheckedChanged -= cb_GeneralApplyEndDelayToContainers_CheckedChanged;
+            cb_GeneralApplyEndDelayToContainers.Checked = FunkyBaseExtension.Settings.General.EnableWaitAfterContainers;
+            cb_GeneralApplyEndDelayToContainers.CheckedChanged += cb_GeneralApplyEndDelayToContainers_CheckedChanged;
+
+            cb_GeneralSkipAhead.CheckedChanged -= cb_GeneralSkipAhead_CheckedChanged;
+            cb_GeneralSkipAhead.Checked = FunkyBaseExtension.Settings.Debugging.SkipAhead;
+            cb_GeneralSkipAhead.CheckedChanged += cb_GeneralSkipAhead_CheckedChanged;
+
+	    }
+
+	    private void initalizeControls_General_Death()
+	    {
+            cb_DeathWaitForPotion.CheckedChanged -= cb_DeathPotion_CheckedChanged;
+            cb_DeathWaitForPotion.Checked = FunkyBaseExtension.Settings.Death.WaitForPotionCooldown;
+            cb_DeathWaitForPotion.CheckedChanged += cb_DeathPotion_CheckedChanged;
+
+            cb_DeathWaitForSkillsCooldown.CheckedChanged -= cb_DeathSkills_CheckedChanged;
+            cb_DeathWaitForSkillsCooldown.Checked = FunkyBaseExtension.Settings.Death.WaitForAllSkillsCooldown;
+            cb_DeathWaitForSkillsCooldown.CheckedChanged += cb_DeathSkills_CheckedChanged;
+
+	    }
+
+	    private void initalizeControls_General_AdventureMode()
+	    {
+            cb_adventuremode_NavigateMinimapMarkers.CheckedChanged -= cb_adventuremode_NavigateMinimapMarkers_CheckedChanged;
+            cb_adventuremode_NavigateMinimapMarkers.Checked = FunkyBaseExtension.Settings.AdventureMode.NavigatePointsOfInterest;
+            cb_adventuremode_NavigateMinimapMarkers.CheckedChanged += cb_adventuremode_NavigateMinimapMarkers_CheckedChanged;
+
+            cb_adventuremode_allowcombatmodification.CheckedChanged -= cb_adventuremode_allowcombatmodification_CheckedChanged;
+            cb_adventuremode_allowcombatmodification.Checked = FunkyBaseExtension.Settings.AdventureMode.AllowCombatModifications;
+            cb_adventuremode_allowcombatmodification.CheckedChanged += cb_adventuremode_allowcombatmodification_CheckedChanged;
+
+            trackBar_TieredRiftKey.ValueChanged -= tb_TieredRiftKey_ValueChanged;
+            trackBar_TieredRiftKey.Value = FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed;
+            trackBar_TieredRiftKey.ValueChanged += tb_TieredRiftKey_ValueChanged;
+            textBox_MaxTieredRiftKey.Text = FunkyBaseExtension.Settings.AdventureMode.MaximumTieredRiftKeyAllowed.ToString();
+
+            comboBox_GemUpgrading_SuccessRate.SelectedIndexChanged -= cb_GemUpgrading_SuccessRate_CheckedChanged;
+            comboBox_GemUpgrading_SuccessRate.Text = (FunkyBaseExtension.Settings.AdventureMode.GemUpgradingMinimumSuccessRate * 100).ToString() + "%";
+            comboBox_GemUpgrading_SuccessRate.SelectedIndexChanged += cb_GemUpgrading_SuccessRate_CheckedChanged;
+
+            radioButton_GemUpgrading_None.CheckedChanged -= radioButton_GemUpgrading_CheckedChanged;
+            radioButton_GemUpgrading_Highest.CheckedChanged -= radioButton_GemUpgrading_CheckedChanged;
+            radioButton_GemUpgrading_Lowest.CheckedChanged -= radioButton_GemUpgrading_CheckedChanged;
+            radioButton_GemUpgrading_Priority.CheckedChanged -= radioButton_GemUpgrading_CheckedChanged;
+
+            groupBox_PriorityGemUpgrading.Enabled = false;
+            if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.None)
+                radioButton_GemUpgrading_None.Checked = true;
+            else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.HighestRank)
+                radioButton_GemUpgrading_Highest.Checked = true;
+            else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.LowestRank)
+                radioButton_GemUpgrading_Lowest.Checked = true;
+            else if (FunkyBaseExtension.Settings.AdventureMode.GemUpgradeType == SettingAdventureMode.GemUpgradingType.Priority)
+            {
+                radioButton_GemUpgrading_Priority.Checked = true;
+                groupBox_PriorityGemUpgrading.Enabled = true;
+            }
+
+            radioButton_GemUpgrading_None.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
+            radioButton_GemUpgrading_Highest.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
+            radioButton_GemUpgrading_Lowest.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
+            radioButton_GemUpgrading_Priority.CheckedChanged += radioButton_GemUpgrading_CheckedChanged;
+
+	        listBox_GemUpgrading_PriorityList.Items.Clear();
+            var legendarGems = Enum.GetValues(typeof(LegendaryGemTypes));
+            Func<object, string> fRetrieveLegendaryGemsNames = s => Enum.GetName(typeof(LegendaryGemTypes), s);
+
+            foreach (var gem in FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList)
+            {
+                LegendaryGemTypes thisLegendaryGem = (LegendaryGemTypes)gem;
+                if (thisLegendaryGem.Equals(LegendaryGemTypes.None)) continue;
+
+                listBox_GemUpgrading_PriorityList.Items.Add(fRetrieveLegendaryGemsNames(gem));
+            }
+
+	        listBox_GemUpgrading_UnusedGems.Items.Clear();
+            foreach (var gem in legendarGems)
+            {
+                LegendaryGemTypes thisLegendaryGem = (LegendaryGemTypes)gem;
+                if (thisLegendaryGem.Equals(LegendaryGemTypes.None)) continue;
+
+                if (!FunkyBaseExtension.Settings.AdventureMode.GemUpgradePriorityList.Contains(thisLegendaryGem))
+                    listBox_GemUpgrading_UnusedGems.Items.Add(fRetrieveLegendaryGemsNames(gem));
+            }
+	    }
+
+	    private void initalizeControls_Items()
+	    {
+            comboBox_LootLegendaryItemQuality.SelectedIndexChanged -= ItemLootChanged;
+            comboBox_LootLegendaryItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 61 ? 1 : 2;
+            comboBox_LootLegendaryItemQuality.SelectedIndexChanged += ItemLootChanged;
+
+            comboBox_LootMagicItemQuality.SelectedIndexChanged -= ItemLootChanged;
+            comboBox_LootMagicItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupMagicItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupMagicItems == 61 ? 1 : 2;
+            comboBox_LootMagicItemQuality.SelectedIndexChanged += ItemLootChanged;
+
+            comboBox_LootRareItemQuality.SelectedIndexChanged -= ItemLootChanged;
+            comboBox_LootRareItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupRareItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupRareItems == 61 ? 1 : 2;
+            comboBox_LootRareItemQuality.SelectedIndexChanged += ItemLootChanged;
+
+            comboBox_LootWhiteItemQuality.SelectedIndexChanged -= ItemLootChanged;
+            comboBox_LootWhiteItemQuality.SelectedIndex = FunkyBaseExtension.Settings.Loot.PickupWhiteItems == 0 ? 0 : FunkyBaseExtension.Settings.Loot.PickupWhiteItems == 61 ? 1 : 2;
+            comboBox_LootWhiteItemQuality.SelectedIndexChanged += ItemLootChanged;
+
+            cb_LootPickupCraftPlans.CheckedChanged -= cb_LootPickupCraftPlans_CheckedChanged;
+            cb_LootPickupCraftPlans.Checked = FunkyBaseExtension.Settings.Loot.PickupCraftPlans;
+            cb_LootPickupCraftPlans.CheckedChanged += cb_LootPickupCraftPlans_CheckedChanged;
+
+            comboBox_LootGemQuality.SelectedIndexChanged -= GemQualityLevelChanged;
+            comboBox_LootGemQuality.Text = Enum.GetName(typeof(GemQualityTypes), FunkyBaseExtension.Settings.Loot.MinimumGemItemLevel).ToString();
+            comboBox_LootGemQuality.SelectedIndexChanged += GemQualityLevelChanged;
+
+            cb_LootGemAMETHYST.CheckedChanged -= cb_LootGemAMETHYST_CheckedChanged;
+            cb_LootGemAMETHYST.Checked = FunkyBaseExtension.Settings.Loot.PickupGems[2];
+            cb_LootGemAMETHYST.CheckedChanged += cb_LootGemAMETHYST_CheckedChanged;
+
+            cb_LootGemDiamond.CheckedChanged -= cb_LootGemDiamond_CheckedChanged;
+            cb_LootGemDiamond.Checked = FunkyBaseExtension.Settings.Loot.PickupGemDiamond;
+            cb_LootGemDiamond.CheckedChanged += cb_LootGemDiamond_CheckedChanged;
+
+            cb_LootGemEMERALD.CheckedChanged -= cb_LootGemEMERALD_CheckedChanged;
+            cb_LootGemEMERALD.Checked = FunkyBaseExtension.Settings.Loot.PickupGems[1];
+            cb_LootGemEMERALD.CheckedChanged += cb_LootGemEMERALD_CheckedChanged;
+
+            cb_LootGemRUBY.CheckedChanged -= cb_LootGemRUBY_CheckedChanged;
+            cb_LootGemRUBY.Checked = FunkyBaseExtension.Settings.Loot.PickupGems[0];
+            cb_LootGemRUBY.CheckedChanged += cb_LootGemRUBY_CheckedChanged;
+
+            cb_LootGemTOPAZ.CheckedChanged -= cb_LootGemTOPAZ_CheckedChanged;
+            cb_LootGemTOPAZ.Checked = FunkyBaseExtension.Settings.Loot.PickupGems[3];
+            cb_LootGemTOPAZ.CheckedChanged += cb_LootGemTOPAZ_CheckedChanged;
+
+            tb_LootMinimumGold.ValueChanged -= tb_LootMinimumGold_ValueChanged;
+            txt_LootMinimumGold.Text = FunkyBaseExtension.Settings.Loot.MinimumGoldPile.ToString();
+            tb_LootMinimumGold.Value = FunkyBaseExtension.Settings.Loot.MinimumGoldPile;
+            tb_LootMinimumGold.ValueChanged += tb_LootMinimumGold_ValueChanged;
+
+            tb_LootHealthPotions.ValueChanged -= tb_LootHealthPotions_ValueChanged;
+            txt_LootHealthPotions.Text = FunkyBaseExtension.Settings.Loot.MaximumHealthPotions.ToString();
+            tb_LootHealthPotions.Value = FunkyBaseExtension.Settings.Loot.MaximumHealthPotions;
+            tb_LootHealthPotions.ValueChanged += tb_LootHealthPotions_ValueChanged;
+
+            cb_LootCraftMats.CheckedChanged -= cb_LootCraftMats_CheckedChanged;
+            cb_LootCraftMats.Checked = FunkyBaseExtension.Settings.Loot.PickupCraftMaterials;
+            cb_LootCraftMats.CheckedChanged += cb_LootCraftMats_CheckedChanged;
+
+            cb_LootInfernoKeys.CheckedChanged -= cb_LootInfernoKeys_CheckedChanged;
+            cb_LootInfernoKeys.Checked = FunkyBaseExtension.Settings.Loot.PickupInfernalKeys;
+            cb_LootInfernoKeys.CheckedChanged += cb_LootInfernoKeys_CheckedChanged;
+
+            cb_LootExpBooks.CheckedChanged -= cb_LootExpBooks_CheckedChanged;
+            cb_LootExpBooks.Checked = FunkyBaseExtension.Settings.Loot.ExpBooks;
+            cb_LootExpBooks.CheckedChanged += cb_LootExpBooks_CheckedChanged;
+
+            cb_LootKeyStones.CheckedChanged -= cb_LootKeyStoneFragments_CheckedChanged;
+            cb_LootKeyStones.Checked = FunkyBaseExtension.Settings.Loot.PickupKeystoneFragments;
+            cb_LootKeyStones.CheckedChanged += cb_LootKeyStoneFragments_CheckedChanged;
+
+	    }
+
+	    private void initalizeControls_Advanced()
+	    {
+            cb_DebugDataLogging.CheckedChanged -= cb_DebugDataLogging_CheckedChanged;
+            cb_DebugDataLogging.Checked = FunkyBaseExtension.Settings.Debugging.DebuggingData;
+            cb_DebugDataLogging.CheckedChanged += cb_DebugDataLogging_CheckedChanged;
+
+            cb_DebugStatusBar.CheckedChanged -= cb_DebugStatusBar_CheckedChanged;
+            cb_DebugStatusBar.Checked = FunkyBaseExtension.Settings.Debugging.DebugStatusBar;
+            cb_DebugStatusBar.CheckedChanged += cb_DebugStatusBar_CheckedChanged;
+
+	        flowLayout_DebugFunkyLogLevels.Controls.Clear();
+            var LogLevels = Enum.GetValues(typeof(LogLevel));
+            Func<object, string> fRetrieveLogLevelNames = s => Enum.GetName(typeof(LogLevel), s);
+            bool noLogFlags = FunkyBaseExtension.Settings.Logging.LogFlags.Equals(LogLevel.None);
+            foreach (var logLevel in LogLevels)
+            {
+                LogLevel thisloglevel = (LogLevel)logLevel;
+                if (thisloglevel.Equals(LogLevel.None) || thisloglevel.Equals(LogLevel.All)) continue;
+
+                string loglevelName = fRetrieveLogLevelNames(logLevel);
+                CheckBox cb = new CheckBox
+                {
+                    Name = loglevelName,
+                    Text = loglevelName,
+                    Checked = !noLogFlags && FunkyBaseExtension.Settings.Logging.LogFlags.HasFlag(thisloglevel),
+                };
+                cb.CheckedChanged += FunkyLogLevelChanged;
+
+                flowLayout_DebugFunkyLogLevels.Controls.Add(cb);
+            }
+
+
+
+            //
+	        flowLayout_DebugDataFlags.Controls.Clear();
+            var DebugDataFlags = Enum.GetValues(typeof(DebugDataTypes));
+            Func<object, string> fRetrieveDebugDataFlagsNames = s => Enum.GetName(typeof(DebugDataTypes), s);
+            bool noDebugDataFlags = FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.Equals(DebugDataTypes.None);
+            foreach (var logLevel in DebugDataFlags)
+            {
+                DebugDataTypes thisloglevel = (DebugDataTypes)logLevel;
+                if (thisloglevel.Equals(DebugDataTypes.None)) continue;
+
+                string loglevelName = fRetrieveDebugDataFlagsNames(logLevel);
+                CheckBox cb = new CheckBox
+                {
+                    Name = loglevelName,
+                    Text = loglevelName,
+                    Checked = !noDebugDataFlags && FunkyBaseExtension.Settings.Debugging.DebuggingDataTypes.HasFlag(thisloglevel),
+                };
+                cb.CheckedChanged += DebugDataTypesChanged;
+
+                flowLayout_DebugDataFlags.Controls.Add(cb);
+            }
+	    }
+
+	    private void initalizeControls_MiscStats()
+	    {
+	        flowLayoutPanel_MiscStats.Controls.Clear();
+            try
+            {
+
+                fBaseXtensions.Stats.GameStats cur = FunkyGame.CurrentGameStats;
+
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Profiles:{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n Bounties Completed {6}\r\n{5}",
+                                                        cur.Profiles.Count, cur.TotalDeaths, cur.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), cur.TotalGold, cur.TotalXP, cur.TotalLootTracker.ToString(), cur.TotalBountiesCompleted)));
+
+                if (FunkyGame.CurrentGameStats.Profiles.Count > 0)
+                {
+                    flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== PROFILES =="));
+                    foreach (var item in FunkyGame.CurrentGameStats.Profiles)
+                    {
+                        flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n{5}",
+                            item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalGold, item.TotalXP, item.LootTracker.ToString())));
+                    }
+                }
+
+
+                TotalStats all = FunkyGame.TrackingStats;
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Games:{0} -- Total Unique Profiles:{1}\r\nDeaths:{2} TotalTime:{3} TotalGold:{4} TotalXP:{5}\r\n{6}",
+                                                        all.GameCount, all.Profiles.Count, all.TotalDeaths, all.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), all.TotalGold, all.TotalXP, all.TotalLootTracker.ToString())));
+
+
+            }
+            catch
+            {
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("Exception Handled"));
+            }
+	    }
 
 
 		private void tb_GlobeHealth_ValueChanged(object sender, EventArgs e)
@@ -699,18 +964,6 @@ namespace fBaseXtensions.Settings
 			Text = FunkyGame.CurrentHeroName;// + " " + Bot.Character.Account.CurrentAccountName;
 		}
 
-
-
-		//private void BloodShardGambleItemsChanged(object sender, EventArgs e)
-		//{
-		//	CheckBox cbSender = (CheckBox)sender;
-		//	BloodShardGambleItems LogLevelValue = (BloodShardGambleItems)Enum.Parse(typeof(BloodShardGambleItems), cbSender.Name);
-
-		//	if (FunkyBaseExtension.Settings.TownRun.BloodShardGambleItems.HasFlag(LogLevelValue))
-		//		FunkyBaseExtension.Settings.TownRun.BloodShardGambleItems &= ~LogLevelValue;
-		//	else
-		//		FunkyBaseExtension.Settings.TownRun.BloodShardGambleItems |= LogLevelValue;
-		//}
 
 
 
@@ -1405,12 +1658,12 @@ namespace fBaseXtensions.Settings
 		}
 		private void SettingsForm_FormClosing_1(object sender, FormClosingEventArgs e)
 		{
-			PluginSettings.SerializeToXML(FunkyBaseExtension.Settings);
+            PluginSettings.SerializeToXML(FunkyBaseExtension.Settings, Path.Combine(FolderPaths.sFunkySettingsPath, comboBox_SettingFiles.SelectedItem.ToString()));
 		}
 
 		private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
-
+            FunkyBaseExtension.Settings = PluginSettings.DeserializeFromXML();
 		}
 
 		private void btn_DumpObstacleCache_Click(object sender, EventArgs e)
@@ -1484,7 +1737,7 @@ namespace fBaseXtensions.Settings
 			LBDebug.Controls.Clear();
 			try
 			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Targeting.Cache.DebugString()));
+				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Targeting.DebugString()));
 			}
 			catch (Exception ex)
 			{
@@ -1851,6 +2104,9 @@ namespace fBaseXtensions.Settings
 	            {
 	                comboBox_BnetControl_Heros.SelectedIndex = FunkyBaseExtension.Settings.General.AltHeroIndex;
 	            }
+	            else
+	                comboBox_BnetControl_Heros.Text = String.Empty;
+
                 comboBox_BnetControl_Heros.SelectedIndexChanged += comboBox_BnetControl_Heros_SelectedIndexChanged;
 	        }
 	    }
@@ -1891,7 +2147,33 @@ namespace fBaseXtensions.Settings
                 groupBox_BnetControl_AltHero.Enabled = false;
             }
         }
-        
+
+	    private void comboBox_SettingFiles_SelectedIndexChanged(object sender, EventArgs e)
+	    {
+	        if (comboBox_SettingFiles.SelectedIndex >= 0)
+	        {
+	            var currentActorClass = FunkyGame.CurrentActorClass;
+                FunkyGame._CurrentActorClass = ActorClass.Invalid;
+
+	            bool shouldrefreshclass = FunkyGame.ShouldRefreshClass;
+                if (shouldrefreshclass)
+	            {
+	                FunkyGame.ShouldRefreshClass = false;
+	            }
+
+	            FunkyBaseExtension.Settings=PluginSettings.DeserializeFromXML(Path.Combine(FolderPaths.sFunkySettingsPath,comboBox_SettingFiles.SelectedItem.ToString()));
+	            initalizeControls();
+	            Text = comboBox_SettingFiles.SelectedItem.ToString();
+
+	            FunkyGame._CurrentActorClass = FunkyGame.CurrentActorClass;
+                FunkyGame.ShouldRefreshClass = shouldrefreshclass;
+	        }
+	    }
+
+        private void button_saveSettings_Click(object sender, EventArgs e)
+        {
+            PluginSettings.SerializeToXML(FunkyBaseExtension.Settings, Path.Combine(FolderPaths.sFunkySettingsPath, comboBox_SettingFiles.SelectedItem.ToString()));
+        }
 
 
 	}

@@ -127,8 +127,10 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
             255254,//(x1_BogCave_Stalagmite_Fungus_E-80830)
             255257,//(x1_BogCave_Stalagmite_Fungus_F-82345)
             358104,//(x1_Catacombs_Breakable_Corner_Wall
-            53628, //(a2dun_Swr_Act_Iron_Railing_A_01
-
+            53628, //a2dun_Swr_Act_Iron_Railing_A_01
+            2965, //a2dun_Swr_Breakable_Wall_A
+            326935, //X1_Westm_Scaffolding_E_Breakable
+            115908, //Wall_Feilds_MainC1_TrOut
         };
 
 

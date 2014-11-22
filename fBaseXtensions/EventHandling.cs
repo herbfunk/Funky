@@ -48,8 +48,8 @@ namespace fBaseXtensions
 		}
 		internal static void OnBotStop(IBot bot)
 		{
-			FunkyGame.CurrentGameID = new GameId();
-			FunkyGame.AdventureMode = false;
+			//FunkyGame.CurrentGameID = new GameId();
+			//FunkyGame.AdventureMode = false;
 			FunkyGame.ShouldRefreshAccountDetails = true;
 			ExitGameBehavior.ShouldExitGame = false;
 			ExitGameBehavior.BehaviorEngaged = false;
@@ -63,6 +63,7 @@ namespace fBaseXtensions
 				// Issue final reports
 				FunkyGame.TrackingStats.GameStopped(ref FunkyGame.CurrentGameStats);
 				TotalStats.WriteProfileTrackerOutput(ref FunkyGame.TrackingStats);
+                FunkyGame.CurrentGameStats = new Stats.GameStats();
 			}
 
 			
@@ -159,28 +160,6 @@ namespace fBaseXtensions
 		/// Will fire when the Game ID has changed
 		/// </summary>
 		public static event GameIDChanged OnGameIDChanged;
-
-		private static void OnGameIDChangedHandler()
-		{
-			Logger.Write(LogLevel.OutOfCombat, "New Game Started");
-
-			SettingAdventureMode.AdventureModeSettingsTag = FunkyBaseExtension.Settings.AdventureMode;
-
-			if (FunkyGame.AdventureMode)
-			{
-				FunkyGame.Game.ResetCombatModifiers();
-			}
-
-
-			//Clear Interactable Cache
-			ObjectCache.InteractableObjectCache.Clear();
-
-			//Clear Health Average
-			ObjectCache.Objects.ClearHealthAverageStats();
-
-			//Renew bot
-			FunkyGame.ResetBot();
-		}
 
 		private static void OnGameJoined(object obj, EventArgs args)
 		{

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using fBaseXtensions.Cache.External.Enums;
+using fBaseXtensions.Cache.Internal.Avoidance;
 using fBaseXtensions.Cache.Internal.Blacklist;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Game;
@@ -371,7 +372,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		//Monter Hitpoints
 		public double? MaximumHealth { get; set; }
 
-		internal DateTime LastHealthChange = DateTime.Today;
+		internal DateTime LastHealthChange = DateTime.Now;
 		private double LastCurrentHealth_;
 		public double LastCurrentHealth
 		{
@@ -450,33 +451,30 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			double dThisCurrentHealth;
 
 
-			using (ZetaDia.Memory.AcquireFrame())
-			{
-				try
-				{
-					try
-					{
-						dThisCurrentHealth = ref_DiaUnit.HitpointsCurrent;
-					}
-					catch (Exception ex)
-					{
-					    CurrentHealthPct = null;
-						return;
-					}
+            try
+            {
+                dThisCurrentHealth = ref_DiaUnit.HitpointsCurrent;
+            }
+            catch
+            {
+                Logger.Write(LogLevel.Cache, "Failure to get hitpoint current {0}", DebugStringSimple);
+                CurrentHealthPct = null;
+                return;
+            }
 
-					if (!MaximumHealth.HasValue)
-						MaximumHealth = ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.HitpointsMax);
-
-				}
-				catch (AccessViolationException)
-				{
-					// This happens so frequently in DB/D3 that this fails, let's not even bother logging it anymore
-					//Logger.DBLog.DebugFormat("[GilesTrinity] Safely handled exception getting current health for unit " + tmp_sThisInternalName + " [" + tmp_iThisActorSNO.ToString() + "]");
-					// Add this monster to our very short-term ignore list
-					NeedsRemoved = true;
-					return;
-				}
-			}
+            if (!MaximumHealth.HasValue || DateTime.Now.Subtract(LastHealthChange).TotalSeconds>10)
+            {
+                try
+                {
+                    MaximumHealth = ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.HitpointsMax);
+                }
+                catch
+                {
+                    Logger.Write(LogLevel.Cache, "Failure to get max hitpoints {0}", DebugStringSimple);
+                    NeedsRemoved = true;
+                    return;
+                }
+            }
 
 
 
@@ -486,12 +484,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			{
 				LastCurrentHealth = CurrentHealthPct.HasValue ? CurrentHealthPct.Value : 1d;
 				CurrentHealthPct = dCurrentHealthPct;
-
-				//update properties
-				//if (dCurrentHealthPct==1)
-				//	 this.Properties|=TargetProperties.FullHealth;
-				//else if (AbilityLogicConditions.CheckTargetPropertyFlag(this.Properties,TargetProperties.FullHealth))
-				//	 this.Properties&=TargetProperties.FullHealth;
 			}
 		}
 
@@ -1211,217 +1203,240 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				return false;
 			}
 
-		    if (!UnitPropertyFlags.HasValue)
-		    {
-		        try
-		        {
+            #region Non-Cached Unit (Possible Friendly!)
+
+            if (!UnitPropertyFlags.HasValue)
+            {
+                try
+                {
                     MonsterType monstertype = ref_DiaUnit.MonsterInfo.MonsterType;
-		            if (monstertype == MonsterType.Ally || monstertype == MonsterType.Scenery ||
-		                monstertype == MonsterType.Team || monstertype == MonsterType.Helper)
-		            {
+                    if (monstertype == MonsterType.Ally || monstertype == MonsterType.Scenery ||
+                        monstertype == MonsterType.Team || monstertype == MonsterType.Helper)
+                    {
                         //Unit is a non-hostile type.. lets ignore it if its not an exception!
-		                if (!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
-		                {
+                        if (!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
+                        {
                             BlacklistCache.IgnoreThisObject(this);
-		                    return false;
-		                }
-		            }
-		        }
-		        catch (Exception)
-		        {
+                            return false;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
                     Logger.Write(LogLevel.Cache, "Handled MonsterInfo for Unit {0}", DebugStringSimple);
-		        }
-		        
-		    }
+                }
 
-			//NPC Check
-			bool isNPC = false;
-			if (!IsNPC.HasValue || IsNPC.Value)
-			{
-				try
-				{
-					IsNPC = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC) > 0);
-					isNPC = IsNPC.Value;
-				}
-				catch (Exception)
-				{
-					Logger.Write(LogLevel.Cache, "Handled IsNPC for Unit {0}", DebugStringSimple);
-				}
-
-			}
+            }
+            
+            #endregion
 
 
-			// Make sure it's a valid monster type
-			if (isNPC)
-			{
-				if (FunkyGame.Hero.bIsInTown)
-				{
-					//Perma Ignore all NPCs we find in town..
-					if (isNPC) BlacklistCache.IgnoreThisObject(this);
 
-					return false;
-				}
+            #region IsNPC Update
 
+            bool isNPC = false;
+            if (!IsNPC.HasValue || IsNPC.Value)
+            {
+                try
+                {
+                    IsNPC = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.IsNPC) > 0);
+                    isNPC = IsNPC.Value;
+                }
+                catch (Exception)
+                {
+                    Logger.Write(LogLevel.Cache, "Handled IsNPC for Unit {0}", DebugStringSimple);
+                }
+            }
+            
+            #endregion
 
-				//Special Bounty Check for Events only!
-				if (FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.Event)
-				{
-					if (!IsQuestGiver)
-					{
-						try
-						{
-							IsQuestGiver = ref_DiaUnit.IsQuestGiver;
-						}
-						catch (Exception ex)
-						{
-							Logger.Write(LogLevel.Cache, "Handled IsQuestGiver for Unit {0}", DebugStringSimple);
-						}
-					}
+            #region IsNPC -- Specific Stuff!
 
-					if (IsQuestGiver)
-					{//Is A Quest Giver..
-						
-						if (!ObjectCache.InteractableObjectCache.ContainsKey(RAGUID))
-						{//Check if MarkerType is Exclamation..
+            // Make sure it's a valid monster type
+            if (isNPC)
+            {
+                if (FunkyGame.Hero.bIsInTown)
+                {
+                    //Perma Ignore all NPCs we find in town..
+                    if (isNPC) BlacklistCache.IgnoreThisObject(this);
 
-							bool shouldInteract = false;
-							try
-							{
-								shouldInteract = ref_DiaUnit.MarkerType == MarkerType.Exclamation;
-							}
-							catch (Exception)
-							{
-								Logger.Write(LogLevel.Cache, "Handled MarkerType for Unit {0}", DebugStringSimple);
-							}
-
-							if (shouldInteract)
-							{
-								ObjectCache.InteractableObjectCache.Add(RAGUID, this);
-								targetType = TargetType.Interaction;
-							}
-							else
-							{
-								//SNOID should be ignored?
-								if(!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
-								{
-									BlacklistCache.IgnoreThisObject(this);
-									return false;
-								}
-							}
-						}
-
-						//Quest Giver No Good For Targeting!
-						return false;
-					}
-
-					//Minimap Active?
-					if (!IsMinimapActive.HasValue)
-					{
-						try
-						{
-							IsMinimapActive = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.MinimapActive) != 0;
-						}
-						catch (Exception ex)
-						{
-							Logger.Write(LogLevel.Cache, "Handled MinimapActive for Unit {0}", DebugStringSimple);
-						}
-					}
-
-					if (IsMinimapActive.HasValue && IsMinimapActive.Value)
-					{
-						if (!ObjectCache.InteractableObjectCache.ContainsKey(RAGUID))
-						{
-							bool shouldInteract = false;
-							try
-							{
-								shouldInteract = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.NPCIsOperatable) != 0;
-							}
-							catch (Exception)
-							{
-								Logger.Write(LogLevel.Cache, "Handled NPCIsOperatable for Unit {0}", DebugStringSimple);
-							}
-
-							if (shouldInteract)
-							{
-								ObjectCache.InteractableObjectCache.Add(RAGUID, this);
-								targetType = TargetType.Interaction;
-							}
-							else
-							{
-								//SNOID should be ignored?
-								if (!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
-								{
-									BlacklistCache.IgnoreThisObject(this);
-								}
-							}
-						}
-
-						return false;
-					}
-					
-				}
+                    return false;
+                }
 
 
-				//Either not hostile or NPC. (Bosses we exclude!)
-				if (!IsBoss && !CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
-				{
-					//Logger.Write(LogLevel.Cache, "Monster Is NPC {0}", DebugStringSimple);
-					if (isNPC) BlacklistCache.IgnoreThisObject(this);
-					return false;
-				}
-			}
+                //Special Bounty Check for Events only!
+                if (FunkyGame.AdventureMode && FunkyGame.Bounty.CurrentBountyCacheEntry != null && FunkyGame.Bounty.CurrentBountyCacheEntry.Type == BountyTypes.Event)
+                {
+                    if (!IsQuestGiver)
+                    {
+                        try
+                        {
+                            IsQuestGiver = ref_DiaUnit.IsQuestGiver;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Write(LogLevel.Cache, "Handled IsQuestGiver for Unit {0}", DebugStringSimple);
+                        }
+                    }
 
-			bool isFriendly = false;
-			if (!IsFriendly.HasValue || IsFriendly.Value)
-			{
-				try
-				{
-					IsFriendly = ref_DiaUnit.IsFriendly;
-					isFriendly = IsFriendly.Value;
-				}
-				catch (Exception)
-				{
-					Logger.Write(LogLevel.Cache, "Handled IsFriendly for Unit {0}", DebugStringSimple);
-				}
-			}
+                    if (IsQuestGiver)
+                    {//Is A Quest Giver..
 
-			if (isFriendly)
-			{
-				return false;
-			}
+                        if (!ObjectCache.InteractableObjectCache.ContainsKey(RAGUID))
+                        {//Check if MarkerType is Exclamation..
 
+                            bool shouldInteract = false;
+                            try
+                            {
+                                shouldInteract = ref_DiaUnit.MarkerType == MarkerType.Exclamation;
+                            }
+                            catch (Exception)
+                            {
+                                Logger.Write(LogLevel.Cache, "Handled MarkerType for Unit {0}", DebugStringSimple);
+                            }
+
+                            if (shouldInteract)
+                            {
+                                ObjectCache.InteractableObjectCache.Add(RAGUID, this);
+                                targetType = TargetType.Interaction;
+                            }
+                            else
+                            {
+                                //SNOID should be ignored?
+                                if (!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
+                                {
+                                    BlacklistCache.IgnoreThisObject(this);
+                                    return false;
+                                }
+                            }
+                        }
+
+                        //Quest Giver No Good For Targeting!
+                        return false;
+                    }
+
+                    //Minimap Active?
+                    if (!IsMinimapActive.HasValue)
+                    {
+                        try
+                        {
+                            IsMinimapActive = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.MinimapActive) != 0;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Write(LogLevel.Cache, "Handled MinimapActive for Unit {0}", DebugStringSimple);
+                        }
+                    }
+
+                    if (IsMinimapActive.HasValue && IsMinimapActive.Value)
+                    {
+                        if (!ObjectCache.InteractableObjectCache.ContainsKey(RAGUID))
+                        {
+                            bool shouldInteract = false;
+                            try
+                            {
+                                shouldInteract = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.NPCIsOperatable) != 0;
+                            }
+                            catch (Exception)
+                            {
+                                Logger.Write(LogLevel.Cache, "Handled NPCIsOperatable for Unit {0}", DebugStringSimple);
+                            }
+
+                            if (shouldInteract)
+                            {
+                                ObjectCache.InteractableObjectCache.Add(RAGUID, this);
+                                targetType = TargetType.Interaction;
+                            }
+                            else
+                            {
+                                //SNOID should be ignored?
+                                if (!CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
+                                {
+                                    BlacklistCache.IgnoreThisObject(this);
+                                }
+                            }
+                        }
+
+                        return false;
+                    }
+
+                }
+
+
+                //Either not hostile or NPC. (Bosses we exclude!)
+                if (!IsBoss && !CacheIDLookup.hashSnoNpcNoIgnore.Contains(SNOID))
+                {
+                    //Logger.Write(LogLevel.Cache, "Monster Is NPC {0}", DebugStringSimple);
+                    if (isNPC) BlacklistCache.IgnoreThisObject(this);
+                    return false;
+                }
+            }
+            
+            #endregion
+
+            #region IsFriendly Update/Check
+
+            bool isFriendly = false;
+            if (!IsFriendly.HasValue || IsFriendly.Value)
+            {
+                try
+                {
+                    IsFriendly = ref_DiaUnit.IsFriendly;
+                    isFriendly = IsFriendly.Value;
+                }
+                catch (Exception)
+                {
+                    Logger.Write(LogLevel.Cache, "Handled IsFriendly for Unit {0}", DebugStringSimple);
+                }
+            }
+
+            if (isFriendly)
+            {
+                return false;
+            }
+            
+            #endregion
 
 			//Position update
 			base.UpdatePosition();
 
-			if (Radius == 0f)
-			{
-				if (ActorSphereRadius.HasValue)
-				{
-					Radius = ActorSphereRadius.Value;
+            #region Radius Update
 
-					//Reduce the radius for Corruptant Growths.
-					if (IsCorruptantGrowth)
-						Radius *= 0.80f;
+            if (Radius == 0f)
+            {
+                if (ActorSphereRadius.HasValue)
+                {
+                    Radius = ActorSphereRadius.Value;
 
-					if (Radius < 0f)
-						Radius = 1f;
-				}
-			}
+                    //Reduce the radius for Corruptant Growths.
+                    if (IsCorruptantGrowth)
+                        Radius *= 0.80f;
 
-			//Affixes
-			if (!CheckedMonsterAffixes_)
-			{
-				try
-				{
-					CheckMonsterAffixes(ref_DiaUnit.CommonData.MonsterAffixes);
-				}
-				catch
-				{
-					Logger.Write(LogLevel.Cache, "Failure to check monster affixes for unit {0}", DebugStringSimple);
-					return false;
-				}
-			}
+                    if (Radius < 0f)
+                        Radius = 1f;
+                }
+            }
+            
+            #endregion
+
+
+            #region Monster Affixes Update
+
+            if (!CheckedMonsterAffixes_)
+            {
+                try
+                {
+                    CheckMonsterAffixes(ref_DiaUnit.CommonData.MonsterAffixes);
+                }
+                catch
+                {
+                    Logger.Write(LogLevel.Cache, "Failure to check monster affixes for unit {0}", DebugStringSimple);
+                    return false;
+                }
+            }
+            
+            #endregion
+
 
 			if (IsEliteRareUnique)
 			{
@@ -1443,57 +1458,60 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
-			//Hitpoints
-			if (!MaximumHealth.HasValue)
-			{
-				try
-				{
-					MaximumHealth = ref_DiaUnit.HitpointsMaxTotal;
+            #region Hitpoints Update/Check -- Maximum/Current
 
-					if (!IsEliteRareUnique || !IsBoss)
-					{
-						if (!ObjectCache.Objects.HealthEntriesForAverageValue.ContainsKey(RAGUID))
-						{
-							ObjectCache.Objects.HealthEntriesForAverageValue.Add(RAGUID, MaximumHealth.Value);
-							ObjectCache.Objects.UpdateMaximumHealthAverage();
-						}
-					}
-				}
-				catch
-				{
-					NeedsRemoved = true;
-				    BlacklistFlag = BlacklistType.Temporary;
-					Logger.Write(LogLevel.Cache, "Failure to get maximum health for {0}", DebugStringSimple);
-					return false;
-				}
-			}
+            //Hitpoints
+            if (!MaximumHealth.HasValue)
+            {
+                try
+                {
+                    MaximumHealth = ref_DiaUnit.HitpointsMaxTotal;
 
-
-			//update HPs
-			UpdateHitPoints();
-
-			if (CurrentHealthPct.HasValue)
-			{
-				if (CurrentHealthPct.Value <= 0d || CurrentHealthPct.Value > 1d)
-				{
-					Logger.Write(LogLevel.Cache, "Unit Is Dead {0} RAGUID {1}", DebugStringSimple, RAGUID);
-					NeedsRemoved = true;
-                    RemovalType= RemovalTypes.DeadorUsed;
-				    BlacklistLoops = -1;
+                    if (!IsEliteRareUnique || !IsBoss)
+                    {
+                        if (!ObjectCache.Objects.HealthEntriesForAverageValue.ContainsKey(RAGUID))
+                        {
+                            ObjectCache.Objects.HealthEntriesForAverageValue.Add(RAGUID, MaximumHealth.Value);
+                            ObjectCache.Objects.UpdateMaximumHealthAverage();
+                        }
+                    }
+                }
+                catch
+                {
+                    NeedsRemoved = true;
                     BlacklistFlag = BlacklistType.Temporary;
-					return false;
-				}
-			}
-			else
-			{
+                    Logger.Write(LogLevel.Cache, "Failure to get maximum health for {0}", DebugStringSimple);
+                    return false;
+                }
+            }
+
+
+            //update HPs
+            UpdateHitPoints();
+
+            if (CurrentHealthPct.HasValue)
+            {
+                if (CurrentHealthPct.Value <= 0d || CurrentHealthPct.Value > 1d)
+                {
+                    Logger.Write(LogLevel.Cache, "Unit Is Dead {0} RAGUID {1}", DebugStringSimple, RAGUID);
+                    NeedsRemoved = true;
+                    RemovalType = RemovalTypes.DeadorUsed;
+                    BlacklistLoops = -1;
+                    BlacklistFlag = BlacklistType.Temporary;
+                    return false;
+                }
+            }
+            else
+            {
                 Logger.Write(LogLevel.Cache, "Unit failed to update hitpoints {0}", DebugStringSimple);
                 NeedsRemoved = true;
                 BlacklistLoops = -1;
                 return false;
-			}
+            }
+            
+            #endregion
 
-
-			//UnitFlags Check!
+			//UnitFlags Check! (Non-Cached Entry, lets record it)
 			if (!UnitPropertyFlags.HasValue)
 			{
 				UnitPropertyFlags = GenerateUnitFlags();
@@ -1522,74 +1540,75 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 			#endregion
 
-			//Targetable
-			if (!IsTargetable.HasValue || !IsTargetable.Value || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable) || IsBoss)
-			{
-				try
-				{
-					//this.IsAttackable=this.ref_DiaUnit.IsAttackable;
-					bool stealthed = false;
-					//Special units who can stealth
-					if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable))
-						stealthed = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Stealthed) <= 0);
+            #region Targetable Update/Check
+            //Targetable
+            if (!IsTargetable.HasValue || !IsTargetable.Value || ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable) || IsBoss)
+            {
+                try
+                {
+                    //this.IsAttackable=this.ref_DiaUnit.IsAttackable;
+                    bool stealthed = false;
+                    //Special units who can stealth
+                    if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Stealthable))
+                        stealthed = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Stealthed) <= 0);
 
-					if (!stealthed)
-						IsTargetable = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Untargetable) <= 0);
-					else
-					{
-						IsTargetable = stealthed;
-						//since stealth is similar to being burrowed we skip non-special units
-						//if (!this.ObjectIsSpecial)
-						//return false;
-					}
-				}
-				catch (Exception ex)
-				{
-					Logger.Write(LogLevel.Cache, "[Funky] Safely handled exception getting is-targetable attribute for unit {0}", DebugStringSimple);
-					//Logger.DBLog.DebugFormat(ex.ToString());
-					IsTargetable = true;
-				}
-			}
+                    if (!stealthed)
+                        IsTargetable = (ref_DiaUnit.CommonData.GetAttribute<float>(ActorAttributeType.Untargetable) <= 0);
+                    else
+                    {
+                        IsTargetable = stealthed;
+                        //since stealth is similar to being burrowed we skip non-special units
+                        //if (!this.ObjectIsSpecial)
+                        //return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(LogLevel.Cache, "[Funky] Safely handled exception getting is-targetable attribute for unit {0}", DebugStringSimple);
+                    //Logger.DBLog.DebugFormat(ex.ToString());
+                    IsTargetable = true;
+                }
+            }
 
-			if (IsTargetable.HasValue && !IsTargetable.Value)
-			{
-				return false;
-			}
+            if (IsTargetable.HasValue && !IsTargetable.Value)
+            {
+                return false;
+            }
+            
+            #endregion
 
-			//Attackable
-			if (MonsterShielding || (CurrentHealthPct.HasValue && (CurrentHealthPct.Value < 1d || CurrentHealthPct.Value > 1d) && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Grotesque)))
-			{
-				try
-				{
-					IsAttackable = (ref_DiaUnit.IsAttackable);
+            #region Attackable Update/Check
 
-					//update properties
-					//if (this.IsAttackable.Value&&this.IsTargetable.Value)
-					//{
-					//	 if (!AbilityLogicConditions.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
-					//		  this.Properties|=TargetProperties.TargetableAndAttackable;
-					//}
-					//else
-					//{
-					//	 if (AbilityLogicConditions.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
-					//		  this.Properties&=TargetProperties.TargetableAndAttackable;
-					//}
+            //Attackable
+            if (MonsterShielding || (CurrentHealthPct.HasValue && (CurrentHealthPct.Value < 1d || CurrentHealthPct.Value > 1d) && ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.Grotesque)))
+            {
+                try
+                {
+                    IsAttackable = (ref_DiaUnit.IsAttackable);
 
-
-				}
-				catch (Exception)
-				{
-
-				}
-			}
-			else
-				IsAttackable = true;
+                    //update properties
+                    //if (this.IsAttackable.Value&&this.IsTargetable.Value)
+                    //{
+                    //	 if (!AbilityLogicConditions.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
+                    //		  this.Properties|=TargetProperties.TargetableAndAttackable;
+                    //}
+                    //else
+                    //{
+                    //	 if (AbilityLogicConditions.CheckTargetPropertyFlag(this.Properties, TargetProperties.TargetableAndAttackable))
+                    //		  this.Properties&=TargetProperties.TargetableAndAttackable;
+                    //}
 
 
-			//if (IsEliteRareUnique && MonsterFireChains && (!MonsterIlluionist || !SummonerID.HasValue || SummonerID.Value==-1))
-			//{
-				
-			//}
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            else
+                IsAttackable = true;
+            
+            #endregion
 
 			#region Class DOT DPS Check
 			//Barb specific updates
@@ -1683,50 +1702,63 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				}
 			}
 
-			if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.MalletLord) && CentreDistance < 25f)
-			{
-				UpdateSNOAnim();
-				if (SnoAnim == SNOAnim.malletDemon_attack_01)
-				{
-					//update rotation!
-					UpdateRotation();
+            #region Monster Animation Avoidance Check
+            //This is where we update specific monsters animations that we should avoid.. 
+            //TODO:: Add Act2 spinning monsters
+            //TODO:: Add Act1 charging monsters
 
-					if (IsFacingBot())
-					{
-						Vector3 avoidPosition = MathEx.GetPointAt(Position, Radius, Rotation);
-						int positionHash = avoidPosition.GetHashCode();
-						CacheObstacle outvalue;
-						if (!ObjectCache.Obstacles.TryGetValue(positionHash, out outvalue))
-						{
-							Logger.DBLog.DebugFormat("[Funky] Adding Mallet Lord to Watch List!");
-							ObjectCache.Obstacles.Add(positionHash, new CacheAvoidance(AvoidanceType.MalletLord, 100, positionHash, AcdGuid.Value, avoidPosition, "MalletLordAvoidance"));
-						}
-					}
-				}
-			}
+            //MalletLords
+            if (ObjectCache.CheckFlag(UnitPropertyFlags.Value, UnitFlags.MalletLord) &&
+               !AvoidanceCache.IgnoringAvoidanceType(AvoidanceType.MalletLord) &&
+                CentreDistance < 25f)
+            {
+                UpdateSNOAnim();
+                if (SnoAnim == SNOAnim.malletDemon_attack_01)
+                {
+                    //update rotation!
+                    UpdateRotation();
 
-			//Update Quest Monster?
-			if (FunkyGame.Game.QuestMode)
-			{
-				try
-				{
-					QuestMonster = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.QuestMonster) != 0;
-				}
-				catch (Exception)
-				{
-					QuestMonster = false;
-				}
+                    if (IsFacingBot())
+                    {
+                        Vector3 avoidPosition = MathEx.GetPointAt(Position, Radius, Rotation);
+                        int positionHash = avoidPosition.GetHashCode();
+                        CacheObstacle outvalue;
+                        if (!ObjectCache.Obstacles.TryGetValue(positionHash, out outvalue))
+                        {
+                            Logger.DBLog.DebugFormat("[Funky] Adding Mallet Lord to Watch List!");
+                            ObjectCache.Obstacles.Add(positionHash, new CacheAvoidance(AvoidanceType.MalletLord, 100, positionHash, AcdGuid.Value, avoidPosition, "MalletLordAvoidance"));
+                        }
+                    }
+                }
+            }
 
-				try
-				{
-					IsMinimapActive = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.MinimapActive) != 0;
-				}
-				catch (Exception)
-				{
-					IsMinimapActive = false;
-				}
-			}
+            
+            #endregion
+			
+            #region QuestMode -- Update Special Attributes
 
+            if (FunkyGame.Game.QuestMode)
+            {
+                try
+                {
+                    QuestMonster = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.QuestMonster) != 0;
+                }
+                catch (Exception)
+                {
+                    QuestMonster = false;
+                }
+
+                try
+                {
+                    IsMinimapActive = ref_DiaUnit.CommonData.GetAttribute<int>(ActorAttributeType.MinimapActive) != 0;
+                }
+                catch (Exception)
+                {
+                    IsMinimapActive = false;
+                }
+            }
+            
+            #endregion
 
 
 			return true;
@@ -1734,10 +1766,12 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 		public override bool IsStillValid()
 		{
-			if (ref_DiaUnit == null || !ref_DiaUnit.IsValid || ref_DiaUnit.BaseAddress == IntPtr.Zero)
-				return false;
-
-			return base.IsStillValid();
+		    if (ref_DiaUnit == null || !ref_DiaUnit.IsValid || ref_DiaUnit.BaseAddress == IntPtr.Zero)
+		    {
+                _IsStillValid = false;
+                return false;
+		    }
+		    return base.IsStillValid();
 		}
 
 		public override RunStatus Interact()
@@ -1840,7 +1874,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 				return String.Format("{0}Burrowed {1} / Targetable {2} / Attackable {3}\r\n" +
-									 "HP {4} / MaxHP {5} -- IsMoving: {6}\r\n" +
+									 "HP {4} / MaxHP {5} [Last Health Change {17} seconds]\r\n" +
+				                     "IsMoving: {6}\r\n" +
 									 "PriorityCounter={7}\r\n" +
 				                     "IgnoredDueToClusterLogic {15} IsClusterException {16}\r\n" +
 									 "QuestMonster={9} MiniMapActive={14}\r\n" +
@@ -1865,7 +1900,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 							SkillsUsedOnObject.Aggregate("Skills Used\r\n:", (current, skill) => current + ("Power: " + skill.Key + " Date: " + skill.Value.ToString() + " LastUsedMS: " + DateTime.Now.Subtract(skill.Value).Milliseconds + "\r\n"))
 							: "",
 					  IsMinimapActive.HasValue?IsMinimapActive.Value.ToString():"",
-					  BeingIgnoredDueToClusterLogic, IsClusterException);
+					  BeingIgnoredDueToClusterLogic, IsClusterException,
+                     DateTime.Now.Subtract(LastHealthChange).TotalSeconds);
 			}
 		}
 

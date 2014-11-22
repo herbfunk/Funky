@@ -1,4 +1,29 @@
-﻿v1.1.4.3
+﻿v1.1.5.0
+
+Barbarian skill changes (due to popular requests!)
+Furious Charge now has more specific single unit conditions.
+Leap added single unit conditions for non-normal and normal non-low hp.
+Ground Stomp now has a single unit condition for non-normal units.
+Overpower now has single unit conditions for non-normal units and normal non-fast/non-low hp.
+Revenge will now check for the buff during precast condition.
+Earthquake will be used more frequently on clusters with might of earth set bonus.
+Warcry will be used more frequently when no primary skill is equipped.
+Hammer of Ancients will be used as a primary skill when no real primary skill is equipped.
+
+Added Summoner, AvoidanceSummoner, Debuffing to TargetProperties Enum and changed IsSpecial to Flying.
+Added Failure Count and Last Failure Date properties to the skill class.
+Added TotalIntersectingUnits method to ObjectCache.Objects. Returns # of units intersecting from bots position to target position.
+
+
+Added option to load other setting files found in folder using a combo box found at top of settings form.
+Note: Closing the form or clicking the Save button will save the config for selected file!
+
+Fixed bug with multiple OnEquipmentChanged event handler occuring.
+Added check and blacklisted for invalid target unit that is no longer targetable yet remains current target. (a Rare and Random Bug!)
+Fixed current game stats not reseting on bot stopped event.
+
+
+v1.1.4.3
 Hero switching info no longer uses Time Played for equal method.
 Added setting controls for Line of Sight ranges (min and max)
 Added RemovalTypes enum, a property to CacheObject, and a property to ObjectRemovedArgs class.

@@ -1,4 +1,5 @@
 using System;
+using fBaseXtensions.Cache.External.Enums;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Objects;
 using Zeta.Game.Internals.Actors;
@@ -68,7 +69,9 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
 				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Burrowing))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentTarget.IsBurrowableUnit;
 				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.FullHealth))
-					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value == 1d;
+                    Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.HasValue &&
+                                      FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value == 1d;
+
 				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Weak))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitMaxHitPointAverageWeight < 0;
 				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.MissileDampening))
@@ -105,6 +108,31 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterNormal;
 				if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.LowHealth))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.HasValue && FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value < 0.25d;
+
+
+			    if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Flying))
+			        Criteria +=
+			            () =>
+			                FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.HasValue &&
+                            ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.Value,UnitFlags.Flying);
+
+                if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Summoner))
+                    Criteria +=
+                        () =>
+                            FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.HasValue &&
+                            ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.Value, UnitFlags.Summoner);
+
+                if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.AvoidanceSummoner))
+                    Criteria +=
+                        () =>
+                            FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.HasValue &&
+                            ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.Value, UnitFlags.AvoidanceSummoner);
+
+                if (ObjectCache.CheckFlag(TrueConditionFlags, TargetProperties.Debuffing))
+                    Criteria +=
+                        () =>
+                            FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.HasValue &&
+                            ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.Value, UnitFlags.Debuffing);
 			}
 
 			//FALSE CONDITIONS
@@ -116,8 +144,11 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentTarget.IsBoss;
 				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Burrowing))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentTarget.IsBurrowableUnit;
+
 				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.FullHealth))
-					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value != 1d;
+                    Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.HasValue &&
+                                      FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value < 1d;
+
 				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Weak))
 					Criteria += () => FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitMaxHitPointAverageWeight > 0;
 				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.MissileDampening))
@@ -154,6 +185,31 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterNormal;
 				if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.LowHealth))
 					Criteria += () => !FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.HasValue || FunkyGame.Targeting.Cache.CurrentUnitTarget.CurrentHealthPct.Value >= 0.25d;
+
+
+                if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Flying))
+                    Criteria +=
+                        () =>
+                            FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.HasValue &&
+                            !ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.Value, UnitFlags.Flying);
+
+                if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Summoner))
+                    Criteria +=
+                        () =>
+                            FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.HasValue &&
+                            !ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.Value, UnitFlags.Summoner);
+
+                if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.AvoidanceSummoner))
+                    Criteria +=
+                        () =>
+                            FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.HasValue &&
+                            !ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.Value, UnitFlags.AvoidanceSummoner);
+
+                if (ObjectCache.CheckFlag(FalseConditionFlags, TargetProperties.Debuffing))
+                    Criteria +=
+                        () =>
+                            FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.HasValue &&
+                            !ObjectCache.CheckFlag(FunkyGame.Targeting.Cache.CurrentUnitTarget.UnitPropertyFlags.Value, UnitFlags.Debuffing);
 			}
 		}
 

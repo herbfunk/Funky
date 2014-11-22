@@ -27,7 +27,7 @@ namespace fBaseXtensions.Game.Hero
 			OnLevelAreaIDChanged += OnLevelAreaIDChangedHandler;
 			FunkyGame.Bounty.ActiveBountyChanged += ActiveBountyChangedHandler;
 			Class = null;
-			Equipment.OnEquippedItemsChanged += EquippmentChangedHandler;
+			//Equipment.OnEquippedItemsChanged += EquippmentChangedHandler;
 		}
 
 		#region Properties

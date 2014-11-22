@@ -366,6 +366,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(144262, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_02-4331"),
 				new DroppedItemEntry(144263, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_03-6700"),
 				new DroppedItemEntry(144264, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_04-6834"),
+                new DroppedItemEntry(193749, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_unique_flippy_01"),
 
 				//
 				new DroppedItemEntry(4878, PluginDroppedItemTypes.Polearm, "Polearm_norm_base_flippy_06-7575"),

@@ -95,7 +95,13 @@ namespace fBaseXtensions.Targeting
 			return RunStatus.Success;
 		}
 
-		
+	    internal string DebugString()
+	    {
+	        return String.Format("{0}\r\n" +
+	                             "{1}\r\n",
+	                                Cache.DebugString(),
+	                                cMovement.DebugString());
+	    }
 
 		internal void UpdateStatusText(string Action)
 		{

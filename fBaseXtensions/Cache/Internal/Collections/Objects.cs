@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
+using fBaseXtensions.Game;
 using Zeta.Common;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace fBaseXtensions.Cache.Internal.Collections
 {
@@ -110,8 +112,16 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			}
 		}
 
-		
 
+        public IEnumerable<T> OfType<T>() where T : CacheObject
+	    {
+            foreach (var obj in Values)
+            {
+                if (obj.NeedsRemoved || obj.BlacklistLoops < 0) continue;
+
+                if (obj is T) yield return (T)obj;
+            }
+	    }
 		public bool TryGetValue(int key, out CacheObject value)
 		{
 			return objects.TryGetValue(key, out value);
@@ -164,7 +174,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 		///</summary>
 		public void FindSurroundingObjects<T>(Vector3 objPosition, float range, out List<T> surroundingUnits) where T : CacheObject
 		{
-			surroundingUnits = (from objs in objects.Values.OfType<T>()
+			surroundingUnits = (from objs in objects.OfType<T>()
 								where Vector3.Distance(objPosition, objs.Position) <= range
 								select objs).ToList();
 		}
@@ -185,11 +195,40 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			}
 		}
 
+	    public int TotalIntersectingUnits(Vector3 TargetDestination, float RayRadius)
+	    {
+	        Ray playerRay = new Ray(FunkyGame.Hero.Position,
+	            Vector3.NormalizedDirection(FunkyGame.Hero.Position, TargetDestination));
+
+	        var distance = FunkyGame.Hero.Position.Distance(TargetDestination);
+
+	        var botFacingUnits = (from objs in objects.OfType<CacheUnit>()
+                                    where objs.RadiusDistance <= distance
+                                    && objs.BotIsFacing(TargetDestination)
+	                                    select objs).ToList();
+
+	        //if (botFacingUnits.Count > 0)
+	           // Logger.DBLog.DebugFormat("Total Intersecting Units Test Found {0} Units facing destination!", botFacingUnits.Count);
+
+	        int totalIntersectingCount = 0;
+            foreach (var obj in botFacingUnits)
+            {
+                var objSphere = new Sphere(obj.Position, RayRadius);
+                float? nullable = playerRay.Intersects(objSphere);
+                if (nullable.HasValue && nullable.Value < distance)
+                    totalIntersectingCount++;
+            }
+
+            //if (totalIntersectingCount>0)
+               // Logger.DBLog.DebugFormat("Total Intersecting Units Found {0}!",totalIntersectingCount);
+
+	        return totalIntersectingCount;
+	    }
 
 
 		public bool IsPointNearbyMonsters(Vector3 Vector, float Range = 1f)
 		{
-			return Values.OfType<CacheUnit>().Any(monster => monster.ShouldFlee &&
+			return OfType<CacheUnit>().Any(monster => monster.ShouldFlee &&
 				  Math.Max(0f, monster.Position.Distance(Vector) - monster.Radius) <= Range);
 		}
 

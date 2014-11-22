@@ -106,7 +106,7 @@ namespace fBaseXtensions.Game
 
 		private static bool ShouldRefreshAccountName = true;
 		private static bool ShouldRefreshHeroName = true;
-		private static bool ShouldRefreshClass = true;
+		internal static bool ShouldRefreshClass = true;
 		private static bool ShouldRefreshDifficulty = true;
 		private static bool ShouldRefreshHeroLevel = true;
 
@@ -198,7 +198,7 @@ namespace fBaseXtensions.Game
 			}
 		}
 
-		private static ActorClass _CurrentActorClass = ActorClass.Invalid;
+		internal static ActorClass _CurrentActorClass = ActorClass.Invalid;
 		public static ActorClass CurrentActorClass
 		{
 			get

@@ -21,10 +21,16 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 		public override void Initialize()
 		{
 			Priority = SkillPriority.Medium;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckEnergy |
-									  SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
 
-			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_6, 1);
+            PreCast = new SkillPreCast
+            {
+                Flags = SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast,
+            };
+		    PreCast.Criteria += skill => Hotbar.HasBuff(SNOPower.Barbarian_Revenge_Buff);
+            PreCast.CreatePrecastCriteria();
+
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 10, falseConditionalFlags: TargetProperties.Normal));
+            ClusterConditions.Add(new SkillClusterConditions(5d, 7, 2, false, useRadiusDistance: true));
 		}
 
 	}

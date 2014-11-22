@@ -319,34 +319,48 @@ namespace fBaseXtensions.Targeting
 					}
 
 					// Been trying to handle the same target for more than 30 seconds without damaging/reaching it? Blacklist it!
-					// Note: The time since target picked updates every time the current target loses health, if it's a monster-target
 					if (!ObjectCache.CheckFlag(Cache.CurrentTarget.targetType.Value, TargetType.AvoidanceMovements | TargetType.NoMovement | TargetType.LineOfSight | TargetType.Backtrack)
 						  && ((Cache.CurrentTarget.targetType.Value != TargetType.Unit && DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds > 12)
-						  || (Cache.CurrentTarget.targetType.Value == TargetType.Unit && !Cache.CurrentTarget.IsBoss && DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds > 40)))
+                          || (Cache.CurrentTarget.targetType.Value == TargetType.Unit &&
+                              Cache.CurrentUnitTarget != null &&
+                              !Cache.CurrentTarget.IsBoss &&
+                              DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds > 20)))
 					{
-						// NOTE: This only blacklists if it's remained the PRIMARY TARGET that we are trying to actually directly attack!
-						// So it won't blacklist a monster "on the edge of the screen" who isn't even being targetted
-						// Don't blacklist monsters on <= 50% health though, as they can't be in a stuck location... can they!? Maybe give them some extra time!
 						bool bBlacklistThis = true;
-						// PREVENT blacklisting a monster on less than 90% health unless we haven't damaged it for more than 2 minutes
 						if (Cache.CurrentTarget.targetType.Value == TargetType.Unit)
 						{
 							if (Cache.CurrentTarget.IsTreasureGoblin && FunkyBaseExtension.Settings.Targeting.GoblinPriority >= 3) 
                                 bBlacklistThis = false;
 
-							if (DateTime.Now.Subtract(Cache.LastChangeOfTarget).TotalSeconds <= 120) 
-                                bBlacklistThis = false;
+                            //Do not ignore when..
+                            //A Health changed occured less than 10 secs ago.. 
+                            //or we have not used a combat skill in at least 10 secs
+						    if (DateTime.Now.Subtract(Cache.CurrentUnitTarget.LastHealthChange).TotalSeconds < 10 ||
+						        DateTime.Now.Subtract(FunkyGame.Hero.Class.LastUsedACombatAbility).TotalSeconds > 10)
+						    {
+						        bBlacklistThis = false;
+						    }
+
 						}
 
 						if (bBlacklistThis)
 						{
-							if (Cache.CurrentTarget.targetType.Value == TargetType.Unit)
+							if (Cache.CurrentTarget.targetType.Value == TargetType.Unit && Cache.CurrentUnitTarget != null)
 							{
-								//Logger.DBLog.DebugFormat("[Funky] Blacklisting a monster because of possible stuck issues. Monster="+ObjectData.InternalName+" {"+
-								//ObjectData.SNOID.ToString()+"}. Range="+ObjectData.CentreDistance.ToString()+", health %="+ObjectData.CurrentHealthPct.ToString());
-							}
 
+                                Logger.DBLog.DebugFormat("[Funky] Blacklisting Unit after 20 seconds of no new target! {0}",
+                                    Cache.CurrentUnitTarget.DebugString);
+
+							    Logger.DBLog.DebugFormat("{0}", FunkyGame.Targeting.DebugString());
+
+							}
+							else
+                            {
+                                Logger.DBLog.DebugFormat("[Funky] Blacklisting Object after no new target! {0}", Cache.CurrentTarget.DebugStringSimple);
+							}
+						    
 							Cache.CurrentTarget.NeedsRemoved = true;
+						    Cache.CurrentTarget.BlacklistLoops = -1;
 							Cache.CurrentTarget.BlacklistFlag = BlacklistType.Temporary;
 						}
 					}
@@ -354,11 +368,6 @@ namespace fBaseXtensions.Targeting
 					Cache.bPickNewAbilities = true;
 
 					cMovement.NewTargetResetVars();
-				}
-				// Ok we didn't want a new target list, should we at least update the position of the current target, if it's a monster?
-				else if (Cache.CurrentTarget.targetType.Value == TargetType.Unit && Cache.CurrentTarget.IsStillValid())
-				{
-					Cache.CurrentTarget.UpdatePosition();
 				}
 			}
 			#endregion
@@ -368,11 +377,22 @@ namespace fBaseXtensions.Targeting
 
 
 			//Update CurrentUnitTarget
-			if (Cache.CurrentTarget.targetType.Value == TargetType.Unit)
-			{
-				//Update CurrentUnitTarget Variable.
-				if (Cache.CurrentUnitTarget == null) Cache.CurrentUnitTarget = (CacheUnit)Cache.CurrentTarget;
-			}
+            if (Cache.CurrentTarget.targetType.Value == TargetType.Unit)
+            {
+                //Update CurrentUnitTarget Variable.
+                if (Cache.CurrentUnitTarget == null) Cache.CurrentUnitTarget = (CacheUnit)Cache.CurrentTarget;
+
+                Cache.CurrentTarget.UpdatePosition(true);
+
+                if (!Cache.CurrentUnitTarget.CurrentHealthPct.HasValue || Cache.CurrentUnitTarget.CurrentHealthPct.Value > 1d)
+                {
+                    Logger.DBLog.DebugFormat("Current Unit Target health exceedes 100%! {0}",
+                        Cache.CurrentTarget.DebugStringSimple);
+                }
+                
+            }
+
+           
 
 
 			//Make sure we are not incapacitated..
@@ -439,12 +459,12 @@ namespace fBaseXtensions.Targeting
 				}
 
 				//Interactables (for pre and post waits)
-				if (ObjectCache.CheckFlag(Cache.CurrentTarget.targetType.Value, TargetType.Item | TargetType.Interactables | TargetType.Interaction))
-				{
-					Skill.SetupAbilityForUse(ref Cache.InteractionSkill);
-					FunkyGame.Hero.Class.PowerPrime = Cache.InteractionSkill;
-				    Cache.bWaitingAfterPower = false;
-				}
+                //if (ObjectCache.CheckFlag(Cache.CurrentTarget.targetType.Value, TargetType.Item | TargetType.Interactables | TargetType.Interaction))
+                //{
+                //    Skill.SetupAbilityForUse(ref Cache.InteractionSkill);
+                //    FunkyGame.Hero.Class.PowerPrime = Cache.InteractionSkill;
+                //    Cache.bWaitingAfterPower = false;
+                //}
 			}
 			#endregion
 

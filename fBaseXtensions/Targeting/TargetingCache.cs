@@ -149,6 +149,7 @@ namespace fBaseXtensions.Targeting
 			{
 				StartingLocation = Vector3.Zero;
 				FunkyGame.Navigation.PrioritizedRAGUIDs.Clear();
+			    CurrentUnitTarget = null;
 			}
 			else
 			{
@@ -182,7 +183,7 @@ namespace fBaseXtensions.Targeting
 
 			//Reset target
 			CurrentTarget = null;
-			CurrentUnitTarget = null;
+			//CurrentUnitTarget = null;
 
 
 
@@ -428,7 +429,8 @@ namespace fBaseXtensions.Targeting
 
 		public string DebugString()
 		{
-			return string.Format("CurrentTarget: {32}\r\n" +
+			return string.Format("== Cache ==\r\n" +
+			                     "CurrentTarget: {32}\r\n" +
 			                     "LastTarget: {33}\r\n" +
 			                     "UnitTarget: {34}\r\n" +
 			                     "Backtracking: {0} \r\n" +
@@ -464,7 +466,7 @@ namespace fBaseXtensions.Targeting
 								 "lastHadRareChestAsTarget: {29} \r\n" +
 								 "iTotalNumberGoblins: {30} \r\n" +
 								 "lastGoblinTime: {31} \r\n" +
-			                     "Pets: {35}",
+			                     "Pets: {35}\r\n",
 								 Backtracking, bWholeNewTarget, bPickNewAbilities, bWaitingForPower, bWaitingAfterPower, bWaitingForPotion, bForceTargetUpdate,
 								 bWasRootedLastTick, ShouldCheckItemLooted, recheckCount, reCheckedFinished, CheckItemLootStackCount, lastBehavioralType,
 								 iCurrentMaxKillRadius, iCurrentMaxLootRadius, bPrioritizeCloseRangeUnits, DontMove, RequiresAvoidance, TravellingAvoidance,

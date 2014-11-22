@@ -42,7 +42,8 @@ namespace fBaseXtensions.Targeting
 
 		internal string DebugString()
 		{
-			return String.Format("LastPlayerPOS: {0} \r\n " +
+			return String.Format("== Movement ==\r\n" +
+			                     "LastPlayerPOS: {0} \r\n " +
 			                     "LastTargetPOS: {1} \r\n " +
 			                     "CurrentTargetPOS: {2} \r\n" +
 								 "BlockedMovementCount: {3} --- NonMovementCount: {4} \r\n" +
