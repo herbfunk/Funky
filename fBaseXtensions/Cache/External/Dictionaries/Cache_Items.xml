@@ -4724,6 +4724,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>58701</SnoId>
+      <ItemType>Shoulders</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>335392</SnoId>
       <ItemType>SpiritStone</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -5675,6 +5680,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>139099</SnoId>
+      <ItemType>Mojo</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139095</SnoId>
       <ItemType>Mojo</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>

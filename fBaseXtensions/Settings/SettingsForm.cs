@@ -660,6 +660,19 @@ namespace fBaseXtensions.Settings
                 groupBox_BnetControl_AltHero.Enabled = true;
                 UpdateBnetHeroComboBox();
             }
+
+            //
+	        comboBox_BnetControl_CustomDifficulty.SelectedIndexChanged -= GameDifficulty_SelectedIndexChanged;
+	        comboBox_BnetControl_CustomDifficulty.Items.Clear();
+	        int index = -1;
+	        foreach (var d in Enum.GetNames(typeof(GameDifficulty)))
+	        {
+	            comboBox_BnetControl_CustomDifficulty.Items.Add(d);
+	            if (FunkyBaseExtension.Settings.General.CustomDifficulty == d)
+	                index = comboBox_BnetControl_CustomDifficulty.Items.Count - 1;
+	        }
+            if (index>=0) comboBox_BnetControl_CustomDifficulty.SelectedIndex = index;
+            comboBox_BnetControl_CustomDifficulty.SelectedIndexChanged += GameDifficulty_SelectedIndexChanged;
 	    }
 
 	    private void initalizeControls_General_Misc()
@@ -1958,7 +1971,15 @@ namespace fBaseXtensions.Settings
 		private void btn_Test_Click(object sender, EventArgs e)
 		{
             LBDebug.Controls.Clear();
-            
+
+		    try
+		    {
+		       
+		    }
+		    catch
+		    {
+
+		    }
 		}
 
 		private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2169,6 +2190,16 @@ namespace fBaseXtensions.Settings
                 FunkyGame.ShouldRefreshClass = shouldrefreshclass;
 	        }
 	    }
+
+        private void GameDifficulty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_BnetControl_CustomDifficulty.SelectedIndex >= 0)
+            {
+                FunkyBaseExtension.Settings.General.CustomDifficulty =
+                    comboBox_BnetControl_CustomDifficulty.Items[comboBox_BnetControl_CustomDifficulty.SelectedIndex]
+                        .ToString();
+            }
+        }
 
         private void button_saveSettings_Click(object sender, EventArgs e)
         {

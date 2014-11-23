@@ -59,8 +59,13 @@ namespace fBaseXtensions.Behaviors
 		        return true;
 		    }
 
+		    if (ExitGameBehavior.BehaviorEngaged)
+		        return true;
 
-			return ExitGameBehavior.BehaviorEngaged;
+		    if (!CharacterControl.GameDifficultyChanged && FunkyBaseExtension.Settings.General.CustomDifficulty!=String.Empty)
+		        return true;
+
+		    return false;
 		}
 
 		public static RunStatus OutOfGameBehavior(object ret)
@@ -141,9 +146,16 @@ namespace fBaseXtensions.Behaviors
                 //Finally disable this..
                 ExitGameBehavior.BehaviorEngaged = false;
                 ExitGameBehavior.ShouldExitGame = false;
-                return RunStatus.Success;
             }
 
+            //Custom Hero Setting Game Difficulty
+		    if (!CharacterControl.GameDifficultyChanged)
+		    {
+                CharacterControl.GameDifficultyChanged = true;
+		        var customdifficulty = (GameDifficulty) Enum.Parse(typeof (GameDifficulty), FunkyBaseExtension.Settings.General.CustomDifficulty);
+		        CharacterSettings.Instance.GameDifficulty = customdifficulty;
+		    }
+		        
 			return RunStatus.Success;
 		}
 

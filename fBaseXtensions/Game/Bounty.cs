@@ -151,8 +151,10 @@ namespace fBaseXtensions.Game
 					//Check State?
 					if (bountyState == QuestState.Completed)
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.BountiesCompleted++;
-						//Bot.Game.CurrentGameStats.CurrentProfile.BountiesCompleted++;
+					    if (FunkyGame.CurrentGameStats != null)
+					    {
+					        FunkyGame.CurrentGameStats.CurrentProfile.BountiesCompleted++;
+					    }
 					}
 
 					//Raise Event
@@ -184,7 +186,7 @@ namespace fBaseXtensions.Game
 						//Ignore entries we already added
 						if (ActiveQuests.ContainsKey(sno))
 						{
-							ActiveQuests[sno].Refresh();
+							ActiveQuests[sno].Refresh(aq);
 							continue;
 						}
 							
@@ -429,22 +431,12 @@ namespace fBaseXtensions.Game
 
 			if (ActiveBounty != null)
 			{
-				int _step = ((QuestInfoCache)ActiveBounty).Step;
-				ActiveBounty.Refresh();
-
-				int curStep = ((QuestInfoCache)ActiveBounty).Step;
-				if (_step!=curStep)
-				{
-					Logger.Write(LogLevel.Bounty, "Active Rift Step Changed From {0} To {1}", _step, curStep);
-
-					//Raise Event
-					if (OnBountyQuestStateChanged != null)
-						OnBountyQuestStateChanged(ActiveBounty.QuestSNO, ActiveBounty.State);
-					
-				}
+				
+                ((QuestInfoCache)ActiveBounty).Refresh();
+                int _step = ((QuestInfoCache)ActiveBounty).Step;
 
 				//Killing..
-				if (curStep == 1 || curStep==3 || curStep==13 || curStep == 16)
+                if (_step == 1 || _step == 3 || _step == 13 || _step == 16)
 				{
 					RefreshRiftMapMarkers();
 				}
@@ -452,6 +444,31 @@ namespace fBaseXtensions.Game
 		}
 
 
+	    private static void QuestStepChanged(int SNO, int previousStep, int currentStep)
+	    {
+            if (FunkyGame.CurrentGameStats != null)
+            {
+                //405695, 9 (Trial Completed)
+                if (SNO == ADVENTUREMODE_GREATERRIFT_TRIAL && currentStep == 9)
+                {
+                    FunkyGame.CurrentGameStats.CurrentProfile.RiftTrialsCompleted++;
+                }
+                else if (SNO == ADVENTUREMODE_RIFTID && currentStep == 10)
+                {//Rift Boss Killed
+                    FunkyGame.CurrentGameStats.CurrentProfile.RiftBossKills++;
+
+                    if (previousStep == 3)
+                    {//Normal Rift Boss
+
+                    }
+                    else if (previousStep == 34)
+                    {//Tiered Rift Boss
+
+                    }
+                }
+
+            }
+	    }
 		
 		
 		public delegate void OnActiveBountyChanged();
@@ -503,8 +520,8 @@ namespace fBaseXtensions.Game
 				}
 			}
 		}
-		private DateTime _lastAttemptedUpdateActiveBounty = DateTime.Today;
-		private DateTime _lastAttemptedUpdateActiveRift = DateTime.Today;
+        private DateTime _lastAttemptedUpdateActiveBounty = DateTime.Now;
+		private DateTime _lastAttemptedUpdateActiveRift = DateTime.Now;
 
 		public void Reset()
 		{
@@ -718,6 +735,7 @@ namespace fBaseXtensions.Game
 
 			public override void Refresh()
 			{
+			    int curStep = Step;
 				try
 				{
 					using (ZetaDia.Memory.AcquireFrame())
@@ -727,10 +745,17 @@ namespace fBaseXtensions.Game
 							if (quest.QuestSNO == QuestSNO)
 							{
 								Step = quest.QuestStep;
+							    State = quest.State;
 								KillCount = quest.KillCount;
 								QuestMeter = quest.QuestMeter;
 								BonusCount = quest.BonusCount;
 								CreationTick = quest.CreationTick;
+
+							    if (curStep != Step)
+							    {
+                                    Logger.Write(LogLevel.Bounty, "Active Quest {3} Step Changed From {0} To {1}", curStep, Step, QuestSNO);
+							        QuestStepChanged(QuestSNO, curStep, Step);
+							    }
 								return;
 							}
 						}
@@ -738,9 +763,37 @@ namespace fBaseXtensions.Game
 				}
 				catch (Exception ex)
 				{
-					Logger.Write(LogLevel.Bounty, "Safely hanlded updating quest info cache for entry {0}", QuestSNO);
+					Logger.Write(LogLevel.Bounty, "Safely hanlded updating quest info cache for entry {0}\r\n" +
+					                              "Ex: {1}\r\n{2}", QuestSNO, ex.Message,ex.StackTrace);
 				}
 			}
+
+		    public void Refresh(QuestInfo questinfo)
+		    {
+                int curStep = Step;
+		        try
+		        {
+		            State = questinfo.State;
+                    Step = questinfo.QuestStep;
+                    KillCount = questinfo.KillCount;
+                    QuestMeter = questinfo.QuestMeter;
+                    BonusCount = questinfo.BonusCount;
+                    CreationTick = questinfo.CreationTick;
+
+                    if (curStep != Step)
+                    {
+                        Logger.Write(LogLevel.Bounty, "Active Quest {2} Step Changed From {0} To {1}", curStep, Step, QuestSNO);
+                        QuestStepChanged(QuestSNO, curStep, Step);
+
+                    }
+		        }
+		        catch (Exception ex)
+		        {
+                    Logger.Write(LogLevel.Bounty, "Safely handled updating quest info (qi) cache for entry {0}\r\n" +
+                                                  "Ex: {1}\r\n{2}", QuestSNO, ex.Message,ex.StackTrace);
+		        }
+                
+		    }
 
 			public override string ToString()
 			{

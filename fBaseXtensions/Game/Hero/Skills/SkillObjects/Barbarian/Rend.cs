@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
@@ -23,6 +24,10 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 		{
 			Priority = SkillPriority.Medium;
 			Cost = 20;
+		    if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.Lamentation))
+		    {
+		        
+		    }
 			PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckEnergy |
 			                          SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
 

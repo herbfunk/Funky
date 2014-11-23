@@ -43,11 +43,14 @@ namespace fItemPlugin.Townrun
 					if (item.ThisDBItemType != ItemType.Potion && (!FunkyTownRunPlugin.RunningTrinity || item.ThisDBItemType != ItemType.HoradricCache))
 						return false;
 				}
-				
 
+                int currentBloodShardCount = ZetaDia.CPlayer.BloodshardCount;
+			    bool anyGambleItems = CanGambleItems(currentBloodShardCount);
+                //Alternative hero switch already occured.. lets gamble!
+                if (fBaseXtensions.Behaviors.CharacterControl.AltHeroGamblingEnabled && anyGambleItems)
+			        return true;
 
-				int currentBloodShardCount=ZetaDia.CPlayer.BloodshardCount;
-			    if (currentBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards)
+                if (currentBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards && anyGambleItems)
 			    {
 			        return !FunkyTownRunPlugin.PluginSettings.UseAltGambling;
 			    }
@@ -253,7 +256,18 @@ namespace fItemPlugin.Townrun
 			return RunStatus.Success;
 		}
 
+	    private static bool CanGambleItems(int bloodshardcount)
+	    {
+	        var definedItemList =
+	            ValidGambleItems.Where(i => FunkyTownRunPlugin.PluginSettings.BloodShardGambleItems.HasFlag(i)).ToList();
+            foreach (var i in definedItemList)
+            {
+                if (GetGambleItemPrice(i) <= bloodshardcount)
+                    return true;
+            }
 
+	        return false;
+	    }
 
 		internal static int GetGambleItemPrice(BloodShardGambleItems item)
 		{

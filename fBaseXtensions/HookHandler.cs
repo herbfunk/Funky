@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using fBaseXtensions.Behaviors;
+using Zeta.Bot;
 using Zeta.Common;
 using Zeta.TreeSharp;
 using Decorator = Zeta.TreeSharp.Decorator;
@@ -16,88 +17,87 @@ namespace fBaseXtensions
 
 		internal static void HookBehaviorTree()
 		{
-			StoreHook(HookType.VendorRun);
-			StoreHook(HookType.OutOfGame);
-			StoreHook(HookType.Death);
-			StoreHook(HookType.Combat);
-			StoreHook(HookType.Loot);
+            StoreHook(HookType.VendorRun);
+            StoreHook(HookType.OutOfGame);
+            StoreHook(HookType.Death);
+            StoreHook(HookType.Combat);
+            StoreHook(HookType.Loot);
 
-			Logger.DBLog.InfoFormat("[Funky] Treehooks..");
-			#region TreeHooks
-			foreach (var hook in TreeHooks.Instance.Hooks)
-			{
+            Logger.DBLog.InfoFormat("[Funky] Treehooks..");
+            #region TreeHooks
 
-				#region OutOfGame
+            #region OutOfGame
+            CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = OutOfGame.OutOfGameOverlord;
+            ActionDelegate actionDelgateOOGBehavior = OutOfGame.OutOfGameBehavior;
+            Sequence sequenceOOG = new Sequence(
+                    new Action(actionDelgateOOGBehavior)
+            );
+            var OutOfGameInsert = new Decorator(shouldPreformOutOfGameBehavior, sequenceOOG);
+            SetHookValue(HookType.OutOfGame, 0, OutOfGameInsert, true);
+            Logger.DBLog.DebugFormat("Out of game tree hooked");
+            #endregion
 
-				if (hook.Key.Contains("OutOfGame"))
-				{
-					Logger.DBLog.DebugFormat("OutOfGame...");
-					var outofgameHookValue = hook.Value[0];
-					Logger.DBLog.InfoFormat(outofgameHookValue.GetType().ToString());
+            #region Death
+            Logger.DBLog.DebugFormat("Death...");
+            //Insert Death Tally Counter At Beginning!
+            CanRunDecoratorDelegate deathTallyDecoratorDelegate = DeathBehavior.TallyDeathCanRunDecorator;
+            ActionDelegate actionDelegatedeathTallyAction = DeathBehavior.TallyDeathAction;
+            Action deathTallyAction = new Action(actionDelegatedeathTallyAction);
+            Decorator deathTallyDecorator = new Decorator(deathTallyDecoratorDelegate, deathTallyAction);
 
-					//ActionRunCoroutine CompositeReplacement = hook.Value[0] as ActionRunCoroutine;
-					//PrintChildrenTypes(CompositeReplacement.Children);
-
-					CanRunDecoratorDelegate shouldPreformOutOfGameBehavior = OutOfGame.OutOfGameOverlord;
-					ActionDelegate actionDelgateOOGBehavior = OutOfGame.OutOfGameBehavior;
-					Sequence sequenceOOG = new Sequence(
-							new Zeta.TreeSharp.Action(actionDelgateOOGBehavior)
-					);
-					var OutOfGameInsert= new Decorator(shouldPreformOutOfGameBehavior, sequenceOOG);
-					SetHookValue(HookType.OutOfGame, 0, OutOfGameInsert, true);
-					Logger.DBLog.DebugFormat("Out of game tree hooked");
-				}
-
-				#endregion
-
-				#region Death
+            //Death Wait..
+            CanRunDecoratorDelegate deathWaitDecoratorDelegate = DeathBehavior.DeathShouldWait;
+            ActionDelegate deathWaitActionDelegate = DeathBehavior.DeathWaitAction;
+            Action deathWaitAction = new Action(deathWaitActionDelegate);
+            Decorator deathWaitDecorator = new Decorator(deathWaitDecoratorDelegate, deathWaitAction);
 
 
-				if (hook.Key.Contains("Death"))
-				{
-					Logger.DBLog.DebugFormat("Death...");
+            Sequence DeathSequence = new Sequence
+            (
+                deathTallyDecorator,
+                deathWaitDecorator
+            );
+            SetHookValue(HookType.Death, 0, DeathSequence, true);
+            //hook.Value.Add(deathTallyActionReset);
+            Logger.DBLog.DebugFormat("Death tree hooked");
+            #endregion
 
 
+            if (RoutineManager.Current.Name == "Funky")
+            {
+                CanRunDecoratorDelegate canRunDelegateCombatTargetCheck = CombatHandler.GlobalOverlord;
+                ActionDelegate actionDelegateCoreTarget = CombatHandler.HandleTarget;
+                Sequence sequencecombat = new Sequence
+                (
+                    new Action(actionDelegateCoreTarget)
+                );
+                var NewCombatComposite = new Decorator(canRunDelegateCombatTargetCheck, sequencecombat);
+                SetHookValue(HookType.Combat, 0, NewCombatComposite);
 
+                CanRunDecoratorDelegate canRunDelegateBlank = BlankDecorator;
+                ActionDelegate actionDelegateBlank = BlankAction;
+                Sequence sequenceblank = new Sequence(
+                        new Action(actionDelegateBlank)
+                        );
 
-					//Insert Death Tally Counter At Beginning!
-					CanRunDecoratorDelegate deathTallyDecoratorDelegate = DeathBehavior.TallyDeathCanRunDecorator;
-					ActionDelegate actionDelegatedeathTallyAction = DeathBehavior.TallyDeathAction;
-					Action deathTallyAction = new Action(actionDelegatedeathTallyAction);
-					Decorator deathTallyDecorator = new Decorator(deathTallyDecoratorDelegate, deathTallyAction);
+                var NewLootComposite = new Decorator(canRunDelegateBlank, sequenceblank);
+                SetHookValue(HookType.Loot, 0, NewLootComposite);
+            }
 
-					//Death Wait..
-					CanRunDecoratorDelegate deathWaitDecoratorDelegate = DeathBehavior.DeathShouldWait;
-					ActionDelegate deathWaitActionDelegate = DeathBehavior.DeathWaitAction;
-					Action deathWaitAction = new Action(deathWaitActionDelegate);
-					Decorator deathWaitDecorator = new Decorator(deathWaitDecoratorDelegate, deathWaitAction);
+            #endregion
 
-					//Insert Death Tally Reset at End!
-					Action deathTallyActionReset = new Action(ret => DeathBehavior.TallyedDeathCounter = false);
-
-					//Default Hook Value
-					var deathValue = hook.Value[0];
-
-					Sequence DeathSequence = new Sequence
-					(
-						deathTallyDecorator,
-						deathWaitDecorator
-					);
-					SetHookValue(HookType.Death, 0, DeathSequence, true);
-					//hook.Value.Add(deathTallyActionReset);
-					Logger.DBLog.DebugFormat("Death tree hooked");
-				}
-
-
-				#endregion
-			}
-			#endregion
-
-			initTreeHooks = true;
+            initTreeHooks = true;
 		}
 
 		internal static void ResetTreehooks()
 		{
+		    if (RoutineManager.Current.Name == "Funky")
+		    {
+                CombatTargeting.Instance.Provider = new DefaultCombatTargetingProvider();
+                LootTargeting.Instance.Provider = new DefaultLootTargetingProvider();
+                ObstacleTargeting.Instance.Provider = new DefaultObstacleTargetingProvider();
+		    }
+
 			RestoreHook(HookType.VendorRun);
 			RestoreHook(HookType.OutOfGame);
 			RestoreHook(HookType.Death);
@@ -187,19 +187,22 @@ namespace fBaseXtensions
 		{
 			return TreeHooks.Instance.Hooks[type.ToString()];
 		}
-		public static void SetHookValue(HookType type, int index, Composite value, bool insert = false)
+		public static bool SetHookValue(HookType type, int index, Composite value, bool insert = false)
 		{
+		    if (!TreeHooks.Instance.Hooks.ContainsKey(type.ToString())) return false;
+
 			if (!insert)
 			{
 				TreeHooks.Instance.Hooks[type.ToString()][index] = value;
 				Logger.DBLog.DebugFormat("Replaced Hook [{0}]", type.ToString());
+                return true;
 			}
 			else
 			{
 				TreeHooks.Instance.Hooks[type.ToString()].Insert(index, value);
 				Logger.DBLog.DebugFormat("Inserted composite for Hook [{0}] at index {1}", type.ToString(), index);
+                return true;
 			}
-				
 		}
 
 		public static void PrintChildrenTypes(List<Composite> composites)

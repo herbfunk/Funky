@@ -20,6 +20,8 @@ namespace fBaseXtensions.Stats
 		public int HoradricCacheOpened { get; set; }
 		public int ItemsGambled { get; set; }
 		public int TownRuns { get; set; }
+        public int RiftBossKills { get; set; }
+        public int RiftTrialsCompleted { get; set; }
 
 		public int TotalXP { get; set; }
 		private int StartingXP;

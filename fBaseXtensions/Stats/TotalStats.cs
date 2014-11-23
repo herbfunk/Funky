@@ -61,6 +61,7 @@ namespace fBaseXtensions.Stats
 								 "\r\nGold:{4} ({8} gph) -- EXP:{5} ({9} xph)" +
 								 "\r\nTown Runs: {17}  Items Gambled: {16}  Horadric Cache Opened: {15}" +
 								 "\r\nBounties Completed: {18}" +
+			                     "\r\nRifts Completed: {19} Trials Completed: {20}" +
 								 "\r\n{6}" +
 							 "Drops Per Hour: {10} -- Looted Per Hour: {11}\r\n" + "Stash Per Hour: {12} -- Vendored Per Hour: {13} -- Salvaged Per Hour: {14}",
 							 GameCount,
@@ -78,7 +79,8 @@ namespace fBaseXtensions.Stats
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Stashed) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Vendored) / TotalTimeRunning.TotalHours).ToString("#.##"),
 							 (totalloottracker.GetTotalLootStatCount(LootStatTypes.Salvaged) / TotalTimeRunning.TotalHours).ToString("#.##"),
-							 TotalHoradricCacheOpened, TotalItemsGambled, TotalTownRuns, TotalBountiesCompleted);
+							 TotalHoradricCacheOpened, TotalItemsGambled, TotalTownRuns, 
+                             TotalBountiesCompleted, TotalRiftBossKills, TotalRiftTrialsCompleted);
 		}
 		internal static void WriteProfileTrackerOutput(ref TotalStats stats)
 		{

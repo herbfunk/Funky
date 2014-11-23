@@ -1,4 +1,5 @@
 ﻿using System;
+using fBaseXtensions;
 using fBaseXtensions.Game;
 using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Helpers;
@@ -51,14 +52,19 @@ namespace fItemPlugin.Townrun
 							_checkResult = true;
 							FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (Items Need Repaired)");
 						}
-                        else if (!BountyCache.IsParticipatingInTieredLootRun && FunkyTownRunPlugin.PluginSettings.EnableBloodShardGambling && FunkyTownRunPlugin.PluginSettings.MinimumBloodShards > 5)
+                        else if (!BountyCache.IsParticipatingInTieredLootRun && 
+                            FunkyTownRunPlugin.PluginSettings.EnableBloodShardGambling && 
+                            FunkyTownRunPlugin.PluginSettings.MinimumBloodShards >= 25)
 						{
 							int curBloodShardCount = Backpack.GetBloodShardCount();
-							if (curBloodShardCount != -1 && curBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards)
+							if (curBloodShardCount != -1 && curBloodShardCount >= 25 &&
+                                ((curBloodShardCount >= FunkyTownRunPlugin.PluginSettings.MinimumBloodShards) || 
+                                fBaseXtensions.Behaviors.CharacterControl.AltHeroGamblingEnabled)) //Alt Hero we gamble regardless of setting!
 							{
 							    if (FunkyTownRunPlugin.PluginSettings.UseAltGambling && //Alt Hero Setting
-                                    fBaseXtensions.FunkyBaseExtension.PluginIsEnabled && //Check fBaseXtensions Enabled
-                                    fBaseXtensions.FunkyBaseExtension.Settings.General.AltHeroIndex>=0 &&  //Check if AltHero setting index set
+                                    !fBaseXtensions.Behaviors.CharacterControl.AltHeroGamblingEnabled && // Make sure we are not already doing a alt switch
+                                    FunkyBaseExtension.PluginIsEnabled && //Check fBaseXtensions Enabled
+                                    FunkyBaseExtension.Settings.General.AltHeroIndex>=0 &&  //Check if AltHero setting index set
                                     fBaseXtensions.Behaviors.CharacterControl.HeroIndexInfo.Characters.Count>0) //Check if Hero Indexes is setup
 							    {
                                     //Lets make sure we are not doing any special quests!
@@ -70,7 +76,7 @@ namespace fItemPlugin.Townrun
                                         fBaseXtensions.Behaviors.ExitGameBehavior.ShouldExitGame = true;
 							        }
 							    }
-							    else
+							    else if(CanGambleItems(curBloodShardCount))
 							    {
                                     _checkResult = true;
                                     FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (Gambling)");

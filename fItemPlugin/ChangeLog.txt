@@ -1,4 +1,8 @@
-﻿v1.4.1
+﻿v1.4.2
+Added check for gambling if any items can be bought.
+Alternative hero gambling will now continue with gambling even if bloodshard count is below thresold (since main hero requested it!)
+
+v1.4.1
 Set minimum blood shard count setting to 25 (was 5)
 
 v1.4.0

@@ -124,6 +124,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(190708, PluginGizmoType.Chest, "a2dun_Aqd_Chest_Rare_FacePuzzleSmall-14922", GizmoTargetTypes.Resplendant),
                 new GizmoEntry(249362, PluginGizmoType.Chest, "x1_BogCave_Chest_Rare-42256", GizmoTargetTypes.Resplendant),
                 new GizmoEntry(289856, PluginGizmoType.Chest, "x1_Fortress_Chest_Rare-35353", GizmoTargetTypes.Resplendant),
+                new GizmoEntry(197655, PluginGizmoType.Chest, "a2dun_Swr_Chest_Rare-19521", GizmoTargetTypes.Resplendant),
 
 				//============== Chests ==============//
 				new GizmoEntry(62865, PluginGizmoType.Chest, "TrOut_Highlands_Chest-18282", GizmoTargetTypes.Chest),
@@ -467,6 +468,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(196509, PluginGizmoType.Chest, "a3dun_Bridge_Armor_Rack-42001", GizmoTargetTypes.ArmorRack),
 				new GizmoEntry(307431, PluginGizmoType.Chest, "x1_westm_Int_ArmorRack-26984", GizmoTargetTypes.ArmorRack),
 				new GizmoEntry(53253, PluginGizmoType.Chest, "a3dun_Keep_Armor_Rack-17043", GizmoTargetTypes.ArmorRack),
+                new GizmoEntry(96594, PluginGizmoType.Chest, "trOut_Highlands_ChiefGoatmenMummyRack_A-8866", GizmoTargetTypes.ArmorRack),
 
 				//============== Misc Containers ==============//
 				new GizmoEntry(5727, PluginGizmoType.Chest, "trDun_Cath_BookcaseShelves_B-394", GizmoTargetTypes.MiscContainer),
@@ -489,7 +491,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(190915, PluginGizmoType.Chest, "a4dun_spire_CorruptedWallAngel_Column_1-34318", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(193154, PluginGizmoType.Chest, "a4dun_spire_CorruptedWallAngel_Column_2-37722", GizmoTargetTypes.MiscContainer),
 				new GizmoEntry(193165, PluginGizmoType.Chest, "a4dun_spire_CorruptedWallAngel_Column_3-39228", GizmoTargetTypes.MiscContainer),
-
+                new GizmoEntry(403041, PluginGizmoType.Chest, "p1_Tgoblin_Greed_Bait-8859", GizmoTargetTypes.MiscContainer),
 				//============== Special Interactables ==============//
 				//
 				

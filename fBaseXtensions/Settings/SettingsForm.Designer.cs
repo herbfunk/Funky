@@ -318,8 +318,11 @@
             this.btn_Test = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel23 = new System.Windows.Forms.Panel();
-            this.comboBox_SettingFiles = new System.Windows.Forms.ComboBox();
             this.button_saveSettings = new System.Windows.Forms.Button();
+            this.comboBox_SettingFiles = new System.Windows.Forms.ComboBox();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.comboBox_BnetControl_CustomDifficulty = new System.Windows.Forms.ComboBox();
+            this.label36 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl_Combat.SuspendLayout();
@@ -428,6 +431,7 @@
             this.tabPage16.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel23.SuspendLayout();
+            this.groupBox25.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -714,7 +718,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(657, 529);
+            this.tabPage8.Size = new System.Drawing.Size(657, 592);
             this.tabPage8.TabIndex = 1;
             this.tabPage8.Text = "Clustering";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -913,7 +917,7 @@
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(657, 529);
+            this.tabPage9.Size = new System.Drawing.Size(657, 592);
             this.tabPage9.TabIndex = 2;
             this.tabPage9.Text = "Grouping";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -1147,7 +1151,7 @@
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(657, 529);
+            this.tabPage10.Size = new System.Drawing.Size(657, 592);
             this.tabPage10.TabIndex = 3;
             this.tabPage10.Text = "Avoidances";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -1158,7 +1162,7 @@
             this.flowLayoutPanel_Avoidances.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel_Avoidances.Location = new System.Drawing.Point(3, 79);
             this.flowLayoutPanel_Avoidances.Name = "flowLayoutPanel_Avoidances";
-            this.flowLayoutPanel_Avoidances.Size = new System.Drawing.Size(651, 447);
+            this.flowLayoutPanel_Avoidances.Size = new System.Drawing.Size(651, 510);
             this.flowLayoutPanel_Avoidances.TabIndex = 1;
             this.flowLayoutPanel_Avoidances.Click += new System.EventHandler(this.flowLayoutPanel_Avoidances_Click);
             this.flowLayoutPanel_Avoidances.MouseEnter += new System.EventHandler(this.flowLayoutPanel_Avoidances_MouseEnter);
@@ -1190,7 +1194,7 @@
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(657, 529);
+            this.tabPage11.Size = new System.Drawing.Size(657, 592);
             this.tabPage11.TabIndex = 4;
             this.tabPage11.Text = "Fleeing";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -1942,7 +1946,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(657, 529);
+            this.tabPage5.Size = new System.Drawing.Size(657, 592);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Range";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1952,7 +1956,7 @@
             this.flowLayout_TargetRanges.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayout_TargetRanges.Location = new System.Drawing.Point(3, 69);
             this.flowLayout_TargetRanges.Name = "flowLayout_TargetRanges";
-            this.flowLayout_TargetRanges.Size = new System.Drawing.Size(651, 457);
+            this.flowLayout_TargetRanges.Size = new System.Drawing.Size(651, 520);
             this.flowLayout_TargetRanges.TabIndex = 0;
             // 
             // groupBox11
@@ -2006,7 +2010,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(657, 529);
+            this.tabPage6.Size = new System.Drawing.Size(657, 592);
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "LOS";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -2025,7 +2029,7 @@
             this.groupBox23.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox23.Location = new System.Drawing.Point(3, 189);
             this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(651, 337);
+            this.groupBox23.Size = new System.Drawing.Size(651, 400);
             this.groupBox23.TabIndex = 9;
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Targets";
@@ -2250,7 +2254,7 @@
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(657, 482);
+            this.tabPage12.Size = new System.Drawing.Size(657, 592);
             this.tabPage12.TabIndex = 0;
             this.tabPage12.Text = "Misc";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -2395,7 +2399,7 @@
             this.tabPage18.Location = new System.Drawing.Point(4, 22);
             this.tabPage18.Name = "tabPage18";
             this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage18.Size = new System.Drawing.Size(657, 529);
+            this.tabPage18.Size = new System.Drawing.Size(657, 592);
             this.tabPage18.TabIndex = 2;
             this.tabPage18.Text = "Death";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -2745,12 +2749,13 @@
             // 
             // tabPage19
             // 
+            this.tabPage19.Controls.Add(this.groupBox25);
             this.tabPage19.Controls.Add(this.groupBox_BnetControl_AltHero);
             this.tabPage19.Controls.Add(this.groupBox_BnetControl_Setup);
             this.tabPage19.Location = new System.Drawing.Point(4, 22);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(657, 529);
+            this.tabPage19.Size = new System.Drawing.Size(657, 592);
             this.tabPage19.TabIndex = 3;
             this.tabPage19.Text = "Bnet Control";
             this.tabPage19.UseVisualStyleBackColor = true;
@@ -2761,10 +2766,11 @@
             this.groupBox_BnetControl_AltHero.Controls.Add(this.btn_BnetControl_TestSwitch);
             this.groupBox_BnetControl_AltHero.Controls.Add(this.label33);
             this.groupBox_BnetControl_AltHero.Controls.Add(this.comboBox_BnetControl_Heros);
+            this.groupBox_BnetControl_AltHero.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox_BnetControl_AltHero.Enabled = false;
-            this.groupBox_BnetControl_AltHero.Location = new System.Drawing.Point(6, 64);
+            this.groupBox_BnetControl_AltHero.Location = new System.Drawing.Point(3, 55);
             this.groupBox_BnetControl_AltHero.Name = "groupBox_BnetControl_AltHero";
-            this.groupBox_BnetControl_AltHero.Size = new System.Drawing.Size(645, 100);
+            this.groupBox_BnetControl_AltHero.Size = new System.Drawing.Size(651, 100);
             this.groupBox_BnetControl_AltHero.TabIndex = 1;
             this.groupBox_BnetControl_AltHero.TabStop = false;
             this.groupBox_BnetControl_AltHero.Text = "Alt Hero";
@@ -2811,10 +2817,11 @@
             // 
             this.groupBox_BnetControl_Setup.Controls.Add(this.lbl_BnetControl_Setup);
             this.groupBox_BnetControl_Setup.Controls.Add(this.btn_CharacterControl_Setup);
+            this.groupBox_BnetControl_Setup.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox_BnetControl_Setup.Enabled = false;
-            this.groupBox_BnetControl_Setup.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_BnetControl_Setup.Location = new System.Drawing.Point(3, 3);
             this.groupBox_BnetControl_Setup.Name = "groupBox_BnetControl_Setup";
-            this.groupBox_BnetControl_Setup.Size = new System.Drawing.Size(645, 52);
+            this.groupBox_BnetControl_Setup.Size = new System.Drawing.Size(651, 52);
             this.groupBox_BnetControl_Setup.TabIndex = 0;
             this.groupBox_BnetControl_Setup.TabStop = false;
             this.groupBox_BnetControl_Setup.Text = "Setup";
@@ -2843,7 +2850,7 @@
             this.tabPage13.Location = new System.Drawing.Point(4, 22);
             this.tabPage13.Name = "tabPage13";
             this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(671, 561);
+            this.tabPage13.Size = new System.Drawing.Size(671, 624);
             this.tabPage13.TabIndex = 3;
             this.tabPage13.Text = "Items";
             this.tabPage13.UseVisualStyleBackColor = true;
@@ -2855,7 +2862,7 @@
             this.tabControl4.Location = new System.Drawing.Point(3, 3);
             this.tabControl4.Name = "tabControl4";
             this.tabControl4.SelectedIndex = 0;
-            this.tabControl4.Size = new System.Drawing.Size(665, 555);
+            this.tabControl4.Size = new System.Drawing.Size(665, 618);
             this.tabControl4.TabIndex = 0;
             // 
             // tabPage20
@@ -2866,7 +2873,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 22);
             this.tabPage20.Name = "tabPage20";
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage20.Size = new System.Drawing.Size(657, 529);
+            this.tabPage20.Size = new System.Drawing.Size(657, 592);
             this.tabPage20.TabIndex = 2;
             this.tabPage20.Text = "Pickup";
             this.tabPage20.UseVisualStyleBackColor = true;
@@ -3246,7 +3253,7 @@
             this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(671, 514);
+            this.tabPage14.Size = new System.Drawing.Size(671, 624);
             this.tabPage14.TabIndex = 4;
             this.tabPage14.Text = "Advanced";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -3342,7 +3349,7 @@
             this.tabPage15.Location = new System.Drawing.Point(4, 22);
             this.tabPage15.Name = "tabPage15";
             this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage15.Size = new System.Drawing.Size(671, 561);
+            this.tabPage15.Size = new System.Drawing.Size(671, 624);
             this.tabPage15.TabIndex = 5;
             this.tabPage15.Text = "Misc";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -3355,7 +3362,7 @@
             this.flowLayoutPanel_MiscStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_MiscStats.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel_MiscStats.Name = "flowLayoutPanel_MiscStats";
-            this.flowLayoutPanel_MiscStats.Size = new System.Drawing.Size(665, 555);
+            this.flowLayoutPanel_MiscStats.Size = new System.Drawing.Size(665, 618);
             this.flowLayoutPanel_MiscStats.TabIndex = 0;
             this.flowLayoutPanel_MiscStats.WrapContents = false;
             // 
@@ -3367,7 +3374,7 @@
             this.tabPage16.Location = new System.Drawing.Point(4, 22);
             this.tabPage16.Name = "tabPage16";
             this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage16.Size = new System.Drawing.Size(671, 561);
+            this.tabPage16.Size = new System.Drawing.Size(671, 624);
             this.tabPage16.TabIndex = 6;
             this.tabPage16.Text = "Debug";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -3381,7 +3388,7 @@
             this.LBDebug.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.LBDebug.Location = new System.Drawing.Point(3, 92);
             this.LBDebug.Name = "LBDebug";
-            this.LBDebug.Size = new System.Drawing.Size(665, 466);
+            this.LBDebug.Size = new System.Drawing.Size(665, 529);
             this.LBDebug.TabIndex = 1;
             this.LBDebug.WrapContents = false;
             this.LBDebug.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LBDebug_MouseClick);
@@ -3545,6 +3552,16 @@
             this.panel23.Size = new System.Drawing.Size(679, 47);
             this.panel23.TabIndex = 2;
             // 
+            // button_saveSettings
+            // 
+            this.button_saveSettings.Location = new System.Drawing.Point(327, 10);
+            this.button_saveSettings.Name = "button_saveSettings";
+            this.button_saveSettings.Size = new System.Drawing.Size(75, 23);
+            this.button_saveSettings.TabIndex = 1;
+            this.button_saveSettings.Text = "Save";
+            this.button_saveSettings.UseVisualStyleBackColor = true;
+            this.button_saveSettings.Click += new System.EventHandler(this.button_saveSettings_Click);
+            // 
             // comboBox_SettingFiles
             // 
             this.comboBox_SettingFiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -3555,15 +3572,35 @@
             this.comboBox_SettingFiles.Size = new System.Drawing.Size(259, 21);
             this.comboBox_SettingFiles.TabIndex = 0;
             // 
-            // button_saveSettings
+            // groupBox25
             // 
-            this.button_saveSettings.Location = new System.Drawing.Point(327, 10);
-            this.button_saveSettings.Name = "button_saveSettings";
-            this.button_saveSettings.Size = new System.Drawing.Size(75, 23);
-            this.button_saveSettings.TabIndex = 1;
-            this.button_saveSettings.Text = "Save";
-            this.button_saveSettings.UseVisualStyleBackColor = true;
-            this.button_saveSettings.Click += new System.EventHandler(this.button_saveSettings_Click);
+            this.groupBox25.Controls.Add(this.label36);
+            this.groupBox25.Controls.Add(this.comboBox_BnetControl_CustomDifficulty);
+            this.groupBox25.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox25.Location = new System.Drawing.Point(3, 155);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(651, 100);
+            this.groupBox25.TabIndex = 2;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "Misc";
+            // 
+            // comboBox_BnetControl_CustomDifficulty
+            // 
+            this.comboBox_BnetControl_CustomDifficulty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_BnetControl_CustomDifficulty.FormattingEnabled = true;
+            this.comboBox_BnetControl_CustomDifficulty.Location = new System.Drawing.Point(9, 48);
+            this.comboBox_BnetControl_CustomDifficulty.Name = "comboBox_BnetControl_CustomDifficulty";
+            this.comboBox_BnetControl_CustomDifficulty.Size = new System.Drawing.Size(242, 21);
+            this.comboBox_BnetControl_CustomDifficulty.TabIndex = 0;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(6, 32);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(78, 13);
+            this.label36.TabIndex = 1;
+            this.label36.Text = "Game Difficulty";
             // 
             // SettingsForm
             // 
@@ -3744,6 +3781,8 @@
             this.tabPage16.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel23.ResumeLayout(false);
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -4044,6 +4083,9 @@
         private System.Windows.Forms.Panel panel23;
         private System.Windows.Forms.ComboBox comboBox_SettingFiles;
         private System.Windows.Forms.Button button_saveSettings;
+        private System.Windows.Forms.GroupBox groupBox25;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.ComboBox comboBox_BnetControl_CustomDifficulty;
 		//
 	}
 }

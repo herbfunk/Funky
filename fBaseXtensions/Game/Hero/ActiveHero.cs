@@ -578,6 +578,8 @@ namespace fBaseXtensions.Game.Hero
 					else
 						CurrentExp = me.CurrentExperience;
 
+                    
+
 					//Set Character Radius?
 					if (fCharacterRadius == 0f)
 					{

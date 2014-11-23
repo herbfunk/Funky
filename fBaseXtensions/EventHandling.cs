@@ -10,6 +10,7 @@ using fBaseXtensions.Stats;
 using fBaseXtensions.XML;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
+using Zeta.Bot.Settings;
 using Zeta.Game;
 using Zeta.Game.Internals.Service;
 using Logger = fBaseXtensions.Helpers.Logger;
@@ -24,6 +25,7 @@ namespace fBaseXtensions
 			if (ZetaDia.IsInGame) 
 				CheckGameIDChange();
 
+            //Logger.DBLog.InfoFormat("fBaseXtensions is enabled == {0}", FunkyBaseExtension.PluginIsEnabled);
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{
 				if (FunkyBaseExtension.Settings.Debugging.DebuggingData)
@@ -31,6 +33,15 @@ namespace fBaseXtensions
 					Logger.DBLog.Debug("Loading Debugging Data from Xml");
 					ObjectCache.DebuggingData = new DebugData();
 				}
+
+			    if (RoutineManager.Current.Name == "Funky")
+			    {
+                    Navigator.PlayerMover = new Navigation.PlayerMover();
+                    Navigator.StuckHandler = new Navigation.PluginStuckHandler();
+                    CombatTargeting.Instance.Provider = new PluginCombatTargeting();
+                    LootTargeting.Instance.Provider = new PluginLootTargeting();
+                    ObstacleTargeting.Instance.Provider = new PluginObstacleTargeting();
+			    }
 
 				FunkyGame.Reset();
 				
@@ -58,11 +69,15 @@ namespace fBaseXtensions
 
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{
-				//Hotbar.OnSkillsChanged -= PlayerClass.HotbarSkillsChangedHandler;
+			    if (RoutineManager.Current.Name == "Funky")
+			    {
+                    Navigator.PlayerMover = new DefaultPlayerMover();
+                    Navigator.StuckHandler = new DefaultStuckHandler();
+			    }
+			    //Hotbar.OnSkillsChanged -= PlayerClass.HotbarSkillsChangedHandler;
 				Equipment.OnEquippedItemsChanged -= Equipment.EquippmentChangedHandler;
 				// Issue final reports
 				FunkyGame.TrackingStats.GameStopped(ref FunkyGame.CurrentGameStats);
-				TotalStats.WriteProfileTrackerOutput(ref FunkyGame.TrackingStats);
                 FunkyGame.CurrentGameStats = new Stats.GameStats();
 			}
 
@@ -74,6 +89,8 @@ namespace fBaseXtensions
 			UnhookEvents();
 
 			ZetaDia.Memory.ClearCache();
+		    CharacterControl.GameDifficultyChanged = false;
+		    CharacterSettings.Instance.GameDifficulty = CharacterControl.OrginalGameDifficultySetting;
 		}
 		private static void OnGameChanged(object obj, EventArgs args)
 		{
@@ -120,7 +137,7 @@ namespace fBaseXtensions
 					}
 				}
 
-				if (FunkyBaseExtension.PluginIsEnabled)
+                if (FunkyBaseExtension.PluginIsEnabled && !CharacterControl.AltHeroGamblingEnabled)
 				{
 					if (FunkyGame.CurrentGameStats == null)
 					{
@@ -164,8 +181,9 @@ namespace fBaseXtensions
 		private static void OnGameJoined(object obj, EventArgs args)
 		{
 			Logger.Write(LogLevel.Event, "OnJoinGame Event");
-			if (FunkyBaseExtension.PluginIsEnabled)
-				FunkyGame.ResetGame();
+
+		    CharacterSettings.Instance.GameDifficulty = CharacterControl.OrginalGameDifficultySetting;
+		    CharacterControl.GameDifficultyChanged = false;
 
 			CheckGameIDChange();
 		}
@@ -173,10 +191,12 @@ namespace fBaseXtensions
 		{
 			Logger.Write(LogLevel.Event, "OnLeaveGame Event");
 
-			FunkyGame.CurrentGameStats.CurrentProfile.UpdateRangeVariables();
+            if (FunkyGame.CurrentGameStats!=null)
+			    FunkyGame.CurrentGameStats.CurrentProfile.UpdateRangeVariables();
+
 			FunkyGame.CurrentGameID = new GameId();
 			FunkyGame.AdventureMode = false;
-			FunkyGame.ShouldRefreshAccountDetails = true;
+			//FunkyGame.ShouldRefreshAccountDetails = true;
 
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{
@@ -187,7 +207,9 @@ namespace fBaseXtensions
 		{
 			Logger.Write(LogLevel.Event, "OnProfileChanged Event");
 			string sThisProfile = ProfileManager.CurrentProfile.Path;
-			FunkyGame.CurrentGameStats.ProfileChanged(sThisProfile);
+
+            if (FunkyGame.CurrentGameStats!=null)
+			    FunkyGame.CurrentGameStats.ProfileChanged(sThisProfile);
 
 		    FunkyGame.Game.ObjectCustomWeights.Clear();
 			SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;

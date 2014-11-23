@@ -60,6 +60,21 @@ namespace fBaseXtensions.Stats
 				return Profiles.Sum(P => P.BountiesCompleted);
 			}
 		}
+        public int TotalRiftBossKills
+        {
+            get
+            {
+                return Profiles.Sum(P => P.RiftBossKills);
+            }
+        }
+        public int TotalRiftTrialsCompleted
+        {
+            get
+            {
+                return Profiles.Sum(P => P.RiftTrialsCompleted);
+            }
+        }
+
 		public TimeSpan TotalTimeRunning
 		{
 			get

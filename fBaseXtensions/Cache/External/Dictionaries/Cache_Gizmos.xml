@@ -642,6 +642,14 @@
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>197655</SnoId>
+      <InternalName>a2dun_Swr_Chest_Rare-19521</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>Resplendant</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>62865</SnoId>
       <InternalName>TrOut_Highlands_Chest-18282</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -3282,6 +3290,14 @@
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
+      <SnoId>96594</SnoId>
+      <InternalName>trOut_Highlands_ChiefGoatmenMummyRack_A-8866</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>ArmorRack</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
       <SnoId>5727</SnoId>
       <InternalName>trDun_Cath_BookcaseShelves_B-394</InternalName>
       <ActorType>Gizmo</ActorType>
@@ -3436,6 +3452,14 @@
     <GizmoEntry>
       <SnoId>193165</SnoId>
       <InternalName>a4dun_spire_CorruptedWallAngel_Column_3-39228</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Chest</PluginGizmoType>
+      <GizmotargetType>MiscContainer</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>403041</SnoId>
+      <InternalName>p1_Tgoblin_Greed_Bait-8859</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
       <PluginGizmoType>Chest</PluginGizmoType>

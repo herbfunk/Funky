@@ -888,6 +888,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(58698, PluginItemTypes.Shoulders),
 				new ItemDataEntry(58700, PluginItemTypes.Shoulders),
 				new ItemDataEntry(58691, PluginItemTypes.Shoulders),
+                new ItemDataEntry(58701, PluginItemTypes.Shoulders),
 
 				new ItemDataEntry(335392, PluginItemTypes.SpiritStone),
 				new ItemDataEntry(364156, PluginItemTypes.SpiritStone),
@@ -1110,6 +1111,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(139096, PluginItemTypes.Mojo),
 				new ItemDataEntry(139098, PluginItemTypes.Mojo),
 				new ItemDataEntry(139099, PluginItemTypes.Mojo),
+                new ItemDataEntry(139095, PluginItemTypes.Mojo),
 
 				new ItemDataEntry(367204, PluginItemTypes.Source),
 				new ItemDataEntry(327063, PluginItemTypes.Source),

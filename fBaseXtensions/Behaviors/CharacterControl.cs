@@ -9,6 +9,7 @@ using fBaseXtensions.Game.Hero;
 using fBaseXtensions.Helpers;
 using fBaseXtensions.Settings;
 using Zeta.Bot;
+using Zeta.Bot.Settings;
 using Zeta.Game;
 using Zeta.Game.Internals.Service;
 using Zeta.TreeSharp;
@@ -17,6 +18,20 @@ namespace fBaseXtensions.Behaviors
 {
     public static class CharacterControl
     {
+        internal static GameDifficulty OrginalGameDifficultySetting;
+        internal static bool GameDifficultyChanged = false;
+
+        
+        //Monitor Setting Changes from Demonbuddy -- so if difficulty changes we can modify the orignal variable.
+        internal static void OnDBCharacterSettingPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "GameDifficulty")
+            {
+                if (!GameDifficultyChanged) //only when we are not changing it from code
+                    OrginalGameDifficultySetting = CharacterSettings.Instance.GameDifficulty;
+            }
+        }
+
         private static BnetCharacterIndexInfo _heroindexinfo = new BnetCharacterIndexInfo();
 
         public static BnetCharacterIndexInfo HeroIndexInfo
@@ -40,7 +55,7 @@ namespace fBaseXtensions.Behaviors
         public static bool GamblingCharacterSwitch = false;
 
         //For the combat handler!
-        internal static bool AltHeroGamblingEnabled = false;
+        public static bool AltHeroGamblingEnabled = false;
         //To switch back after finished!
         internal static bool GamblingCharacterSwitchToMain = false;
 
@@ -79,8 +94,8 @@ namespace fBaseXtensions.Behaviors
                 }
                 else
                 {//Finished! Reset the variables.
-
                     FunkyGame.ShouldRefreshAccountDetails = true;
+                    PluginSettings.LoadSettings();
                     MainHeroInfo = null;
                     AltHeroInfo = null;
                     GamblingCharacterSwitch = false;
@@ -174,6 +189,7 @@ namespace fBaseXtensions.Behaviors
                 ZetaDia.Memory.ClearCache();
                 MainHeroInfo = new HeroInfo(ZetaDia.Service.Hero);
             }
+
             _lastProfilePath = ProfileManager.CurrentProfile.Path;
             Logger.DBLog.InfoFormat("Switching to Hero Index {0}", FunkyBaseExtension.Settings.General.AltHeroIndex);
             ZetaDia.Service.GameAccount.SwitchHero(FunkyBaseExtension.Settings.General.AltHeroIndex);

@@ -1,4 +1,11 @@
-﻿v1.1.5.0
+﻿v1.1.5.1
+
+Combat Routine fixed (again) to be compatiable with YAR and R-YAR.
+Added option for hero custom difficulty to settings General -> Bnet Control tab.
+Added Rifts Completed and Rift Trials Completed to Game Stats.
+
+
+v1.1.5.0
 
 Barbarian skill changes (due to popular requests!)
 Furious Charge now has more specific single unit conditions.

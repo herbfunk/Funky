@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Demonbuddy;
+using fBaseXtensions.Behaviors;
 using fBaseXtensions.Cache;
 using fBaseXtensions.Cache.External;
 using fBaseXtensions.Cache.Internal;
@@ -16,8 +17,10 @@ using fBaseXtensions.Monitor;
 using fBaseXtensions.Settings;
 using fBaseXtensions.XML;
 using Zeta.Bot;
+using Zeta.Bot.Settings;
 using Zeta.Common;
 using Zeta.Common.Plugins;
+using Zeta.Game;
 using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace fBaseXtensions
@@ -26,7 +29,7 @@ namespace fBaseXtensions
     {
         public Version Version
         {
-            get { return new Version(1, 1, 5, 0); }
+            get { return new Version(1, 1, 5, 1); }
         }
 
 		public static PluginSettings Settings { get; set; }
@@ -80,10 +83,12 @@ namespace fBaseXtensions
 		    Settings=new PluginSettings();
 			PluginSettings.LoadSettings();
 			TheCache.ObjectIDCache = new IDCache();
+	        CharacterControl.OrginalGameDifficultySetting = CharacterSettings.Instance.GameDifficulty;
 			BotMain.OnStart += EventHandling.OnBotStart;
 			BotMain.OnStop += EventHandling.OnBotStop;
 	        CustomConditions.Initialize();
 			ObjectCache.FakeCacheObject = new CacheObject(Vector3.Zero, TargetType.None, 0d, "Fake Target", 1f);
+	        CharacterSettings.Instance.PropertyChanged += CharacterControl.OnDBCharacterSettingPropertyChanged;
 			Logger.Write("Init Logger Completed!");
 			Logger.DBLog.DebugFormat("fBaseXtensions OnInitialize Finished");
 	    }
@@ -101,25 +106,30 @@ namespace fBaseXtensions
 		    get
 		    {
 		        var plugin= PluginManager.Plugins.First(p => p.Plugin.Name == "fBaseXtensions");
-		        if (plugin != null)
+		        if (plugin != null && plugin.Enabled)
 		        {
-		            return plugin.Enabled;
+		            return true;
 		        }
-		        return false; //?
+                return _pluginenabled; //?
 		        
 		    }
 		}
+
+        private static bool _pluginenabled = false;
 		
 	    public void OnEnabled()
 	    {
 			UIControl.InstallSettingsButton();
+            _pluginenabled = true;
 			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been enabled!", Version.ToString());
+	        
 			if (BotMain.IsRunning) EventHandling.OnBotStart(null);
 	    }
 
 	    public void OnDisabled()
 	    {
 			UIControl.UninstallSettingsButton();
+            _pluginenabled = false;
 			Logger.DBLog.InfoFormat("fBaseXtensions v{0} has been disabled!", Version.ToString());
 	    }
 

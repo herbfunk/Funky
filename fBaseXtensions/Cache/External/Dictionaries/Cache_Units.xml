@@ -1126,21 +1126,21 @@
       <InternalName>Unburied_A-3007</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6358</SnoId>
       <InternalName>Unburied_B-12833</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6359</SnoId>
       <InternalName>Unburied_C-12299</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>6500</SnoId>
@@ -1315,7 +1315,7 @@
       <InternalName>Unburied_A_Unique-12652</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Unique</UnitFlags>
+      <UnitFlags>Unique Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>77085</SnoId>
@@ -1385,7 +1385,7 @@
       <InternalName>Unburied_A_Unique_LeoricBoss-14631</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>AdventureModeBoss</UnitFlags>
+      <UnitFlags>AdventureModeBoss Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>82764</SnoId>
@@ -3758,7 +3758,7 @@
       <InternalName>Unburied_C_Unique_01-3328</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>AdventureModeBoss</UnitFlags>
+      <UnitFlags>AdventureModeBoss Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>366283</SnoId>
@@ -3989,7 +3989,7 @@
       <InternalName>Unburied_D-7295</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>4552</SnoId>
@@ -4542,7 +4542,7 @@
       <InternalName>Unburied_A_UnburiedAlcoveEvent-3908</InternalName>
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
-      <UnitFlags>Normal</UnitFlags>
+      <UnitFlags>Normal Tough</UnitFlags>
     </UnitEntry>
     <UnitEntry>
       <SnoId>166452</SnoId>
@@ -6174,6 +6174,55 @@
       <ActorType>Monster</ActorType>
       <EntryType>Unit</EntryType>
       <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>402360</SnoId>
+      <InternalName>p1_TreasureTrooper_A_Unique_14-6840</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Unique</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>380181</SnoId>
+      <InternalName>p1_TreasureChild_A-6686</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>380183</SnoId>
+      <InternalName>p1_TreasureTrooper_A-6532</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>405750</SnoId>
+      <InternalName>p1_Greed_PortalMonsterSummon-8862</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>378665</SnoId>
+      <InternalName>p1_Greed-8869</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Boss</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>380657</SnoId>
+      <InternalName>p1_treasureGobin_A_Unique_GreedMinion-9145</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
+    </UnitEntry>
+    <UnitEntry>
+      <SnoId>375552</SnoId>
+      <InternalName>FallenLunatic_B_Despair-4141</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>
