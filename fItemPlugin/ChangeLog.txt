@@ -1,4 +1,8 @@
-﻿v1.4.2
+﻿v1.4.3
+Replaced Me.Inventory.NumFreeBackpackSlots method with fBaseXtension's Backpack.GetNumberFreeBackpackSlots()
+
+
+v1.4.2
 Added check for gambling if any items can be bought.
 Alternative hero gambling will now continue with gambling even if bloodshard count is below thresold (since main hero requested it!)
 

@@ -99,8 +99,14 @@ namespace fBaseXtensions.Items
 			if (internalName.Contains("page_of_")) return PluginDroppedItemTypes.CraftingMaterial;
 			if (internalName.Contains("blacksmithstome")) return PluginDroppedItemTypes.CraftingMaterial;
 
-			if (internalName.Contains("healthpotion")) return PluginDroppedItemTypes.Potion;
-			if (internalName.Contains("followeritem_enchantress_")) return PluginDroppedItemTypes.FollowerTrinket;
+		    if (internalName.Contains("healthpotion"))
+		    {
+                if (internalName.Contains("legendary"))
+                    return PluginDroppedItemTypes.LegendaryPotion;
+
+		        return PluginDroppedItemTypes.Potion;
+		    }
+		    if (internalName.Contains("followeritem_enchantress_")) return PluginDroppedItemTypes.FollowerTrinket;
 			if (internalName.Contains("followeritem_scoundrel_")) return PluginDroppedItemTypes.FollowerTrinket;
 			if (internalName.Contains("followeritem_templar_")) return PluginDroppedItemTypes.FollowerTrinket;
 			if (internalName.Contains("jewelbox_")) return PluginDroppedItemTypes.FollowerTrinket;
@@ -133,6 +139,7 @@ namespace fBaseXtensions.Items
 				case PluginDroppedItemTypes.KeyFragment:
 				case PluginDroppedItemTypes.CraftingMaterial:
 				case PluginDroppedItemTypes.Potion:
+                case PluginDroppedItemTypes.LegendaryPotion:
 				case PluginDroppedItemTypes.Gold:
 				case PluginDroppedItemTypes.BloodShard:
 				case PluginDroppedItemTypes.RamaladnisGift:
@@ -390,7 +397,14 @@ namespace fBaseXtensions.Items
 			if (sThisInternalName.Contains("page_of_")) return PluginItemTypes.CraftTome;
 			if (sThisInternalName.Contains("blacksmithstome")) return PluginItemTypes.CraftTome;
 
-			if (sThisInternalName.Contains("healthpotion")) return PluginItemTypes.HealthPotion;
+		    if (sThisInternalName.Contains("healthpotion"))
+		    {
+                if (sThisInternalName.Contains("legendary"))
+                    return PluginItemTypes.LegendaryHealthPotion;
+
+                return PluginItemTypes.HealthPotion;
+		    }
+               
 			if (sThisInternalName.Contains("followeritem_enchantress_")) return PluginItemTypes.FollowerEnchantress;
 			if (sThisInternalName.Contains("followeritem_scoundrel_")) return PluginItemTypes.FollowerScoundrel;
 			if (sThisInternalName.Contains("followeritem_templar_")) return PluginItemTypes.FollowerTemplar;
@@ -543,7 +557,7 @@ namespace fBaseXtensions.Items
 				thisGilesBaseTypes = PluginBaseItemTypes.FollowerItem;
 			}
 			else if (thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.LegendaryCraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.MiscBook ||
-				 thisPluginItemTypes == PluginItemTypes.SpecialItem || thisPluginItemTypes == PluginItemTypes.CraftingPlan || thisPluginItemTypes == PluginItemTypes.HealthPotion ||
+				 thisPluginItemTypes == PluginItemTypes.SpecialItem || thisPluginItemTypes == PluginItemTypes.CraftingPlan || thisPluginItemTypes == PluginItemTypes.HealthPotion || thisPluginItemTypes == PluginItemTypes.LegendaryHealthPotion ||
 				 thisPluginItemTypes == PluginItemTypes.Dye || thisPluginItemTypes == PluginItemTypes.StaffOfHerding || thisPluginItemTypes == PluginItemTypes.InfernalKey ||
 				thisPluginItemTypes == PluginItemTypes.KeyStone || thisPluginItemTypes == PluginItemTypes.HoradricCache || thisPluginItemTypes == PluginItemTypes.BloodShard || thisPluginItemTypes == PluginItemTypes.RamaladnisGift)
 			{
@@ -560,12 +574,21 @@ namespace fBaseXtensions.Items
 			}
 			return thisGilesBaseTypes;
 		}
-		public static bool DetermineIsStackable(PluginItemTypes thisPluginItemTypes)
+		public static bool DetermineIsStackable(PluginItemTypes thisPluginItemTypes, int snoid=-1)
 		{
-			bool bIsStackable = thisPluginItemTypes == PluginItemTypes.CraftingMaterial || thisPluginItemTypes == PluginItemTypes.LegendaryCraftingMaterial || thisPluginItemTypes == PluginItemTypes.CraftTome || thisPluginItemTypes == PluginItemTypes.Ruby ||
-									  thisPluginItemTypes == PluginItemTypes.Diamond || thisPluginItemTypes == PluginItemTypes.Emerald || thisPluginItemTypes == PluginItemTypes.Topaz || thisPluginItemTypes == PluginItemTypes.Amethyst ||
-									  thisPluginItemTypes == PluginItemTypes.HealthPotion || thisPluginItemTypes == PluginItemTypes.CraftingPlan || thisPluginItemTypes == PluginItemTypes.Dye ||
-									  thisPluginItemTypes == PluginItemTypes.InfernalKey || thisPluginItemTypes == PluginItemTypes.KeyStone;
+			bool bIsStackable = thisPluginItemTypes == PluginItemTypes.CraftingMaterial || 
+                                      thisPluginItemTypes == PluginItemTypes.LegendaryCraftingMaterial || 
+                                      thisPluginItemTypes == PluginItemTypes.CraftTome || 
+                                      thisPluginItemTypes == PluginItemTypes.Ruby ||
+									  thisPluginItemTypes == PluginItemTypes.Diamond || 
+                                      thisPluginItemTypes == PluginItemTypes.Emerald || 
+                                      thisPluginItemTypes == PluginItemTypes.Topaz || 
+                                      thisPluginItemTypes == PluginItemTypes.Amethyst ||
+									  thisPluginItemTypes == PluginItemTypes.HealthPotion ||
+                                      thisPluginItemTypes == PluginItemTypes.CraftingPlan ||
+                                      thisPluginItemTypes == PluginItemTypes.Dye ||
+									  thisPluginItemTypes == PluginItemTypes.InfernalKey ||
+                                      thisPluginItemTypes == PluginItemTypes.KeyStone;
 			return bIsStackable;
 		}
         public static bool DetermineIsStackable(PluginDroppedItemTypes thisPluginItemTypes)
@@ -603,6 +626,24 @@ namespace fBaseXtensions.Items
 				return true;
 			return false;
 		}
+        public static bool DetermineIsTwoSlot(PluginDroppedItemTypes thisPluginItemTypes)
+        {
+            if (thisPluginItemTypes == PluginDroppedItemTypes.Axe || thisPluginItemTypes == PluginDroppedItemTypes.CeremonialKnife || thisPluginItemTypes == PluginDroppedItemTypes.Dagger ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.FistWeapon || thisPluginItemTypes == PluginDroppedItemTypes.Mace || thisPluginItemTypes == PluginDroppedItemTypes.MightyWeapon ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.Spear || thisPluginItemTypes == PluginDroppedItemTypes.Sword || thisPluginItemTypes == PluginDroppedItemTypes.Wand ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.Daibo || thisPluginItemTypes == PluginDroppedItemTypes.Crossbow || thisPluginItemTypes == PluginDroppedItemTypes.MaceTwoHanded ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.MightyWeaponTwoHanded || thisPluginItemTypes == PluginDroppedItemTypes.Polearm || thisPluginItemTypes == PluginDroppedItemTypes.Staff ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.SwordTwoHanded || thisPluginItemTypes == PluginDroppedItemTypes.AxeTwoHanded || thisPluginItemTypes == PluginDroppedItemTypes.HandCrossbow ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.Bow || thisPluginItemTypes == PluginDroppedItemTypes.Mojo || thisPluginItemTypes == PluginDroppedItemTypes.Source ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.Quiver || thisPluginItemTypes == PluginDroppedItemTypes.Shield || thisPluginItemTypes == PluginDroppedItemTypes.Boots ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.Bracers || thisPluginItemTypes == PluginDroppedItemTypes.Chest ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.Gloves || thisPluginItemTypes == PluginDroppedItemTypes.Helm || thisPluginItemTypes == PluginDroppedItemTypes.Pants ||
+                 thisPluginItemTypes == PluginDroppedItemTypes.Shoulders || 
+                 thisPluginItemTypes == PluginDroppedItemTypes.Helm || 
+                 thisPluginItemTypes == PluginDroppedItemTypes.Flail || thisPluginItemTypes == PluginDroppedItemTypes.FlailTwoHanded || thisPluginItemTypes == PluginDroppedItemTypes.CrusaderShield)
+                return true;
+            return false;
+        }
 		public static ItemType PluginItemTypeToDBItemType(PluginItemTypes thisPluginItemTypes)
 		{
 			switch (thisPluginItemTypes)
@@ -666,6 +707,7 @@ namespace fBaseXtensions.Items
 				case PluginItemTypes.SpecialItem: return ItemType.Unknown;
 				case PluginItemTypes.CraftingPlan: return ItemType.CraftingPlan;
 				case PluginItemTypes.HealthPotion: return ItemType.Potion;
+                case PluginItemTypes.LegendaryHealthPotion: return ItemType.Potion;
 				case PluginItemTypes.Dye: return ItemType.Unknown;
 				case PluginItemTypes.InfernalKey: return ItemType.CraftingReagent;
 				case PluginItemTypes.MiscBook: return ItemType.CraftingPage;

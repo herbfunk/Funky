@@ -1,4 +1,5 @@
-﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+﻿using fBaseXtensions.Cache.Internal;
+using fBaseXtensions.Game.Hero.Skills.Conditions;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
@@ -22,11 +23,29 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 		public override void Initialize()
 		{
 			Priority = SkillPriority.Medium;
-			Range = 35;
-			PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckCanCast |
-			                          SkillPrecastFlags.CheckPlayerIncapacitated));
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, maxdistance: 25, MinimumHealthPercent: 0.50d));
-								
+			Range = 60;
+			PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast |SkillPrecastFlags.CheckPlayerIncapacitated));
+
+            var IntersectingUnitTargetConditions =
+                new UnitTargetConditions
+                {
+                    TrueConditionFlags = TargetProperties.None,
+                    MaximumDistance = Range,
+                    Criteria = () =>
+                            ObjectCache.Objects.TotalIntersectingUnits(FunkyGame.Targeting.Cache.CurrentTarget.Position, 8f) > 2
+                };
+            SingleUnitCondition.Add(IntersectingUnitTargetConditions);
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, falseConditionalFlags: TargetProperties.Normal));
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Summoner, Range, falseConditionalFlags: TargetProperties.LowHealth));
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.AvoidanceSummoner, Range, falseConditionalFlags: TargetProperties.LowHealth));
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Debuffing, Range, falseConditionalFlags: TargetProperties.LowHealth));
+			//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, Range, MinimumHealthPercent: 0.50d));
+            SingleUnitCondition.Add(new UnitTargetConditions
+            {
+                Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > 0.80d,
+                MaximumDistance = Range,
+                FalseConditionFlags = TargetProperties.LowHealth,
+            });
 								//TestCustomCombatConditionAlways=true,
 			FcriteriaCombat = () => FunkyGame.Targeting.Cache.CurrentUnitTarget.IsRanged ||
 			                        FunkyGame.Hero.dCurrentEnergyPct < 0.5d;

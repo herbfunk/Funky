@@ -248,6 +248,9 @@
             this.cb_adventuremode_allowcombatmodification = new System.Windows.Forms.CheckBox();
             this.cb_adventuremode_NavigateMinimapMarkers = new System.Windows.Forms.CheckBox();
             this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.comboBox_BnetControl_CustomDifficulty = new System.Windows.Forms.ComboBox();
             this.groupBox_BnetControl_AltHero = new System.Windows.Forms.GroupBox();
             this.btn_BnetControl_ResetIndexes = new System.Windows.Forms.Button();
             this.btn_BnetControl_TestSwitch = new System.Windows.Forms.Button();
@@ -320,9 +323,7 @@
             this.panel23 = new System.Windows.Forms.Panel();
             this.button_saveSettings = new System.Windows.Forms.Button();
             this.comboBox_SettingFiles = new System.Windows.Forms.ComboBox();
-            this.groupBox25 = new System.Windows.Forms.GroupBox();
-            this.comboBox_BnetControl_CustomDifficulty = new System.Windows.Forms.ComboBox();
-            this.label36 = new System.Windows.Forms.Label();
+            this.btn_DumpBackpack = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl_Combat.SuspendLayout();
@@ -411,6 +412,7 @@
             this.groupBox17.SuspendLayout();
             this.groupBox18.SuspendLayout();
             this.tabPage19.SuspendLayout();
+            this.groupBox25.SuspendLayout();
             this.groupBox_BnetControl_AltHero.SuspendLayout();
             this.groupBox_BnetControl_Setup.SuspendLayout();
             this.tabPage13.SuspendLayout();
@@ -431,7 +433,6 @@
             this.tabPage16.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel23.SuspendLayout();
-            this.groupBox25.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -447,7 +448,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 47);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(679, 650);
+            this.tabControl1.Size = new System.Drawing.Size(682, 650);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -2760,6 +2761,36 @@
             this.tabPage19.Text = "Bnet Control";
             this.tabPage19.UseVisualStyleBackColor = true;
             // 
+            // groupBox25
+            // 
+            this.groupBox25.Controls.Add(this.label36);
+            this.groupBox25.Controls.Add(this.comboBox_BnetControl_CustomDifficulty);
+            this.groupBox25.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox25.Location = new System.Drawing.Point(3, 155);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(651, 100);
+            this.groupBox25.TabIndex = 2;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "Misc";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(6, 32);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(78, 13);
+            this.label36.TabIndex = 1;
+            this.label36.Text = "Game Difficulty";
+            // 
+            // comboBox_BnetControl_CustomDifficulty
+            // 
+            this.comboBox_BnetControl_CustomDifficulty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_BnetControl_CustomDifficulty.FormattingEnabled = true;
+            this.comboBox_BnetControl_CustomDifficulty.Location = new System.Drawing.Point(9, 48);
+            this.comboBox_BnetControl_CustomDifficulty.Name = "comboBox_BnetControl_CustomDifficulty";
+            this.comboBox_BnetControl_CustomDifficulty.Size = new System.Drawing.Size(242, 21);
+            this.comboBox_BnetControl_CustomDifficulty.TabIndex = 0;
+            // 
             // groupBox_BnetControl_AltHero
             // 
             this.groupBox_BnetControl_AltHero.Controls.Add(this.btn_BnetControl_ResetIndexes);
@@ -3374,7 +3405,7 @@
             this.tabPage16.Location = new System.Drawing.Point(4, 22);
             this.tabPage16.Name = "tabPage16";
             this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage16.Size = new System.Drawing.Size(671, 624);
+            this.tabPage16.Size = new System.Drawing.Size(674, 624);
             this.tabPage16.TabIndex = 6;
             this.tabPage16.Text = "Debug";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -3386,9 +3417,9 @@
             this.LBDebug.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.LBDebug.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LBDebug.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.LBDebug.Location = new System.Drawing.Point(3, 92);
+            this.LBDebug.Location = new System.Drawing.Point(3, 122);
             this.LBDebug.Name = "LBDebug";
-            this.LBDebug.Size = new System.Drawing.Size(665, 529);
+            this.LBDebug.Size = new System.Drawing.Size(668, 499);
             this.LBDebug.TabIndex = 1;
             this.LBDebug.WrapContents = false;
             this.LBDebug.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LBDebug_MouseClick);
@@ -3404,14 +3435,15 @@
             this.flowLayoutPanel1.Controls.Add(this.btn_DumpSkillsCache);
             this.flowLayoutPanel1.Controls.Add(this.btn_DumpTargetingCache);
             this.flowLayoutPanel1.Controls.Add(this.btn_DumpBountyCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpItemBalanceCache);
+            this.flowLayoutPanel1.Controls.Add(this.btn_DumpBackpack);
             this.flowLayoutPanel1.Controls.Add(this.btn_DumpProfileBehavior);
+            this.flowLayoutPanel1.Controls.Add(this.btn_DumpItemBalanceCache);
             this.flowLayoutPanel1.Controls.Add(this.btn_DumpInventory);
             this.flowLayoutPanel1.Controls.Add(this.btn_Test);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(665, 89);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(668, 119);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btn_DumpObjectCache
@@ -3498,7 +3530,7 @@
             // 
             // btn_DumpItemBalanceCache
             // 
-            this.btn_DumpItemBalanceCache.Location = new System.Drawing.Point(3, 61);
+            this.btn_DumpItemBalanceCache.Location = new System.Drawing.Point(289, 61);
             this.btn_DumpItemBalanceCache.Name = "btn_DumpItemBalanceCache";
             this.btn_DumpItemBalanceCache.Size = new System.Drawing.Size(137, 23);
             this.btn_DumpItemBalanceCache.TabIndex = 12;
@@ -3518,7 +3550,7 @@
             // 
             // btn_DumpInventory
             // 
-            this.btn_DumpInventory.Location = new System.Drawing.Point(289, 61);
+            this.btn_DumpInventory.Location = new System.Drawing.Point(432, 61);
             this.btn_DumpInventory.Name = "btn_DumpInventory";
             this.btn_DumpInventory.Size = new System.Drawing.Size(137, 23);
             this.btn_DumpInventory.TabIndex = 9;
@@ -3528,7 +3560,7 @@
             // 
             // btn_Test
             // 
-            this.btn_Test.Location = new System.Drawing.Point(432, 61);
+            this.btn_Test.Location = new System.Drawing.Point(3, 90);
             this.btn_Test.Name = "btn_Test";
             this.btn_Test.Size = new System.Drawing.Size(137, 23);
             this.btn_Test.TabIndex = 10;
@@ -3549,7 +3581,7 @@
             this.panel23.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel23.Location = new System.Drawing.Point(0, 0);
             this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(679, 47);
+            this.panel23.Size = new System.Drawing.Size(682, 47);
             this.panel23.TabIndex = 2;
             // 
             // button_saveSettings
@@ -3572,42 +3604,22 @@
             this.comboBox_SettingFiles.Size = new System.Drawing.Size(259, 21);
             this.comboBox_SettingFiles.TabIndex = 0;
             // 
-            // groupBox25
+            // btn_DumpBackpack
             // 
-            this.groupBox25.Controls.Add(this.label36);
-            this.groupBox25.Controls.Add(this.comboBox_BnetControl_CustomDifficulty);
-            this.groupBox25.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox25.Location = new System.Drawing.Point(3, 155);
-            this.groupBox25.Name = "groupBox25";
-            this.groupBox25.Size = new System.Drawing.Size(651, 100);
-            this.groupBox25.TabIndex = 2;
-            this.groupBox25.TabStop = false;
-            this.groupBox25.Text = "Misc";
-            // 
-            // comboBox_BnetControl_CustomDifficulty
-            // 
-            this.comboBox_BnetControl_CustomDifficulty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_BnetControl_CustomDifficulty.FormattingEnabled = true;
-            this.comboBox_BnetControl_CustomDifficulty.Location = new System.Drawing.Point(9, 48);
-            this.comboBox_BnetControl_CustomDifficulty.Name = "comboBox_BnetControl_CustomDifficulty";
-            this.comboBox_BnetControl_CustomDifficulty.Size = new System.Drawing.Size(242, 21);
-            this.comboBox_BnetControl_CustomDifficulty.TabIndex = 0;
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(6, 32);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(78, 13);
-            this.label36.TabIndex = 1;
-            this.label36.Text = "Game Difficulty";
+            this.btn_DumpBackpack.Location = new System.Drawing.Point(3, 61);
+            this.btn_DumpBackpack.Name = "btn_DumpBackpack";
+            this.btn_DumpBackpack.Size = new System.Drawing.Size(137, 23);
+            this.btn_DumpBackpack.TabIndex = 13;
+            this.btn_DumpBackpack.Text = "Backpack Cache";
+            this.btn_DumpBackpack.UseVisualStyleBackColor = true;
+            this.btn_DumpBackpack.Click += new System.EventHandler(this.btn_DumpBackpack_Click);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(679, 697);
+            this.ClientSize = new System.Drawing.Size(682, 697);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel23);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -3750,6 +3762,8 @@
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
             this.tabPage19.ResumeLayout(false);
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
             this.groupBox_BnetControl_AltHero.ResumeLayout(false);
             this.groupBox_BnetControl_AltHero.PerformLayout();
             this.groupBox_BnetControl_Setup.ResumeLayout(false);
@@ -3781,8 +3795,6 @@
             this.tabPage16.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel23.ResumeLayout(false);
-            this.groupBox25.ResumeLayout(false);
-            this.groupBox25.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -4086,6 +4098,7 @@
         private System.Windows.Forms.GroupBox groupBox25;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ComboBox comboBox_BnetControl_CustomDifficulty;
+        private System.Windows.Forms.Button btn_DumpBackpack;
 		//
 	}
 }

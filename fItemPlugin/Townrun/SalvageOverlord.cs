@@ -12,6 +12,7 @@ using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
 using Zeta.TreeSharp;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace fItemPlugin.Townrun
 {
@@ -214,6 +215,7 @@ namespace fItemPlugin.Townrun
                 if (UI.Game.SalvageAllNormal.IsEnabled && UI.Game.SalvageAllNormal.IsVisible && bShouldSalvageAllNormal && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Magic1) && !bSalvageAllNormal)
                 {
                     //UI.Game.SalvageAllNormal.Click();
+                    Logger.DBLog.DebugFormat("[FunkyTownRun] Salvaging All Normal Items");
                     ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Normal);
                     bSalvageAllNormal = true;
                     var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Magic1).ToList();
@@ -228,6 +230,7 @@ namespace fItemPlugin.Townrun
                 if (UI.Game.SalvageAllMagical.IsEnabled && UI.Game.SalvageAllMagical.IsVisible && bShouldSalvageAllMagical && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Rare4) && !bSalvageAllMagic)
                 {
                     //UI.Game.SalvageAllMagical.Click();
+                    FunkyTownRunPlugin.DBLog.DebugFormat("[FunkyTownRun] Salvaging All Magical Items");
                     ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Magic);
                     bSalvageAllMagic = true;
                     var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Rare4).ToList();
@@ -242,6 +245,7 @@ namespace fItemPlugin.Townrun
                 if (UI.Game.SalvageAllRare.IsEnabled && UI.Game.SalvageAllRare.IsVisible && bShouldSalvageAllRare && townRunItemCache.SalvageItems.Any(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary) && !bSalvageAllRare)
                 {
                     //UI.Game.SalvageAllRare.Click();
+                    FunkyTownRunPlugin.DBLog.DebugFormat("[FunkyTownRun] Salvaging All Rare Items");
                     ZetaDia.Me.Inventory.SalvageItemsOfRarity(SalvageRarity.Rare);
                     bSalvageAllRare = true;
                     var removalList = townRunItemCache.SalvageItems.Where(i => i.IsSalvagable && i.ThisQuality < ItemQuality.Legendary).ToList();
@@ -261,18 +265,9 @@ namespace fItemPlugin.Townrun
                 CacheACDItem thisitem = townRunItemCache.SalvageItems.FirstOrDefault();
                 if (thisitem != null && thisitem.ACDItem != null)
                 {
-                    //if ((thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Magic1 && bSalvageAllNormal) ||
-                    //	(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Rare4 && bSalvageAllMagic) ||
-                    //	(thisitem.IsSalvagable && thisitem.ThisQuality < ItemQuality.Legendary && bSalvageAllRare))
-                    //{
-                    //	townRunItemCache.SalvageItems.Remove(thisitem);
-                    //	return RunStatus.Running;
-                    //}
-
                     LogSalvagedItem(thisitem);
-
+                    FunkyTownRunPlugin.DBLog.DebugFormat("[FunkyTownRun] Salvaging Individual Item {0}", thisitem.ToString());
                     ZetaDia.Me.Inventory.SalvageItem(thisitem.ThisDynamicID);
-
                 }
                 townRunItemCache.SalvageItems.Remove(thisitem);
                 if (townRunItemCache.SalvageItems.Count > 0)
@@ -287,24 +282,6 @@ namespace fItemPlugin.Townrun
                     return RunStatus.Running;
                 }
             }
-
-            //if (RequiresRepair)
-            //{
-            //	BotMain.StatusText = "Town run: Salvage Routine Interaction Repairing";
-
-            //	if (!Delay.Test()) return RunStatus.Running;
-
-            //	int playerCoinage = ZetaDia.Me.Inventory.Coinage;
-            //	int repairCost = ZetaDia.Me.Inventory.GetRepairCost(false);
-            //	if (playerCoinage < 100000)
-            //	{
-            //		FunkyTownRunPlugin.DBLog.InfoFormat("Emergency Stop: You need repairs but don't have enough money. Current Coinage {0} -- Repair Cost {1}", playerCoinage, repairCost);
-            //		BotMain.Stop(false, "Not enough gold to repair item(s)!");
-            //	}
-
-            //	ZetaDia.Me.Inventory.RepairEquippedItems();
-            //	RequiresRepair = false;
-            //}
 
 
             return RunStatus.Success;

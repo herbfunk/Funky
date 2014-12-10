@@ -2,54 +2,127 @@
 using System.Collections.Generic;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
+using Zeta.Common;
 using Zeta.Game.Internals.Actors;
+using Logger = fBaseXtensions.Helpers.Logger;
+using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
 namespace fBaseXtensions.Cache.Internal.Objects
 {
 
 	public class CacheBalance
 	{
-		public int iThisBalanceID { get; set; }
-		public int iThisItemLevel { get; set; }
-		public ItemType thisItemType { get; set; }
-		public ItemBaseType thisItemBaseType { get; set; }
-		public bool bThisTwoHand { get; set; }
-		public bool bThisOneHand { get; set; }
-		public FollowerType thisFollowerType { get; set; }
+        public int BalanceID
+        {
+            get { return _balanceId; }
+            set { _balanceId = value; }
+        }
+        private int _balanceId=-1;
+
+        public int ItemLevel
+        {
+            get { return _itemLevel; }
+            set { _itemLevel = value; }
+        }
+        private int _itemLevel=-1;
+
+        public ItemType Type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+        private ItemType _type= ItemType.Unknown;
+
+        public ItemBaseType Base
+        {
+            get { return _base; }
+            set { _base = value; }
+        }
+        private ItemBaseType _base= ItemBaseType.None;
+
+        public FollowerType FollowerType
+        {
+            get { return _followerType; }
+            set { _followerType = value; }
+        }
+        private FollowerType _followerType= FollowerType.None;
+
+        public PluginItemTypes PluginType
+        {
+            get { return _pluginType; }
+            set { _pluginType = value; }
+        }
+        private PluginItemTypes _pluginType= PluginItemTypes.Unknown;
+
+        public PluginBaseItemTypes PluginBase
+        {
+            get { return _pluginBase; }
+            set { _pluginBase = value; }
+        }
+        private PluginBaseItemTypes _pluginBase= PluginBaseItemTypes.Unknown;
+
+        public bool IsStackable
+        {
+            get { return _isStackable; }
+            set { _isStackable = value; }
+        }
+        private bool _isStackable = false;
+
+        public bool IsTwoSlot
+        {
+            get { return _isTwoSlot; }
+            set { _isTwoSlot = value; }
+        }
+        private bool _isTwoSlot=false;
+	    
+	    
+	    
+
+
 		public bool bNeedsUpdated { get; set; }
 		public bool IsRegularPotion
 		{
 			get
 			{
-				return iThisBalanceID == -2142362846;
+				return BalanceID == -2142362846;
 			}
 		}
 
 		public PluginItemTypes GetGItemType(string internalName)
 		{
-			return ItemFunc.DetermineItemType(internalName, thisItemType, thisFollowerType);
+			return ItemFunc.DetermineItemType(internalName, _type, _followerType);
 		}
 
-		public CacheBalance(int balanceID, int itemlevel, ItemType itemtype, ItemBaseType itembasetype, bool onehand, bool twohand, FollowerType followertype)
-		{
-			iThisBalanceID = balanceID;
-			iThisItemLevel = itemlevel;
-			thisItemType = itemtype;
-			bThisOneHand = onehand;
-			bThisTwoHand = twohand;
-			thisItemBaseType = itembasetype;
-			thisFollowerType = followertype;
-			bNeedsUpdated = false;
-		}
+	    public CacheBalance(CacheItem item)
+	    {
+	        try
+	        {
+                BalanceID = item.ref_DiaItem.CommonData.GameBalanceId;
+                _itemLevel = item.ref_DiaItem.CommonData.Level;
+                _type = item.ref_DiaItem.CommonData.ItemType;
+                _base = item.ref_DiaItem.CommonData.ItemBaseType;
+                _followerType = item.ref_DiaItem.CommonData.FollowerSpecialType;
 
-		public CacheBalance(int itemlevel, ItemType itemtype, bool onehand, FollowerType followertype)
-		{
-			iThisItemLevel = itemlevel;
-			thisItemType = itemtype;
-			bThisOneHand = onehand;
-			thisFollowerType = followertype;
-			bNeedsUpdated = true;
-		}
+                _pluginType = ItemFunc.DetermineItemType(item.InternalName, _type, _followerType, item.SNOID);
+                if (item.ItemDropType.HasValue)
+                    _pluginBase = ItemFunc.DetermineBaseItemType(item.ItemDropType.Value);
+                else
+                    _pluginBase = ItemFunc.DetermineBaseItemType(item.InternalName, item.SNOID);
+
+                _isStackable = ItemFunc.DetermineIsStackable(_pluginType, item.SNOID);
+
+                if (!_isStackable)
+                    _isTwoSlot = ItemFunc.DetermineIsTwoSlot(_pluginType);
+	        }
+	        catch (Exception ex)
+	        {
+	            Logger.Write(LogLevel.Items,
+	                String.Format("Failed to create balance data for item {0}", item.DebugStringSimple));
+
+	        }
+	        
+	    }
+
 
 		public CacheBalance()
 		{
@@ -58,10 +131,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 	    public override string ToString()
 	    {
-	        return String.Format("BalanceID {0} Level {1} ItemType {2} BaseType {3} FollowerType {4}" +
-	                             "TwoHanded {5} OneHanded {6}",
-                                 iThisBalanceID,iThisItemLevel, thisItemType, thisItemBaseType, thisFollowerType,
-                                 bThisTwoHand,bThisOneHand);
+	        return String.Format("BalanceID {0} Level {1}\r\n" +
+	                             "ItemType {2} BaseType {3} FollowerType {4}\r\n" +
+	                             "PluginType {5} PluginBase {6}\r\n" +
+	                             "IsStackable {7} IsTwoSlot {8}",
+                                 _balanceId,_itemLevel, _type, _base, _followerType,
+                                 _pluginType,_pluginBase,
+                                 _isStackable,_isTwoSlot);
 	    }
 
 
@@ -70,81 +146,83 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			get
 			{
-				return HashPlansPropertiesSix.Contains(this.iThisBalanceID);
+				return HashPlansPropertiesSix.Contains(this.BalanceID);
 			}
 		}
 		public bool IsBlacksmithPlanFiveProperties
 		{
 			get
 			{
-				return HashPlansPropertiesFive.Contains(this.iThisBalanceID);
+				return HashPlansPropertiesFive.Contains(this.BalanceID);
 			}
 		}
 		public bool IsBlacksmithPlanFourProperties
 		{
 			get
 			{
-				return HashPlansPropertiesFour.Contains(this.iThisBalanceID);
+				return HashPlansPropertiesFour.Contains(this.BalanceID);
 			}
 		}
 		public bool IsBlacksmithPlanArchonGauntlets
 		{
 			get
 			{
-				return HashPlansArchonGauntlets.Contains(this.iThisBalanceID);
+				return HashPlansArchonGauntlets.Contains(this.BalanceID);
 			}
 		}
 		public bool IsBlacksmithPlanArchonSpaulders
 		{
 			get
 			{
-				return HashPlansArchonSpaulders.Contains(this.iThisBalanceID);
+				return HashPlansArchonSpaulders.Contains(this.BalanceID);
 			}
 		}
 		public bool IsBlacksmithPlanRazorspikes
 		{
 			get
 			{
-				return HashPlansRazorspikes.Contains(this.iThisBalanceID);
+				return HashPlansRazorspikes.Contains(this.BalanceID);
 			}
 		}
 		public bool IsJewelcraftDesignFlawlessStarGem
 		{
 			get
 			{
-				return HashDesignFlawlessStarGem.Contains(this.iThisBalanceID);
+				return HashDesignFlawlessStarGem.Contains(this.BalanceID);
 			}
 		}
 		public bool IsJewelcraftDesignPerfectStarGem
 		{
 			get
 			{
-				return HashDesignPerfectStarGem.Contains(this.iThisBalanceID);
+				return HashDesignPerfectStarGem.Contains(this.BalanceID);
 			}
 		}
 		public bool IsJewelcraftDesignRadiantStarGem
 		{
 			get
 			{
-				return HashDesignRadiantStarGem.Contains(this.iThisBalanceID);
+				return HashDesignRadiantStarGem.Contains(this.BalanceID);
 			}
 		}
 		public bool IsJewelcraftDesignMarquiseGem
 		{
 			get
 			{
-				return HashDesignMarquiseGem.Contains(this.iThisBalanceID);
+				return HashDesignMarquiseGem.Contains(this.BalanceID);
 			}
 		}
 		public bool IsJewelcraftDesignAmulet
 		{
 			get
 			{
-				return HashDesignAmulet.Contains(this.iThisBalanceID);
+				return HashDesignAmulet.Contains(this.BalanceID);
 			}
 		}
 
-		#region Craft Plans - Game Balance IDs
+	    
+
+	    #region Craft Plans - Game Balance IDs
 
 		private static readonly HashSet<int> HashPlansPropertiesSix = new HashSet<int>
 		  {

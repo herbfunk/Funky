@@ -40,7 +40,7 @@ namespace fItemPlugin.Townrun
 					//our result of checking various things for town run.
 					bool _checkResult = false;
 
-                    if (!BountyCache.IsParticipatingInTieredLootRun && ZetaDia.Me.Inventory.NumFreeBackpackSlots <= 2)
+                    if (!BountyCache.IsParticipatingInTieredLootRun && Backpack.GetNumberFreeBackpackSlots() <= 2)
 					{
 						_checkResult = true;
 						FunkyTownRunPlugin.DBLog.Info("[Funky] Starting Town Run (No Space Left In Backpack)");
@@ -173,7 +173,7 @@ namespace fItemPlugin.Townrun
 			SafetyGambleLocation = GameCache.ReturnTownRunMovementVector(GameCache.TownRunBehavior.Gamble, CurrentAct);
 
 			//Clear our item cache 
-			Backpack.CacheItemList.Clear();
+            Backpack.ClearBackpackItemCache();
 
 			bSalvageAllMagic = false;
 			bSalvageAllNormal = false;
@@ -291,7 +291,7 @@ namespace fItemPlugin.Townrun
 				//if (bOutputItemScores) FunkyTownRunPlugin.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (autokeep infernal key)");
 				return true;
 			}
-			if (TrueItemType == PluginItemTypes.HealthPotion)
+			if (TrueItemType == PluginItemTypes.HealthPotion || TrueItemType == PluginItemTypes.LegendaryHealthPotion)
 			{
 				//if (bOutputItemScores) FunkyTownRunPlugin.DBLog.InfoFormat(thisitem.ThisRealName + " [" + thisitem.ThisInternalName + "] [" + TrueItemType + "] = (ignoring potions)");
 				return false;
@@ -320,7 +320,7 @@ namespace fItemPlugin.Townrun
 
 		internal static bool SalvageValidation(CacheACDItem thisitem)
 		{
-			if (thisitem.IsVendorBought || thisitem.IsUnidentified || thisitem.ItemType == PluginItemTypes.HealthPotion || thisitem.IsHoradricCache || thisitem.ThisLevel==1)
+			if (!thisitem.IsSalvagable)
 			{
 				return false;
 			}

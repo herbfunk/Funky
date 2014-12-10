@@ -63,6 +63,7 @@ namespace fBaseXtensions.Items.Enums
 		HealthGlobe,
 		
 		Potion,
+        LegendaryPotion,
 		Gold,
 		BloodShard,
 

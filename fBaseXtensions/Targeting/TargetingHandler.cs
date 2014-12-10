@@ -137,7 +137,7 @@ namespace fBaseXtensions.Targeting
                 if (thisCacheItem.BalanceID.HasValue && thisCacheItem.Itemquality.HasValue)
                     LootedSuccess= Backpack.ContainsItem(thisCacheItem.BalanceID.Value, thisCacheItem.Itemquality.Value);
                 else
-                    LootedSuccess = Backpack.ContainsItem(thisCacheItem.SNOID);
+                    LootedSuccess = Backpack.ContainsItem(thisCacheItem);
 
 				statusText += " [ItemFound=" + LootedSuccess + "]";
 				if (LootedSuccess)
@@ -153,11 +153,8 @@ namespace fBaseXtensions.Targeting
 				    {
                         GameEvents.FireItemLooted(Cache.CurrentTarget.AcdGuid.Value);
 
-                        PluginItemTypes itemType = ItemFunc.DetermineItemType(thisCacheItem.InternalName, thisCacheItem.BalanceData.thisItemType, thisCacheItem.BalanceData.thisFollowerType);
-                        PluginBaseItemTypes itembaseType = ItemFunc.DetermineBaseType(itemType);
-
                         if (FunkyGame.CurrentGameStats != null)
-                            FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(itemType, itembaseType, thisCacheItem.Itemquality.Value);
+                            FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem.BalanceData.PluginType, thisCacheItem.BalanceData.PluginBase, thisCacheItem.Itemquality.Value);
 				    }
 					
 
@@ -187,7 +184,7 @@ namespace fBaseXtensions.Targeting
 						case ItemQuality.Magic3:
 							statusText += "<=Magical]";
 							//Non-Quality items get skipped quickly.
-							if (Cache.recheckCount > 2)
+							if (Cache.recheckCount > 3)
 								Cache.reCheckedFinished = true;
 							break;
 
@@ -195,7 +192,7 @@ namespace fBaseXtensions.Targeting
 						case ItemQuality.Rare5:
 						case ItemQuality.Rare6:
 							statusText += "=Rare]";
-							if (Cache.recheckCount > 3)
+							if (Cache.recheckCount > 4)
 								Cache.reCheckedFinished = true;
 							//else
 							//bItemForcedMovement = true;
@@ -204,7 +201,7 @@ namespace fBaseXtensions.Targeting
 
 						case ItemQuality.Legendary:
 							statusText += "=Legendary]";
-							if (Cache.recheckCount > 4)
+							if (Cache.recheckCount > 6)
 								Cache.reCheckedFinished = true;
 							//else
 							//bItemForcedMovement = true;
@@ -230,11 +227,11 @@ namespace fBaseXtensions.Targeting
 					//We Rechecked Max Confirmation Checking Count, now we check if we want to retry confirmation, or simply try once more then ignore for a few.
 				    bool stackableItem = false;
 				    if (thisObjItem.BalanceID.HasValue && thisObjItem.BalanceData != null)
-				        stackableItem = ItemFunc.DetermineIsStackable(thisObjItem.BalanceData.GetGItemType(thisObjItem.InternalName));
+				        stackableItem = thisCacheItem.BalanceData.IsStackable;
                     else if (thisObjItem.ItemDropType.HasValue)
                         stackableItem = ItemFunc.DetermineIsStackable(thisObjItem.ItemDropType.Value);
 
-                    if (stackableItem || (thisObjItem.Itemquality.HasValue && thisObjItem.Itemquality.Value > ItemQuality.Magic3))
+                    if (stackableItem || (curQuality > ItemQuality.Magic3))
 					{
 						//Items above rare quality don't get blacklisted, just ignored for a few loops.
 						//This will force a movement if stuck.. but 5 loops is only 750ms

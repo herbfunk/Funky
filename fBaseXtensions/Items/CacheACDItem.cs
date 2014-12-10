@@ -51,6 +51,13 @@ namespace fBaseXtensions.Items
         }
         private int _thisItemStackQuantity=0;
 
+	    public int MaxStackQuanity
+	    {
+            get { return _maxstackquanity; }
+            set { _maxstackquanity = value; }
+	    }
+        private int _maxstackquanity = 0;
+
         public DyeType ThisDyeType
         {
             get { return _thisDyeType; }
@@ -151,8 +158,8 @@ namespace fBaseXtensions.Items
 			}
 
 			BaseItemType = ItemFunc.DetermineBaseType(ItemType);
-			IsStackableItem = ItemFunc.DetermineIsStackable(ItemType);
-			IsTwoSlot = ItemFunc.DetermineIsTwoSlot(ItemType);
+			IsStackableItem = ItemFunc.DetermineIsStackable(ItemType, SNO);
+            IsTwoSlot = !IsStackableItem && ItemFunc.DetermineIsTwoSlot(ItemType);
 
             //Armor / Jewelery / Weapons / Offhand / Follower Items
 			if (BaseItemType== PluginBaseItemTypes.Armor || BaseItemType== PluginBaseItemTypes.Jewelry || BaseItemType== PluginBaseItemTypes.Offhand || BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || BaseItemType == PluginBaseItemTypes.WeaponTwoHand || BaseItemType == PluginBaseItemTypes.FollowerItem)
@@ -244,7 +251,7 @@ namespace fBaseXtensions.Items
                 }
                 else
                 {
-                    IsPotion = ItemType == PluginItemTypes.HealthPotion;
+                    IsPotion = ItemType == PluginItemTypes.HealthPotion || ItemType == PluginItemTypes.LegendaryHealthPotion;
                     if (IsPotion)
                         PotionType = ItemFunc.ReturnPotionType(SNO);
                 }
@@ -259,6 +266,31 @@ namespace fBaseXtensions.Items
                     Logger.Write(LogLevel.Items, "Failed to retrieve item dye type {0} \r\n {1}", SimpleDebugString, ex.Message);
                 }
                 #endregion
+
+			    if (IsStackableItem)
+			    {
+                    #region ItemStackQuantity
+                    try
+                    {
+                        _thisItemStackQuantity = item.ItemStackQuantity;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Write(LogLevel.Items, "Failed to retrieve item stack quanity {0} \r\n {1}", SimpleDebugString, ex.Message);
+                    }
+                    #endregion
+
+                    #region ItemStackMaxQuantity
+                    try
+                    {
+                        _maxstackquanity = item.MaxStackCount;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Write(LogLevel.Items, "Failed to retrieve item max stack quanity {0} \r\n {1}", SimpleDebugString, ex.Message);
+                    }
+                    #endregion
+			    }
 			}
 
             
@@ -318,27 +350,20 @@ namespace fBaseXtensions.Items
             } 
             #endregion
 
-            #region ItemStackQuantity
-            try
-            {
-                _thisItemStackQuantity = item.ItemStackQuantity;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item stack quanity {0} \r\n {1}", SimpleDebugString, ex.Message);
-            } 
-            #endregion
 
-            #region IsUnidentified
-            try
-            {
-                _isUnidentified = item.IsUnidentified;
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(LogLevel.Items, "Failed to retrieve item is identified {0} \r\n {1}", SimpleDebugString, ex.Message);
-            } 
-            #endregion
+		    if (!IsStackableItem)
+		    {
+                #region IsUnidentified
+                try
+                {
+                    _isUnidentified = item.IsUnidentified;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(LogLevel.Items, "Failed to retrieve item is identified {0} \r\n {1}", SimpleDebugString, ex.Message);
+                }
+                #endregion
+		    }
 
             #region IsVendorBought
             try
@@ -389,11 +414,14 @@ namespace fBaseXtensions.Items
 		{
 			get
 			{
-				return  (!_isVendorBought && _thisLevel != 1) &&
+				return  (!_isVendorBought && _thisLevel != 1 && !_isUnidentified) &&
 						(BaseItemType == PluginBaseItemTypes.Armor || BaseItemType == PluginBaseItemTypes.FollowerItem ||
 				        BaseItemType == PluginBaseItemTypes.Jewelry || BaseItemType == PluginBaseItemTypes.Offhand ||
 				        BaseItemType == PluginBaseItemTypes.WeaponOneHand || BaseItemType == PluginBaseItemTypes.WeaponRange || 
 						BaseItemType == PluginBaseItemTypes.WeaponTwoHand);
+
+
+
 			}
 		}
 

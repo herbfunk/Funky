@@ -11,6 +11,7 @@ namespace fBaseXtensions.Stats
 		public string ProfileName { get; set; }
 
 		private DateTime DateStartedProfile;
+        internal readonly DateTime DateStartedProfile_Real;
 		public TimeSpan TotalTimeSpan { get; set; }
 
 		public int DeathCount { get; set; }
@@ -42,6 +43,7 @@ namespace fBaseXtensions.Stats
 			StartingGold = FunkyGame.Hero.Coinage;
 			ProfileName = name;
 			DateStartedProfile = DateTime.Now;
+		    DateStartedProfile_Real = DateTime.Now;
 			LootTracker = new LootTracking();
 			TotalTimeSpan = new TimeSpan();
 		}

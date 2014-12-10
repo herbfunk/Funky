@@ -1957,6 +1957,22 @@ namespace fBaseXtensions.Settings
 			LBDebug.Focus();
 		}
 
+        private void btn_DumpBackpack_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+
+            try
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry(Backpack.DebugString));
+            }
+            catch
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
+            }
+
+            LBDebug.Focus();
+        }
+
 		private void btn_DebugDataFormatText_Click(object sender, EventArgs e)
 		{
 			LBDebug.Controls.Clear();
@@ -1967,20 +1983,35 @@ namespace fBaseXtensions.Settings
 			LBDebug.Focus();
 		}
 
-	    
-		private void btn_Test_Click(object sender, EventArgs e)
-		{
-            LBDebug.Controls.Clear();
 
-		    try
-		    {
-		       
-		    }
-		    catch
-		    {
+	    private void btn_Test_Click(object sender, EventArgs e)
+	    {
+	        LBDebug.Controls.Clear();
+	        ZetaDia.Actors.Clear();
+	        ZetaDia.Actors.Update();
+	        foreach (var p in ZetaDia.Actors.ACDList)
+	        {
+	            try
+	            {
 
-		    }
-		}
+	                if (p is ACDItem)
+	                {
+	                    ACDItem item = (ACDItem) p;
+	                    if (item.InventorySlot == InventorySlot.None || item.InventorySlot== InventorySlot.BackpackItems)
+	                    {
+	                        CacheACDItem cacheItem = new CacheACDItem(item);
+	                        LBDebug.Controls.Add(new UserControlDebugEntry(String.Format(cacheItem.ToString())));
+	                    }
+	                }
+	            }
+                catch(Exception ex)
+	            {
+                    LBDebug.Controls.Add(new UserControlDebugEntry(String.Format(ex.Message)));
+	            }
+	        }
+	        
+	    }
+	
 
 		private void removeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -2205,6 +2236,8 @@ namespace fBaseXtensions.Settings
         {
             PluginSettings.SerializeToXML(FunkyBaseExtension.Settings, Path.Combine(FolderPaths.sFunkySettingsPath, comboBox_SettingFiles.SelectedItem.ToString()));
         }
+
+        
 
 
 	}

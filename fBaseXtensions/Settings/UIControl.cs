@@ -349,7 +349,7 @@ namespace fBaseXtensions.Settings
 			string sTrinityPluginPath = FolderPaths.PluginPath;
 
 			CodeCompiler FunkyCode = new CodeCompiler(sTrinityPluginPath);
-			FunkyCode.ParseFilesForCompilerOptions();
+			//FunkyCode.ParseFilesForCompilerOptions();
 			Logger.DBLog.DebugFormat("Recompiling Funky Bot");
 			FunkyCode.Compile();
 			Logger.DBLog.DebugFormat(FunkyCode.CompiledToLocation);
@@ -419,7 +419,7 @@ namespace fBaseXtensions.Settings
 
 
 				CodeCompiler FunkyCode = new CodeCompiler(FBD.SelectedPath);
-				FunkyCode.ParseFilesForCompilerOptions();
+				//FunkyCode.ParseFilesForCompilerOptions();
 				Logger.DBLog.DebugFormat("Recompiling Plugin");
 				FunkyCode.Compile();
 				Logger.DBLog.DebugFormat(FunkyCode.CompiledToLocation);

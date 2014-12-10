@@ -208,9 +208,11 @@ namespace fBaseXtensions
 			Logger.Write(LogLevel.Event, "OnProfileChanged Event");
 			string sThisProfile = ProfileManager.CurrentProfile.Path;
 
-            if (FunkyGame.CurrentGameStats!=null)
-			    FunkyGame.CurrentGameStats.ProfileChanged(sThisProfile);
-
+		    if (FunkyGame.CurrentGameStats != null)
+		    {
+		        FunkyGame.CurrentGameStats.ProfileChanged(sThisProfile);
+		        TotalStats.WriteProfileTrackerOutput(ref FunkyGame.TrackingStats);
+            }
 		    FunkyGame.Game.ObjectCustomWeights.Clear();
 			SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;
 			FunkyGame.Game.QuestMode = false;

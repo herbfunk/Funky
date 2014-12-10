@@ -2,6 +2,7 @@
 using System.Linq;
 using fBaseXtensions.Game;
 using fBaseXtensions.Helpers;
+using fBaseXtensions.Stats;
 using FunkyBot.DBHandlers.CharacterMule;
 using Zeta.Bot;
 using Zeta.Bot.Settings;
@@ -135,8 +136,9 @@ namespace fBaseXtensions.Behaviors
             if (ExitGameBehavior.BehaviorEngaged)
             {
                 //Get First or Last Used Profile..
+                TrackedProfile firstProfile = FunkyGame.CurrentGameStats.GetFirstProfile();
 
-                string profile = FunkyGame.CurrentGameStats.Profiles.Count > 0 ? FunkyGame.CurrentGameStats.Profiles.First().ProfileName :
+                string profile = firstProfile != null ? firstProfile.ProfileName :
                                 GlobalSettings.Instance.LastProfile;
 
                 //Load Profile and Fire our left game handler

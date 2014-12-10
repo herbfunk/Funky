@@ -1,4 +1,17 @@
-﻿v1.1.5.1
+﻿v1.1.5.2
+
+Updated for newest demonbuddy.
+
+Backpack Class
+	-Updating Items now tracks occupied slots and stackable items.
+	-Added method CanPickupItem(bool IsTwoSlot)
+	-Added method GetNumberFreeBackpackSlots
+
+Enabling item loot settings for all quality using "All" will now ignore item quality and common data checks.
+Balance Data now evaluates and updates the plugin item type/base properties as well as twoslot and stackable.
+
+
+v1.1.5.1
 
 Combat Routine fixed (again) to be compatiable with YAR and R-YAR.
 Added option for hero custom difficulty to settings General -> Bnet Control tab.

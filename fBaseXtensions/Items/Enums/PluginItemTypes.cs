@@ -54,6 +54,7 @@
 		CraftingMaterial,
 		CraftingPlan,
 		HealthPotion,
+        LegendaryHealthPotion,
 		InfernalKey,
 		HoradricCache,
 		KeyStone,

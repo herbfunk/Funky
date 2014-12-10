@@ -47,7 +47,7 @@ namespace fItemPlugin.Townrun
 						// Find out if this item's in a protected bag slot
 						if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 						{
-							if (thisitem.ItemType == PluginItemTypes.HealthPotion || thisitem.ItemType == PluginItemTypes.HoradricCache)
+                            if (thisitem.ItemType == PluginItemTypes.HealthPotion || thisitem.ItemType == PluginItemTypes.LegendaryHealthPotion || thisitem.ItemType == PluginItemTypes.HoradricCache)
 							{
 								if (thisitem.IsRegularPotion)
 								{

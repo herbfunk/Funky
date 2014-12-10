@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using fBaseXtensions.Items;
 using Zeta.Bot;
 using Zeta.Bot.Navigation;
 using Zeta.Common;
@@ -450,19 +451,22 @@ namespace FunkyDebug
 				{
 					ZetaDia.Memory.DisableCache();
 					ZetaDia.Actors.Update();
+				    flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(
+				        String.Format("Total Items Found {0}", ZetaDia.Me.Inventory.Backpack.Count())));
 
 					#region Character Inventory Items
 					foreach (var o in ZetaDia.Me.Inventory.Backpack)
 					{
-
+					    
 
 						try
 						{
-							flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(ReturnItemString(o)));
+                            CacheACDItem item = new CacheACDItem(o);
+                            flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(item.ToString()));
 						}
-						catch (Exception)
+						catch (Exception ex)
 						{
-
+                            flowLayout_OutPut.Controls.Add(new UserControlDebugEntry(ex.Message));
 						}
 
 					}

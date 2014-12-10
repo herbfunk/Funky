@@ -94,6 +94,14 @@ namespace fBaseXtensions.Stats
 		}
 		public List<TrackedProfile> Profiles { get; set; }
 
+	    internal TrackedProfile GetFirstProfile()
+	    {
+            if (Profiles.Count>0)
+	            return Profiles.OrderBy(p => p.DateStartedProfile_Real).First();
+
+	        return null;
+	    }
+
 		private TrackedProfile currentprofile;
 		public TrackedProfile CurrentProfile { get { return currentprofile; } }
 		public LootTracking TotalLootTracker
@@ -174,6 +182,24 @@ namespace fBaseXtensions.Stats
 					//Reference it to the Collection
 					currentprofile = Profiles[Profiles.Count - 1];
 				}
+				else
+				{//Reorder the profiles!
+
+				    int previousProfileIndex = Profiles.IndexOf(currentprofile);
+				    TrackedProfile[] clone_profiles = new TrackedProfile[Profiles.Count];
+				    Profiles.CopyTo(clone_profiles, 0);
+
+                    //Set last profile to current!
+                    Profiles[Profiles.Count-1] = currentprofile;
+
+                    //Reorder..
+                    for (int i = previousProfileIndex+1; i < Profiles.Count - 1; i++)
+                    {
+                        Profiles[i-1] = clone_profiles[i];
+                    }
+				}
+
+			    TotalStats.WriteProfileTrackerOutput(ref FunkyGame.TrackingStats);
 			}
 		}
 

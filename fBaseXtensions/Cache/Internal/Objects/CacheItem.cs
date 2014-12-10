@@ -37,6 +37,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		public bool? ShouldPickup { get; set; }
 		private DateTime LastAvoidanceIgnored = DateTime.Today;
 
+	    private bool IsTwoSlot = true;
 		public int? GoldAmount { get; set; }
 
 		public int? BalanceID { get; set; }
@@ -314,8 +315,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 					// Ignore it if it's not in range yet - allow legendary items to have 15 feet extra beyond our profile max loot radius
 					double dMultiplier = 1d;
-					if (Itemquality >= ItemQuality.Rare4) dMultiplier += 0.25d;
-					if (Itemquality >= ItemQuality.Legendary) dMultiplier += 0.45d;
+                    if (Itemquality.HasValue && Itemquality >= ItemQuality.Rare4) dMultiplier += 0.25d;
+                    if (Itemquality.HasValue && Itemquality >= ItemQuality.Legendary) dMultiplier += 0.45d;
 					double lootDistance = InteractionRange * dMultiplier;
 
 					if (FunkyGame.IsInNonCombatBehavior) lootDistance = FunkyBaseExtension.Settings.Plugin.OutofCombatMaxDistance;
@@ -435,10 +436,16 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		    {
 
 		        var baseItemType = ItemFunc.DetermineBaseItemType(ItemDropType.Value);
+		        var isstackable = ItemFunc.DetermineIsStackable(ItemDropType.Value);
+                IsTwoSlot=ItemFunc.DetermineIsTwoSlot(ItemDropType.Value);
 
 		        skippingCommonDataUpdates = (baseItemType == PluginBaseItemTypes.Misc ||
 		                                     baseItemType == PluginBaseItemTypes.Gem ||
-		                                     baseItemType == PluginBaseItemTypes.HealthGlobe);
+		                                     baseItemType == PluginBaseItemTypes.HealthGlobe ||
+                                             (FunkyBaseExtension.Settings.Loot.PickupWhiteItems == 1 &&
+                                              FunkyBaseExtension.Settings.Loot.PickupMagicItems == 1 &&
+                                              FunkyBaseExtension.Settings.Loot.PickupRareItems == 1 &&
+                                              FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 1));
 
                 if (!skippingCommonDataUpdates)
 		        {
@@ -501,21 +508,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 					try
 					{
-						int balanceid = BalanceID.Value;
-						int tmp_Level = ref_DiaItem.CommonData.Level;
-						ItemType tmp_ThisType = ref_DiaItem.CommonData.ItemType;
-						ItemBaseType tmp_ThisDBItemType = ref_DiaItem.CommonData.ItemBaseType;
-						FollowerType tmp_ThisFollowerType = ref_DiaItem.CommonData.FollowerSpecialType;
-
-						bool tmp_bThisOneHanded = false;
-						bool tmp_bThisTwoHanded = false;
-						if (tmp_ThisDBItemType == ItemBaseType.Weapon)
-						{
-							tmp_bThisOneHanded = ref_DiaItem.CommonData.IsOneHand;
-							tmp_bThisTwoHanded = ref_DiaItem.CommonData.IsTwoHand;
-						}
-
-						thisnewGamebalance = new CacheBalance(balanceid, itemlevel: tmp_Level, itemtype: tmp_ThisType, itembasetype: tmp_ThisDBItemType, onehand: tmp_bThisOneHanded, twohand: tmp_bThisTwoHanded, followertype: tmp_ThisFollowerType);
+					    thisnewGamebalance = new CacheBalance(this);
 					}
 					catch
 					{
@@ -567,38 +560,16 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if (!ShouldPickup.HasValue)
 				{
 					//Logger.DBLog.InfoFormat Dropped Items Here!!
-					if (BalanceData!=null)
+					if (BalanceData!=null && Itemquality.HasValue)
 					{
-						PluginItemTypes itemType=ItemFunc.DetermineItemType(InternalName, BalanceData.thisItemType, BalanceData.thisFollowerType);
-						
 						if (FunkyGame.CurrentGameStats != null)
-							FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(itemType, Itemquality.Value);
+							FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(BalanceData.PluginType, Itemquality.Value);
 					}
 
 					//Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(this);
 
 					FunkyGame.ItemPickupEval(this);
-					//if (FunkyBaseExtension.Settings.ItemRules.UseItemRules)
-					//{
-					//	Interpreter.InterpreterAction action = Bot.ItemRulesEval.checkPickUpItem(this, ItemEvaluationType.PickUp);
-					//	switch (action)
-					//	{
-					//		case Interpreter.InterpreterAction.PICKUP:
-					//			ShouldPickup = true;
-					//			break;
-					//		case Interpreter.InterpreterAction.IGNORE:
-					//			ShouldPickup = false;
-					//			break;
-					//	}
-					//}
-
-					//if (!ShouldPickup.HasValue)
-					//{
-					//	//Use Giles Scoring or DB Weighting..
-					//	ShouldPickup =
-					//		   FunkyBaseExtension.Settings.ItemRules.ItemRuleGilesScoring ? Backpack.GilesPickupItemValidation(this)
-					//		 : ItemManager.Current.EvaluateItem(ref_DiaItem.CommonData, ItemEvaluationType.PickUp); ;
-					//}
+                    NeedsUpdate = false;
 				}
 				else
 				{
@@ -608,6 +579,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 				#endregion
 			}
+            else if (targetType.Value == TargetType.Globe || targetType.Value == TargetType.PowerGlobe)
+            {
+                NeedsUpdate = false;
+            }
 			else
 			{
 				#region Gold
@@ -635,25 +610,25 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 		    if (ref_DiaItem == null || !ref_DiaItem.IsValid || ref_DiaItem.BaseAddress == IntPtr.Zero)
 		    {
-                //Logger.Write(LogLevel.Cache, "Reference DiaItem not valid for {0}", DebugStringSimple);
+                Logger.Write(LogLevel.Cache, "Reference DiaItem not valid for {0}", DebugStringSimple);
                 _IsStillValid = false;
                 return false;
 		    }
 		    if (ref_DiaItem.CommonData == null)
 		    {
-                //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData is null {0}", DebugStringSimple);
+                Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData is null {0}", DebugStringSimple);
                 _IsStillValid = false;
                 return false;
 		    }
 		    if (!ref_DiaItem.CommonData.IsValid)
 		    {
-                //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData not valid for {0}", DebugStringSimple);
+                Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData not valid for {0}", DebugStringSimple);
                 _IsStillValid = false;
                 return false;
 		    }
 		    if (ref_DiaItem.CommonData.ACDGuid == -1)
 		    {
-                //Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData ACDGuid is -1 {0}", DebugStringSimple);
+                Logger.Write(LogLevel.Cache, "Reference DiaItem -- CommonData ACDGuid is -1 {0}", DebugStringSimple);
                 _IsStillValid = false;
                 return false;
 		    }
@@ -669,7 +644,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				if (ref_DiaItem != null && ref_DiaItem.BaseAddress != IntPtr.Zero)
 				{
 
-					if (!BrainBehavior.CanPickUpItem(ref_DiaItem))
+                    if (!Backpack.CanPickupItem(IsTwoSlot))//(!BrainBehavior.CanPickUpItem(ref_DiaItem))
 					{
 						FunkyGame.Targeting.Cache.bFailedToLootLastItem = true;
 						BrainBehavior.ForceTownrun("No more space to pickup item");

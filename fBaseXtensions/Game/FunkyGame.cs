@@ -335,16 +335,22 @@ namespace fBaseXtensions.Game
            
 			// Calculate giles item types and base types etc.
 			PluginItemTypes thisPluginItemType = PluginItemTypes.Unknown;
+		    PluginBaseItemTypes thisGilesBaseType = PluginBaseItemTypes.Unknown;
 
 		    if (item.BalanceID.HasValue && item.BalanceData != null)
-		        thisPluginItemType = ItemFunc.DetermineItemType(item.InternalName, item.BalanceData.thisItemType,
-		            item.BalanceData.thisFollowerType, item.SNOID);
+		    {
+                thisPluginItemType = item.BalanceData.PluginType;
+		        thisGilesBaseType = item.BalanceData.PluginBase;
+		    }
 		    else
-		        thisPluginItemType = ItemFunc.DetermineItemType(item.InternalName, ItemType.Unknown, FollowerType.None, item.SNOID);
+		    {
+		        thisPluginItemType = ItemFunc.DetermineItemType(item.InternalName, ItemType.Unknown, FollowerType.None,
+		            item.SNOID);
+                thisGilesBaseType = ItemFunc.DetermineBaseType(thisPluginItemType);
+            }
 
-			PluginBaseItemTypes thisGilesBaseType = ItemFunc.DetermineBaseType(thisPluginItemType);
 
-			if (thisPluginItemType == PluginItemTypes.MiscBook)
+		    if (thisPluginItemType == PluginItemTypes.MiscBook)
 				return FunkyBaseExtension.Settings.Loot.ExpBooks;
 
 			if (thisPluginItemType == PluginItemTypes.RamaladnisGift)
@@ -352,9 +358,9 @@ namespace fBaseXtensions.Game
 
 			// Error logging for DemonBuddy item mis-reading
 			ItemType gilesDBItemType = ItemFunc.PluginItemTypeToDBItemType(thisPluginItemType);
-            if (item.BalanceID.HasValue && item.BalanceData != null && gilesDBItemType != item.BalanceData.thisItemType)
+            if (item.BalanceID.HasValue && item.BalanceData != null && gilesDBItemType != item.BalanceData.Type)
 			{
-				Logger.DBLog.InfoFormat("GSError: Item type mis-match detected: Item Internal=" + item.InternalName + ". DemonBuddy ItemType thinks item type is=" + item.BalanceData.thisItemType + ". Giles thinks item type is=" +
+				Logger.DBLog.InfoFormat("GSError: Item type mis-match detected: Item Internal=" + item.InternalName + ". DemonBuddy ItemType thinks item type is=" + item.BalanceData.Type + ". Giles thinks item type is=" +
 					 gilesDBItemType + ". [pickup]", true);
 			}
 
@@ -367,6 +373,15 @@ namespace fBaseXtensions.Game
 				case PluginBaseItemTypes.Offhand:
 				case PluginBaseItemTypes.Jewelry:
 				case PluginBaseItemTypes.FollowerItem:
+
+			        if (FunkyBaseExtension.Settings.Loot.PickupWhiteItems == 1 &&
+			            FunkyBaseExtension.Settings.Loot.PickupMagicItems == 1 &&
+			            FunkyBaseExtension.Settings.Loot.PickupRareItems == 1 &&
+			            FunkyBaseExtension.Settings.Loot.PickupLegendaryItems == 1)
+			        {
+			            return true;
+			        }
+
                     if (item.Itemquality.HasValue && item.BalanceID.HasValue && item.BalanceData != null)
 					{
 						switch (item.Itemquality.Value)
@@ -374,17 +389,17 @@ namespace fBaseXtensions.Game
 							case ItemQuality.Inferior:
 							case ItemQuality.Normal:
 							case ItemQuality.Superior:
-								return FunkyBaseExtension.Settings.Loot.PickupWhiteItems > 0 && (item.BalanceData.iThisItemLevel >= FunkyBaseExtension.Settings.Loot.PickupWhiteItems);
+								return FunkyBaseExtension.Settings.Loot.PickupWhiteItems > 0 && (item.BalanceData.ItemLevel >= FunkyBaseExtension.Settings.Loot.PickupWhiteItems);
 							case ItemQuality.Magic1:
 							case ItemQuality.Magic2:
 							case ItemQuality.Magic3:
-								return FunkyBaseExtension.Settings.Loot.PickupMagicItems > 0 && (item.BalanceData.iThisItemLevel >= FunkyBaseExtension.Settings.Loot.PickupMagicItems);
+								return FunkyBaseExtension.Settings.Loot.PickupMagicItems > 0 && (item.BalanceData.ItemLevel >= FunkyBaseExtension.Settings.Loot.PickupMagicItems);
 							case ItemQuality.Rare4:
 							case ItemQuality.Rare5:
 							case ItemQuality.Rare6:
-								return FunkyBaseExtension.Settings.Loot.PickupRareItems > 0 && (item.BalanceData.iThisItemLevel >= FunkyBaseExtension.Settings.Loot.PickupRareItems);
+								return FunkyBaseExtension.Settings.Loot.PickupRareItems > 0 && (item.BalanceData.ItemLevel >= FunkyBaseExtension.Settings.Loot.PickupRareItems);
 							case ItemQuality.Legendary:
-								return FunkyBaseExtension.Settings.Loot.PickupLegendaryItems > 0 && (item.BalanceData.iThisItemLevel >= FunkyBaseExtension.Settings.Loot.PickupLegendaryItems);
+								return FunkyBaseExtension.Settings.Loot.PickupLegendaryItems > 0 && (item.BalanceData.ItemLevel >= FunkyBaseExtension.Settings.Loot.PickupLegendaryItems);
 						}
 					}
 
@@ -393,7 +408,7 @@ namespace fBaseXtensions.Game
 					if (thisPluginItemType == PluginItemTypes.LegendaryGem)
 						return true;
 
-                    GemQualityTypes qualityType = ItemFunc.ReturnGemQualityType(item.SNOID, item.BalanceData!=null?item.BalanceData.iThisItemLevel:-1);
+                    GemQualityTypes qualityType = ItemFunc.ReturnGemQualityType(item.SNOID, item.BalanceData!=null?item.BalanceData.ItemLevel:-1);
 					int qualityLevel = (int)qualityType;
 
 					if (qualityLevel < FunkyBaseExtension.Settings.Loot.MinimumGemItemLevel ||
@@ -456,7 +471,7 @@ namespace fBaseXtensions.Game
 					}
 
 					// Potion filtering
-					if (thisPluginItemType == PluginItemTypes.HealthPotion)
+                    if (thisPluginItemType == PluginItemTypes.HealthPotion || thisPluginItemType == PluginItemTypes.LegendaryHealthPotion)
 					{
 					    PotionTypes potionType = ItemFunc.ReturnPotionType(item.SNOID);
                         if (potionType== PotionTypes.Regular)
@@ -498,7 +513,7 @@ namespace fBaseXtensions.Game
 			//TownRunManager.townRunItemCache=new TownRunManager.TownRunCache();
 			Hero = new ActiveHero();
 			Equipment.RefreshEquippedItemsList();
-			Backpack.CacheItemList.Clear();
+		    Backpack.ClearBackpackItemCache();
 
 			Settings.PluginSettings.LoadSettings();
 			Targeting = new TargetingClass();

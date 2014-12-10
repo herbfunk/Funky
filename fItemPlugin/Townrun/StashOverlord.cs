@@ -67,7 +67,8 @@ namespace fItemPlugin.Townrun
 					if (!ItemManager.Current.ItemIsProtected(thisitem.ACDItem))
 					{
 						//Don't Stash Potions.
-						if (thisitem.ItemType == PluginItemTypes.HealthPotion) continue;
+						if (thisitem.ItemType == PluginItemTypes.HealthPotion ||
+                            thisitem.ItemType == PluginItemTypes.LegendaryHealthPotion) continue;
 
 						//Stashing Horadric Caches?
 						if (thisitem.ItemType==PluginItemTypes.HoradricCache)

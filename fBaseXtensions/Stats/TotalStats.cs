@@ -130,9 +130,10 @@ namespace fBaseXtensions.Stats
 					Logger.DBLog.Info("Fatal Error: File access error for Stats log file.");
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
-
+                Logger.DBLog.InfoFormat("Fatal Error:Stats log file\r\n{0}\r\n{1}",
+                                            ex.Message, ex.StackTrace);
 			}
 		}
 	}

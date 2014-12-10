@@ -43,6 +43,10 @@
       <HintPath>..\..\..\..\Desktop\db_beta\Demonbuddy.exe</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="fBaseXtensions">
+      <HintPath>..\..\..\..\Desktop\db_beta\Plugins\fBaseXtensions\fBaseXtensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="GreyMagic">
       <HintPath>..\..\..\..\Desktop\db_beta\GreyMagic.dll</HintPath>
       <Private>False</Private>
@@ -59,9 +63,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheACDItem.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="FormDebug.cs">
       <SubType>Form</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

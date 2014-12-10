@@ -337,7 +337,7 @@ namespace fItemPlugin.ItemRules
 			  }
 			  catch (Exception ex)
 			  {
-				  FunkyTownRunPlugin.DBLog.InfoFormat("Exception in checkItem: {0} item: {1}/{2} eval type: {3}", ex, item.Name, item.InternalName, evaluationType);
+				  FunkyTownRunPlugin.DBLog.InfoFormat("Exception in checkItem: {0} item: {1} eval type: {2}", ex, item.InternalName, evaluationType);
 				  switch (evaluationType)
 				  {
 					  case ItemEvaluationType.Keep:

@@ -576,9 +576,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(4313, PluginDroppedItemTypes.Gold,"GoldSmall"),
 
 				new DroppedItemEntry(304319, PluginDroppedItemTypes.Potion,"healthPotion_Console"),
-				new DroppedItemEntry(341333, PluginDroppedItemTypes.Potion, "healthPotion_Legendary_01_x1"),
-				new DroppedItemEntry(344093, PluginDroppedItemTypes.Potion, "healthPotion_Legendary_06_x1-27250"),
-				new DroppedItemEntry(341343, PluginDroppedItemTypes.Potion, "healthPotion_Legendary_03_x1-16986"),
+				new DroppedItemEntry(341333, PluginDroppedItemTypes.LegendaryPotion, "healthPotion_Legendary_01_x1"),
+				new DroppedItemEntry(344093, PluginDroppedItemTypes.LegendaryPotion, "healthPotion_Legendary_06_x1-27250"),
+				new DroppedItemEntry(341343, PluginDroppedItemTypes.LegendaryPotion, "healthPotion_Legendary_03_x1-16986"),
 
 				new DroppedItemEntry(192866, PluginDroppedItemTypes.LoreBook),
 				new DroppedItemEntry(218853, PluginDroppedItemTypes.LoreBook, "Lore_Book_Flippy"),
@@ -1163,12 +1163,12 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(253241, PluginItemTypes.CraftingPlan), //staff of herding
 
 				new ItemDataEntry(304319, PluginItemTypes.HealthPotion),
-				new ItemDataEntry(344093, PluginItemTypes.HealthPotion),
-				new ItemDataEntry(342824, PluginItemTypes.HealthPotion),
-				new ItemDataEntry(341343, PluginItemTypes.HealthPotion),
-				new ItemDataEntry(341342, PluginItemTypes.HealthPotion),
-				new ItemDataEntry(342823, PluginItemTypes.HealthPotion),
-				new ItemDataEntry(341333, PluginItemTypes.HealthPotion),
+				new ItemDataEntry(344093, PluginItemTypes.LegendaryHealthPotion),
+				new ItemDataEntry(342824, PluginItemTypes.LegendaryHealthPotion),
+				new ItemDataEntry(341343, PluginItemTypes.LegendaryHealthPotion),
+				new ItemDataEntry(341342, PluginItemTypes.LegendaryHealthPotion),
+				new ItemDataEntry(342823, PluginItemTypes.LegendaryHealthPotion),
+				new ItemDataEntry(341333, PluginItemTypes.LegendaryHealthPotion),
 
 				//Crafting Materials
 				new ItemDataEntry(371083, PluginItemTypes.LegendaryCraftingMaterial),
