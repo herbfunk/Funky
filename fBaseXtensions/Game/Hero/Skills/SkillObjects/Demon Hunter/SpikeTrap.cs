@@ -32,7 +32,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 
 			ClusterConditions.Add(new SkillClusterConditions(6d, 45f, 2, true));
 
-			FcriteriaCombat = () => FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSpikeTraps <
+			FcriteriaCombat = (u) => FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSpikeTraps <
 								  (Hotbar.PassivePowers.Contains(SNOPower.DemonHunter_Passive_CustomEngineering) ? 6 : 3);
 		}
 

@@ -22,7 +22,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 			PreCast = new SkillPreCast(SkillPrecastFlags.None);
 
 			//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
-			FcriteriaCombat = () => false;
+			FcriteriaCombat = (u) => false;
 		}
 	}
 }

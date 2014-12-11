@@ -27,7 +27,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 			PreCast.Criteria += (s) => !Hotbar.HasDebuff(SNOPower.Succubus_BloodStar);
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 
 

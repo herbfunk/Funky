@@ -48,7 +48,7 @@ namespace fBaseXtensions.Behaviors
 			// Pop a potion when necessary
 			if (FunkyGame.Hero.Class.HealthPotionAbility.CheckPreCastConditionMethod())
 			{
-				if (FunkyGame.Hero.Class.HealthPotionAbility.CheckCustomCombatMethod())
+				if (FunkyGame.Hero.Class.HealthPotionAbility.CheckCustomCombatMethod(null))
 				{
 					FunkyGame.Hero.Class.HealthPotionAbility.AttemptToUseHealthPotion();
 				}
@@ -77,7 +77,7 @@ namespace fBaseXtensions.Behaviors
 				Skill Buff;
 				if (FunkyGame.Hero.Class.FindBuffPower(out Buff))
 				{
-					Skill.SetupAbilityForUse(ref Buff);
+					Skill.SetupAbilityForUse(ref Buff, null);
 					FunkyGame.Hero.WaitWhileAnimating(4, true);
 					Skill.UsePower(ref Buff);
 					Buff.OnSuccessfullyUsed();

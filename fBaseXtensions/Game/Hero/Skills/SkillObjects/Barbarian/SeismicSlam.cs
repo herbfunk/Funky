@@ -30,7 +30,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			ClusterConditions.Add(new SkillClusterConditions(RuneIndex == 4 ? 4d : 6d, 40f, 2, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.LowHealth, falseConditionalFlags: TargetProperties.Normal));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss));
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 
 	}

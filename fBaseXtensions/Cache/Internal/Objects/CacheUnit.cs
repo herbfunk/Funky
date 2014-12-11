@@ -85,6 +85,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 			return _flags;
 		}
+        public TargetingInfo TargetInfo { get; set; }
 
 		#region Monster Affixes Related
 		//TODO:: Add property for Reflect -- And check for animation.
@@ -709,7 +710,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 
 
-			if (RadiusDistance >= 5f && FunkyGame.Hero.Class.IsMeleeClass)
+			if (RadiusDistance >= 5f && FunkyGame.Hero.Class.IsMeleeClass && FunkyGame.Hero.Class.ContainsNonRangedCombatSkill)
 			{
 				if (DateTime.Now.Subtract(LastAvoidanceIgnored).TotalMilliseconds < 1000 && FunkyGame.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
 				{
@@ -1173,6 +1174,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					FunkyGame.Targeting.Cache.Environment.UnitRAGUIDs.Add(RAGUID);
 
 
+                //Renew Targeting Info Property
+			    TargetInfo = new TargetingInfo(this);
 
 				return true;
 			}
@@ -1904,10 +1907,5 @@ namespace fBaseXtensions.Cache.Internal.Objects
                      DateTime.Now.Subtract(LastHealthChange).TotalSeconds);
 			}
 		}
-
-
 	}
-
-
-
 }

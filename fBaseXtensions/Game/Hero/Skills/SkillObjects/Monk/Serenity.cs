@@ -17,7 +17,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckRecastTimer));
 
 				//TODO:: Give better conditions
-				FcriteriaCombat = () => FunkyGame.Hero.dCurrentHealthPct <= 0.45d
+				FcriteriaCombat = (u) => FunkyGame.Hero.dCurrentHealthPct <= 0.45d
 				                      &&FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20]>0;
 		  }
 

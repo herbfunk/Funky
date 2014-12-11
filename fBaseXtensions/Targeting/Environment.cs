@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 
@@ -48,7 +49,29 @@ namespace fBaseXtensions.Targeting
 
 		public Pets HeroPets { get; set; }
 
-		public void Reset()
+	    public override string ToString()
+	    {
+
+        //// Variables relating to quick-reference of monsters within sepcific ranges (if anyone has suggestion for similar functionality with reduced CPU use, lemme know, but this is fast atm!)
+
+            return String.Format("Nearby Obstacles: {0} Nearby Avoidances: {1}\r\n" +
+                          "Triggering Avoidances: {2} Flee Triggering Units: {3}\r\n" +
+                          "Distant Units: {4} LoS Movement Objects: {5}\r\n" +
+                          "Surrounding Units: {6}\r\n" +
+                          "bAnyLootableItemsNearby {7}\r\n" +
+                          "bAnyChampionsPresent {8}\r\n" +
+                          "bAnyTreasureGoblinsPresent {9}\r\n" +
+                          "bAnyBossesInRange {10}\r\n" +
+                          "bAnyNonWWIgnoreMobsInRange {11}\r\n",
+                            NearbyObstacleObjects.Count, NearbyAvoidances.Count,
+                            TriggeringAvoidances.Count, FleeTriggeringUnits.Count,
+                            DistantUnits.Count, LoSMovementObjects.Count,
+                            SurroundingUnits,
+                            bAnyLootableItemsNearby, bAnyChampionsPresent, bAnyTreasureGoblinsPresent,
+                            bAnyBossesInRange, bAnyNonWWIgnoreMobsInRange);
+	    }
+
+	    public void Reset()
 		{
 			HeroPets.Reset();
 			iElitesWithinRange = new[] { 0, 0, 0, 0, 0, 0, 0, 0 };

@@ -28,11 +28,14 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated));
 				
 				
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+                //UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
+                //ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
 
-				FcriteriaCombat=() =>
+
+                ClusterConditions.Add(new SkillClusterConditions(5d, Range, 2, true));
+                SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+
+				FcriteriaCombat=(u) =>
 				{
 					bool isChanneling=(IsHobbling||LastUsedMilliseconds<150);
 					int channelingCost = RuneIndex == 3 ? 8 : 10;

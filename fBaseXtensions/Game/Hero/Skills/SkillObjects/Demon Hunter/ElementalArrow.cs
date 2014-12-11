@@ -25,9 +25,9 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy));
 			ClusterConditions.Add(new SkillClusterConditions(4d, 40, 2, true));
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial && (!FunkyGame.Targeting.Cache.CurrentTarget.IsTreasureGoblin &&
-								   FunkyGame.Targeting.Cache.CurrentTarget.SNOID != 5208 && FunkyGame.Targeting.Cache.CurrentTarget.SNOID != 5209 &&
-								   FunkyGame.Targeting.Cache.CurrentTarget.SNOID != 5210);
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial && (!u.IsTreasureGoblin &&
+								   u.SNOID != 5208 && u.SNOID != 5209 &&
+								   u.SNOID != 5210);
 		}
 
 

@@ -32,14 +32,14 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			
 			FcriteriaBuff = () => FunkyBaseExtension.Settings.General.OutOfCombatMovement && !Hotbar.HasBuff(Power);
 
-			FcriteriaCombat = () => (!Hotbar.HasBuff(SNOPower.Barbarian_Sprint) && FunkyBaseExtension.Settings.General.OutOfCombatMovement) ||
+			FcriteriaCombat = (u) => (!Hotbar.HasBuff(SNOPower.Barbarian_Sprint) && FunkyBaseExtension.Settings.General.OutOfCombatMovement) ||
 								  (((FunkyBaseExtension.Settings.Barbarian.bFuryDumpWrath && FunkyGame.Hero.dCurrentEnergyPct >= 0.95 &&
 									 Hotbar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker)) ||
 									(FunkyBaseExtension.Settings.Barbarian.bFuryDumpAlways && FunkyGame.Hero.dCurrentEnergyPct >= 0.95) ||
 									((FunkyGame.Hero.Class.Abilities[SNOPower.Barbarian_Sprint].AbilityUseTimer() && !Hotbar.HasBuff(SNOPower.Barbarian_Sprint)) &&
 				// Always keep up if we are whirlwinding, or if the target is a goblin
 									 (Hotbar.HasPower(SNOPower.Barbarian_Whirlwind) ||
-									  FunkyGame.Targeting.Cache.CurrentTarget.IsTreasureGoblin))) &&
+									  u.IsTreasureGoblin))) &&
 								   (!Hotbar.HasPower(SNOPower.Barbarian_BattleRage) ||
 									(Hotbar.HasPower(SNOPower.Barbarian_BattleRage) && Hotbar.HasBuff(SNOPower.Barbarian_BattleRage))));
 		}

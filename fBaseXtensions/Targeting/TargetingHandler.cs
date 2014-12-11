@@ -406,10 +406,10 @@ namespace fBaseXtensions.Targeting
 		public virtual bool CombatLogic()
 		{
 			//Check if we can cast any combat buff-type abilities while channeling
-			if (FunkyGame.Hero.Class.LastUsedAbility.IsChanneling)
+			if (FunkyGame.Hero.Class.LastUsedAbility.IsChanneling && FunkyGame.Targeting.Cache.CurrentUnitTarget!=null)
 			{
 				Skill buff;
-				if (FunkyGame.Hero.Class.FindCombatBuffPower(out buff))
+				if (FunkyGame.Hero.Class.FindCombatBuffPower(FunkyGame.Targeting.Cache.CurrentUnitTarget, out buff))
 				{
 					Skill.UsePower(ref buff);
 					buff.OnSuccessfullyUsed(false);
@@ -479,7 +479,7 @@ namespace fBaseXtensions.Targeting
 			if (Cache.bWaitingForPotion)
 			{
 				Cache.bWaitingForPotion = false;
-				if (FunkyGame.Hero.Class.HealthPotionAbility.CheckCustomCombatMethod())
+				if (FunkyGame.Hero.Class.HealthPotionAbility.CheckCustomCombatMethod(null))
 				{
 
 					FunkyGame.Hero.Class.HealthPotionAbility.AttemptToUseHealthPotion();

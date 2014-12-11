@@ -40,7 +40,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 
 
-			FcriteriaCombat = () => (FunkyGame.Hero.dCurrentEnergy >= CastingCost() || FunkyGame.Hero.dCurrentEnergy >= ChannelingCost()&& IsCurrentlyChanneling());
+			FcriteriaCombat = (u) => (FunkyGame.Hero.dCurrentEnergy >= CastingCost() || FunkyGame.Hero.dCurrentEnergy >= ChannelingCost()&& IsCurrentlyChanneling());
 		}
 		private bool IsCurrentlyChanneling()
 		{

@@ -8,7 +8,9 @@ using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
+using Zeta.Common;
 using Zeta.Game.Internals.SNO;
+using Logger = fBaseXtensions.Helpers.Logger;
 
 namespace fBaseXtensions.Cache.External.Debugging
 {
@@ -26,13 +28,75 @@ namespace fBaseXtensions.Cache.External.Debugging
 
 		public DebugData()
 		{
-			Doors = DebugData_Doors.DeserializeFromXML();
-			Containers = DebugData_Containers.DeserializeFromXML();
-			Destructibles = DebugData_Destructibles.DeserializeFromXML();
-			Items = DebugData_DroppedItems.DeserializeFromXML();
-			ItemsData = DebugData_Items.DeserializeFromXML();
-			Units = DebugData_Units.DeserializeFromXML();
-			Barricades = DebugData_Barricades.DeserializeFromXML();
+		    try
+		    {
+                Doors = DebugData_Doors.DeserializeFromXML();
+		    }
+		    catch (Exception)
+		    {
+                Doors= new DebugData_Doors();
+		        Logger.DBLog.DebugFormat("Error loading debugging data for Doors, creating new.");
+		    }
+
+		    try
+		    {
+                Containers = DebugData_Containers.DeserializeFromXML();
+		    }
+		    catch (Exception)
+		    {
+                Containers = new DebugData_Containers();
+                Logger.DBLog.DebugFormat("Error loading debugging data for Containers, creating new.");
+		    }
+            
+            try
+            {
+                Destructibles = DebugData_Destructibles.DeserializeFromXML();
+            }
+            catch (Exception)
+            {
+                Destructibles = new DebugData_Destructibles();
+                Logger.DBLog.DebugFormat("Error loading debugging data for Destructibles, creating new.");
+            }
+           
+            try
+            {
+                Items = DebugData_DroppedItems.DeserializeFromXML();
+            }
+            catch (Exception)
+            {
+                Items = new DebugData_DroppedItems();
+                Logger.DBLog.DebugFormat("Error loading debugging data for Items, creating new.");
+            }
+            
+            try
+            {
+                ItemsData = DebugData_Items.DeserializeFromXML();
+            }
+            catch (Exception)
+            {
+                ItemsData = new DebugData_Items();
+                Logger.DBLog.DebugFormat("Error loading debugging data for ItemsData, creating new.");
+            }
+            
+            try
+            {
+                Units = DebugData_Units.DeserializeFromXML();
+            }
+            catch (Exception)
+            {
+                Units = new DebugData_Units();
+                Logger.DBLog.DebugFormat("Error loading debugging data for Units, creating new.");
+            }
+            
+            try
+            {
+                Barricades = DebugData_Barricades.DeserializeFromXML();
+            }
+            catch (Exception)
+            {
+                Barricades = new DebugData_Barricades();
+                Logger.DBLog.DebugFormat("Error loading debugging data for Barricades, creating new.");
+            }
 		}
 
 		public void CheckEntry(CachedSNOEntry entry)

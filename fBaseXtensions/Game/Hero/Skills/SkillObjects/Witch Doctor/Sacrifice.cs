@@ -19,7 +19,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast));
 				//ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, falseConditionalFlags: TargetProperties.FullHealth));
-				FcriteriaCombat = () =>
+				FcriteriaCombat = (u) =>
 				{
 					if (LastUsedMilliseconds > 27000 || FunkyGame.Hero.Class.Abilities[SNOPower.Witchdoctor_SummonZombieDog].CheckPreCastConditionMethod())
 						return true;

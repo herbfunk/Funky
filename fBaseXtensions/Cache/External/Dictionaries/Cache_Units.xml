@@ -6224,6 +6224,13 @@
       <EntryType>Unit</EntryType>
       <UnitFlags>Normal</UnitFlags>
     </UnitEntry>
+    <UnitEntry>
+      <SnoId>5840</SnoId>
+      <InternalName>trDun_Crypt_Pillar_Spawner</InternalName>
+      <ActorType>Monster</ActorType>
+      <EntryType>Unit</EntryType>
+      <UnitFlags>Stationary Stealthable Summoner</UnitFlags>
+    </UnitEntry>
   </UnitEntries>
   <UnitPetEntries>
     <UnitPetEntry>

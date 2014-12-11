@@ -28,10 +28,10 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 				{ 
 				  TrueConditionFlags = TargetProperties.None,
 				  MaximumDistance=25,
-				  Criteria = () => !FunkyGame.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(Power) || DateTime.Now.Subtract(FunkyGame.Targeting.Cache.CurrentTarget.SkillsUsedOnObject[Power]).TotalSeconds>(RuneIndex==0?12:9)
+                  Criteria = (unit) => !unit.SkillsUsedOnObject.ContainsKey(Power) || DateTime.Now.Subtract(unit.SkillsUsedOnObject[Power]).TotalSeconds > (RuneIndex == 0 ? 12 : 9)
 				});
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 
 

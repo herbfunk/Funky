@@ -24,7 +24,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 				
 				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 				FcriteriaBuff = () => FunkyGame.Targeting.Cache.Environment.HeroPets.MysticAlly == 0;
-				FcriteriaCombat = () => ((this.RuneIndex == 1 || this.RuneIndex==0 || this.RuneIndex==2) && //Damaging Attack
+				FcriteriaCombat = (u) => ((this.RuneIndex == 1 || this.RuneIndex==0 || this.RuneIndex==2) && //Damaging Attack
 									   (FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15] > 0 ||
 				                       FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>2)) ||
 										//Restore Spirit

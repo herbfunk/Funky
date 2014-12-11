@@ -27,7 +27,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, 60, -1, 0.95d));
 			ClusterConditions.Add(new SkillClusterConditions(9d, 45f, 5, true));
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 
 

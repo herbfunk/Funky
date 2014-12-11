@@ -358,6 +358,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(139060, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_base_flippy_01-2042"),
 				new DroppedItemEntry(335344, PluginDroppedItemTypes.MightyWeapon, "x1_mightyWeapon_1H_norm_base_flippy_01-67717"),
 				new DroppedItemEntry(192187, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_unique_flippy_01-206685"),
+                new DroppedItemEntry(271981, PluginDroppedItemTypes.MightyWeapon, "x1_mightyWeapon_1H_norm_unique_flippy_08-12312"),
 
 				//
 				new DroppedItemEntry(367171, PluginDroppedItemTypes.MightyWeaponTwoHanded,"x1_mightyWeapon_2H_norm_base_flippy_02"),
@@ -1663,6 +1664,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(193611, PluginItemTypes.MightyWeapon, LegendaryItemTypes.BladeoftheWarlord),
 				new ItemDataEntry(192105, PluginItemTypes.MightyWeapon, LegendaryItemTypes.FjordCutter),
 				new ItemDataEntry(192705, PluginItemTypes.MightyWeapon, LegendaryItemTypes.NightsReaping),
+                new ItemDataEntry(271979, PluginItemTypes.MightyWeapon, LegendaryItemTypes.Remorseless),
 
 				new ItemDataEntry(191446, PluginItemTypes.Spear, LegendaryItemTypes.ArreatsLaw),
 				new ItemDataEntry(194241, PluginItemTypes.Spear, LegendaryItemTypes.EmpyreanMessenger),
@@ -1742,6 +1744,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(193657, PluginItemTypes.TwoHandMighty, LegendaryItemTypes.TheGavelofJudgment),
 				new ItemDataEntry(196308, PluginItemTypes.TwoHandMighty, LegendaryItemTypes.WaroftheDead),
 				new ItemDataEntry(272012, PluginItemTypes.TwoHandMighty, LegendaryItemTypes.MadawcsSorrow),
+                new ItemDataEntry(195138, PluginItemTypes.TwoHandMighty, LegendaryItemTypes.FuryoftheVanishedPeak),
 
 				new ItemDataEntry(272056, PluginItemTypes.TwoHandPolearm, LegendaryItemTypes.BovineBardiche),
 				new ItemDataEntry(192569, PluginItemTypes.TwoHandPolearm, LegendaryItemTypes.HeartSlaughter),

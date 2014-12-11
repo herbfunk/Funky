@@ -33,6 +33,332 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bounties\act1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\act1_reverse.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\act1_zerg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\act3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\act3_zerg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\act4.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\act4_zerg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\act5.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\345528_kill_queen_araneae.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\347030_kill_the_warden.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\347032_kill_the_butcher.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\347095_kill_the_dataminer.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\347097_kill_diggerodell.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\361234_kill_skeleton_king.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\act1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\act1_reverse.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\act1_timed.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\clear_clan_of_the_mooncave.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\clear_crypt_of_the_ancients.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\clear_den_of_the_fallen.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\clear_khazra_den.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\clear_scavengers_den.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\clear_warriors_rest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_apothecarys_brother.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_carrion_farm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_crumbling_tower.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_cursed_camp.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_cursed_cellar.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_cursed_chamber_of_bone.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_cursed_court.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_cursed_grove.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_cursed_hatchery.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_cursed_mill.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_deathfire.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_eternal_war.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_family_of_rathe.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_farm_besieged.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_jar_of_souls.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_last_stand_of_the_ancients.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_matriarchs_bones.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_precious_ores.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_revenge_of_gharbad.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_scavenged_scabbard.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\event_stranger_in_need.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_cathedral_level_1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_cathedral_level_2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_cathedral_level_4.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_caverns_of_araneae.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_halls_of_agony_level_1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_halls_of_agony_level_2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_halls_of_agony_level_3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_leorics_manor.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\kill_the_royal_crypts.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\path_kill_festering_woods.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\path_kill_fields_of_misery.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\path_kill_northern_highlands.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\path_kill_southern_highlands.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A1\path_kill_weeping_hollow.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Acts\A2\Act2.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\346108.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\346111.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\346115.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\346117.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\346119.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\346121.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\346123.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\347650.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\347652.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\347654.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\347656.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\375257.xml" />
+    <Content Include="Bounties\Acts\A2\Archives of Zoltun Kulle\375261.xml" />
+    <Content Include="Bounties\Acts\A2\City of Caldeum\358353.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\346065.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\346067.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\346069.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\346071.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\346075.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\347591.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\347598.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\347600.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\347604.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\369298.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\369300.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\369302.xml" />
+    <Content Include="Bounties\Acts\A2\Dahlgur Oasis\369813.xml" />
+    <Content Include="Bounties\Acts\A2\Desolate Sands\346086.xml" />
+    <Content Include="Bounties\Acts\A2\Desolate Sands\346088.xml" />
+    <Content Include="Bounties\Acts\A2\Desolate Sands\346090.xml" />
+    <Content Include="Bounties\Acts\A2\Desolate Sands\346092.xml" />
+    <Content Include="Bounties\Acts\A2\Desolate Sands\346094.xml" />
+    <Content Include="Bounties\Acts\A2\Desolate Sands\347607.xml" />
+    <Content Include="Bounties\Acts\A2\Desolate Sands\347638.xml" />
+    <Content Include="Bounties\Acts\A2\Desolate Sands\354788.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\345954.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\345960.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\345971.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\345973.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\345976.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\347520.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\347525.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\347532.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\347534.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\369797.xml" />
+    <Content Include="Bounties\Acts\A2\Howling Plateau\369800.xml" />
+    <Content Include="Bounties\Acts\A2\Road to Alcarnus\346034.xml" />
+    <Content Include="Bounties\Acts\A2\Road to Alcarnus\346036.xml" />
+    <Content Include="Bounties\Acts\A2\Road to Alcarnus\347558.xml" />
+    <Content Include="Bounties\Acts\A2\Road to Alcarnus\347560.xml" />
+    <Content Include="Bounties\Acts\A2\Road to Alcarnus\347563.xml" />
+    <Content Include="Bounties\Acts\A2\Road to Alcarnus\347565.xml" />
+    <Content Include="Bounties\Acts\A2\Road to Alcarnus\347569.xml" />
+    <Content Include="Bounties\Acts\A2\Stinging Winds\350556.xml" />
+    <Content Include="Bounties\Acts\A2\Stinging Winds\350560.xml" />
+    <Content Include="Bounties\Acts\A2\Stinging Winds\350562.xml" />
+    <Content Include="Bounties\Acts\A2\Stinging Winds\350564.xml" />
+    <Content Include="Bounties\Acts\A2\Stinging Winds\355278.xml" />
+    <Content Include="Bounties\Acts\A2\Stinging Winds\369277.xml" />
+    <Content Include="Bounties\Acts\A2\Stinging Winds\369288.xml" />
+    <Content Include="Bounties\Acts\A3\Act3.xml" />
+    <Content Include="Bounties\Acts\A3\BloodClanAssault.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_BattlefieldStores2.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_CavernsOfFrost2.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_CrydersOutpost.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_FortifiedBunker2.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_ForwardBarracks.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_IcefallCaves2.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_TheBarracks2.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_TheFoundry2.xml" />
+    <Content Include="Bounties\Acts\A3\Clear_TheUnderbridge.xml" />
+    <Content Include="Bounties\Acts\A3\Event_BlazeOfGlory.xml" />
+    <Content Include="Bounties\Acts\A3\Event_BloodTies.xml" />
+    <Content Include="Bounties\Acts\A3\Event_DeathChill.xml" />
+    <Content Include="Bounties\Acts\A3\Event_ForsakenSoldiers.xml" />
+    <Content Include="Bounties\Acts\A3\Event_InfernalSky.xml" />
+    <Content Include="Bounties\Acts\A3\Event_KeepBlacksmith.xml" />
+    <Content Include="Bounties\Acts\A3\Event_TideOfBattle.xml" />
+    <Content Include="Bounties\Acts\A3\Event_Triage.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_ArenaCraterLevel1.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_ArreatCraterLevel2.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_Azmodan.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_Cydaea.xml" />
+    <Content Include="Bounties\Acts\A3\kill_ghom.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_Hyrug.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_RakkisCrossing.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_Siegebreaker.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_SkyCrownBattlements.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_Stonefort.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TheBattlefields.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TheBridgeOfKorsikk.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TheCoreOfArreat.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TheKeepDeathsLevel2.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TheKeepDeathsLevel3.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TheKeepDepthsLevel1.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TowerOfCursedLevel2.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TowerOfTheDamedLevel1.xml" />
+    <Content Include="Bounties\Acts\A3\Kill_TowerOfTheDamnedLevel2.xml" />
+    <Content Include="Bounties\Acts\A4\act4.xml" />
+    <Content Include="Bounties\Acts\A5\Act5.xml" />
+    <Content Include="Bounties\Acts\A5\Bog.xml" />
+    <Content Include="Bounties\Acts\A5\Graveyard.xml" />
+    <Content Include="Bounties\Acts\A5\PandExt.xml" />
+    <Content Include="Bounties\Acts\A5\PandFortress.xml" />
+    <Content Include="Bounties\Acts\A5\PandFortress1.xml" />
+    <Content Include="Bounties\Acts\A5\PandFortress2.xml" />
+    <Content Include="Bounties\Acts\A5\Pand_HexMaze.xml" />
+    <Content Include="Bounties\Acts\A5\PathToCorvus.xml" />
+    <Content Include="Bounties\Acts\A5\RuinsOfCorvus.xml" />
+    <Content Include="Bounties\Acts\A5\Westmarch.xml" />
+    <Content Include="Bounties\Acts\A5\WestmarchFire.xml" />
+    <Content Include="Bounties\Acts\All_Distributor.xml" />
+    <Content Include="Bounties\all.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\all_zerg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Alpha\act1_timed.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Alpha\act1_zerg_timed.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Alpha\Timed\A1_Timed.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Alpha\Timed\Zerg\A1_Zerg_Timed.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Routes\All_Redirect\All_Redirect.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Routes\All_Redirect\Zerg\All_Redirect_Zerg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Routes\Reverse\Act1_reverse.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Routes\Zerg\A1Zerg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Routes\Zerg\A3Zerg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounties\Routes\Zerg\A4Zerg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="FunkyKeyBot\Act1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

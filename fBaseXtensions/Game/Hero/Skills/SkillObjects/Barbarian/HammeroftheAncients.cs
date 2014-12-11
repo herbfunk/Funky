@@ -27,7 +27,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
-				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > 0.80d,
+                Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct > 0.80d,
 				MaximumDistance = Range,
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
@@ -38,7 +38,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
                 SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 		    }
 			
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 
 	}

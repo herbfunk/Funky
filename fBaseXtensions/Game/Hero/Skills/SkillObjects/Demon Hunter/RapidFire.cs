@@ -32,7 +32,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 
 			ClusterConditions.Add(new SkillClusterConditions(10d, 45f, 2, true));
 
-			FcriteriaCombat = () =>
+			FcriteriaCombat = (u) =>
 			{
 				if (FunkyGame.Hero.Class.bWaitingForSpecial) return false;
 

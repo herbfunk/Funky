@@ -1514,6 +1514,13 @@
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>271981</SnoId>
+      <InternalName>x1_mightyWeapon_1H_norm_unique_flippy_08-12312</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>367171</SnoId>
       <InternalName>x1_mightyWeapon_2H_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
@@ -2750,21 +2757,21 @@
       <InternalName>healthPotion_Legendary_01_x1</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Potion</PluginDroppedItemTypes>
+      <PluginDroppedItemTypes>LegendaryPotion</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
       <SnoId>344093</SnoId>
       <InternalName>healthPotion_Legendary_06_x1-27250</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Potion</PluginDroppedItemTypes>
+      <PluginDroppedItemTypes>LegendaryPotion</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
       <SnoId>341343</SnoId>
       <InternalName>healthPotion_Legendary_03_x1-16986</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
-      <PluginDroppedItemTypes>Potion</PluginDroppedItemTypes>
+      <PluginDroppedItemTypes>LegendaryPotion</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
       <SnoId>192866</SnoId>
@@ -5880,32 +5887,32 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>344093</SnoId>
-      <ItemType>HealthPotion</ItemType>
+      <ItemType>LegendaryHealthPotion</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>342824</SnoId>
-      <ItemType>HealthPotion</ItemType>
+      <ItemType>LegendaryHealthPotion</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>341343</SnoId>
-      <ItemType>HealthPotion</ItemType>
+      <ItemType>LegendaryHealthPotion</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>341342</SnoId>
-      <ItemType>HealthPotion</ItemType>
+      <ItemType>LegendaryHealthPotion</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>342823</SnoId>
-      <ItemType>HealthPotion</ItemType>
+      <ItemType>LegendaryHealthPotion</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>341333</SnoId>
-      <ItemType>HealthPotion</ItemType>
+      <ItemType>LegendaryHealthPotion</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
@@ -8014,6 +8021,11 @@
       <LegendaryType>NightsReaping</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>271979</SnoId>
+      <ItemType>MightyWeapon</ItemType>
+      <LegendaryType>Remorseless</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>191446</SnoId>
       <ItemType>Spear</ItemType>
       <LegendaryType>ArreatsLaw</LegendaryType>
@@ -8357,6 +8369,11 @@
       <SnoId>272012</SnoId>
       <ItemType>TwoHandMighty</ItemType>
       <LegendaryType>MadawcsSorrow</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>195138</SnoId>
+      <ItemType>TwoHandMighty</ItemType>
+      <LegendaryType>FuryoftheVanishedPeak</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>272056</SnoId>

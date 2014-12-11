@@ -37,7 +37,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,
-				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > (ReducedShieldBashCost ? 0.25 : 0.90d),
+                Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct > (ReducedShieldBashCost ? 0.25 : 0.90d),
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
 			ClusterConditions.Add(new SkillClusterConditions(5d, 25f, 2, true));

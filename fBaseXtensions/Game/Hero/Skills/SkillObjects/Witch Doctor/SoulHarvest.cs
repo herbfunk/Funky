@@ -30,14 +30,14 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			{
 				SingleUnitCondition.Add(new UnitTargetConditions
 				{
-					Criteria = () => Hotbar.GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest) == 0,
+                    Criteria = (unit) => Hotbar.GetBuffStacks(SNOPower.Witchdoctor_SoulHarvest) == 0,
 					MaximumDistance = 9,
 					FalseConditionFlags = TargetProperties.Normal,
 					HealthPercent = 0.95d,
 					TrueConditionFlags = TargetProperties.None,
 				});
 
-				FcriteriaCombat = () =>
+				FcriteriaCombat = (u) =>
 				{
 
 					double lastCast = LastUsedMilliseconds;

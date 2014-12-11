@@ -466,7 +466,9 @@ namespace fBaseXtensions.Targeting
 								 "lastHadRareChestAsTarget: {29} \r\n" +
 								 "iTotalNumberGoblins: {30} \r\n" +
 								 "lastGoblinTime: {31} \r\n" +
-			                     "Pets: {35}\r\n",
+                                 "== Environment ==\r\n" +
+			                     "{35}" +
+			                     "Pets: {36}\r\n",
 								 Backtracking, bWholeNewTarget, bPickNewAbilities, bWaitingForPower, bWaitingAfterPower, bWaitingForPotion, bForceTargetUpdate,
 								 bWasRootedLastTick, ShouldCheckItemLooted, recheckCount, reCheckedFinished, CheckItemLootStackCount, lastBehavioralType,
 								 iCurrentMaxKillRadius, iCurrentMaxLootRadius, bPrioritizeCloseRangeUnits, DontMove, RequiresAvoidance, TravellingAvoidance,
@@ -476,6 +478,7 @@ namespace fBaseXtensions.Targeting
 								 CurrentTarget!=null?CurrentTarget.InternalName:"NONE!",
 								 LastCachedTarget!=null?LastCachedTarget.InternalName:"NONE!",
 								 CurrentUnitTarget!=null?CurrentUnitTarget.InternalName:"NONE!",
+                                 Environment.ToString(),
 								 Environment.HeroPets.DebugString());
 		}
 	}

@@ -23,11 +23,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			if (RuneIndex==3)
 			{
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20));
-				FcriteriaCombat = () => !Hotbar.HasBuff(SNOPower.Monk_BreathOfHeaven);
+				FcriteriaCombat = (u) => !Hotbar.HasBuff(SNOPower.Monk_BreathOfHeaven);
 			}
 			else
 			{
-				FcriteriaCombat = () => FunkyGame.Hero.dCurrentHealthPct <= 0.5d ||
+				FcriteriaCombat = (u) => FunkyGame.Hero.dCurrentHealthPct <= 0.5d ||
 									   FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25] > 0 || //with elites nearby..
 									   FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25] > 3;
 			}

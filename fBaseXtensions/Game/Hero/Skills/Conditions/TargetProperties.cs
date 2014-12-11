@@ -36,6 +36,12 @@ namespace fBaseXtensions.Game.Hero.Skills.Conditions
             AvoidanceSummoner = 8388608,
             Debuffing = 16777216,
 
+            //Test=33554432,
+            //Test2=67108864,
+            //Test3=134217728,
+            //Test4 = 268435456,
+            //Test5 = 536870912,
+            //Test6 = 1073741824,
 	 }
 
      

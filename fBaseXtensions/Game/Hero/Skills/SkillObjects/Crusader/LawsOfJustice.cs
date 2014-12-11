@@ -27,7 +27,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 20, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 			ClusterConditions.Add(new SkillClusterConditions(10d, 25, 10, false));
-			FcriteriaCombat = () => FunkyGame.Hero.dCurrentHealthPct < 0.75d;
+			FcriteriaCombat = (u) => FunkyGame.Hero.dCurrentHealthPct < 0.75d;
 		}
 	}
 }

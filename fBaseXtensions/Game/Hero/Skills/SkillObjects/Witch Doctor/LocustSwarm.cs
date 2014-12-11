@@ -58,15 +58,15 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			PreCast.Criteria += (s) => !Hotbar.HasDebuff(SNOPower.Succubus_BloodStar);
 
 
-			FcriteriaCombat = () =>
+			FcriteriaCombat = (u) =>
 			{
-				if (FunkyGame.Targeting.Cache.CurrentTarget.SkillsUsedOnObject.ContainsKey(Power))
+				if (u.SkillsUsedOnObject.ContainsKey(Power))
 				{
 					//If we have Creeping Death, then we ignore any units that we already cast upon.
 					if (Hotbar.PassivePowers.Contains(SNOPower.Witchdoctor_Passive_CreepingDeath)) return false;
 
 					//Runeindex 2 has duration of 16s instead of 7s
-					return DateTime.Now.Subtract(FunkyGame.Targeting.Cache.CurrentTarget.SkillsUsedOnObject[Power]).TotalSeconds > (RuneIndex==2?15:7);
+					return DateTime.Now.Subtract(u.SkillsUsedOnObject[Power]).TotalSeconds > (RuneIndex==2?15:7);
 				}
 
 				return true;

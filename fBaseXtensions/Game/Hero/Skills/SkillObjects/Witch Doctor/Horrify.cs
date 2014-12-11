@@ -18,7 +18,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast |
 									  SkillPrecastFlags.CheckEnergy));
 
-			FcriteriaCombat = () =>
+			FcriteriaCombat = (u) =>
 			{
 				//maintain armor buff..
 				if (RuneIndex == 0 && LastUsedMilliseconds > 7800)

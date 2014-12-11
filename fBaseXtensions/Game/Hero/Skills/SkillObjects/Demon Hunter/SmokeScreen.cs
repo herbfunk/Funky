@@ -19,7 +19,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				Priority=SkillPriority.High;
 				//PreCastFlags=,
 
-				FcriteriaCombat=() => (!Hotbar.HasBuff(SNOPower.DemonHunter_ShadowPower)||FunkyGame.Hero.bIsIncapacitated)
+				FcriteriaCombat=(u) => (!Hotbar.HasBuff(SNOPower.DemonHunter_ShadowPower)||FunkyGame.Hero.bIsIncapacitated)
 				                      &&(FunkyGame.Hero.dDiscipline>=28)
 				                      &&
 				                      (FunkyGame.Hero.dCurrentHealthPct<=0.90||FunkyGame.Hero.bIsRooted||

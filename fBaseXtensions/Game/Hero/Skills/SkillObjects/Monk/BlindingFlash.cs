@@ -21,7 +21,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 				SingleUnitCondition.Add(
 					new UnitTargetConditions
 					{
-						Criteria = () => FunkyGame.Hero.dCurrentEnergyPct>0.9d || FunkyGame.Hero.dCurrentHealthPct<0.5d,
+						Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct>0.9d || FunkyGame.Hero.dCurrentHealthPct<0.5d,
 						MaximumDistance = 15,
 						FalseConditionFlags = TargetProperties.Normal,
 						TrueConditionFlags = TargetProperties.None,

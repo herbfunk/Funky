@@ -7,7 +7,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 	public class Sentry : Skill
 	{
 		public override double Cooldown { get { return 6000; } }
-
+        public override bool IsRanged { get { return true; } }
 		public override bool IsSpecialAbility { get { return true; } }
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Location | SkillExecutionFlags.ClusterLocation; } }
@@ -36,7 +36,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,
-				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > (FullMarauderSetBonus ? 0.5d : 0.9d),
+                Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct > (FullMarauderSetBonus ? 0.5d : 0.9d),
 				MaximumDistance = Range,
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
@@ -44,7 +44,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 			ClusterConditions.Add(new SkillClusterConditions(6d, Range, 3, true));
 
 
-			FcriteriaCombat = () => FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSentry < SentryMax();
+			FcriteriaCombat = (u) => FunkyGame.Targeting.Cache.Environment.HeroPets.DemonHunterSentry < SentryMax();
 		}
 
 		private int SentryMax()

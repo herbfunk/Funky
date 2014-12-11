@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
 using Zeta.Common;
 
@@ -11,11 +12,9 @@ namespace fBaseXtensions.Game.Hero.Skills
 		protected SkillCriteria()
 		{
 			SingleUnitCondition = new List<UnitTargetConditions>();
-			ElitesWithinRangeConditions = null;
-			UnitsWithinRangeConditions = null;
 			ClusterConditions = new List<SkillClusterConditions>();
 			TestCustomCombatConditions = false;
-			FcriteriaCombat = () => true;
+			FcriteriaCombat = (u) => true;
 			FcriteriaBuff = () => true;
 			PreCast = new SkillPreCast();
 		}
@@ -36,14 +35,11 @@ namespace fBaseXtensions.Game.Hero.Skills
 		///<summary>
 		///Custom Conditions for Combat
 		///</summary>
-		internal Func<bool> FcriteriaCombat;
+		internal Func<CacheUnit, bool> FcriteriaCombat;
 		///<summary>
 		///Custom Conditions for Buffing
 		///</summary>
 		internal Func<bool> FcriteriaBuff;
-
-		internal Func<bool> FUnitsInRangeConditions;
-		internal Func<bool> FElitesInRangeConditions;
 
 		///<summary>
 		///Used during Player Movement
@@ -68,16 +64,6 @@ namespace fBaseXtensions.Game.Hero.Skills
 		///</value>
 		public List<SkillClusterConditions> ClusterConditions { get; set; }
 		internal SkillClusterConditions LastClusterConditionSuccessful { get; set; }
-
-		///<summary>
-		///Units within Range Conditions
-		///</summary>
-		public Tuple<RangeIntervals, int> UnitsWithinRangeConditions { get; set; }
-
-		///<summary>
-		///Elites within Range Conditions
-		///</summary>
-		public Tuple<RangeIntervals, int> ElitesWithinRangeConditions { get; set; }
 
 		///<summary>
 		///Single Target Conditions -- Should only used if Ability is offensive!

@@ -20,10 +20,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				Range=0;
 			
 				Priority=SkillPriority.Medium;
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckEnergy|
-				                          SkillPrecastFlags.CheckRecastTimer));
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_30, 2);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_40, 1);
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast));
+
+                ClusterConditions.Add(new SkillClusterConditions(10d, 30, 4, true));
+                SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 40, falseConditionalFlags: TargetProperties.Normal));
+
 		  }
 
 		  public override SNOPower Power

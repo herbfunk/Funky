@@ -17,7 +17,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				PreCast=new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 				Cost = RuneIndex == 0 ? 25 : 0;
 										//Rune: Punishment (Restores all Hatered for 25 disc)
-				FcriteriaCombat = () => (RuneIndex == 0 && FunkyGame.Hero.dCurrentEnergyPct < 0.20d)
+				FcriteriaCombat = (u) => (RuneIndex == 0 && FunkyGame.Hero.dCurrentEnergyPct < 0.20d)
 											|| (FunkyGame.Hero.dDisciplinePct < 0.25d);
 
 

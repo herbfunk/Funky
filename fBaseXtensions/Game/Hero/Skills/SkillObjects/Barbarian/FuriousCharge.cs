@@ -12,7 +12,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 
 		public override double Cooldown { get { return 15000; } }
 
-
+        public override bool IsRanged { get { return true; } }
 		public override bool IsMovementSkill { get { return true; } }
 
 		private readonly WaitLoops _waitVars = new WaitLoops(1, 2, true);
@@ -35,8 +35,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 		        {
 		            TrueConditionFlags = TargetProperties.None,
 		            MaximumDistance = Range,
-		            Criteria = () =>
-		                    ObjectCache.Objects.TotalIntersectingUnits(FunkyGame.Targeting.Cache.CurrentTarget.Position, 8f)>2
+                    Criteria = (unit) => unit.TargetInfo.IntersectingUnits>2
 		        };
 
 		    SingleUnitCondition.Add(IntersectingUnitTargetConditions);

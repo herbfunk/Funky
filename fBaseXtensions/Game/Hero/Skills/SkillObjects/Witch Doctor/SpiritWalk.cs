@@ -47,7 +47,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 			Range = 6;
 			ClusterConditions.Add(new SkillClusterConditions(7d, 30f, 4, false, 0, ClusterProperties.None, 10f, true));
-			FcriteriaCombat = () => ((LastConditionPassed == ConditionCriteraTypes.Cluster) ||
+			FcriteriaCombat = (u) => ((LastConditionPassed == ConditionCriteraTypes.Cluster) ||
 									   (FunkyGame.Hero.dCurrentHealthPct <= 0.35d) ||
 									   (RuneIndex == 3 && FunkyGame.Hero.dCurrentEnergyPct < 0.25d) ||
 									   (FunkyGame.Targeting.Cache.Environment.FleeTriggeringUnits.Count > 0) ||

@@ -32,12 +32,12 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,
-				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > (FullMarauderSetBonus ? 0.5d : 0.9d),
+                Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct > (FullMarauderSetBonus ? 0.5d : 0.9d),
 				MaximumDistance = Range,
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 
 

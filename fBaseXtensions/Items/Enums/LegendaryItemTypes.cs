@@ -356,6 +356,7 @@
 		HarvestMoon,
 		BladeoftheWarlord,
 		NightsReaping,
+        Remorseless,
 
 		//Spear
 		Scrimshaw,

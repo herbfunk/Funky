@@ -92,7 +92,7 @@ namespace fBaseXtensions.Targeting.Behaviors
 					// Force the character to stay where it is if there is nothing available that is out of avoidance stuff and we aren't already in avoidance stuff
 					thisobj.Weight = 0;
 					if (!FunkyGame.Targeting.Cache.RequiresAvoidance)
-						this.bStayPutDuringAvoidance = true;
+						bStayPutDuringAvoidance = true;
 
 					continue;
 				}
@@ -102,57 +102,38 @@ namespace fBaseXtensions.Targeting.Behaviors
 				{
 					//Check combat looting (Demonbuddy Setting)
 					if (iHighestWeightFound > 0
-										 && thisobj.targetType.Value == TargetType.Item
+                                         && (thisobj.targetType.HasValue && (thisobj.targetType.Value == TargetType.Item || thisobj.targetType.Value == TargetType.Gold))
 										 && !CharacterSettings.Instance.CombatLooting
-										 && CurrentTarget.targetType.Value == TargetType.Unit) continue;
+                                         && (CurrentTarget.targetType.HasValue && CurrentTarget.targetType.Value == TargetType.Unit)) continue;
 
 
-					//cache RAGUID so we can switch back if we need to
-					int CurrentTargetRAGUID = CurrentTarget != null ? CurrentTarget.RAGUID : -1;
-
-					//Set our current target to this object!
-					CurrentTarget = ObjectCache.Objects[thisobj.RAGUID];
-
-					bool resetTarget = false;
 
 
-					if (CurrentTarget.targetType.Value == TargetType.Unit && FunkyGame.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
+                    if (thisobj.targetType.HasValue && thisobj.targetType.Value == TargetType.Unit)
 					{
-						//We are checking if this target is valid and will not cause avoidance triggering due to movement.
-
-
-						//set unit target (for Ability selector).
-						FunkyGame.Targeting.Cache.CurrentUnitTarget = (CacheUnit)CurrentTarget;
-
-						//Generate next Ability..
-						Skill nextAbility = FunkyGame.Hero.Class.AbilitySelector(FunkyGame.Targeting.Cache.CurrentUnitTarget, FunkyGame.Targeting.Cache.LastCachedTarget.targetType == TargetType.Avoidance);
-
+                        Skill nextAbility =
+                            FunkyGame.Hero.Class.AbilitySelector((CacheUnit)thisobj,
+                            FunkyGame.Targeting.Cache.Environment.TriggeringAvoidances.Count > 0);
 					
 						if (nextAbility.Equals(FunkyGame.Hero.Class.DefaultAttack) && !FunkyGame.Hero.Class.CanUseDefaultAttack)
 						{//No valid ability found
 
 							Logger.Write(LogLevel.Target, "Could not find a valid ability for unit {0}", thisobj.InternalName);
-
-							//if (thisobj.ObjectIsSpecial)
-							//     ObjectCache.Objects.objectsIgnoredDueToAvoidance.Add(thisobj);
-							//else
-							resetTarget = true;
-
-						}
-						else
-						{
-							Vector3 destination = nextAbility.DestinationVector;
-							if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(FunkyGame.Hero.Position, destination))
-							{
-								//if (!thisobj.ObjectIsSpecial)
-								//	resetTarget = true;
-								//else
-								FunkyGame.Targeting.Cache.objectsIgnoredDueToAvoidance.Add(thisobj);
-							}
+                            continue;
 						}
 
-						//reset unit target
-						FunkyGame.Targeting.Cache.CurrentUnitTarget = null;
+                        //Should we check avoidances?
+					    if (FunkyGame.Targeting.Cache.Environment.NearbyAvoidances.Count > 0)
+					    {
+					        Vector3 destination = nextAbility.DestinationVector;
+					        if (destination.Equals(Vector3.Zero))
+					            continue;
+
+					        if (ObjectCache.Obstacles.TestVectorAgainstAvoidanceZones(FunkyGame.Hero.Position, destination))
+					        {
+					            FunkyGame.Targeting.Cache.objectsIgnoredDueToAvoidance.Add(thisobj);
+					        }
+					    }
 					}
 
 					//Avoidance Attempt to find a location where we can attack!
@@ -160,17 +141,13 @@ namespace fBaseXtensions.Targeting.Behaviors
 					{
 						//Wait if no valid target found yet.. and no avoidance movement required.
 						if (!FunkyGame.Targeting.Cache.RequiresAvoidance)
-							this.bStayPutDuringAvoidance = true;
+							bStayPutDuringAvoidance = true;
 
-						resetTarget = true;
+					    continue;
 					}
 
-					if (resetTarget)
-					{
-						CurrentTarget = CurrentTargetRAGUID != -1 ? ObjectCache.Objects[CurrentTargetRAGUID] : null;
-						continue;
-					}
-
+                    //Set our current target to this object!
+                    CurrentTarget = ObjectCache.Objects[thisobj.RAGUID];
 					iHighestWeightFound = thisobj.Weight;
 				}
 

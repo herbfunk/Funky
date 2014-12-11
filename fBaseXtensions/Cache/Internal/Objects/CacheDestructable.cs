@@ -193,7 +193,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 		public override RunStatus Interact()
 		{
-			Skill.SetupAbilityForUse(ref FunkyGame.Hero.Class.PowerPrime, true);
+			Skill.SetupAbilityForUse(ref FunkyGame.Hero.Class.PowerPrime, this, true);
 
 			if (FunkyGame.Hero.Class.PowerPrime.Power != SNOPower.None)
 			{

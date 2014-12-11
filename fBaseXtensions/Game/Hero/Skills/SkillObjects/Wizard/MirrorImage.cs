@@ -20,9 +20,9 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 				Priority=SkillPriority.High;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
-				FcriteriaCombat=() => (FunkyGame.Hero.dCurrentHealthPct<=0.50||
+				FcriteriaCombat=(u) => (FunkyGame.Hero.dCurrentHealthPct<=0.50||
 				                       FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_30]>=5||FunkyGame.Hero.bIsIncapacitated||
-				                       FunkyGame.Hero.bIsRooted||FunkyGame.Targeting.Cache.CurrentTarget.ObjectIsSpecial);
+				                       FunkyGame.Hero.bIsRooted||u.ObjectIsSpecial);
 		  }
 
 

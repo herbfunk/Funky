@@ -33,9 +33,9 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			ClusterConditions.Add(new SkillClusterConditions(10d, 30f, 2, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 20, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial &&
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial &&
 								  (!FunkyBaseExtension.Settings.Barbarian.bSelectiveWhirlwind || FunkyGame.Targeting.Cache.Environment.bAnyNonWWIgnoreMobsInRange ||
-								   !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(FunkyGame.Targeting.Cache.CurrentTarget.SNOID)) &&
+								   !CacheIDLookup.hashActorSNOWhirlwindIgnore.Contains(u.SNOID)) &&
 				// If they have battle-rage, make sure it's up
 								  (!Hotbar.HasPower(SNOPower.Barbarian_BattleRage) ||
 								   (Hotbar.HasPower(SNOPower.Barbarian_BattleRage) && Hotbar.HasBuff(SNOPower.Barbarian_BattleRage)));

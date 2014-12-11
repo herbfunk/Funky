@@ -27,7 +27,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 
 			//Make sure we are targeting something!
 			SingleUnitCondition.Add(new UnitTargetConditions());
-			FcriteriaCombat = () => FunkyGame.Hero.dCurrentHealthPct < 0.5d;
+			FcriteriaCombat = (u) => FunkyGame.Hero.dCurrentHealthPct < 0.5d;
 		}
 	}
 }

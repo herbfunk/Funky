@@ -20,7 +20,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 				                          SkillPrecastFlags.CheckCanCast));
 				ClusterConditions.Add(new SkillClusterConditions(15d, 20f, 2, false, useRadiusDistance: true));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.CloseDistance | TargetProperties.Weak));
-				FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+				FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		  }
 
 		  public override SNOPower Power

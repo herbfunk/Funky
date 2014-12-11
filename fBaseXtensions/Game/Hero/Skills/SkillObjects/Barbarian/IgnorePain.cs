@@ -23,7 +23,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckCanCast));
 
-			FcriteriaCombat = () => FunkyGame.Hero.dCurrentHealthPct <= 0.45;
+			FcriteriaCombat = (u) => FunkyGame.Hero.dCurrentHealthPct <= 0.45;
 		}
 
 	}

@@ -36,7 +36,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 10,
 				falseConditionalFlags: TargetProperties.DOTDPS | TargetProperties.SucideBomber));
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial
 								  || (FunkyBaseExtension.Settings.Barbarian.bFuryDumpWrath && FunkyGame.Hero.dCurrentEnergyPct >= 0.95 &&
 									 Hotbar.HasBuff(SNOPower.Barbarian_WrathOfTheBerserker) && !FunkyGame.Hero.Class.Abilities.ContainsKey(SNOPower.Barbarian_Rend));
 		}

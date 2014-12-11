@@ -1,4 +1,17 @@
-﻿v1.1.5.2
+﻿v1.1.6.0
+
+Skill Class Changes
+	-UnitTargetConditions Condition property now takes CacheUnit as parameter and no longer uses Current Target to test criteria.
+	-FcriteriaCombat property now takes CacheUnit as parameter.
+	-CheckCombatConditionMethod, SetupAbilityForUse, AbilitySelector methods now have a CacheUnit parameter
+	-TBUpdateTarget now evaluates if an unit has any valid skills regardless of avoidance.
+	-Replaced all Unit & Elites in range conditions with either single or cluster conditions.
+	
+Barbarian's Ancient Spear logic improved
+
+
+
+v1.1.5.2
 
 Updated for newest demonbuddy.
 

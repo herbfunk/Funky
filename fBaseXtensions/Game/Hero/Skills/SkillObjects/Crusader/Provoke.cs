@@ -44,7 +44,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 			//Minimum Wrath Missing 10%
-			FcriteriaCombat = () => FunkyGame.Hero.dCurrentEnergyPct < 0.90d;
+			FcriteriaCombat = (u) => FunkyGame.Hero.dCurrentEnergyPct < 0.90d;
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 
 			FcriteriaBuff = () => FunkyGame.Targeting.Cache.Environment.HeroPets.ZombieDogs < GetTotalZombieDogsSummonable();
-			FcriteriaCombat = () => FunkyGame.Targeting.Cache.Environment.HeroPets.ZombieDogs < GetTotalZombieDogsSummonable();
+			FcriteriaCombat = (u) => FunkyGame.Targeting.Cache.Environment.HeroPets.ZombieDogs < GetTotalZombieDogsSummonable();
 		}
 
 		private int GetTotalZombieDogsSummonable()

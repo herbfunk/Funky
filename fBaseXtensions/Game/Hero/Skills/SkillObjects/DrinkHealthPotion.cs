@@ -37,7 +37,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckRecastTimer);
 
 			//Important!! We have to override the default return of true.. we dont want this to fire as a combat Ability.
-			FcriteriaCombat = () => { return FunkyGame.Hero.dCurrentHealthPct <= FunkyBaseExtension.Settings.Combat.PotionHealthPercent; };
+			FcriteriaCombat = (u) => { return FunkyGame.Hero.dCurrentHealthPct <= FunkyBaseExtension.Settings.Combat.PotionHealthPercent; };
 
 
 		}

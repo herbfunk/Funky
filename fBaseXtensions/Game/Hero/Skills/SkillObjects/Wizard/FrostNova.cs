@@ -19,9 +19,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast));
 
 				ClusterConditions.Add(new SkillClusterConditions(7d, 20f, 2, false));
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 1);
-				ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 1);
-				//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 12);
+                SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 20, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		  }
 
 

@@ -23,8 +23,6 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
 
-			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		}
 

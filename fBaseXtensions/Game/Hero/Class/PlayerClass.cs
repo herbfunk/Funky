@@ -229,12 +229,12 @@ namespace fBaseXtensions.Game.Hero.Class
 				criterias = ConditionCriteraTypes.SingleTarget;
 			}
 
-			return AbilitySelector(criterias, IgnoreOutOfRange);
+			return AbilitySelector(criterias, IgnoreOutOfRange, obj);
 		}
 		///<summary>
 		///Selects first Ability that is successful in precast and combat testing.
 		///</summary>
-		private Skill AbilitySelector(ConditionCriteraTypes criteria = ConditionCriteraTypes.All, bool IgnoreOutOfRange = false)
+		private Skill AbilitySelector(ConditionCriteraTypes criteria = ConditionCriteraTypes.All, bool IgnoreOutOfRange = false, CacheUnit unit = null)
 		{
 			Skill returnAbility = DefaultAttack;
 			foreach (var item in SortedAbilities)
@@ -243,7 +243,7 @@ namespace fBaseXtensions.Game.Hero.Class
 				if (!item.CheckPreCastConditionMethod()) continue;
 
 				//Check Combat Conditions!
-				if (!item.CheckCombatConditionMethod(criteria))
+				if (!item.CheckCombatConditionMethod(criteria, unit))
 				{
 					continue;
 				}
@@ -260,7 +260,7 @@ namespace fBaseXtensions.Game.Hero.Class
 			}
 
 			//Setup Ability (sets vars according to current cache)
-			Skill.SetupAbilityForUse(ref returnAbility);
+            Skill.SetupAbilityForUse(ref returnAbility, unit);
 			return returnAbility;
 		}
 
@@ -284,7 +284,7 @@ namespace fBaseXtensions.Game.Hero.Class
 				if (!item.CheckPreCastConditionMethod()) continue;
 
 				//Check Combat Conditions!
-				if (!item.CheckCombatConditionMethod(criterias))
+				if (!item.CheckCombatConditionMethod(conditions: criterias))
 				{
 					continue;
 				}
@@ -297,7 +297,7 @@ namespace fBaseXtensions.Game.Hero.Class
 				}
 
 				Skill ability = item;
-				Skill.SetupAbilityForUse(ref ability);
+				Skill.SetupAbilityForUse(ref ability, obj);
 				UsableAbilities.Add(ability);
 			}
 
@@ -334,7 +334,7 @@ namespace fBaseXtensions.Game.Hero.Class
 					if (item.CheckPreCastConditionMethod())
 					{
 						returnAbility = item;
-						Skill.SetupAbilityForUse(ref returnAbility, true);
+                        Skill.SetupAbilityForUse(ref returnAbility, FunkyGame.Targeting.Cache.CurrentTarget, true);
 						return returnAbility;
 					}
 				}
@@ -373,7 +373,7 @@ namespace fBaseXtensions.Game.Hero.Class
 			if (nonDestructibleAbilities.Count > 0)
 				returnAbility = nonDestructibleAbilities[0];
 
-			Skill.SetupAbilityForUse(ref returnAbility, true);
+            Skill.SetupAbilityForUse(ref returnAbility, FunkyGame.Targeting.Cache.CurrentTarget, true);
 			return returnAbility;
 		}
 
@@ -455,7 +455,7 @@ namespace fBaseXtensions.Game.Hero.Class
 					if (item.CheckBuffConditionMethod())
 					{
 						BuffAbility = item;
-						Skill.SetupAbilityForUse(ref BuffAbility);
+						Skill.SetupAbilityForUse(ref BuffAbility, null);
 						return true;
 					}
 				}
@@ -466,17 +466,17 @@ namespace fBaseXtensions.Game.Hero.Class
 		///<summary>
 		///Returns a power for Combat Buffing.
 		///</summary>
-		internal bool FindCombatBuffPower(out Skill BuffAbility)
+		internal bool FindCombatBuffPower(CacheUnit unit,out Skill BuffAbility)
 		{
 			BuffAbility = null;
 			foreach (var item in Abilities.Values.Where(A => A.IsBuff && A.UseageType.HasFlag(SkillUseage.Combat | SkillUseage.Anywhere)))
 			{
 				if (item.CheckPreCastConditionMethod())
 				{
-					if (item.CheckCombatConditionMethod())
+					if (item.CheckCombatConditionMethod(unit: unit))
 					{
 						BuffAbility = item;
-						Skill.SetupAbilityForUse(ref BuffAbility);
+						Skill.SetupAbilityForUse(ref BuffAbility, unit);
 						return true;
 					}
 				}
@@ -497,8 +497,12 @@ namespace fBaseXtensions.Game.Hero.Class
 		{
 			string Slastusedabilities = LastUsedAbilities.Aggregate("", (current, a) => current + String.Format("Skill: {0} Time: {1}\r\n", a.Power, a.LastUsedMilliseconds));
 			string s = String.Format("Class {0} WaitingForSpecial {1} ReserveAmount {2}\r\n" +
+                                     "ContainsNonRangedCombatSkill {5} ContainsAnyPrimarySkill {6}\r\n" +
 			                         "LastUsedSkill: {3}\r\n" +
-									 "LastUsedSkills\r\n{4}", AC.ToString(), bWaitingForSpecial, iWaitingReservedAmount, LastUsedAbility.Power.ToString(), Slastusedabilities);
+									 "LastUsedSkills\r\n{4}", AC.ToString(), 
+                                     bWaitingForSpecial, iWaitingReservedAmount, 
+                                     LastUsedAbility.Power.ToString(), Slastusedabilities,
+                                     ContainsNonRangedCombatSkill, ContainsAnyPrimarySkill);
 			return s;
 		}
 

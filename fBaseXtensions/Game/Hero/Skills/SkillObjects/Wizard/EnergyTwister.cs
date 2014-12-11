@@ -25,12 +25,12 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy |
 									  SkillPrecastFlags.CheckCanCast));
 
-			FcriteriaCombat = () => (!HasSignatureAbility() || Hotbar.GetBuffStacks(SNOPower.Wizard_EnergyTwister) < 1) &&
+			FcriteriaCombat = (u) => (!HasSignatureAbility() || Hotbar.GetBuffStacks(SNOPower.Wizard_EnergyTwister) < 1) &&
 								  (FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_30] >= 1 ||
 								   FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_25] >= 1 ||
-								   FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance <= 12f) &&
+								   u.TargetInfo.RadiusDistance <= 12f) &&
 								  (!Hotbar.HasPower(SNOPower.Wizard_Electrocute) ||
-								   !FunkyGame.Targeting.Cache.CurrentUnitTarget.IsFast) &&
+								   !u.IsFast) &&
 								  (FunkyGame.Hero.dCurrentEnergy >= 35);
 		}
 

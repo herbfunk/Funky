@@ -27,7 +27,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				ClusterConditions.Add(new SkillClusterConditions(4d, 40, 2, true));
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 50, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
-				FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial && ((!Hotbar.HasPower(SNOPower.DemonHunter_ClusterArrow)) ||
+				FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial && ((!Hotbar.HasPower(SNOPower.DemonHunter_ClusterArrow)) ||
 																				  LastUsedMilliseconds >= 110000);
 			}
 			else
@@ -37,7 +37,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				Priority=SkillPriority.High;
 				IsBuff = true;
 				FcriteriaBuff = () => !Hotbar.HasBuff(SNOPower.DemonHunter_Chakram);
-				FcriteriaCombat = () => !Hotbar.HasBuff(SNOPower.DemonHunter_Chakram);
+				FcriteriaCombat = (u) => !Hotbar.HasBuff(SNOPower.DemonHunter_Chakram);
 			}
 		}
 

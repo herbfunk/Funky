@@ -256,6 +256,9 @@
     <Compile Include="Cache\Internal\Objects\LOSInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Cache\Internal\Objects\TargetingInfo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="CombatRoutine.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

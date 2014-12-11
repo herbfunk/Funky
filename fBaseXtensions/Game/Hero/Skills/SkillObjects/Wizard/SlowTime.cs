@@ -16,9 +16,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 				
 				Priority=SkillPriority.High;
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast));
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 35, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+                //UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 2);
+                //ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
+
+                ClusterConditions.Add(new SkillClusterConditions(7d, 25f, 2, false));
+				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 35, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		  }
 
 		  public override SNOPower Power

@@ -50,7 +50,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 				return false;
 			};
-			FcriteriaCombat = () =>
+			FcriteriaCombat = (u) =>
 			{
 				if (!Hotbar.CurrentBuffs.ContainsKey((int)SNOPower.Monk_SweepingWind))
 					return true;

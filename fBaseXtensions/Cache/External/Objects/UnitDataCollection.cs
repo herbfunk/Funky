@@ -1004,6 +1004,8 @@ namespace fBaseXtensions.Cache.External.Objects
                 new UnitEntry(378665, UnitFlags.Boss, "p1_Greed-8869"),
                 new UnitEntry(380657, UnitFlags.Normal, "p1_treasureGobin_A_Unique_GreedMinion-9145"),
                 new UnitEntry(375552, UnitFlags.Normal, "FallenLunatic_B_Despair-4141"),
+
+                new UnitEntry(5840, UnitFlags.Summoner | UnitFlags.Stationary | UnitFlags.Stealthable, "trDun_Crypt_Pillar_Spawner"),
 			};
 			
 			#endregion

@@ -21,9 +21,9 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 			FcriteriaBuff = () => RuneIndex != 3 && FunkyGame.Targeting.Cache.Environment.HeroPets.Gargantuan == 0;
 
-			FcriteriaCombat = () => (RuneIndex == 3 &&
+			FcriteriaCombat = (u) => (RuneIndex == 3 &&
 								   (FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_15] >= 1 ||
-									(FunkyGame.Targeting.Cache.CurrentUnitTarget.IsEliteRareUnique && FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance <= 15f))
+									(u.IsEliteRareUnique && u.RadiusDistance <= 15f))
 								   || RuneIndex != 3 && FunkyGame.Targeting.Cache.Environment.HeroPets.Gargantuan == 0);
 		}
 

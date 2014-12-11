@@ -17,10 +17,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				
 				Priority=SkillPriority.Medium;
 
-				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
-				                          SkillPrecastFlags.CheckCanCast));
-				UnitsWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 7);
-				ElitesWithinRangeConditions=new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
+				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckCanCast));
+
+
+                ClusterConditions.Add(new SkillClusterConditions(10d, 30, 7, true));
+                SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 30, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		  }
 
 

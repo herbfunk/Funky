@@ -3,6 +3,7 @@ using System.Linq;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Objects;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Navigation.Gridpoint;
 using Zeta.Bot;
 using Zeta.Common;
 using Zeta.Game;
@@ -370,10 +371,10 @@ namespace fBaseXtensions.Game.Hero.Skills
 			return true;
 		}
 
-		public bool CheckCustomCombatMethod()
+		public bool CheckCustomCombatMethod(CacheUnit unit)
 		{
-			foreach (Func<bool> item in FcriteriaCombat.GetInvocationList())
-				if (!item()) return false;
+			foreach (Func<CacheUnit, bool> item in FcriteriaCombat.GetInvocationList())
+                if (!item(unit)) return false;
 
 			return true;
 		}
@@ -388,7 +389,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 		///<summary>
 		///Check Combat
 		///</summary>
-		public bool CheckCombatConditionMethod(ConditionCriteraTypes conditions = ConditionCriteraTypes.All)
+		public bool CheckCombatConditionMethod(ConditionCriteraTypes conditions = ConditionCriteraTypes.All, CacheUnit unit = null)
 		{
 			//Order in which tests are conducted..
 
@@ -404,40 +405,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 			bool TestCustomConditions = false;
 			bool FailedCondition = false;
 
-			if (conditions.HasFlag(ConditionCriteraTypes.ElitesInRange) && FElitesInRangeConditions != null)
-			{
-				foreach (Func<bool> item in FElitesInRangeConditions.GetInvocationList())
-				{
-					if (!item())
-					{
-						FailedCondition = true;
-						break;
-					}
-				}
-				if (!FailedCondition)
-				{
-					TestCustomConditions = true;
-					LastConditionPassed = ConditionCriteraTypes.ElitesInRange;
-				}
-			}
-			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.UnitsInRange) && FUnitsInRangeConditions != null)
-			{
-				FailedCondition = false;
-				foreach (Func<bool> item in FUnitsInRangeConditions.GetInvocationList())
-				{
-					if (!item())
-					{
-						FailedCondition = true;
-						break;
-					}
-				}
-				if (!FailedCondition)
-				{
-					LastConditionPassed = ConditionCriteraTypes.UnitsInRange;
-					TestCustomConditions = true;
-				}
-			}
-			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.Cluster) && ClusterConditions.Count > 0)
+			if (conditions.HasFlag(ConditionCriteraTypes.Cluster) && ClusterConditions.Count > 0)
 			{
 				foreach (var condition in ClusterConditions)
 				{
@@ -462,6 +430,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 					}
 				}
 			}
+
 			if ((!TestCustomConditions || FailedCondition) && conditions.HasFlag(ConditionCriteraTypes.SingleTarget) && SingleUnitCondition.Count > 0)
 			{
 				//We iterate each condition in the list and test the criteria.
@@ -469,9 +438,9 @@ namespace fBaseXtensions.Game.Hero.Skills
 				{
 					FailedCondition = false;
 
-					foreach (Func<bool> item in condition.Criteria.GetInvocationList())
+					foreach (Func<CacheUnit,bool> item in condition.Criteria.GetInvocationList())
 					{
-						if (!item())
+						if (!item(unit))
 						{
 							FailedCondition = true;
 							break;
@@ -493,8 +462,8 @@ namespace fBaseXtensions.Game.Hero.Skills
 			if (!TestCustomConditions && !TestCustomCombatConditions) return false; //&&FailedCondition
 
 
-			foreach (Func<bool> item in FcriteriaCombat.GetInvocationList())
-				if (!item()) return false;
+			foreach (Func<CacheUnit, bool> item in FcriteriaCombat.GetInvocationList())
+				if (!item(unit)) return false;
 
 
 			return true;
@@ -622,12 +591,13 @@ namespace fBaseXtensions.Game.Hero.Skills
 				SuccessfullyUsed(this, reorderAbilities);
 		}
 
-		/// <summary>
-		/// Resets usage variables and sets the target location or target ID depending on what condition passed.
-		/// </summary>
-		/// <param name="ability"></param>
-		/// <param name="Destructible"></param>
-		public static void SetupAbilityForUse(ref Skill ability, bool Destructible = false)
+	    /// <summary>
+	    /// Resets usage variables and sets the target location or target ID depending on what condition passed.
+	    /// </summary>
+	    /// <param name="ability"></param>
+	    /// <param name="obj"></param>
+	    /// <param name="Destructible"></param>
+	    public static void SetupAbilityForUse(ref Skill ability, CacheObject obj, bool Destructible = false)
 		{
 			ability.MinimumRange = ability.Range;
 			ability.TargetPosition_ = Vector3.Zero;
@@ -649,21 +619,21 @@ namespace fBaseXtensions.Game.Hero.Skills
 				else
 					ability.MinimumRange = 30f;
 
-				bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(FunkyGame.Targeting.Cache.CurrentTarget.SNOID)
+                bool LocationalAttack = (CacheIDLookup.hashDestructableLocationTarget.Contains(obj.SNOID)
 												  || DateTime.Now.Subtract(PowerCacheLookup.dictAbilityLastFailed[ability.Power]).TotalMilliseconds < 1000);
 
 				if (LocationalAttack)
 				{
-					Vector3 attacklocation = FunkyGame.Targeting.Cache.CurrentTarget.Position;
+                    Vector3 attacklocation = obj.Position;
 
 					if (!ability.IsRanged)
 					{
 						//attacklocation=MathEx.CalculatePointFrom(FunkyGame.Hero.Class_.Data.Position,Bot.Target.CurrentTarget.Position, 0.25f);
-						attacklocation = MathEx.GetPointAt(FunkyGame.Hero.Position, 0.50f, Navigation.Navigation.FindDirection(FunkyGame.Hero.Position, FunkyGame.Targeting.Cache.CurrentTarget.Position, true));
+                        attacklocation = MathEx.GetPointAt(FunkyGame.Hero.Position, 0.50f, Navigation.Navigation.FindDirection(FunkyGame.Hero.Position, obj.Position, true));
 					}
 					else
 					{
-						attacklocation = MathEx.GetPointAt(FunkyGame.Targeting.Cache.CurrentTarget.Position, 1f, Navigation.Navigation.FindDirection(FunkyGame.Targeting.Cache.CurrentTarget.Position, FunkyGame.Hero.Position, true));
+                        attacklocation = MathEx.GetPointAt(obj.Position, 1f, Navigation.Navigation.FindDirection(obj.Position, FunkyGame.Hero.Position, true));
 					}
 
 					attacklocation.Z = Navigation.Navigation.MGP.GetHeight(attacklocation.ToVector2());
@@ -671,8 +641,8 @@ namespace fBaseXtensions.Game.Hero.Skills
 				}
 				else
 				{
-                    if (FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.HasValue)
-					    ability.TargetACDGUID = FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.Value;
+                    if (obj.AcdGuid.HasValue)
+                        ability.TargetACDGUID = obj.AcdGuid.Value;
 				}
 
 				return;
@@ -718,8 +688,8 @@ namespace fBaseXtensions.Game.Hero.Skills
 
 			if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.Location)) //Current Target Position
 			{
-				ability.TargetPosition = FunkyGame.Targeting.Cache.CurrentTarget.Position;
-				ability.Target_ = FunkyGame.Targeting.Cache.CurrentUnitTarget;
+                ability.TargetPosition = obj.Position;
+                ability.Target_ = (CacheUnit)obj;
 			}
 			else if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.Self)) //Current Bot Position
 				ability.TargetPosition = FunkyGame.Hero.Position;
@@ -732,11 +702,11 @@ namespace fBaseXtensions.Game.Hero.Skills
 			}
 			else if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.Target)) //Current Target ACDGUID
 			{
-                if (FunkyGame.Targeting.Cache.CurrentUnitTarget!=null)
-			        ability.Target_ = FunkyGame.Targeting.Cache.CurrentUnitTarget;
+			    if (obj is CacheUnit)
+			        ability.Target_ = (CacheUnit)obj;
 
-                if (FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.HasValue)
-				    ability.TargetACDGUID = FunkyGame.Targeting.Cache.CurrentTarget.AcdGuid.Value;
+                if (obj.AcdGuid.HasValue)
+                    ability.TargetACDGUID = obj.AcdGuid.Value;
 			}
 		}
 
@@ -771,12 +741,12 @@ namespace fBaseXtensions.Game.Hero.Skills
 							Logger.Write(LogLevel.Ability, "Destination for Ability {0} requires further searching!", Power.ToString());
 
 
-							Vector3 NewDestinationV3;
+                            //Vector3 NewDestinationV3;
 
-							if (FunkyGame.Navigation.AttemptFindSafeSpot(out NewDestinationV3, destinationV, FunkyBaseExtension.Settings.Plugin.AvoidanceFlags))
-							{
-								return NewDestinationV3;
-							}
+                            //if (FunkyGame.Navigation.AttemptFindSafeSpot(out NewDestinationV3, destinationV, PointCheckingFlags.RaycastWalkable))
+                            //{
+                            //    return NewDestinationV3;
+                            //}
 							return Vector3.Zero;
 						}
 
@@ -854,12 +824,10 @@ namespace fBaseXtensions.Game.Hero.Skills
 		{
 			//CreatePreCastConditions(ref ability.FcriteriaPreCast, ability);
 			CreateTargetConditions(ref ability);
-			CreateUnitsInRangeConditions(out ability.FUnitsInRangeConditions, ability);
-			CreateElitesInRangeConditions(out ability.FElitesInRangeConditions, ability);
 			CreateClusterConditions(ref ability);
 
 			//Check if the 4 primary combat conditions are null -- and if the custom condition is not..
-			if (ability.SingleUnitCondition.Count == 0 && ability.FUnitsInRangeConditions == null && ability.FElitesInRangeConditions == null && ability.ClusterConditions.Count == 0 && ability.FcriteriaCombat != null)
+			if (ability.SingleUnitCondition.Count == 0 && ability.ClusterConditions.Count == 0 && ability.FcriteriaCombat != null)
 				ability.TestCustomCombatConditions = true;
 		}
 
@@ -870,15 +838,15 @@ namespace fBaseXtensions.Game.Hero.Skills
 			if (ability.ClusterConditions.Count == 0)
 				return;
 
-			if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTarget) || ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTargetNearest))
-			{
-				foreach (var condition in ability.ClusterConditions)
-				{
-					Func<bool> combatCriteria = condition.Criteria;
-					CreateLineOfSightTargetCheck(ref combatCriteria, ability);
-					condition.Criteria = combatCriteria;
-				}
-			}
+            //if (ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTarget) || ObjectCache.CheckFlag(ability.ExecutionType, SkillExecutionFlags.ClusterTargetNearest))
+            //{
+            //    foreach (var condition in ability.ClusterConditions)
+            //    {
+            //        Func<bool> combatCriteria = condition.Criteria;
+            //        CreateLineOfSightTargetCheck(ref combatCriteria, ability);
+            //        condition.Criteria = combatCriteria;
+            //    }
+            //}
 		}
 
 		private static void CreateTargetConditions(ref Skill ability)
@@ -897,21 +865,21 @@ namespace fBaseXtensions.Game.Hero.Skills
 			//Attach Line of Sight Criteria to each entry
 			foreach (UnitTargetConditions condition in ability.SingleUnitCondition)
 			{
-				Func<bool> combatCriteria = condition.Criteria;
+				var combatCriteria = condition.Criteria;
 				CreateLineOfSightTargetCheck(ref combatCriteria, ability);
 				condition.Criteria = combatCriteria;
 			}
 		}
 
-		private static void CreateLineOfSightTargetCheck(ref Func<bool> CombatCriteria, Skill ability)
+		private static void CreateLineOfSightTargetCheck(ref Func<CacheUnit, bool> CombatCriteria, Skill ability)
 		{
 			if (ability.IsRanged)
 			{
-				CombatCriteria += () =>
+				CombatCriteria += (unit) =>
 				{
-                    if (!FunkyGame.Targeting.Cache.CurrentTarget.IgnoresLOSCheck && FunkyGame.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
+                    if (!unit.IgnoresLOSCheck && unit.IsTargetableAndAttackable)
 					{
-						LOSInfo LOSINFO = FunkyGame.Targeting.Cache.CurrentTarget.LineOfSight;
+                        LOSInfo LOSINFO = unit.LineOfSight;
 						if (LOSINFO.LastLOSCheckMS > 2000)
 						{
 							//!LOSINFO.LOSTest(FunkyGame.Hero.Position, true, ServerObjectIntersection: ability.IsProjectile, Flags: NavCellFlags.AllowProjectile)
@@ -920,7 +888,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 								//Raycast failed.. reset LOS Check -- for valid checking.
 								if (!LOSINFO.RayCast.Value || (LOSINFO.ObjectIntersection.HasValue && !LOSINFO.ObjectIntersection.Value))
 								{
-									FunkyGame.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
+                                    unit.RequiresLOSCheck = true;
 									return false;
 								}
 
@@ -941,24 +909,24 @@ namespace fBaseXtensions.Game.Hero.Skills
 			}
 			else if (ability.Range > 0)
 			{//Melee
-				CombatCriteria += () =>
+                CombatCriteria += (unit) =>
 				{
-                    if (!FunkyGame.Targeting.Cache.CurrentTarget.IgnoresLOSCheck && FunkyGame.Targeting.Cache.CurrentUnitTarget.IsTargetableAndAttackable)
+                    if (!unit.IgnoresLOSCheck && unit.IsTargetableAndAttackable)
 					{
-						float radiusDistance = FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance;
+                        float radiusDistance = unit.RadiusDistance;
 						//Check if within interaction range..
 						if (radiusDistance > ability.Range)
 						{
 							//Verify LOS walk
-							LOSInfo LOSINFO = FunkyGame.Targeting.Cache.CurrentTarget.LineOfSight;
+                            LOSInfo LOSINFO = unit.LineOfSight;
 							if (LOSINFO.LastLOSCheckMS > 2000)//||!LOSINFO.NavCellWalk.HasValue)
 							{
-								if (!LOSINFO.LOSTest(FunkyGame.Hero.Position, NavRayCast: true, ServerObjectIntersection: false))
+								if (!LOSINFO.LOSTest(FunkyGame.Hero.Position, true, ServerObjectIntersection: false))
 								{
 									//bool MovementException=((FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterTeleport||FunkyGame.Targeting.Cache.CurrentTarget.IsTransformUnit)&&FunkyGame.Targeting.Cache.CurrentUnitTarget.AnimState==Zeta.Internals.Actors.AnimationState.Transform);
 									//Raycast failed.. reset LOS Check -- for valid checking.
 									if (!LOSINFO.RayCast.Value)
-										FunkyGame.Targeting.Cache.CurrentTarget.RequiresLOSCheck = true;
+                                        unit.RequiresLOSCheck = true;
 									//else if (!LOSINFO.NavCellWalk.Value) //NavCellFlag Walk Failed
 									//{
 									//    bool MovementException = ((FunkyGame.Targeting.Cache.CurrentUnitTarget.MonsterTeleport || FunkyGame.Targeting.Cache.CurrentTarget.IsTransformUnit) && FunkyGame.Targeting.Cache.CurrentUnitTarget.AnimState == Zeta.Internals.Actors.AnimationState.Transform);
@@ -978,19 +946,7 @@ namespace fBaseXtensions.Game.Hero.Skills
 			}
 		}
 
-		private static void CreateUnitsInRangeConditions(out Func<bool> FUnitRange, Skill ability)
-		{
-			FUnitRange = null;
-			if (ability.UnitsWithinRangeConditions != null)
-				FUnitRange += () => FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)ability.UnitsWithinRangeConditions.Item1] >= ability.UnitsWithinRangeConditions.Item2;
-		}
 
-		private static void CreateElitesInRangeConditions(out Func<bool> FUnitRange, Skill ability)
-		{
-			FUnitRange = null;
-			if (ability.ElitesWithinRangeConditions != null)
-				FUnitRange += () => FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)ability.ElitesWithinRangeConditions.Item1] >= ability.ElitesWithinRangeConditions.Item2;
-		}
 		#endregion
 
 		#endregion

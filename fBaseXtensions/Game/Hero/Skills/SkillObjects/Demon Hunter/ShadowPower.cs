@@ -19,7 +19,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated|SkillPrecastFlags.CheckRecastTimer|
 				                          SkillPrecastFlags.CheckEnergy));
 
-				FcriteriaCombat=() => (FunkyGame.Hero.dCurrentHealthPct<=0.99d||FunkyGame.Hero.bIsRooted||
+				FcriteriaCombat=(u) => (FunkyGame.Hero.dCurrentHealthPct<=0.99d||FunkyGame.Hero.bIsRooted||
 				                       FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_25]>=1||
 				                       FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_15]>=3);
 		  }

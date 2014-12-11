@@ -31,8 +31,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
                 {
                     TrueConditionFlags = TargetProperties.None,
                     MaximumDistance = Range,
-                    Criteria = () =>
-                            ObjectCache.Objects.TotalIntersectingUnits(FunkyGame.Targeting.Cache.CurrentTarget.Position, 8f) > 2
+                    Criteria = (unit) => unit.TargetInfo.IntersectingUnits>2
                 };
             SingleUnitCondition.Add(IntersectingUnitTargetConditions);
             SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, falseConditionalFlags: TargetProperties.Normal));
@@ -42,13 +41,10 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Ranged, Range, MinimumHealthPercent: 0.50d));
             SingleUnitCondition.Add(new UnitTargetConditions
             {
-                Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > 0.80d,
+                Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct > 0.80d,
                 MaximumDistance = Range,
                 FalseConditionFlags = TargetProperties.LowHealth,
             });
-								//TestCustomCombatConditionAlways=true,
-			FcriteriaCombat = () => FunkyGame.Targeting.Cache.CurrentUnitTarget.IsRanged ||
-			                        FunkyGame.Hero.dCurrentEnergyPct < 0.5d;
 		}
 
 	}

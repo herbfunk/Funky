@@ -23,7 +23,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 
 			ClusterConditions.Add(new SkillClusterConditions(5d, 48f, 2, false, minDistance: 15f));
 
-			FcriteriaCombat = () =>
+			FcriteriaCombat = (u) =>
 			{
 				return ((FunkyBaseExtension.Settings.Wizard.bTeleportFleeWhenLowHP &&
 						 (FunkyGame.Hero.dCurrentHealthPct < 0.5d) ||

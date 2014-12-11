@@ -1964,6 +1964,10 @@ namespace fBaseXtensions.Settings
             try
             {
                 LBDebug.Controls.Add(new UserControlDebugEntry(Backpack.DebugString));
+                foreach (var item in Backpack.CacheItemList.Values)
+                {
+                    LBDebug.Controls.Add(new UserControlDebugEntry(item.ToString()));
+                }
             }
             catch
             {

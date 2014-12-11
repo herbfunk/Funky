@@ -24,7 +24,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 10, falseConditionalFlags: TargetProperties.Normal));
 
 
-			FcriteriaCombat = () => (!Hotbar.HasPower(SNOPower.Monk_SweepingWind) ||
+			FcriteriaCombat = (u) => (!Hotbar.HasPower(SNOPower.Monk_SweepingWind) ||
 								   (Hotbar.HasPower(SNOPower.Monk_SweepingWind) && Hotbar.HasBuff(SNOPower.Monk_SweepingWind))) &&
 								  (!FunkyGame.Hero.Class.bWaitingForSpecial || FunkyGame.Hero.dCurrentEnergy >= FunkyGame.Hero.Class.iWaitingReservedAmount);
 		}

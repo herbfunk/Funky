@@ -23,9 +23,11 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy |
 									  SkillPrecastFlags.CheckCanCast));
-			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
-			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 18, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+            //UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
+            //ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_12, 1);
+
+            ClusterConditions.Add(new SkillClusterConditions(5d, 12, 2, true));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 18, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 		}
 
 

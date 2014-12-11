@@ -22,7 +22,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 12));
 
 
-				FcriteriaCombat=() => (!FunkyGame.Hero.Class.bWaitingForSpecial && FunkyGame.Hero.dCurrentEnergy >= FunkyGame.Hero.Class.iWaitingReservedAmount);
+				FcriteriaCombat=(u) => (!FunkyGame.Hero.Class.bWaitingForSpecial && FunkyGame.Hero.dCurrentEnergy >= FunkyGame.Hero.Class.iWaitingReservedAmount);
 		  }
 
 	

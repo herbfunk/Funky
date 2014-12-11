@@ -18,7 +18,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 			FcriteriaBuff = () => false;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast);
 			//SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 10));
-			FcriteriaCombat = () => FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_12] > 0;
+			FcriteriaCombat = (u) => FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_12] > 0;
 		}
 
 

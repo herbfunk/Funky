@@ -32,18 +32,18 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			if (FunkyBaseExtension.Settings.Barbarian.bBarbUseWOTBAlways)
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None));
 
-			FcriteriaCombat = () =>
+			FcriteriaCombat = (u) =>
 			{
 				//Anytime?
 				if (FunkyBaseExtension.Settings.Barbarian.bBarbUseWOTBAlways)
 					return true;
 
 				//Treasure Goblins?
-				if (FunkyGame.Targeting.Cache.CurrentTarget.IsTreasureGoblin)
+				if (u.IsTreasureGoblin)
 					return FunkyBaseExtension.Settings.Barbarian.bGoblinWrath;
 
 				//Normal Targets?
-				if (FunkyGame.Targeting.Cache.CurrentTarget.Properties.HasFlag(TargetProperties.Normal))
+				if (u.Properties.HasFlag(TargetProperties.Normal))
 					return false;
 
 

@@ -46,7 +46,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 				SingleUnitCondition.Add(new UnitTargetConditions
 				{
 					TrueConditionFlags = TargetProperties.None,
-					Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > 0.9d,
+                    Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct > 0.9d,
 					MaximumDistance = Range,
 					FalseConditionFlags = TargetProperties.LowHealth,
 				});

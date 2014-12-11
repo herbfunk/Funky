@@ -31,12 +31,12 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			SingleUnitCondition.Add(new UnitTargetConditions
 			{
 				TrueConditionFlags = TargetProperties.None,
-				Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > 0.9d,
+                Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct > 0.9d,
 				MaximumDistance = Range,
 				FalseConditionFlags = TargetProperties.LowHealth,
 			});
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 
 

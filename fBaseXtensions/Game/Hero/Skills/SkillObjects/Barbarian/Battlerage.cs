@@ -27,7 +27,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			Range = 35;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
 			FcriteriaBuff = () => !Hotbar.HasBuff(SNOPower.Barbarian_BattleRage);
-			FcriteriaCombat = () => !Hotbar.HasBuff(SNOPower.Barbarian_BattleRage) ||
+			FcriteriaCombat = (u) => !Hotbar.HasBuff(SNOPower.Barbarian_BattleRage) ||
 				//Only if we cannot spam sprint..
 								  (!Hotbar.HasPower(SNOPower.Barbarian_Sprint) &&
 								   ((FunkyBaseExtension.Settings.Barbarian.bFuryDumpWrath && FunkyGame.Hero.dCurrentEnergyPct >= 0.98 &&

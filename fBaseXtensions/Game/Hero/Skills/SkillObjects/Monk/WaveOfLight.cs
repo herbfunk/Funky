@@ -35,7 +35,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 									  SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckPlayerIncapacitated));
 			ClusterConditions.Add(new SkillClusterConditions(6d, Range, 3, true));
 			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal | TargetProperties.MissileReflecting));
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 
 
 		}

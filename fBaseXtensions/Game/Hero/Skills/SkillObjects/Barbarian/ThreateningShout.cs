@@ -21,9 +21,9 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 		{
 			Priority = SkillPriority.Medium;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckRecastTimer | SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
-			FcriteriaCombat = () => (
+			FcriteriaCombat = (u) => (
 				FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_20] > 1 ||
-				(FunkyGame.Targeting.Cache.CurrentTarget.IsBoss && FunkyGame.Targeting.Cache.CurrentTarget.RadiusDistance <= 20) ||
+				(u.IsBoss && u.RadiusDistance <= 20) ||
 				(FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_20] > 2 && !FunkyGame.Targeting.Cache.Environment.bAnyBossesInRange &&
 				 (FunkyGame.Targeting.Cache.Environment.iElitesWithinRange[(int)RangeIntervals.Range_50] == 0 ||
 				  Hotbar.HasPower(SNOPower.Barbarian_SeismicSlam))) ||

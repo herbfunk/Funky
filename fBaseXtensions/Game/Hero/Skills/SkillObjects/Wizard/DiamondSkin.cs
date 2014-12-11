@@ -17,7 +17,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 				PreCast=new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 
 				FcriteriaBuff = () => FunkyGame.Hero.dCurrentHealthPct <= 0.45d && FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40] > 0;
-				FcriteriaCombat=() => FunkyGame.Hero.dCurrentHealthPct<=0.45d && FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]>0;
+				FcriteriaCombat=(u) => FunkyGame.Hero.dCurrentHealthPct<=0.45d && FunkyGame.Targeting.Cache.Environment.iAnythingWithinRange[(int)RangeIntervals.Range_40]>0;
 		  }
 
 

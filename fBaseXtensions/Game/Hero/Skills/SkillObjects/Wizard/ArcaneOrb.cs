@@ -45,7 +45,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 				SingleUnitCondition.Add(new UnitTargetConditions
 				{
 					TrueConditionFlags = TargetProperties.None,
-					Criteria = () => FunkyGame.Hero.dCurrentEnergyPct > 0.9d,
+                    Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct > 0.9d,
 					MaximumDistance = 40,
 
 				});
@@ -54,7 +54,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 				SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.Boss, maxdistance: 40));
 			}
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial;
 		}
 
 		public override SNOPower Power

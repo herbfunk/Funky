@@ -23,7 +23,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			{
 				PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast));
 				FcriteriaBuff = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.Environment.SurroundingUnits > 0;
-				FcriteriaCombat = () => 
+				FcriteriaCombat = (u) => 
 					!FunkyGame.Hero.Class.bWaitingForSpecial && 
 					FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && 
 					FunkyGame.Targeting.Cache.Environment.SurroundingUnits > 0;
@@ -32,7 +32,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 			{
 				PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckRecastTimer));
 				FcriteriaBuff = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && FunkyGame.Targeting.Cache.Environment.SurroundingUnits > 0 && LastUsedMilliseconds > 3000;
-				FcriteriaCombat = () => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && LastUsedMilliseconds > 3000;
+				FcriteriaCombat = (u) => FunkyBaseExtension.Settings.Monk.bMonkSpamMantra && LastUsedMilliseconds > 3000;
 			}
 
 			

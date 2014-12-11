@@ -25,7 +25,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Crusader
 			Priority = SkillPriority.Medium;
 			PreCast = new SkillPreCast(SkillPrecastFlags.CheckCanCast);
 
-			FcriteriaCombat = () => FunkyGame.Hero.dCurrentHealthPct < 0.5d;
+			FcriteriaCombat = (u) => FunkyGame.Hero.dCurrentHealthPct < 0.5d;
 		}
 	}
 }

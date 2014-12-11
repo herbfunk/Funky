@@ -59,9 +59,6 @@ namespace fBaseXtensions.Game.Hero
         {
             get
             {
-                string cachedItemString = CacheItemList.Values.Aggregate("",
-                    (current, item) => current + item.ToString() + "\r\n");
-
                 string stackableItemString = _stackableItems.Aggregate("",
                     (current, item) => current + "SNOID: " + item + "\r\n");
 
@@ -71,7 +68,7 @@ namespace fBaseXtensions.Game.Hero
                     backpackSlots = backpackSlots + "Row: " + iRow;
                     for (int iColumn = 0; iColumn <= 9; iColumn++)
                     {
-                        backpackSlots = backpackSlots + " [" + _backpackslotblocked[iColumn, iRow] + "]";
+                        backpackSlots = backpackSlots + "    [" + _backpackslotblocked[iColumn, iRow] + "]";
                     }
                     backpackSlots = backpackSlots + "\r\n";
                 }
@@ -80,12 +77,10 @@ namespace fBaseXtensions.Game.Hero
                                      "Occupied Slots {0}\r\n" +
                                      "Stackable Items {1}\r\n" +
                                      "Backpack Slots\r\n" +
-                                     "{4}" +
+                                     "{3}" +
                                      "\r\n" +
-                                     "Cache Item List (Total {2})\r\n" +
-                                     "{3}\r\n" +
-                                     "",
-                    _occupiedSlots, stackableItemString, CacheItemList.Count, cachedItemString, backpackSlots);
+                                     "Cache Item List (Total {2})\r\n",
+                    _occupiedSlots, stackableItemString, CacheItemList.Count, backpackSlots);
             }
         }
         public static void ClearBackpackItemCache()

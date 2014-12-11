@@ -19,15 +19,14 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Witchdoctor
 			
 			Priority = SkillPriority.Medium;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
-			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_25, 1);
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 16, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 			//Zunimassa Set we have perma pets!
 			if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.ZunimassasHaunt, 4))
 			{
 				IsBuff = true;
 				FcriteriaBuff = () => FunkyGame.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish < GetTotalFetishCount();
-				FcriteriaCombat = () => FunkyGame.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish < GetTotalFetishCount();
+				FcriteriaCombat = (u) => FunkyGame.Targeting.Cache.Environment.HeroPets.WitchdoctorFetish < GetTotalFetishCount();
 			}
 		}
 

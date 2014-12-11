@@ -29,7 +29,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 									  SkillPrecastFlags.CheckEnergy));
 			ClusterConditions.Add(new SkillClusterConditions(5d, 48f, 2, false));
 			//TestCustomCombatConditionAlways=true,
-			FcriteriaCombat = () => ((FunkyBaseExtension.Settings.Wizard.bTeleportFleeWhenLowHP && FunkyGame.Hero.dCurrentHealthPct < 0.5d)
+			FcriteriaCombat = (u) => ((FunkyBaseExtension.Settings.Wizard.bTeleportFleeWhenLowHP && FunkyGame.Hero.dCurrentHealthPct < 0.5d)
 								   ||
 								   (FunkyBaseExtension.Settings.Wizard.bTeleportIntoGrouping &&
 									FunkyGame.Targeting.Cache.Clusters.AbilityClusterCache(combatClusterCondition).Count > 0 &&

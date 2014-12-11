@@ -1,5 +1,6 @@
 ﻿using System;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Navigation.Clustering;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
@@ -26,11 +27,13 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			Cost = 20;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
 
-			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 4);
-			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
+		    ClusterConditions.Add(new SkillClusterConditions(5d, Range, 4, true, useRadiusDistance: true));
+
+			//UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 4);
+			//ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_15, 1);
 
             //Include goblins, bosses, and uniques too!
-		    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 15, -1, 0.95d, TargetProperties.Normal));
+		    SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, falseConditionalFlags: TargetProperties.Normal));
 		}
 	}
 }

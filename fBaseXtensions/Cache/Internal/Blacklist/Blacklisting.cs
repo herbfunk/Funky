@@ -12,7 +12,7 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 		// Special blacklist for things like ravens, templar/scoundrel/enchantress in town, witch-doctor summons, tornado-animations etc. etc. that should never be attacked
 		// Note: This is a MONSTER blacklist - so only stuff that needs to be ignored by the combat-engine. An "object" blacklist is further down!
 		internal static readonly HashSet<int> BlacklistSnoIDs = new HashSet<int> { 
-            5840, 111456, 5013, 5014, 205756, 205746, 4182, 4183, 4644, 4062, 4538, 52693, 162575, 2928, 51291, 51292, 
+            111456, 5013, 5014, 205756, 205746, 4182, 4183, 4644, 4062, 4538, 52693, 162575, 2928, 51291, 51292, 
             96132, 90958, 90959, 80980, 51292, 51291, 2928, 3546,164195, 129345, 81857, 138428, 81857, 60583, 170038, 174854, 190390, 
             194263, 107031, 106584, 186130, 187265, 201426, 201242, 200969, 201423, 
             201438, 201464, 201454, 108012, 103279, 89578, 74004, 84531, 84538, 89579, 190492, 209133, 6318, 107705, 105681, 
@@ -86,10 +86,13 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
             370187, // x1_Malthael_Boss_Orb_Collapse
             328830, // x1_Fortress_Portal_Switch
 
-			4589, //levelUp_glowSphere
-			376350, //x1_global_chest_shield_sphere
-			5503,//Start_Location_Team_0
+            5503,//Start_Location_Team_0
 			5466,//SphereTrigger
+			4589, //levelUp_glowSphere
+            4893, //ProximityTrigger
+
+            258064, //Uber_BossPortal_Door
+			376350, //x1_global_chest_shield_sphere
 			195171,//PT_Blacksmith_ForgeWeaponShortcut
 			85816,//healthGlobe_swipe
 			308862,//Console_powerGlobe_castBuff_geo

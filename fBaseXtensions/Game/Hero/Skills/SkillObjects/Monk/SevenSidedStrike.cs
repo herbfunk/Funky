@@ -25,12 +25,14 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Monk
 
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckEnergy | SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
 
-			UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 6);
-			ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 3);
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, maxdistance: 15, falseConditionalFlags: TargetProperties.Normal)); //any non-normal unit!
+			//UnitsWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 6);
+			//ElitesWithinRangeConditions = new Tuple<RangeIntervals, int>(RangeIntervals.Range_20, 3);
+
+            ClusterConditions.Add(new SkillClusterConditions(10d, Range, 6, true));
+            SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, Range, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
 
 
-			FcriteriaCombat = () => !FunkyGame.Hero.Class.bWaitingForSpecial || FunkyGame.Hero.dCurrentEnergy >= FunkyGame.Hero.Class.iWaitingReservedAmount;
+			FcriteriaCombat = (u) => !FunkyGame.Hero.Class.bWaitingForSpecial || FunkyGame.Hero.dCurrentEnergy >= FunkyGame.Hero.Class.iWaitingReservedAmount;
 		}
 
 

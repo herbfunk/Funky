@@ -50,7 +50,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				SingleUnitCondition.Add(
 					new UnitTargetConditions
 					{
-						Criteria = () => FunkyGame.Hero.dCurrentEnergyPct<0.50d,
+                        Criteria = (unit) => FunkyGame.Hero.dCurrentEnergyPct < 0.50d,
 						MaximumDistance=50,
 						HealthPercent=0.95d,
 						TrueConditionFlags=TargetProperties.None
@@ -65,7 +65,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				SingleUnitCondition.Add(
 					new UnitTargetConditions
 					{
-						Criteria = () => FunkyGame.Hero.dCurrentHealthPct < 0.50d,
+                        Criteria = (unit) => FunkyGame.Hero.dCurrentHealthPct < 0.50d,
 						MaximumDistance = 50,
 						HealthPercent = 0.95d,
 						TrueConditionFlags = TargetProperties.None
@@ -73,7 +73,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 				);
 
 				//When any health globes are within 60 yards!
-				FcriteriaCombat = () => ObjectCache.Objects.Values.Any(o => o.targetType.HasValue && o.targetType.Value == TargetType.Globe && o.CentreDistance < 60);
+				FcriteriaCombat = (u) => ObjectCache.Objects.Values.Any(o => o.targetType.HasValue && o.targetType.Value == TargetType.Globe && o.CentreDistance < 60);
 			}
 
 		}
