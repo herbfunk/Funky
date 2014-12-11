@@ -1,5 +1,7 @@
 ﻿v1.1.6.0
 
+Added a 7 second delay during hero switching behavior.
+
 Skill Class Changes
 	-UnitTargetConditions Condition property now takes CacheUnit as parameter and no longer uses Current Target to test criteria.
 	-FcriteriaCombat property now takes CacheUnit as parameter.
@@ -8,8 +10,8 @@ Skill Class Changes
 	-Replaced all Unit & Elites in range conditions with either single or cluster conditions.
 	
 Barbarian's Ancient Spear logic improved
-
-
+Added Call of the Ancients unit SNOs to Pet Cache and Pet Counter to Targeting Cache Environment.
+Modified Barbarian's Call of the ancients to summon when using IK 4 set bonus.
 
 v1.1.5.2
 

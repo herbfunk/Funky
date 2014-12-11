@@ -51,6 +51,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					else if (PetType == PetTypes.WIZARD_ArcaneOrbs)
 						FunkyGame.Targeting.Cache.Environment.HeroPets.WizardArcaneOrbs++;
 				}
+                else if (FunkyGame.CurrentActorClass == ActorClass.Barbarian)
+                {
+                    FunkyGame.Targeting.Cache.Environment.HeroPets.BarbarianCallOfAncients++;
+                }
 
 				return false; 
 			}

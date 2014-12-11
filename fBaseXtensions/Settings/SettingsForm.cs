@@ -914,29 +914,20 @@ namespace fBaseXtensions.Settings
 	        flowLayoutPanel_MiscStats.Controls.Clear();
             try
             {
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("== TOTAL SUMMARY =="));
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(FunkyGame.TrackingStats.GenerateOutputString()));
 
-                fBaseXtensions.Stats.GameStats cur = FunkyGame.CurrentGameStats;
-
-                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
-                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Profiles:{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n Bounties Completed {6}\r\n{5}",
-                                                        cur.Profiles.Count, cur.TotalDeaths, cur.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), cur.TotalGold, cur.TotalXP, cur.TotalLootTracker.ToString(), cur.TotalBountiesCompleted)));
-
-                if (FunkyGame.CurrentGameStats.Profiles.Count > 0)
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("== PROFILE SUMMARY =="));
+                foreach (var item in FunkyGame.TrackingStats.Profiles)
                 {
-                    flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== PROFILES =="));
-                    foreach (var item in FunkyGame.CurrentGameStats.Profiles)
-                    {
-                        flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("{0}\r\nDeaths:{1} TotalTime:{2} TotalGold:{3} TotalXP:{4}\r\n{5}",
-                            item.ProfileName, item.DeathCount, item.TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), item.TotalGold, item.TotalXP, item.LootTracker.ToString())));
-                    }
+                    flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(item.GenerateOutput()));
                 }
 
-
-                TotalStats all = FunkyGame.TrackingStats;
-                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("\r\n== CURRENT GAME SUMMARY =="));
-                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(String.Format("Total Games:{0} -- Total Unique Profiles:{1}\r\nDeaths:{2} TotalTime:{3} TotalGold:{4} TotalXP:{5}\r\n{6}",
-                                                        all.GameCount, all.Profiles.Count, all.TotalDeaths, all.TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"), all.TotalGold, all.TotalXP, all.TotalLootTracker.ToString())));
-
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("== CURRENT GAME SUMMARY =="));
+                foreach (var item in FunkyGame.CurrentGameStats.Profiles)
+                {
+                    flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(item.GenerateOutput()));
+                }
 
             }
             catch

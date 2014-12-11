@@ -67,6 +67,18 @@ namespace fBaseXtensions.Behaviors
 
             if (GamblingCharacterSwitchToMain)
             {
+                if (!_initalDelayStarted)
+                {
+                    _initalstartTime = DateTime.Now;
+                    _initalDelayStarted = true;
+                }
+                var initaldelayStartSecs = DateTime.Now.Subtract(_initalstartTime).TotalSeconds;
+                if (initaldelayStartSecs < 7)
+                {
+                    BotMain.StatusText = "[Funky] Switching to Main Hero (Waiting for inital delay! [" + initaldelayStartSecs + " secs])";
+                    return RunStatus.Running;
+                }
+
                 BotMain.StatusText = "[Funky] Switching to Main Hero";
                 ZetaDia.Memory.ClearCache();
                 HeroInfo curheroinfo = new HeroInfo(ZetaDia.Service.Hero);
@@ -96,6 +108,7 @@ namespace fBaseXtensions.Behaviors
                 {//Finished! Reset the variables.
                     FunkyGame.ShouldRefreshAccountDetails = true;
                     PluginSettings.LoadSettings();
+                    _initalDelayStarted = false;
                     MainHeroInfo = null;
                     AltHeroInfo = null;
                     GamblingCharacterSwitch = false;
@@ -107,11 +120,28 @@ namespace fBaseXtensions.Behaviors
                 return RunStatus.Running;
             }
 
-            BotMain.StatusText = "[Funky] Switching to Alt Hero";
+
+
+            
 
             //Update Main Hero Info and Switch to Alt Hero!
             if (MainHeroInfo == null)
+            {
+                if (!_initalDelayStarted)
+                {
+                    _initalstartTime = DateTime.Now;
+                    _initalDelayStarted = true;
+                }
+                var initaldelayStartSecs = DateTime.Now.Subtract(_initalstartTime).TotalSeconds;
+                if (initaldelayStartSecs < 7)
+                {
+                    BotMain.StatusText = "[Funky] Switching to Alt Hero (Waiting for inital delay! [" + initaldelayStartSecs + " secs])";
+                    return RunStatus.Running;
+                }
+
+                BotMain.StatusText = "[Funky] Switching to Alt Hero";
                 return CharacterSwitch();
+            }
 
             //Update Alt Hero Info and Start Adventure Mode Game!
             if (AltHeroInfo == null)
@@ -122,6 +152,7 @@ namespace fBaseXtensions.Behaviors
             FunkyGame.ShouldRefreshAccountDetails = true;
             GamblingCharacterSwitch = false;
             AltHeroGamblingEnabled = true;
+            _initalDelayStarted = false;
             return RunStatus.Success;
         }
 
@@ -164,6 +195,8 @@ namespace fBaseXtensions.Behaviors
 
 
         private static Delayer _delayer = new Delayer();
+        private static DateTime _initalstartTime = DateTime.Today;
+        private static bool _initalDelayStarted = false;
 
         private static HeroInfo MainHeroInfo;
         private static string _lastProfilePath;

@@ -1,5 +1,6 @@
 ﻿using System;
 using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
@@ -23,7 +24,15 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 			Priority = SkillPriority.High;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckCanCast | SkillPrecastFlags.CheckPlayerIncapacitated));
 
-			SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+			
+		    if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.ImmortalKingsCall, 4))
+		    {
+		        FcriteriaCombat = unit => FunkyGame.Targeting.Cache.Environment.HeroPets.BarbarianCallOfAncients < 3;
+		    }
+		    else
+		    {
+                SingleUnitCondition.Add(new UnitTargetConditions(TargetProperties.None, 25, MinimumHealthPercent: 0.95d, falseConditionalFlags: TargetProperties.Normal));
+		    }
 		}
 
 

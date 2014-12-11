@@ -78,6 +78,11 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitPetEntry(89933, PetTypes.WITCHDOCTOR_Fetish),
 				new UnitPetEntry(89934, PetTypes.WITCHDOCTOR_Fetish),
 				new UnitPetEntry(90072, PetTypes.WITCHDOCTOR_Fetish),
+
+                new UnitPetEntry(90536, PetTypes.BARBARIAN_CALLOFANCIENTS),
+				new UnitPetEntry(90535, PetTypes.BARBARIAN_CALLOFANCIENTS),
+				new UnitPetEntry(90443, PetTypes.BARBARIAN_CALLOFANCIENTS),
+
 			};
 			
 			#endregion

@@ -6597,5 +6597,26 @@
       <EntryType>Pet</EntryType>
       <PetTypes>WITCHDOCTOR_Fetish</PetTypes>
     </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>90536</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Pet</EntryType>
+      <PetTypes>BARBARIAN_CALLOFANCIENTS</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>90535</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Pet</EntryType>
+      <PetTypes>BARBARIAN_CALLOFANCIENTS</PetTypes>
+    </UnitPetEntry>
+    <UnitPetEntry>
+      <SnoId>90443</SnoId>
+      <InternalName />
+      <ActorType>Monster</ActorType>
+      <EntryType>Pet</EntryType>
+      <PetTypes>BARBARIAN_CALLOFANCIENTS</PetTypes>
+    </UnitPetEntry>
   </UnitPetEntries>
 </UnitDataCollection>
