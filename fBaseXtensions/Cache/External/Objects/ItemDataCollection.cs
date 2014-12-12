@@ -359,6 +359,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(335344, PluginDroppedItemTypes.MightyWeapon, "x1_mightyWeapon_1H_norm_base_flippy_01-67717"),
 				new DroppedItemEntry(192187, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_unique_flippy_01-206685"),
                 new DroppedItemEntry(271981, PluginDroppedItemTypes.MightyWeapon, "x1_mightyWeapon_1H_norm_unique_flippy_08-12312"),
+                new DroppedItemEntry(208784, PluginDroppedItemTypes.MightyWeapon, "mightyWeapon_1H_norm_unique_flippy_05"),
 
 				//
 				new DroppedItemEntry(367171, PluginDroppedItemTypes.MightyWeaponTwoHanded,"x1_mightyWeapon_2H_norm_base_flippy_02"),
@@ -368,6 +369,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(144263, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_03-6700"),
 				new DroppedItemEntry(144264, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_base_flippy_04-6834"),
                 new DroppedItemEntry(193749, PluginDroppedItemTypes.MightyWeaponTwoHanded, "mightyWeapon_2H_norm_unique_flippy_01"),
+                new DroppedItemEntry(272013, PluginDroppedItemTypes.MightyWeaponTwoHanded, "x1_mightyWeapon_2H_norm_unique_flippy_11"),
 
 				//
 				new DroppedItemEntry(4878, PluginDroppedItemTypes.Polearm, "Polearm_norm_base_flippy_06-7575"),

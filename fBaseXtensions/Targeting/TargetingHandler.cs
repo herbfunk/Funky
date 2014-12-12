@@ -153,8 +153,8 @@ namespace fBaseXtensions.Targeting
 				    {
                         GameEvents.FireItemLooted(Cache.CurrentTarget.AcdGuid.Value);
 
-                        if (FunkyGame.CurrentGameStats != null)
-                            FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem.BalanceData.PluginType, thisCacheItem.BalanceData.PluginBase, thisCacheItem.Itemquality.Value);
+                        if (FunkyGame.CurrentStats != null)
+                            FunkyGame.CurrentStats.CurrentProfile.LootTracker.LootedItemLog(thisCacheItem.BalanceData.PluginType, thisCacheItem.BalanceData.PluginBase, thisCacheItem.Itemquality.Value);
 				    }
 					
 

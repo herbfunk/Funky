@@ -1,4 +1,11 @@
-﻿v1.1.6.0
+﻿v1.1.6.1
+
+Stats
+	-No longer separates the current game and the total stats.
+	-Merged Classes TotalStats and GameStats into new single class "Stats"
+
+
+v1.1.6.0
 
 Added a 7 second delay during hero switching behavior.
 

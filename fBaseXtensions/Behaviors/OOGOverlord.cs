@@ -136,7 +136,7 @@ namespace fBaseXtensions.Behaviors
             if (ExitGameBehavior.BehaviorEngaged)
             {
                 //Get First or Last Used Profile..
-                TrackedProfile firstProfile = FunkyGame.CurrentGameStats.GetFirstProfile();
+                TrackedProfile firstProfile = FunkyGame.CurrentStats.GetFirstProfile();
 
                 string profile = firstProfile != null ? firstProfile.ProfileName :
                                 GlobalSettings.Instance.LastProfile;

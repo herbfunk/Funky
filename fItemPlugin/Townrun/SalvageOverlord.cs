@@ -30,6 +30,7 @@ namespace fItemPlugin.Townrun
                 return false;
 
 
+
             UpdateSalvageItemList();
 
 
@@ -298,8 +299,8 @@ namespace fItemPlugin.Townrun
             {
                 FunkyTownRunPlugin.LogJunkItems(item, thisGilesBaseType, OriginalGilesItemType);
             }
-            if (FunkyGame.CurrentGameStats != null)
-                FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.SalvagedItemLog(item);
+            if (FunkyGame.CurrentStats != null)
+                FunkyGame.CurrentStats.CurrentProfile.LootTracker.SalvagedItemLog(item);
         }
 
         internal static RunStatus PreSalvage(object ret)

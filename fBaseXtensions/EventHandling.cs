@@ -53,6 +53,12 @@ namespace fBaseXtensions
 				if (!HookHandler.initTreeHooks)
 					HookHandler.HookBehaviorTree();
 
+			    if (FunkyGame.CurrentStats == null)
+			        FunkyGame.CurrentStats = new Stats.Stats();
+                else if (FunkyGame.CurrentStats.Hero != FunkyGame.CurrentHeroName)
+                {
+                    //Switched heroes!
+                }
 			}
 
 			HookEvents();
@@ -77,8 +83,10 @@ namespace fBaseXtensions
 			    //Hotbar.OnSkillsChanged -= PlayerClass.HotbarSkillsChangedHandler;
 				Equipment.OnEquippedItemsChanged -= Equipment.EquippmentChangedHandler;
 				// Issue final reports
-				FunkyGame.TrackingStats.GameStopped(ref FunkyGame.CurrentGameStats);
-                FunkyGame.CurrentGameStats = new Stats.GameStats();
+                Stats.Stats.WriteProfileTrackerOutput(ref FunkyGame.CurrentStats);
+                //FunkyGame.CurrentStats.GameStopped();
+                //FunkyGame.TrackingStats.GameStopped(ref FunkyGame.CurrentGameStats);
+                //FunkyGame.CurrentGameStats = new Stats.GameStats();
 			}
 
 			
@@ -137,24 +145,21 @@ namespace fBaseXtensions
 					}
 				}
 
-                if (FunkyBaseExtension.PluginIsEnabled && !CharacterControl.AltHeroGamblingEnabled)
-				{
-					if (FunkyGame.CurrentGameStats == null)
-					{
-						FunkyGame.Hero.Update();
-						FunkyGame.CurrentGameStats = new Stats.GameStats();
-					}
-					else
-					{
-						//Merge last GameStats with the Total
-						FunkyGame.TrackingStats.GameChanged(ref FunkyGame.CurrentGameStats);
-						//Create new GameStats
-						FunkyGame.CurrentGameStats = new Stats.GameStats();
-					}
-				}
+			    if (FunkyBaseExtension.PluginIsEnabled && !CharacterControl.AltHeroGamblingEnabled)
+			    {
+			        if (FunkyGame.CurrentStats == null)
+			        {
+			            FunkyGame.CurrentStats = new Stats.Stats();
+			        }
+			        else
+			        {
+			            FunkyGame.CurrentStats.GameCount++;
+                        Stats.Stats.WriteProfileTrackerOutput(ref FunkyGame.CurrentStats);
+			        }
+			    }
 
 
-				FunkyGame.AdventureMode = (questId == 312429);
+			    FunkyGame.AdventureMode = (questId == 312429);
 				if (FunkyGame.AdventureMode)
 				{
 					Logger.DBLog.InfoFormat("Adventure Mode Active!");
@@ -191,8 +196,8 @@ namespace fBaseXtensions
 		{
 			Logger.Write(LogLevel.Event, "OnLeaveGame Event");
 
-            if (FunkyGame.CurrentGameStats!=null)
-			    FunkyGame.CurrentGameStats.CurrentProfile.UpdateRangeVariables();
+            if (FunkyGame.CurrentStats!=null)
+			    FunkyGame.CurrentStats.CurrentProfile.UpdateRangeVariables();
 
 			FunkyGame.CurrentGameID = new GameId();
 			FunkyGame.AdventureMode = false;
@@ -208,10 +213,10 @@ namespace fBaseXtensions
 			Logger.Write(LogLevel.Event, "OnProfileChanged Event");
 			string sThisProfile = ProfileManager.CurrentProfile.Path;
 
-		    if (FunkyGame.CurrentGameStats != null)
+		    if (FunkyGame.CurrentStats != null)
 		    {
-		        FunkyGame.CurrentGameStats.ProfileChanged(sThisProfile);
-		        TotalStats.WriteProfileTrackerOutput(ref FunkyGame.TrackingStats);
+		        FunkyGame.CurrentStats.ProfileChanged(sThisProfile);
+                Stats.Stats.WriteProfileTrackerOutput(ref FunkyGame.CurrentStats);
             }
 		    FunkyGame.Game.ObjectCustomWeights.Clear();
 			SettingCluster.ClusterSettingsTag = FunkyBaseExtension.Settings.Cluster;

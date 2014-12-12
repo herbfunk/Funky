@@ -562,8 +562,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					//Logger.DBLog.InfoFormat Dropped Items Here!!
 					if (BalanceData!=null && Itemquality.HasValue)
 					{
-						if (FunkyGame.CurrentGameStats != null)
-							FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(BalanceData.PluginType, Itemquality.Value);
+                        if (FunkyGame.CurrentStats != null)
+                            FunkyGame.CurrentStats.CurrentProfile.LootTracker.DroppedItemLog(BalanceData.PluginType, Itemquality.Value);
 					}
 
 					//Bot.Game.CurrentGameStats.CurrentProfile.LootTracker.DroppedItemLog(this);

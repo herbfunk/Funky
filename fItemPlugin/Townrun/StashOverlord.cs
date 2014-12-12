@@ -70,6 +70,7 @@ namespace fItemPlugin.Townrun
 						if (thisitem.ItemType == PluginItemTypes.HealthPotion ||
                             thisitem.ItemType == PluginItemTypes.LegendaryHealthPotion) continue;
 
+
 						//Stashing Horadric Caches?
 						if (thisitem.ItemType==PluginItemTypes.HoradricCache)
 						{
@@ -290,8 +291,8 @@ namespace fItemPlugin.Townrun
 					if (ZetaDia.Me.Inventory.CurrentStashPage == LastStashPage)
 					{
 						//FunkyTownRunPlugin.TownRunStats.StashedItemLog(thisitem);
-						if (FunkyGame.CurrentGameStats != null)
-							FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.StashedItemLog(thisitem);
+                        if (FunkyGame.CurrentStats != null)
+                            FunkyGame.CurrentStats.CurrentProfile.LootTracker.StashedItemLog(thisitem);
 						ZetaDia.Me.Inventory.MoveItem(thisitem.ThisDynamicID, ZetaDia.Me.CommonData.DynamicId, InventorySlot.SharedStash, LastStashPoint[0], LastStashPoint[1]);
 						LastStashPoint = new[] { -1, -1 };
 						LastStashPage = -1;

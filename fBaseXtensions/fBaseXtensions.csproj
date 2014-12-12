@@ -1051,13 +1051,10 @@
     <Compile Include="Settings\PluginSettings.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Stats\GameStats.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Stats\LootStats.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Stats\TotalStats.cs">
+    <Compile Include="Stats\Stats.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Stats\TrackedProfile.cs">

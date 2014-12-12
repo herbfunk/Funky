@@ -119,10 +119,10 @@ namespace fItemPlugin.Townrun
 				if (thisitem != null)
 				{
 					ZetaDia.Me.Inventory.UseItem(thisitem.ThisDynamicID);
-					if (thisitem.ItemType==PluginItemTypes.HoradricCache)
+                    if (thisitem.ItemType == PluginItemTypes.HoradricCache && FunkyGame.CurrentStats != null)
 					{
 						//Bot.Game.CurrentGameStats.CurrentProfile.HoradricCacheOpened++;
-						FunkyGame.CurrentGameStats.CurrentProfile.HoradricCacheOpened++;
+                        FunkyGame.CurrentStats.CurrentProfile.HoradricCacheOpened++;
 					}
 						
 				}

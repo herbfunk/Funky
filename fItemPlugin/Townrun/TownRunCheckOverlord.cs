@@ -192,8 +192,8 @@ namespace fItemPlugin.Townrun
 		internal static RunStatus ActionsEvaluatedEndingBehavior(object ret)
 		{
 			//FunkyTownRunPlugin.TownRunStats.TownRuns++;
-			if (FunkyGame.CurrentGameStats != null)
-				FunkyGame.CurrentGameStats.CurrentProfile.TownRuns++;
+            if (FunkyGame.CurrentStats != null)
+                FunkyGame.CurrentStats.CurrentProfile.TownRuns++;
 			//FunkyTownRunPlugin.LogTownRunStats();
 
 			SafetyVendorLocation = Vector3.Zero;

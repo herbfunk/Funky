@@ -38,6 +38,8 @@ namespace fBaseXtensions.Stats
 			BountiesCompleted = 0;
 			DeathCount = 0;
 			TotalXP = 0;
+		    RiftBossKills = 0;
+		    RiftTrialsCompleted = 0;
 
 			StartingXP = FunkyGame.Hero.CurrentExp;
 			StartingGold = FunkyGame.Hero.Coinage;
@@ -70,18 +72,20 @@ namespace fBaseXtensions.Stats
 		///<summary>
 		///Adds the sum of each property of the given TrackedProfile to this instance.
 		///</summary>
-		public void MergeStats(TrackedProfile other)
-		{
-			TownRuns += other.TownRuns;
-			ItemsGambled += other.ItemsGambled;
-			HoradricCacheOpened += other.HoradricCacheOpened;
-			BountiesCompleted += other.BountiesCompleted;
-			TotalGold += other.TotalGold;
-			TotalXP += other.TotalXP;
-			DeathCount += other.DeathCount;
-			TotalTimeSpan = TotalTimeSpan.Add(other.TotalTimeSpan);
-			LootTracker.Merge(other.LootTracker);
-		}
+        //public void MergeStats(TrackedProfile other)
+        //{
+        //    TownRuns += other.TownRuns;
+        //    ItemsGambled += other.ItemsGambled;
+        //    HoradricCacheOpened += other.HoradricCacheOpened;
+        //    BountiesCompleted += other.BountiesCompleted;
+        //    TotalGold += other.TotalGold;
+        //    TotalXP += other.TotalXP;
+        //    DeathCount += other.DeathCount;
+        //    RiftBossKills += other.RiftBossKills;
+        //    RiftTrialsCompleted += other.RiftTrialsCompleted;
+        //    TotalTimeSpan = TotalTimeSpan.Add(other.TotalTimeSpan);
+        //    LootTracker.Merge(other.LootTracker);
+        //}
 
 		public string GenerateOutput()
 		{

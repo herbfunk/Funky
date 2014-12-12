@@ -123,7 +123,10 @@ namespace fBaseXtensions.Behaviors
 		}
 		internal static RunStatus TallyDeathAction(object ret)
 		{
-			FunkyGame.CurrentGameStats.CurrentProfile.DeathCount++;
+			//FunkyGame.CurrentGameStats.CurrentProfile.DeathCount++;
+
+		    FunkyGame.CurrentStats.CurrentProfile.DeathCount++;
+
 			//Bot.Game.CurrentGameStats.CurrentProfile.DeathCount++;
 			TallyedDeathCounter = true;
 			return RunStatus.Success;

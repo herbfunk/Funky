@@ -128,15 +128,15 @@ namespace fBaseXtensions.Stats
 				case PluginBaseItemTypes.FollowerItem:
 					if (itemQuality > ItemQuality.Rare6)
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Legendary.Looted++;
+                        FunkyGame.CurrentStats.CurrentProfile.LootTracker.Legendary.Looted++;
 					}
 					else if (itemQuality > ItemQuality.Magic3)
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Rare.Looted++;
+                        FunkyGame.CurrentStats.CurrentProfile.LootTracker.Rare.Looted++;
 					}
 					else
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Magical.Looted++;
+                        FunkyGame.CurrentStats.CurrentProfile.LootTracker.Magical.Looted++;
 					}
 					break;
 
@@ -144,19 +144,19 @@ namespace fBaseXtensions.Stats
 				case PluginBaseItemTypes.Misc:
 					if (itemType == PluginItemTypes.CraftingMaterial || itemType == PluginItemTypes.CraftingPlan || itemType == PluginItemTypes.CraftTome)
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Crafting.Looted++;
+                        FunkyGame.CurrentStats.CurrentProfile.LootTracker.Crafting.Looted++;
 					}
 					else if (itemType == PluginItemTypes.InfernalKey)
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Keys.Looted++;
+                        FunkyGame.CurrentStats.CurrentProfile.LootTracker.Keys.Looted++;
 					}
 					else if (itemType == PluginItemTypes.KeyStone)
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.KeyStoneFragments.Looted++;
+                        FunkyGame.CurrentStats.CurrentProfile.LootTracker.KeyStoneFragments.Looted++;
 					}
 					break;
 				case PluginBaseItemTypes.Gem:
-					FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Gems.Looted++;
+                    FunkyGame.CurrentStats.CurrentProfile.LootTracker.Gems.Looted++;
 					break;
 			}
 
@@ -171,7 +171,7 @@ namespace fBaseXtensions.Stats
 				case PluginItemTypes.CraftingPlan:
 				case PluginItemTypes.LegendaryCraftingMaterial:
 				case PluginItemTypes.CraftTome:
-					FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Crafting.Dropped++;
+					FunkyGame.CurrentStats.CurrentProfile.LootTracker.Crafting.Dropped++;
 					break;
 
 				case PluginItemTypes.Ruby:
@@ -179,7 +179,7 @@ namespace fBaseXtensions.Stats
 				case PluginItemTypes.Topaz:
 				case PluginItemTypes.Amethyst:
 				case PluginItemTypes.Diamond:
-					FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Gems.Dropped++;
+					FunkyGame.CurrentStats.CurrentProfile.LootTracker.Gems.Dropped++;
 					break;
 
 
@@ -226,15 +226,15 @@ namespace fBaseXtensions.Stats
 				case PluginItemTypes.WizardHat:
 					if (itemQuality == ItemQuality.Legendary)
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Legendary.Dropped++;
+						FunkyGame.CurrentStats.CurrentProfile.LootTracker.Legendary.Dropped++;
 					}
 					else if (itemQuality > ItemQuality.Magic3)
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Rare.Dropped++;
+						FunkyGame.CurrentStats.CurrentProfile.LootTracker.Rare.Dropped++;
 					}
 					else
 					{
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Magical.Dropped++;
+						FunkyGame.CurrentStats.CurrentProfile.LootTracker.Magical.Dropped++;
 					}
 					break;
 
@@ -254,7 +254,7 @@ namespace fBaseXtensions.Stats
 					break;
 
 				case PluginItemTypes.InfernalKey:
-					FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.Keys.Dropped++;
+					FunkyGame.CurrentStats.CurrentProfile.LootTracker.Keys.Dropped++;
 					break;
 				case PluginItemTypes.KeyStone:
 					break;

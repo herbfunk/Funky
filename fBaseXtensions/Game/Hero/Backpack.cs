@@ -159,9 +159,13 @@ namespace fBaseXtensions.Game.Hero
                         !_stackableItems.Contains(thiscacheditem.SNO))
                         _stackableItems.Add(thiscacheditem.SNO);
 
-                    _backpackslotblocked[thiscacheditem.invCol, thiscacheditem.invRow] = true;
-                    if (thiscacheditem.IsTwoSlot)
-                        _backpackslotblocked[thiscacheditem.invCol, thiscacheditem.invRow + 1] = true;
+                    if (thiscacheditem.invCol >= 0 && thiscacheditem.invCol <= 9 && thiscacheditem.invRow >= 0 &&
+                        thiscacheditem.invRow <= 5)
+                    {
+                        _backpackslotblocked[thiscacheditem.invCol, thiscacheditem.invRow] = true;
+                        if (thiscacheditem.IsTwoSlot)
+                            _backpackslotblocked[thiscacheditem.invCol, thiscacheditem.invRow + 1] = true;
+                    }
                 }
             }
 

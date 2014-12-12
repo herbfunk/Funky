@@ -247,8 +247,8 @@ namespace fItemPlugin.Townrun
 					}
 
 					//FunkyTownRunPlugin.TownRunStats.VendoredItemLog(thisitem);
-					if (FunkyGame.CurrentGameStats != null)
-						FunkyGame.CurrentGameStats.CurrentProfile.LootTracker.VendoredItemLog(thisitem);
+                    if (FunkyGame.CurrentStats != null)
+                        FunkyGame.CurrentStats.CurrentProfile.LootTracker.VendoredItemLog(thisitem);
 					ZetaDia.Me.Inventory.SellItem(thisitem.ACDItem);
 				}
 				if (thisitem != null)

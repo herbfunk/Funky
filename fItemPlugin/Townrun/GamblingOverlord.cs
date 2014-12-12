@@ -208,8 +208,8 @@ namespace fItemPlugin.Townrun
 			if (LastBloodShardCount != CurrentBloodShardCount)
 			{
 				LastBloodShardCount=CurrentBloodShardCount;
-				if (FunkyGame.CurrentGameStats != null)
-					FunkyGame.CurrentGameStats.CurrentProfile.ItemsGambled++;
+				if (FunkyGame.CurrentStats != null)
+                    FunkyGame.CurrentStats.CurrentProfile.ItemsGambled++;
 				//FunkyTownRunPlugin.TownRunStats.ItemsGambled++;
 			}
 			else if (ZetaDia.Me.Inventory.NumFreeBackpackSlots < 3)

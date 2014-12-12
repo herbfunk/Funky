@@ -151,9 +151,9 @@ namespace fBaseXtensions.Game
 					//Check State?
 					if (bountyState == QuestState.Completed)
 					{
-					    if (FunkyGame.CurrentGameStats != null)
+                        if (FunkyGame.CurrentStats != null)
 					    {
-					        FunkyGame.CurrentGameStats.CurrentProfile.BountiesCompleted++;
+                            FunkyGame.CurrentStats.CurrentProfile.BountiesCompleted++;
 					    }
 					}
 
@@ -446,16 +446,16 @@ namespace fBaseXtensions.Game
 
 	    private static void QuestStepChanged(int SNO, int previousStep, int currentStep)
 	    {
-            if (FunkyGame.CurrentGameStats != null)
+            if (FunkyGame.CurrentStats != null)
             {
                 //405695, 9 (Trial Completed)
                 if (SNO == ADVENTUREMODE_GREATERRIFT_TRIAL && currentStep == 9)
                 {
-                    FunkyGame.CurrentGameStats.CurrentProfile.RiftTrialsCompleted++;
+                    FunkyGame.CurrentStats.CurrentProfile.RiftTrialsCompleted++;
                 }
                 else if (SNO == ADVENTUREMODE_RIFTID && currentStep == 10)
                 {//Rift Boss Killed
-                    FunkyGame.CurrentGameStats.CurrentProfile.RiftBossKills++;
+                    FunkyGame.CurrentStats.CurrentProfile.RiftBossKills++;
 
                     if (previousStep == 3)
                     {//Normal Rift Boss
@@ -753,7 +753,7 @@ namespace fBaseXtensions.Game
 
 							    if (curStep != Step)
 							    {
-                                    Logger.Write(LogLevel.Bounty, "Active Quest {3} Step Changed From {0} To {1}", curStep, Step, QuestSNO);
+                                    Logger.Write(LogLevel.Bounty, "Active Quest {2} Step Changed From {0} To {1}", curStep, Step, QuestSNO);
 							        QuestStepChanged(QuestSNO, curStep, Step);
 							    }
 								return;

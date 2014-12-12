@@ -914,21 +914,13 @@ namespace fBaseXtensions.Settings
 	        flowLayoutPanel_MiscStats.Controls.Clear();
             try
             {
-                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("== TOTAL SUMMARY =="));
-                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(FunkyGame.TrackingStats.GenerateOutputString()));
+                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("== TOTAL SUMMARY ==\r\n" + FunkyGame.CurrentStats.GenerateOutputString()));
 
                 flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("== PROFILE SUMMARY =="));
-                foreach (var item in FunkyGame.TrackingStats.Profiles)
+                foreach (var item in FunkyGame.CurrentStats.Profiles)
                 {
                     flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(item.GenerateOutput()));
                 }
-
-                flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry("== CURRENT GAME SUMMARY =="));
-                foreach (var item in FunkyGame.CurrentGameStats.Profiles)
-                {
-                    flowLayoutPanel_MiscStats.Controls.Add(new UserControlDebugEntry(item.GenerateOutput()));
-                }
-
             }
             catch
             {

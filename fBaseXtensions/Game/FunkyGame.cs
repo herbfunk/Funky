@@ -81,15 +81,10 @@ namespace fBaseXtensions.Game
 			set { targeting = value; }
 		}
 
-		///<summary>
-		///Tracking of All Game Stats 
-		///</summary>
-		public static TotalStats TrackingStats = new TotalStats();
-		///<summary>
-		///Tracking of current Game Stats
-		///</summary>
-		public static Stats.GameStats CurrentGameStats;
-
+        ///<summary>
+        ///Tracking of All Game Stats 
+        ///</summary>
+	    public static Stats.Stats CurrentStats;
 
 
 		internal static bool ShouldRefreshAccountDetails
