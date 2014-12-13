@@ -22,14 +22,24 @@ namespace fItemPlugin
 
 		internal static void HookBehaviorTree()
 		{
-			HookHandler.StoreHook(HookHandler.HookType.VendorRun);
+			
+            
 
 			Logger.DBLog.InfoFormat("[FunkyTownRun] Treehooks..");
 			#region VendorRun
-
 			// Wipe the vendorrun and loot behavior trees, since we no longer want them
 
 			Logger.DBLog.DebugFormat("[FunkyTownRun] VendorRun...");
+
+
+            Decorator vendorRunDecorator = HookHandler.ReturnHookValue(HookHandler.HookType.VendorRun)[0] as Decorator;
+            if (vendorRunDecorator != null && !(vendorRunDecorator.Children[0] is PrioritySelector))
+            {
+                Logger.DBLog.DebugFormat("[FunkyTownRun] VendorRun Child mismatched -- restoring original.");
+                HookHandler.RestoreHook(HookHandler.HookType.VendorRun);
+            }
+
+            HookHandler.StoreHook(HookHandler.HookType.VendorRun);
 
 			Decorator GilesDecorator = HookHandler.ReturnHookValue(HookHandler.HookType.VendorRun)[0] as Decorator;
 			//PrioritySelector GilesReplacement = GilesDecorator.Children[0] as PrioritySelector;

@@ -24,25 +24,18 @@ namespace fBaseXtensions.Stats
         public int RiftBossKills { get; set; }
         public int RiftTrialsCompleted { get; set; }
 
-		public int TotalXP { get; set; }
-		private int StartingXP;
-
-		public int TotalGold { get; set; }
-		private int StartingGold;
 
 		public TrackedProfile(string name)
 		{
 			TownRuns = 0;
 			ItemsGambled = 0;
 			HoradricCacheOpened = 0;
-			BountiesCompleted = 0;
 			DeathCount = 0;
-			TotalXP = 0;
-		    RiftBossKills = 0;
-		    RiftTrialsCompleted = 0;
+            //TotalXP = 0;
+            //TotalGold = 0;
 
-			StartingXP = FunkyGame.Hero.CurrentExp;
-			StartingGold = FunkyGame.Hero.Coinage;
+            //StartingXP = FunkyGame.Hero.CurrentExp;
+            //StartingGold = FunkyGame.Hero.Coinage;
 			ProfileName = name;
 			DateStartedProfile = DateTime.Now;
 		    DateStartedProfile_Real = DateTime.Now;
@@ -56,8 +49,8 @@ namespace fBaseXtensions.Stats
 		public void UpdateRangeVariables()
 		{
 			TotalTimeSpan = TotalTimeSpan.Add(DateTime.Now.Subtract(DateStartedProfile));
-			TotalXP += (FunkyGame.Hero.CurrentExp - StartingXP);
-			TotalGold += (FunkyGame.Hero.Coinage - StartingGold);
+            //TotalXP += (FunkyGame.Hero.CurrentExp - StartingXP);
+            //TotalGold += (FunkyGame.Hero.Coinage - StartingGold);
 		}
 		///<summary>
 		///Sets the Starting Values
@@ -65,8 +58,8 @@ namespace fBaseXtensions.Stats
 		public void RestartRangeVariables()
 		{
 			DateStartedProfile = DateTime.Now;
-			StartingXP = FunkyGame.Hero.CurrentExp;
-			StartingGold = FunkyGame.Hero.Coinage;
+            //StartingXP = FunkyGame.Hero.CurrentExp;
+            //StartingGold = FunkyGame.Hero.Coinage;
 		}
 
 		///<summary>
@@ -89,22 +82,18 @@ namespace fBaseXtensions.Stats
 
 		public string GenerateOutput()
 		{
-			return String.Format("{0} TotalTime:{2} \r\nDeaths:{1} ({6} dph) TotalGold:{3} ({8} gph) TotalXP:{4} ({7} xph)" +
-								"\r\nTotal Town Runs: {11}" +
-								"\r\nHoradric Caches Opened: {9}" +
-								"\r\nItems Gambled: {10}" +
-								 "\r\nBounties Completed: {12}" +
-								"\r\n{5}",
+			return String.Format("{0} TotalTime:{2}" +
+			                     "\r\nDeaths:{1} ({4} dph)" +
+								"\r\nTotal Town Runs: {7}" +
+								"\r\nHoradric Caches Opened: {5}" +
+								"\r\nItems Gambled: {6}" +
+								"\r\n{3}",
 								ProfileName,
 								DeathCount,
 								TotalTimeSpan.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"),
-								TotalGold,
-								TotalXP,
 								LootTracker,
 								(DeathCount / TotalTimeSpan.TotalHours).ToString("#.##"),
-								(TotalXP / TotalTimeSpan.TotalHours).ToString("#.##"),
-								(TotalGold / TotalTimeSpan.TotalHours).ToString("#.##"),
-								HoradricCacheOpened, ItemsGambled, TownRuns, BountiesCompleted);
+								HoradricCacheOpened, ItemsGambled, TownRuns);
 		}
 
 		public override bool Equals(object obj)

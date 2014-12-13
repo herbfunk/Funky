@@ -46,20 +46,6 @@ namespace fBaseXtensions.Stats
             return null;
         }
 
-        public int TotalGold
-        {
-            get
-            {
-                return Profiles.Sum(P => P.TotalGold);
-            }
-        }
-        public int TotalXP
-        {
-            get
-            {
-                return Profiles.Sum(P => P.TotalXP);
-            }
-        }
         public int TotalDeaths
         {
             get
@@ -88,27 +74,12 @@ namespace fBaseXtensions.Stats
                 return Profiles.Sum(P => P.TownRuns);
             }
         }
-        public int TotalBountiesCompleted
-        {
-            get
-            {
-                return Profiles.Sum(P => P.BountiesCompleted);
-            }
-        }
-        public int TotalRiftBossKills
-        {
-            get
-            {
-                return Profiles.Sum(P => P.RiftBossKills);
-            }
-        }
-        public int TotalRiftTrialsCompleted
-        {
-            get
-            {
-                return Profiles.Sum(P => P.RiftTrialsCompleted);
-            }
-        }
+
+
+        public int RiftTrialsCompleted { get; set; }
+        public int RiftBossKills { get; set; }
+        public int BountiesCompleted { get; set; }
+
         public TimeSpan TotalTimeRunning
         {
             get
@@ -222,30 +193,25 @@ namespace fBaseXtensions.Stats
             return String.Format("Games:{0}" +
                                  "\r\nTime {3}" +
                                  "\r\nUnique Profiles:{1}" +
-                                 "\r\nDeaths:{2} ({7} dph)" +
-                                 "\r\nGold:{4} ({8} gph) -- EXP:{5} ({9} xph)" +
-                                 "\r\nTown Runs: {17}  Items Gambled: {16}  Horadric Cache Opened: {15}" +
-                                 "\r\nBounties Completed: {18}" +
-                                 "\r\nRifts Completed: {19} Trials Completed: {20}" +
-                                 "\r\n{6}" +
-                             "Drops Per Hour: {10} -- Looted Per Hour: {11}\r\n" + "Stash Per Hour: {12} -- Vendored Per Hour: {13} -- Salvaged Per Hour: {14}",
+                                 "\r\nDeaths:{2} ({5} dph)" +
+                                 "\r\nTown Runs: {13}  Items Gambled: {12}  Horadric Cache Opened: {11}" +
+                                 "\r\nBounties Completed: {14}" +
+                                 "\r\nRifts Completed: {15} Trials Completed: {16}" +
+                                 "\r\n{4}" +
+                             "Drops Per Hour: {6} -- Looted Per Hour: {7}\r\n" + "Stash Per Hour: {8} -- Vendored Per Hour: {9} -- Salvaged Per Hour: {10}",
                              GameCount,
                              Profiles.Count,
                              TotalDeaths,
                              TotalTimeRunning.ToString(@"hh\ \h\ mm\ \m\ ss\ \s"),
-                             TotalGold,
-                             TotalXP,
                              totalloottracker,
                              (TotalDeaths / TotalTimeRunning.TotalHours).ToString("#.##"),
-                             (TotalGold / TotalTimeRunning.TotalHours).ToString("#.##"),
-                             (TotalXP / TotalTimeRunning.TotalHours).ToString("#.##"),
                              (totalloottracker.GetTotalLootStatCount(LootStatTypes.Dropped) / TotalTimeRunning.TotalHours).ToString("#.##"),
                              (totalloottracker.GetTotalLootStatCount(LootStatTypes.Looted) / TotalTimeRunning.TotalHours).ToString("#.##"),
                              (totalloottracker.GetTotalLootStatCount(LootStatTypes.Stashed) / TotalTimeRunning.TotalHours).ToString("#.##"),
                              (totalloottracker.GetTotalLootStatCount(LootStatTypes.Vendored) / TotalTimeRunning.TotalHours).ToString("#.##"),
                              (totalloottracker.GetTotalLootStatCount(LootStatTypes.Salvaged) / TotalTimeRunning.TotalHours).ToString("#.##"),
                              TotalHoradricCacheOpened, TotalItemsGambled, TotalTownRuns,
-                             TotalBountiesCompleted, TotalRiftBossKills, TotalRiftTrialsCompleted);
+                             BountiesCompleted, RiftBossKills, RiftTrialsCompleted);
         }
         internal static void WriteProfileTrackerOutput(ref Stats stats)
         {

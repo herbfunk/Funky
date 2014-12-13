@@ -213,7 +213,7 @@ namespace fBaseXtensions
 			Logger.Write(LogLevel.Event, "OnProfileChanged Event");
 			string sThisProfile = ProfileManager.CurrentProfile.Path;
 
-		    if (FunkyGame.CurrentStats != null)
+		    if (FunkyGame.CurrentStats != null && !CharacterControl.AltHeroGamblingEnabled)
 		    {
 		        FunkyGame.CurrentStats.ProfileChanged(sThisProfile);
                 Stats.Stats.WriteProfileTrackerOutput(ref FunkyGame.CurrentStats);

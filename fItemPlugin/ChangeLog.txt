@@ -1,4 +1,7 @@
-﻿v1.4.3
+﻿v1.4.4
+Added a check in Treehooking of VendorRun if the child does not match demonbuddy original.
+
+v1.4.3
 Replaced Me.Inventory.NumFreeBackpackSlots method with fBaseXtension's Backpack.GetNumberFreeBackpackSlots()
 
 
