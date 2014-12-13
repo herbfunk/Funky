@@ -3721,6 +3721,14 @@
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>105478</SnoId>
+      <InternalName>a1dun_Leor_Spike_Spawner_Switch</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>Obstacle</GizmotargetType>
+    </GizmoEntry>
   </GizmoCache>
   <GizmoStringCache>
     <GizmoStringEntry>

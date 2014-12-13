@@ -21,9 +21,11 @@ using fBaseXtensions.Items;
 using fBaseXtensions.Items.Enums;
 using fBaseXtensions.Stats;
 using Zeta.Bot;
+using Zeta.Common;
 using Zeta.Game;
 using Zeta.Game.Internals;
 using Zeta.Game.Internals.Actors;
+using Zeta.TreeSharp;
 using Logger = fBaseXtensions.Helpers.Logger;
 using LogLevel = fBaseXtensions.Helpers.LogLevel;
 
@@ -1974,28 +1976,24 @@ namespace fBaseXtensions.Settings
 	    private void btn_Test_Click(object sender, EventArgs e)
 	    {
 	        LBDebug.Controls.Clear();
-	        ZetaDia.Actors.Clear();
-	        ZetaDia.Actors.Update();
-	        foreach (var p in ZetaDia.Actors.ACDList)
-	        {
-	            try
-	            {
 
-	                if (p is ACDItem)
-	                {
-	                    ACDItem item = (ACDItem) p;
-	                    if (item.InventorySlot == InventorySlot.None || item.InventorySlot== InventorySlot.BackpackItems)
-	                    {
-	                        CacheACDItem cacheItem = new CacheACDItem(item);
-	                        LBDebug.Controls.Add(new UserControlDebugEntry(String.Format(cacheItem.ToString())));
-	                    }
-	                }
-	            }
-                catch(Exception ex)
-	            {
-                    LBDebug.Controls.Add(new UserControlDebugEntry(String.Format(ex.Message)));
-	            }
-	        }
+
+            try
+            {
+                Decorator orginal = HookHandler.ReturnHookValue(HookHandler.HookType.VendorRun)[0] as Decorator;
+                HookHandler.PrintChildrenTypes(orginal.Children);
+
+                HookHandler.RestoreHook(HookHandler.HookType.VendorRun);
+
+                orginal = HookHandler.ReturnHookValue(HookHandler.HookType.VendorRun)[0] as Decorator;
+                HookHandler.PrintChildrenTypes(orginal.Children);
+
+            }
+            catch (Exception ex)
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry(String.Format(ex.Message)));
+            }
+	        
 	        
 	    }
 	

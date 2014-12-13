@@ -398,8 +398,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			get
 			{
 				string debugstring = "SNO: " + SNOID + "(" + InternalName + ")\r\n";
-				debugstring += Actortype.HasValue ? "ActorType: " + Actortype.Value.ToString() + " " : "";
-				debugstring += targetType.HasValue ? "TargetType: " + targetType.Value.ToString() + " " + "\r\n" : "" + "\r\n";
+				debugstring += Actortype.HasValue ? "ActorType: " + Actortype.Value.ToString() + "   " : "";
+                debugstring += targetType.HasValue ? "TargetType: " + targetType.Value.ToString() + "   " : "";
+                debugstring += Obstacletype.HasValue ? "Obstacletype: " + Obstacletype.Value.ToString() + "\r\n" : "" + "\r\n";
+
 
 				debugstring += CollisionRadius.HasValue ? "CollisionRadius: " + CollisionRadius.Value.ToString(CultureInfo.InvariantCulture) + " " : "";
 				debugstring += ActorSphereRadius.HasValue ? "ActorSphereRadius: " + ActorSphereRadius.Value.ToString(CultureInfo.InvariantCulture) + " " + "\r\n" : "" + "\r\n";
@@ -409,7 +411,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 				debugstring += ItemDropType.HasValue ? "ItemBaseType: " + ItemDropType.Value.ToString() + " " + "\r\n" : "";
 				debugstring += UnitPropertyFlags.HasValue ? "UnitFlags: " + UnitPropertyFlags.Value.ToString() + " " + "\r\n" : "";
 				debugstring += GizmoTargetTypes.HasValue ? "GizmoTargetTypes: " + GizmoTargetTypes.Value.ToString() + " " + "\r\n" : "";
-				debugstring += snoentry != null ? "SnoEntry: " + snoentry.ToString() + " " + "\r\n" : "";
+				debugstring += snoentry != null ? "SnoEntry: " + snoentry.ToString() : "";
 
 				//
 				return debugstring;
@@ -838,6 +840,14 @@ namespace fBaseXtensions.Cache.Internal.Objects
 								else
 								{//Misc Gizmos (Sometimes Opening Doors or Paths!)
 									targetType = TargetType.Interactable;
+
+								    if (Gizmotype.HasValue && Gizmotype.Value.HasFlag(Enums.GizmoTargetTypes.Obstacle))
+								    {
+                                        Obstacletype = ObstacleType.ServerObject;
+								        if (!CacheIDLookup.hashSNONavigationObstacles.Contains(SNOID))
+								            CacheIDLookup.hashSNONavigationObstacles.Add(SNOID);
+								    }
+                                       
 								}
 							}
 							else

@@ -442,6 +442,9 @@ namespace fBaseXtensions.Cache.External.Objects
 				new DroppedItemEntry(376464, PluginDroppedItemTypes.Sword, "x1_Sword_norm_promo_flippy_02-215914"),
 				new DroppedItemEntry(5533, PluginDroppedItemTypes.Sword, "Sword_norm_base_flippy_07-1617"),
 				new DroppedItemEntry(192523, PluginDroppedItemTypes.Sword, "Sword_norm_unique_flippy_06-45519"),
+                new DroppedItemEntry(313293, PluginDroppedItemTypes.Sword, "x1_Sword_norm_set_flippy_02"),
+
+                //
 
 				//
 				new DroppedItemEntry(6348, PluginDroppedItemTypes.SwordTwoHanded,"twoHandedSword_norm_base_flippy_02"),

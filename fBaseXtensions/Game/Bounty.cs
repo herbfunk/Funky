@@ -153,7 +153,7 @@ namespace fBaseXtensions.Game
 					{
                         if (FunkyGame.CurrentStats != null)
 					    {
-                            FunkyGame.CurrentStats.CurrentProfile.BountiesCompleted++;
+                            FunkyGame.CurrentStats.BountiesCompleted++;
 					    }
 					}
 
@@ -451,11 +451,11 @@ namespace fBaseXtensions.Game
                 //405695, 9 (Trial Completed)
                 if (SNO == ADVENTUREMODE_GREATERRIFT_TRIAL && currentStep == 9)
                 {
-                    FunkyGame.CurrentStats.CurrentProfile.RiftTrialsCompleted++;
+                    FunkyGame.CurrentStats.RiftTrialsCompleted++;
                 }
                 else if (SNO == ADVENTUREMODE_RIFTID && currentStep == 10)
                 {//Rift Boss Killed
-                    FunkyGame.CurrentStats.CurrentProfile.RiftBossKills++;
+                    FunkyGame.CurrentStats.RiftBossKills++;
 
                     if (previousStep == 3)
                     {//Normal Rift Boss

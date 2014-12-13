@@ -532,6 +532,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(330698, PluginGizmoType.PowerUp, "", GizmoTargetTypes.PylonShrine),//Shield
 				new GizmoEntry(330695, PluginGizmoType.PowerUp, "", GizmoTargetTypes.PylonShrine),//Power
 				new GizmoEntry(330696, PluginGizmoType.PowerUp, "", GizmoTargetTypes.PylonShrine),//Conduit
+
+
+                //obstacles
+                new GizmoEntry(105478, PluginGizmoType.Switch, "a1dun_Leor_Spike_Spawner_Switch", GizmoTargetTypes.Obstacle),//Conduit
 			};
 		}
 

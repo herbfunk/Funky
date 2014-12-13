@@ -2032,6 +2032,13 @@
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
+      <SnoId>313293</SnoId>
+      <InternalName>x1_Sword_norm_set_flippy_02</InternalName>
+      <ActorType>Item</ActorType>
+      <EntryType>Item</EntryType>
+      <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
+    </DroppedItemEntry>
+    <DroppedItemEntry>
       <SnoId>6348</SnoId>
       <InternalName>twoHandedSword_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>

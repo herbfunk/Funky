@@ -17,12 +17,6 @@ namespace fBaseXtensions
 
 		internal static void HookBehaviorTree()
 		{
-            StoreHook(HookType.VendorRun);
-            StoreHook(HookType.OutOfGame);
-            StoreHook(HookType.Death);
-            StoreHook(HookType.Combat);
-            StoreHook(HookType.Loot);
-
             Logger.DBLog.InfoFormat("[Funky] Treehooks..");
             #region TreeHooks
 
@@ -89,6 +83,14 @@ namespace fBaseXtensions
             initTreeHooks = true;
 		}
 
+	    internal static void StoreTreeHooks()
+	    {
+            StoreHook(HookType.VendorRun);
+            StoreHook(HookType.OutOfGame);
+            StoreHook(HookType.Death);
+            StoreHook(HookType.Combat);
+            StoreHook(HookType.Loot);
+	    }
 		internal static void ResetTreehooks()
 		{
 		    if (RoutineManager.Current.Name == "Funky")

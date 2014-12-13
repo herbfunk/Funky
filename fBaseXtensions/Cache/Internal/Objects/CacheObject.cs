@@ -783,8 +783,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 		{
 			get
 			{
-				return String.Format("RAGUID {0}: Created {13} seconds ago" +
-				                     "\r\n{1} Position[{14}] Distance (Centre{2} / Radius{3}) Weight {16}" +
+				return String.Format("{1}" +
+				                     "RAGUID {0}: Created {13} seconds ago" +
+                                     "\r\nPosition[{14}] Distance (Centre{2} / Radius{3}) Weight {16}" +
 				                     "\r\nSnoAnim={9} -- AnimState={10}" +
 				                     "\r\nReqLOS={4} -- {5} -- [LOSV3: {6}]" +
 				                     "\r\nBotFacing={7}" +

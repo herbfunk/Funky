@@ -22,7 +22,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 
 			
 			Priority = SkillPriority.Medium;
-			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckEnergy));
+			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
 		}
 
 

@@ -25,6 +25,8 @@ namespace fBaseXtensions
 			if (ZetaDia.IsInGame) 
 				CheckGameIDChange();
 
+		    HookHandler.StoreTreeHooks();
+
             //Logger.DBLog.InfoFormat("fBaseXtensions is enabled == {0}", FunkyBaseExtension.PluginIsEnabled);
 			if (FunkyBaseExtension.PluginIsEnabled)
 			{
@@ -46,7 +48,7 @@ namespace fBaseXtensions
 				FunkyGame.Reset();
 				
 				//Hotbar.OnSkillsChanged += PlayerClass.HotbarSkillsChangedHandler;
-				
+			    GoldInactivity.LastCoinageUpdate = DateTime.Now;
 				GoldInactivity.OnGoldTimeoutTripped += GameCache.GoldInactivityTimerTrippedHandler;
 				Equipment.OnEquippedItemsChanged += Equipment.EquippmentChangedHandler;
 				
@@ -80,13 +82,11 @@ namespace fBaseXtensions
                     Navigator.PlayerMover = new DefaultPlayerMover();
                     Navigator.StuckHandler = new DefaultStuckHandler();
 			    }
-			    //Hotbar.OnSkillsChanged -= PlayerClass.HotbarSkillsChangedHandler;
+
 				Equipment.OnEquippedItemsChanged -= Equipment.EquippmentChangedHandler;
+
 				// Issue final reports
                 Stats.Stats.WriteProfileTrackerOutput(ref FunkyGame.CurrentStats);
-                //FunkyGame.CurrentStats.GameStopped();
-                //FunkyGame.TrackingStats.GameStopped(ref FunkyGame.CurrentGameStats);
-                //FunkyGame.CurrentGameStats = new Stats.GameStats();
 			}
 
 			
@@ -213,7 +213,7 @@ namespace fBaseXtensions
 			Logger.Write(LogLevel.Event, "OnProfileChanged Event");
 			string sThisProfile = ProfileManager.CurrentProfile.Path;
 
-		    if (FunkyGame.CurrentStats != null)
+		    if (FunkyGame.CurrentStats != null && !CharacterControl.AltHeroGamblingEnabled)
 		    {
 		        FunkyGame.CurrentStats.ProfileChanged(sThisProfile);
                 Stats.Stats.WriteProfileTrackerOutput(ref FunkyGame.CurrentStats);

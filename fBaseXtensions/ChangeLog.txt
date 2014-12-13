@@ -3,6 +3,9 @@
 Stats
 	-No longer separates the current game and the total stats.
 	-Merged Classes TotalStats and GameStats into new single class "Stats"
+	-Removed XP stat tracking -- for time being.
+	-Bounties and Rifts Completed counters are no longer profile specific stats.
+
 
 
 v1.1.6.0
