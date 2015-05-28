@@ -44,12 +44,12 @@ namespace fBaseXtensions.Items
         }
 	    private ItemQuality _thisQuality=ItemQuality.Invalid;
 
-        public int ThisItemStackQuantity
+        public long ThisItemStackQuantity
         {
             get { return _thisItemStackQuantity; }
             set { _thisItemStackQuantity = value; }
         }
-        private int _thisItemStackQuantity=0;
+        private long _thisItemStackQuantity = 0;
 
 	    public int MaxStackQuanity
 	    {
@@ -89,6 +89,8 @@ namespace fBaseXtensions.Items
             set { _isVendorBought = value; }
         }
         private bool _isVendorBought=false;
+
+        public int SocketsFilled { get; set; }
 		
 		public bool IsPotion { get; set; }
 		public PotionTypes PotionType=PotionTypes.None;
@@ -175,6 +177,11 @@ namespace fBaseXtensions.Items
                     ItemStats thesestats = item.Stats;
                     ItemStatString = thesestats.ToString();
                     ItemStatProperties = new ItemProperties(thesestats);
+
+                    if (ItemStatProperties.Sockets > 0)
+                    {
+                        SocketsFilled = item.NumSocketsFilled;
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -27,6 +27,8 @@ namespace fBaseXtensions.Cache.Internal.Enums
 
         Obstacle = 8192,
 
+        Bounty = 16384,
+
         Containers=Chest|Corpse|Resplendant|MiscContainer|FloorContainer|ArmorRack|WeaponRack,
 
 

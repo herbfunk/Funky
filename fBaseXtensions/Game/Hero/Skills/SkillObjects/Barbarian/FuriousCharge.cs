@@ -14,6 +14,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Barbarian
 
         public override bool IsRanged { get { return true; } }
 		public override bool IsMovementSkill { get { return true; } }
+        public override bool IsPiercing { get { return true; } }
 
 		private readonly WaitLoops _waitVars = new WaitLoops(1, 2, true);
 		public override WaitLoops WaitVars { get { return _waitVars; } }

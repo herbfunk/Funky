@@ -1664,197 +1664,6 @@ namespace fBaseXtensions.Settings
             FunkyBaseExtension.Settings = PluginSettings.DeserializeFromXML();
 		}
 
-		private void btn_DumpObstacleCache_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-
-
-			try
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(ObjectCache.Obstacles.DumpDebugInfo()));
-
-				Logger.DBLog.InfoFormat("Dumping Obstacle Cache");
-
-				var SortedValues = ObjectCache.Obstacles.Values.OrderBy(obj => obj.Obstacletype.Value).ThenBy(obj => obj.CentreDistance);
-				foreach (var item in ObjectCache.Obstacles)
-				{
-					LBDebug.Controls.Add(new UserControlDebugEntry(item.Value.DebugString));
-				}
-			}
-			catch
-			{
-
-				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
-			}
-			LBDebug.Focus();
-
-		}
-
-		private void btn_DumpSNOCache_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-
-			try
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(ObjectCache.cacheSnoCollection.DumpDebugInfo()));
-				var SortedValues = ObjectCache.cacheSnoCollection.Values.OrderBy(obj => obj.SNOID);
-				Logger.DBLog.InfoFormat("Dumping SNO Cache");
-
-				foreach (var item in ObjectCache.cacheSnoCollection)
-				{
-					LBDebug.Controls.Add(new UserControlDebugEntry(item.Value.DebugString));
-				}
-			}
-			catch
-			{
-
-				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
-			}
-			LBDebug.Focus();
-		}
-
-		private void btn_DumpCharacterCache_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-			try
-			{
-				Logger.DBLog.InfoFormat("Dumping Character Cache");
-
-				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Hero.DebugString()));
-
-			}
-			catch (Exception ex)
-			{
-				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
-			}
-			LBDebug.Focus();
-		}
-
-		private void btn_DumpTargetingCache_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-			try
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Targeting.DebugString()));
-			}
-			catch (Exception ex)
-			{
-				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
-			}
-			LBDebug.Focus();
-		}
-
-		private void btn_DumpSkillsCache_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-			try
-			{
-				if (FunkyGame.Hero.Class == null) return;
-				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Hero.Class.DebugString()));
-
-				LBDebug.Controls.Add(new UserControlDebugEntry("==Current Hotbar Abilities=="));
-				foreach (var item in FunkyGame.Hero.Class.Abilities.Values)
-				{
-					try
-					{
-						LBDebug.Controls.Add(new UserControlDebugEntry(item.DebugString()));
-					}
-					catch (Exception ex)
-					{
-						Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
-					}
-				}
-
-
-				LBDebug.Controls.Add(new UserControlDebugEntry("==Buffs=="));
-				foreach (var item in Hotbar.CurrentBuffs.Values)
-				{
-					try
-					{
-						LBDebug.Controls.Add(new UserControlDebugEntry(item.ToString()));
-					}
-					catch (Exception ex)
-					{
-						Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
-					}
-				}
-
-			}
-			catch (Exception ex)
-			{
-				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
-			}
-			LBDebug.Focus();
-		}
-
-
-		private void btn_DumpBountyCache_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-			try
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Bounty.DebugString()));
-			}
-			catch (Exception ex)
-			{
-				Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
-			}
-			LBDebug.Focus();
-		}
-
-		private void btn_DumpObjectCache_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-			try
-			{
-
-				string OutPut = ObjectCache.Objects.DumpDebugInfo();
-				LBDebug.Controls.Add(new UserControlDebugEntry(OutPut));
-
-				var SortedValues = ObjectCache.Objects.Values.OrderBy(obj => obj.targetType.Value).ThenBy(obj => obj.CentreDistance);
-				foreach (var item in SortedValues)
-				{
-					string objDebugStr = item.DebugString;
-					Color foreColor = (item is CacheItem) ? Color.Black : Color.GhostWhite;
-					Color backColor = (item is CacheDestructable) ? Color.DarkSlateGray
-								: (item is CacheUnit) ? Color.MediumSeaGreen
-								: (item is CacheItem) ? Color.Gold
-								: (item is CacheInteractable) ? Color.DimGray
-								: Color.Gray;
-
-					UserControlDebugEntry entry = new UserControlDebugEntry(objDebugStr, foreColor, backColor);
-					LBDebug.Controls.Add(entry);
-
-				}
-
-			}
-			catch
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
-			}
-			LBDebug.Focus();
-
-		}
-
-
-        private void btn_DumpItemBalanceCache_Click(object sender, EventArgs e)
-        {
-            LBDebug.Controls.Clear();
-
-            try
-            {
-                foreach (var entry in CacheIDLookup.dictGameBalanceCache.Values)
-                {
-                    LBDebug.Controls.Add(new UserControlDebugEntry(entry.ToString()));
-                }
-            }
-            catch 
-            {
-                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
-            }
-
-            LBDebug.Focus();
-        }
 
 		private void flowLayoutPanel_Avoidances_Click(object sender, EventArgs e)
 		{
@@ -1876,91 +1685,6 @@ namespace fBaseXtensions.Settings
 			LBDebug.Focus();
 		}
 
-		private void btn_DumpInteractiveCache_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-
-			try
-			{
-				foreach (var cacheObject in ObjectCache.InteractableObjectCache)
-				{
-					LBDebug.Controls.Add(new UserControlDebugEntry(cacheObject.Value.DebugString));
-				}
-			}
-			catch
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
-			}
-
-			LBDebug.Focus();
-		}
-
-		private void btn_DumpProfileBehavior_Click(object sender, EventArgs e)
-		{
-			LBDebug.Controls.Clear();
-
-			try
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Profile.DebugString));
-			}
-			catch
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
-			}
-
-			LBDebug.Focus();
-		}
-
-		private void btn_DumpInventory_Click(object sender, EventArgs e)
-		{
-
-			LBDebug.Controls.Clear();
-
-			try
-			{
-
-
-				foreach (var o in Equipment.EquippedItems)
-				{
-					try
-					{
-						LBDebug.Controls.Add(new UserControlDebugEntry(o.ToString()));
-					}
-					catch (Exception)
-					{
-
-					}
-
-				}
-
-			}
-			catch
-			{
-				LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
-			}
-
-			LBDebug.Focus();
-		}
-
-        private void btn_DumpBackpack_Click(object sender, EventArgs e)
-        {
-            LBDebug.Controls.Clear();
-
-            try
-            {
-                LBDebug.Controls.Add(new UserControlDebugEntry(Backpack.DebugString));
-                foreach (var item in Backpack.CacheItemList.Values)
-                {
-                    LBDebug.Controls.Add(new UserControlDebugEntry(item.ToString()));
-                }
-            }
-            catch
-            {
-                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
-            }
-
-            LBDebug.Focus();
-        }
 
 		private void btn_DebugDataFormatText_Click(object sender, EventArgs e)
 		{
@@ -1971,32 +1695,6 @@ namespace fBaseXtensions.Settings
 
 			LBDebug.Focus();
 		}
-
-
-	    private void btn_Test_Click(object sender, EventArgs e)
-	    {
-	        LBDebug.Controls.Clear();
-
-
-            try
-            {
-                Decorator orginal = HookHandler.ReturnHookValue(HookHandler.HookType.VendorRun)[0] as Decorator;
-                HookHandler.PrintChildrenTypes(orginal.Children);
-
-                HookHandler.RestoreHook(HookHandler.HookType.VendorRun);
-
-                orginal = HookHandler.ReturnHookValue(HookHandler.HookType.VendorRun)[0] as Decorator;
-                HookHandler.PrintChildrenTypes(orginal.Children);
-
-            }
-            catch (Exception ex)
-            {
-                LBDebug.Controls.Add(new UserControlDebugEntry(String.Format(ex.Message)));
-            }
-	        
-	        
-	    }
-	
 
 		private void removeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -2220,6 +1918,279 @@ namespace fBaseXtensions.Settings
         private void button_saveSettings_Click(object sender, EventArgs e)
         {
             PluginSettings.SerializeToXML(FunkyBaseExtension.Settings, Path.Combine(FolderPaths.sFunkySettingsPath, comboBox_SettingFiles.SelectedItem.ToString()));
+        }
+
+        private void dumpCurrentEntriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+            try
+            {
+
+                string OutPut = ObjectCache.Objects.DumpDebugInfo();
+                LBDebug.Controls.Add(new UserControlDebugEntry(OutPut));
+
+                var SortedValues = ObjectCache.Objects.Values.OrderBy(obj => obj.targetType.Value).ThenBy(obj => obj.CentreDistance);
+                foreach (var item in SortedValues)
+                {
+                    string objDebugStr = item.DebugString;
+                    Color foreColor = (item is CacheItem) ? Color.Black : Color.GhostWhite;
+                    Color backColor = (item is CacheDestructable) ? Color.DarkSlateGray
+                                : (item is CacheUnit) ? Color.MediumSeaGreen
+                                : (item is CacheItem) ? Color.Gold
+                                : (item is CacheInteractable) ? Color.DimGray
+                                : Color.Gray;
+
+                    UserControlDebugEntry entry = new UserControlDebugEntry(objDebugStr, foreColor, backColor);
+                    LBDebug.Controls.Add(entry);
+
+                }
+
+            }
+            catch
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
+            }
+            LBDebug.Focus();
+        }
+
+        private void dumpObstaclesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+
+
+            try
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry(ObjectCache.Obstacles.DumpDebugInfo()));
+
+                Logger.DBLog.InfoFormat("Dumping Obstacle Cache");
+
+                var SortedValues = ObjectCache.Obstacles.Values.OrderBy(obj => obj.Obstacletype.Value).ThenBy(obj => obj.CentreDistance);
+                foreach (var item in ObjectCache.Obstacles)
+                {
+                    LBDebug.Controls.Add(new UserControlDebugEntry(item.Value.DebugString));
+                }
+            }
+            catch
+            {
+
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
+            }
+            LBDebug.Focus();
+        }
+
+        private void snoEntriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+
+            try
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry(ObjectCache.cacheSnoCollection.DumpDebugInfo()));
+                var SortedValues = ObjectCache.cacheSnoCollection.Values.OrderBy(obj => obj.SNOID);
+                Logger.DBLog.InfoFormat("Dumping SNO Cache");
+
+                foreach (var item in ObjectCache.cacheSnoCollection)
+                {
+                    LBDebug.Controls.Add(new UserControlDebugEntry(item.Value.DebugString));
+                }
+            }
+            catch
+            {
+
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
+            }
+            LBDebug.Focus();
+        }
+
+        private void dumpInteractivesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+
+            try
+            {
+                foreach (var cacheObject in ObjectCache.InteractableObjectCache)
+                {
+                    LBDebug.Controls.Add(new UserControlDebugEntry(cacheObject.Value.DebugString));
+                }
+            }
+            catch
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
+            }
+
+            LBDebug.Focus();
+        }
+
+        private void dumpHeroInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+            try
+            {
+                Logger.DBLog.InfoFormat("Dumping Character Cache");
+
+                LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Hero.DebugString()));
+
+            }
+            catch (Exception ex)
+            {
+                Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+            }
+            LBDebug.Focus();
+        }
+
+        private void dumpSkillsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+            try
+            {
+                if (FunkyGame.Hero.Class == null) return;
+                LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Hero.Class.DebugString()));
+
+                LBDebug.Controls.Add(new UserControlDebugEntry("==Current Hotbar Abilities=="));
+                foreach (var item in FunkyGame.Hero.Class.Abilities.Values)
+                {
+                    try
+                    {
+                        LBDebug.Controls.Add(new UserControlDebugEntry(item.DebugString()));
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+                    }
+                }
+
+
+                LBDebug.Controls.Add(new UserControlDebugEntry("==Buffs=="));
+                foreach (var item in Hotbar.CurrentBuffs.Values)
+                {
+                    try
+                    {
+                        LBDebug.Controls.Add(new UserControlDebugEntry(item.ToString()));
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+            }
+            LBDebug.Focus();
+        }
+
+        private void dumpTargetingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+            try
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Targeting.DebugString()));
+            }
+            catch (Exception ex)
+            {
+                Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+            }
+            LBDebug.Focus();
+        }
+
+        private void dumpBountyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+            try
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Bounty.DebugString()));
+            }
+            catch (Exception ex)
+            {
+                Logger.DBLog.InfoFormat("Safely Handled Exception {0}", ex.Message);
+            }
+            LBDebug.Focus();
+        }
+
+        private void dumpBackpackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+
+            try
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry(Backpack.DebugString));
+                foreach (var item in Backpack.CacheItemList.Values)
+                {
+                    LBDebug.Controls.Add(new UserControlDebugEntry(item.ToString()));
+                }
+            }
+            catch
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
+            }
+
+            LBDebug.Focus();
+        }
+
+        private void dumpProfileBehaviorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+
+            try
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry(FunkyGame.Profile.DebugString));
+            }
+            catch
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
+            }
+
+            LBDebug.Focus();
+        }
+
+        private void dumpItemBalanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+
+            try
+            {
+                foreach (var entry in CacheIDLookup.dictGameBalanceCache.Values)
+                {
+                    LBDebug.Controls.Add(new UserControlDebugEntry(entry.ToString()));
+                }
+            }
+            catch
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Modification Exception"));
+            }
+
+            LBDebug.Focus();
+        }
+
+        private void dumpEquipmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LBDebug.Controls.Clear();
+
+            try
+            {
+
+
+                foreach (var o in Equipment.EquippedItems)
+                {
+                    try
+                    {
+                        LBDebug.Controls.Add(new UserControlDebugEntry(o.ToString()));
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+
+                }
+
+            }
+            catch
+            {
+                LBDebug.Controls.Add(new UserControlDebugEntry("End of Output due to Exception"));
+            }
+
+            LBDebug.Focus();
         }
 
         

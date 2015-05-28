@@ -83,6 +83,11 @@ namespace fBaseXtensions.Targeting
 				FunkyGame.Targeting.Cache.CheckItemLootStackCount = 0;
 				FunkyGame.Targeting.Cache.ShouldCheckItemLooted = false;
 			}
+            else if (CurrentTarget.targetType.Value == TargetType.Interactable &&
+                CurrentTarget.GizmoTargetTypes.HasValue && CurrentTarget.GizmoTargetTypes.Value == GizmoTargetTypes.Bounty)
+            {
+                lastHadSwitchAsTarget = DateTime.Now;
+            }
 
 			bWholeNewTarget = true;
 			bPickNewAbilities = true;
@@ -404,8 +409,8 @@ namespace fBaseXtensions.Targeting
 		internal bool UpdateQuestMonsterProperty { get; set; }
 		//When we last saw a "rare" chest
 		internal DateTime lastHadRareChestAsTarget = DateTime.Today;
-		// Store the date-time when we *FIRST* picked this target, so we can blacklist after X period of time targeting
-
+        internal DateTime lastHadSwitchAsTarget = DateTime.Today;
+		
 		internal int iTotalNumberGoblins = 0;
 		internal DateTime lastGoblinTime = DateTime.Today;
 

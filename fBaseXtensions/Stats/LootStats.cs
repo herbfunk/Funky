@@ -277,7 +277,7 @@ namespace fBaseXtensions.Stats
 			}
 			if (thisPluginItemType == PluginItemTypes.KeyStone)
 			{
-				KeyStoneFragments.Stashed += i.ThisItemStackQuantity;
+				KeyStoneFragments.Stashed += (int)i.ThisItemStackQuantity;
 			}
 
 			switch (i.ACDItem.ItemType)

@@ -849,6 +849,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(4451, PluginItemTypes.Helm),
 				new ItemDataEntry(57789, PluginItemTypes.Helm),
 				new ItemDataEntry(57786, PluginItemTypes.Helm),
+                new ItemDataEntry(57788, PluginItemTypes.Helm),
 
 				new ItemDataEntry(253984, PluginItemTypes.Pants),
 				new ItemDataEntry(253991, PluginItemTypes.Pants),
@@ -918,7 +919,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(139127, PluginItemTypes.WizardHat),
 				#endregion
 
-
+                
 				//========= WEAPONS =========//
 				#region Weapons && Offhand
 		
@@ -937,6 +938,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new ItemDataEntry(139105, PluginItemTypes.CeremonialKnife),
                 new ItemDataEntry(139107, PluginItemTypes.CeremonialKnife),
                 new ItemDataEntry(139102, PluginItemTypes.CeremonialKnife),
+                new ItemDataEntry(139106, PluginItemTypes.CeremonialKnife),
 
 				new ItemDataEntry(367136, PluginItemTypes.Dagger),
 				new ItemDataEntry(335128, PluginItemTypes.Dagger),

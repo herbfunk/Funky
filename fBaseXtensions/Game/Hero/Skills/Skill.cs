@@ -297,6 +297,16 @@ namespace fBaseXtensions.Game.Hero.Skills
 		}
 		private bool _ischanneling = false;
 
+        /// <summary>
+        /// Ability should check pierce count on targets
+        /// </summary>
+	    public virtual bool IsPiercing
+	    {
+            get { return _ispiercing; }
+            set { _ispiercing = value; }
+	    }
+	    private bool _ispiercing = false;
+
 		public DateTime LastUsed { get; set; }
 		internal double LastUsedMilliseconds
 		{

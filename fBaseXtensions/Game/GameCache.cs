@@ -457,8 +457,8 @@ namespace fBaseXtensions.Game
 						case Act.A1:
 							if (!FunkyGame.AdventureMode)
 								return new Vector3(2901.399f, 2809.826f, 24.04533f);
-							else
-								return new Vector3(320.8555f, 524.6776f, 24.04532f);
+                            else 
+                                return new Vector3(432.1958f, 576.1534f, 24.04533f);
 						case Act.A2:
 							return new Vector3(295.2101f, 265.1436f, 0.1000002f);
 						case Act.A3:

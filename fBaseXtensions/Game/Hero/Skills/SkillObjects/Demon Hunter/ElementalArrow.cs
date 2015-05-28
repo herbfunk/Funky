@@ -10,6 +10,7 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Demonhunter
 		public override bool IsRanged { get { return true; } }
 		public override bool IsProjectile { get { return true; } }
 		public override bool IsDestructiblePower { get { return true; } }
+        public override bool IsPiercing { get { return true; } }
 
 		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 

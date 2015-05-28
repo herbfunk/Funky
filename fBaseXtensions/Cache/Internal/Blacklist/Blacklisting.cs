@@ -115,6 +115,8 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
 			159631, //barbarian_frenzyRune_blood_swipe
 			181195, //a2dun_Cald_Belial_Acid_Attack
 			205459, //NoSpawnActor75feet
+            95263, //Cow_B-5389
+            249334, //DemonChains_ItemPassive-15012
 
             //Destructibles (non-essential)
             334973,//x1_Pand_Ext_Ledge_Breakable_Large_A
@@ -134,6 +136,11 @@ namespace fBaseXtensions.Cache.Internal.Blacklist
             2965, //a2dun_Swr_Breakable_Wall_A
             326935, //X1_Westm_Scaffolding_E_Breakable
             115908, //Wall_Feilds_MainC1_TrOut
+            434971, //px_Bounty_Camp_Pinger
+            435630, //px_Bounty_Camp_Pinger_450-3771
+            433403, //px_Bounty_Camp_Hellportals_Pool
+            434361, //px_Highlands_Camp_ResurgentCult_PortalSpawner
+            434340, //px_Spire_Camp_HellPortals_PortalSpawner
         };
 
 

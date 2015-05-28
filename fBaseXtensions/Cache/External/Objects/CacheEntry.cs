@@ -14,7 +14,8 @@ namespace fBaseXtensions.Cache.External.Objects
 		public string InternalName { get; set; }
 		public virtual ActorType ActorType { get; set; }
 		public virtual EntryType EntryType { get; set; }
-
+        public int InteractRange { get; set; }
+        public int CollisionRadius { get; set; }
 		[XmlIgnore]
 		public virtual Object ObjectType { get; set; }
 
@@ -76,19 +77,23 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 		public CacheGizmoEntry() : base() { }
-		public CacheGizmoEntry(int snoID, GizmoType objectType, string internalname = "", GizmoTargetTypes targettype = GizmoTargetTypes.None)
+		public CacheGizmoEntry(int snoID, GizmoType objectType, string internalname = "", GizmoTargetTypes targettype = GizmoTargetTypes.None, int interactRange=-1, int collisionRadius=-1)
 			: base(snoID)
 		{
 			InternalName = internalname;
 			_objectType = objectType;
 			GizmotargetType = targettype;
+		    InteractRange = interactRange;
+		    CollisionRadius = collisionRadius;
 		}
-		public CacheGizmoEntry(GizmoEntry entry)
+		public CacheGizmoEntry(GizmoEntry entry) : base(entry.SnoId)
 		{
 			InternalName = entry.InternalName;
 			var pluginGizmoType = (PluginGizmoType)entry.ObjectType;
-			_objectType = (GizmoType)Enum.Parse(typeof(GizmoType), pluginGizmoType.ToString());
+		    _objectType = (GizmoType) Enum.Parse(typeof (GizmoType), pluginGizmoType.ToString());
 			GizmotargetType = entry.GizmotargetType;
+            InteractRange = entry.InteractRange;
+            CollisionRadius = entry.CollisionRadius;
 		}
 
 		public override string ToString()
@@ -122,7 +127,12 @@ namespace fBaseXtensions.Cache.External.Objects
 			InternalName = internalname;
 			_objectType = objectType;
 		}
-
+        public CacheDroppedItemEntry(DroppedItemEntry entry)
+            : base(entry.SnoId)
+		{
+			InternalName = entry.InternalName;
+            _objectType = (PluginDroppedItemTypes) entry.ObjectType;
+		}
 		public override string ToString()
 		{
 			return base.ToString() + " " + String.Format("PluginDroppedItemTypes[{0}]", ((PluginDroppedItemTypes)_objectType).ToString());
@@ -154,7 +164,12 @@ namespace fBaseXtensions.Cache.External.Objects
 			InternalName = internalname;
 			_objectType = objectType;
 		}
-
+        public CacheAvoidanceEntry(AvoidanceEntry entry)
+            : base(entry.SnoId)
+		{
+			InternalName = entry.InternalName;
+            _objectType = (AvoidanceType)entry.ObjectType;
+		}
 		public override string ToString()
 		{
 			return base.ToString() + " " + String.Format("AvoidanceType[{0}]", ((AvoidanceType)_objectType).ToString());
@@ -180,13 +195,22 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 		public CacheUnitEntry() : base() { }
-		public CacheUnitEntry(int snoID, UnitFlags flags, string internalname = "")
+        public CacheUnitEntry(int snoID, UnitFlags flags, string internalname = "", int interactRange = -1, int collisionRadius = -1)
 			: base(snoID)
 		{
 			InternalName = internalname;
 			_objectType = flags;
+            InteractRange = interactRange;
+            CollisionRadius = collisionRadius;
 		}
-
+        public CacheUnitEntry(UnitEntry entry)
+            : base(entry.SnoId)
+		{
+			InternalName = entry.InternalName;
+            _objectType = (UnitFlags)entry.ObjectType;
+            InteractRange = entry.InteractRange;
+            CollisionRadius = entry.CollisionRadius;
+		}
 		public string ReturnCacheEntryString()
 		{
 			//new UnitEntry(5984, UnitFlags.TreasureGoblin, "treasureGoblin_A-12185"),
@@ -219,13 +243,22 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 		public CacheUnitPetEntry() : base() { }
-		public CacheUnitPetEntry(int snoID, PetTypes type, string internalname = "")
+        public CacheUnitPetEntry(int snoID, PetTypes type, string internalname = "", int interactRange = -1, int collisionRadius = -1)
 			: base(snoID)
 		{
 			InternalName = internalname;
 			_objectType = type;
+            InteractRange = interactRange;
+            CollisionRadius = collisionRadius;
 		}
-
+        public CacheUnitPetEntry(UnitPetEntry entry)
+            : base(entry.SnoId)
+		{
+			InternalName = entry.InternalName;
+            _objectType = (PetTypes)entry.ObjectType;
+            InteractRange = entry.InteractRange;
+            CollisionRadius = entry.CollisionRadius;
+		}
 		public override string ToString()
 		{
 			return base.ToString() + " " + String.Format("PetTypes[{0}]", ((PetTypes)_objectType).ToString());

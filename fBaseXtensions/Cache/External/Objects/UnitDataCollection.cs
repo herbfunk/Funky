@@ -90,6 +90,77 @@ namespace fBaseXtensions.Cache.External.Objects
 			#region Monsters
 			UnitEntries = new HashSet<UnitEntry>
 			{
+                #region Treasure Goblins
+		
+                new UnitEntry(5984, UnitFlags.TreasureGoblin, "treasureGoblin_A-12185"),
+				new UnitEntry(5985, UnitFlags.TreasureGoblin, "treasureGoblin_B-16978"),
+				new UnitEntry(5987, UnitFlags.TreasureGoblin, "treasureGoblin_C-8189"),
+				new UnitEntry(5988, UnitFlags.TreasureGoblin, "treasureGoblin_D-6951"),
+                new UnitEntry(408655, UnitFlags.TreasureGoblin, "treasureGoblin_E-22427"),
+                new UnitEntry(408989, UnitFlags.TreasureGoblin, "treasureGoblin_F-15528"),
+                new UnitEntry(413289, UnitFlags.TreasureGoblin, "treasureGoblin_H-40314"),
+                new UnitEntry(429161, UnitFlags.TreasureGoblin, "treasureGoblin_J-14158"),
+
+                new UnitEntry(402360, UnitFlags.Unique, "p1_TreasureTrooper_A_Unique_14-6840"),
+                new UnitEntry(380181, UnitFlags.Normal, "p1_TreasureChild_A-6686"),
+                new UnitEntry(380183, UnitFlags.Normal, "p1_TreasureTrooper_A-6532"),
+                new UnitEntry(405186, UnitFlags.Normal, "p1_treasureGoblin_tentacle_A-14727"),
+                new UnitEntry(380657, UnitFlags.Normal, "p1_treasureGobin_A_Unique_GreedMinion-9145"),
+                new UnitEntry(410392, UnitFlags.Normal, "p2_TreasureChild_Backup-22560"),
+                 
+	            #endregion
+
+                #region Bosses
+		
+                new UnitEntry(5350, UnitFlags.Boss, "SkeletonKing"),
+                new UnitEntry(51341, UnitFlags.Boss, "SpiderQueen-9649"),
+                new UnitEntry(3526, UnitFlags.Boss, "Butcher-14105"),
+                new UnitEntry(3349, UnitFlags.Boss, "BigBelial"),
+                new UnitEntry(95250, UnitFlags.Boss, "Cydaea"),
+				new UnitEntry(96192, UnitFlags.Boss, "SiegeBreaker"),
+				new UnitEntry(98879, UnitFlags.Boss | UnitFlags.Fast, "graveDigger_Warden-18500"),
+                new UnitEntry(89690, UnitFlags.Boss, "Azmodan"),
+                new UnitEntry(80509, UnitFlags.Boss, "Kulle"),
+                new UnitEntry(86624, UnitFlags.Boss, "Adventurer_D_TemplarIntroUnique-17287"),
+                new UnitEntry(133562, UnitFlags.Boss, "TerrorDiablo"),
+                new UnitEntry(114917, UnitFlags.Boss, "Diablo"),
+				new UnitEntry(143994, UnitFlags.Boss, "DiabloClone"),
+				new UnitEntry(143996, UnitFlags.Boss, "DiabloClone"),
+				new UnitEntry(144001, UnitFlags.Boss, "DiabloClone"),
+				new UnitEntry(144003, UnitFlags.Boss, "DiabloClone"),
+                new UnitEntry(220160, UnitFlags.Boss, "SmallBelial"),
+                new UnitEntry(256187, UnitFlags.Boss, "UNKNOWN"),
+				new UnitEntry(256189, UnitFlags.Boss, "UNKNOWN"),
+				new UnitEntry(256508, UnitFlags.Boss, "UNKNOWN"),
+				new UnitEntry(256709, UnitFlags.Boss, "UNKNOWN"),
+				new UnitEntry(256711, UnitFlags.Boss, "Rakanot"),
+                new UnitEntry(255929, UnitFlags.Boss, "UNKNOWN"),
+                new UnitEntry(375106, UnitFlags.Boss, "x1_Death_Orb_Monster-11897"),
+				new UnitEntry(375111, UnitFlags.Boss, "x1_Death_Orb_Master_Monster-17381"),
+                new UnitEntry(316839, UnitFlags.Boss, "x1_deathOrb_bodyPile-12094"),
+                new UnitEntry(291368, UnitFlags.Boss, "x1_Urzael_Boss-28603"),
+                new UnitEntry(378665, UnitFlags.Boss, "p1_Greed-8869"),
+                new UnitEntry(363060, UnitFlags.Unique|UnitFlags.Worm|UnitFlags.Boss, "x1_Rockworm_Pand_Unique_B-5646"),
+                new UnitEntry(144400, UnitFlags.Unique | UnitFlags.Boss | UnitFlags.Worm, ""),
+                new UnitEntry(218947, UnitFlags.Unique | UnitFlags.Boss | UnitFlags.Worm, ""),
+                new UnitEntry(346465, UnitFlags.Unique | UnitFlags.Boss, "X1_BigRed_Chronodemon_TimeTrapped_A-3810"),
+                new UnitEntry(363051, UnitFlags.Boss | UnitFlags.Worm, "x1_Rockworm_Pand_Unique_A-98549"),
+				new UnitEntry(326664, UnitFlags.Normal | UnitFlags.Boss, "X1_CoreEliteDemon_Chronodemon_Burned_A-94217"),
+                new UnitEntry(193077, UnitFlags.Boss | UnitFlags.Quest, "a3dun_Crater_ST_GiantDemonHeart_Mob"),
+                new UnitEntry(208561, UnitFlags.Boss | UnitFlags.Quest, "a4dun_Garden_Hellportal_Pillar-8309"),
+				new UnitEntry(255620, UnitFlags.Boss, "Uber_Maghda"),
+				new UnitEntry(256094, UnitFlags.Boss, "Uber_SkeletonKingRed"),
+				new UnitEntry(255623, UnitFlags.Boss, "Uber_SiegebreakerDemon"),
+				new UnitEntry(255634, UnitFlags.Boss, "Uber_ZoltunKulle"),
+				new UnitEntry(255638, UnitFlags.Boss, "Uber_Gluttony"),
+				new UnitEntry(256714, UnitFlags.Boss, "Uber_Despair"),
+				new UnitEntry(364580, UnitFlags.Boss, "Uber_TerrorDiablo"),
+				new UnitEntry(367771, UnitFlags.Boss, "Uber_SiegebreakerDemon_Diablo"),
+				new UnitEntry(367770, UnitFlags.Boss, "Uber_Maghda_Diablo"),
+ 
+	            #endregion
+
+                new UnitEntry(144315, UnitFlags.Normal, "Ghoul_E-13338"),
 				new UnitEntry(365, UnitFlags.Normal | UnitFlags.Ranged, "FallenShaman_D-1156"),
 				new UnitEntry(370, UnitFlags.Normal | UnitFlags.Fast | UnitFlags.Flying | UnitFlags.Transportable, "Ghost_A-3368"),
 				new UnitEntry(375, UnitFlags.Normal | UnitFlags.Ranged, "Goatman_Shaman_B-4749"),
@@ -99,12 +170,10 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(3328, UnitFlags.Normal | UnitFlags.Flying, "x1_WestmarchBat_A-13478"),
 				new UnitEntry(3337, UnitFlags.Normal, "Beast_A-4362"),
 				new UnitEntry(3338, UnitFlags.Normal, "Beast_B-19030"),
-				new UnitEntry(3349, UnitFlags.Boss, "BigBelial"),
 				new UnitEntry(3361, UnitFlags.Normal, "BileCrawler_A-3385"),
 				new UnitEntry(3362, UnitFlags.Normal, "BileCrawler_B-2588"),
 				new UnitEntry(3384, UnitFlags.Normal | UnitFlags.Burrowing | UnitFlags.Flying, "Bloodhawk_A"),
 				new UnitEntry(3385, UnitFlags.Normal | UnitFlags.Burrowing | UnitFlags.Flying, "Bloodhawk_B"),
-				new UnitEntry(3526, UnitFlags.Boss, "Butcher-14105"),
 				new UnitEntry(3847, UnitFlags.Normal | UnitFlags.Grotesque, "Corpulent_A-457"),
 				new UnitEntry(3848, UnitFlags.Normal | UnitFlags.Grotesque, "Corpulent_B-1087"),
 				new UnitEntry(3849, UnitFlags.Normal | UnitFlags.Grotesque, "Corpulent_C-15764"),
@@ -203,7 +272,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(5347, UnitFlags.Normal | UnitFlags.Ranged, "SkeletonArcher_B-5230"),
 				new UnitEntry(5348, UnitFlags.Normal | UnitFlags.Ranged, "SkeletonArcher_C-846"),
 				new UnitEntry(5349, UnitFlags.Normal | UnitFlags.Ranged | UnitFlags.Fast, "SkeletonArcher_D-2325"),
-				new UnitEntry(5350, UnitFlags.Boss, "SkeletonKing"),
+				
 				new UnitEntry(5367, UnitFlags.Normal | UnitFlags.Ranged, "skeletonMage_Cold_A-8757"),
 				new UnitEntry(5368, UnitFlags.Normal | UnitFlags.Ranged, "skeletonMage_Cold_B-526"),
 				new UnitEntry(5371, UnitFlags.Normal | UnitFlags.Ranged, "skeletonMage_Fire_A-5295"),
@@ -234,10 +303,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(5512, UnitFlags.Normal | UnitFlags.Flying, "Swarm_A-683"),
 				new UnitEntry(5513, UnitFlags.Normal | UnitFlags.Flying, "Swarm_B-4946"),
 				new UnitEntry(5581, UnitFlags.Normal| UnitFlags.Tough, "ThousandPounder-11457"),
-				new UnitEntry(5984, UnitFlags.TreasureGoblin, "treasureGoblin_A-12185"),
-				new UnitEntry(5985, UnitFlags.TreasureGoblin, "treasureGoblin_B-16978"),
-				new UnitEntry(5987, UnitFlags.TreasureGoblin, "treasureGoblin_C-8189"),
-				new UnitEntry(5988, UnitFlags.TreasureGoblin, "treasureGoblin_D-6951"),
+				
 				new UnitEntry(6023, UnitFlags.Normal, "trist_Urn_Tall-2629"),
 				new UnitEntry(6024, UnitFlags.Normal, "TriuneCultist_A-9509"),
 				new UnitEntry(6027, UnitFlags.Normal, "TriuneCultist_C-1587"),
@@ -270,7 +336,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(6653, UnitFlags.Normal, "Zombie_B-5575"),
 				new UnitEntry(6654, UnitFlags.Normal, "Zombie_C-10516"),
 				new UnitEntry(6655, UnitFlags.Normal, "Zombie_D-14547"),
-				new UnitEntry(51341, UnitFlags.Boss, "SpiderQueen-9649"),
+				
 				new UnitEntry(56784, UnitFlags.Normal, "electricEel_A-9756"),
 				new UnitEntry(60049, UnitFlags.Normal, "shadowVermin_A-8211"),
 				new UnitEntry(60722, UnitFlags.Normal| UnitFlags.Tough, "Brickhouse_A-1225"),
@@ -283,7 +349,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(77087, UnitFlags.AdventureModeBoss, "ZombieFemale_A_FamilyTree_Mother-5494"),
 				new UnitEntry(77090, UnitFlags.Fast | UnitFlags.AdventureModeBoss, "CryptChild_A_FamilyTree_Son-5518"),
 				new UnitEntry(77796, UnitFlags.Normal, "demonTrooper_A-3484"),
-				new UnitEntry(80509, UnitFlags.Boss, "Kulle"),
+				
 				new UnitEntry(80652, UnitFlags.Normal, "Skeleton_Cain-7031"),
 				new UnitEntry(81342, UnitFlags.AdventureModeBoss, "X1_LR_Boss_UNKNOWN"),
 				new UnitEntry(81954, UnitFlags.Normal | UnitFlags.Flying, "FleshPitFlyer_B_Event_Ambusher-6670"),
@@ -292,16 +358,14 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(82764, UnitFlags.Normal, "shadowVermin_B-7898"),
 				new UnitEntry(85900, UnitFlags.Unique | UnitFlags.Fast | UnitFlags.Summoner, "ZombieFemale_A_BlacksmithA-8082"),
 				new UnitEntry(85971, UnitFlags.Unique | UnitFlags.Fast | UnitFlags.Flying | UnitFlags.Transportable, "Ghost_A_Unique_House1000Undead-3742"),
-				new UnitEntry(86624, UnitFlags.Boss, "Adventurer_D_TemplarIntroUnique-17287"),
+				
 				new UnitEntry(87012, UnitFlags.Normal, "Skeleton_A_Cain-7076"),
-				new UnitEntry(89690, UnitFlags.Boss, "Azmodan"),
+				
 				new UnitEntry(90008, UnitFlags.Normal, "TownAttackCultistMelee-27395"),
 				new UnitEntry(90367, UnitFlags.Normal | UnitFlags.Ranged, "TownAttack_Cultist-28100"),
 				new UnitEntry(90453, UnitFlags.Normal, "Zombie_Inferno_C-14953"),
-				new UnitEntry(91111, UnitFlags.Normal | UnitFlags.Stationary, "Siege_wallMonster_A-18790"),
-				new UnitEntry(95250, UnitFlags.Boss, "Cydaea"),
-				new UnitEntry(96192, UnitFlags.Boss, "SiegeBreaker"),
-				new UnitEntry(98879, UnitFlags.Boss | UnitFlags.Fast, "graveDigger_Warden-18500"),
+				
+				
 				new UnitEntry(99556, UnitFlags.Normal | UnitFlags.Burrowing, "WitherMoth_A_Hidden-8944"),
 				new UnitEntry(100956, UnitFlags.Normal, "Spawner_Leor_Iron_Maiden-14866"),
 				new UnitEntry(104247, UnitFlags.Unique, "Scavenger_B_Armorer_Unique-16361"),
@@ -327,7 +391,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(113983, UnitFlags.Normal, "Skeleton_C_OasisAmbush-2190"),
 				new UnitEntry(113994, UnitFlags.Unique | UnitFlags.Grotesque, "Corpulent_C_OasisAmbush_Unique-3015"),
 				new UnitEntry(114359, UnitFlags.Normal, "Lamprey_C_OasisAmbush-3345"),
-				new UnitEntry(114917, UnitFlags.Boss, "Diablo"),
+				
 				new UnitEntry(115403, UnitFlags.Unique, "Skeleton_A_Cain_Unique-7172"),
 				new UnitEntry(116299, UnitFlags.Normal | UnitFlags.Burrowing | UnitFlags.ReflectiveMissle, "SandMonster_A_Gauntlet"),
 				new UnitEntry(120652, UnitFlags.Normal | UnitFlags.Summoner, "a3dun_crater_Demon_GroundTrap_GasChamber-13785"),
@@ -340,7 +404,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(131131, UnitFlags.Unique | UnitFlags.Ranged | UnitFlags.Fast, "TriuneSummoner_A_Unique_SwordOfJustice-22011"),
 				new UnitEntry(131278, UnitFlags.Normal, "graveDigger_B_Ghost-8312"),
 				new UnitEntry(131280, UnitFlags.Normal, "graveRobber_A_Ghost-8239"),
-				new UnitEntry(133562, UnitFlags.Boss, "TerrorDiablo"),
+				
 				new UnitEntry(133669, UnitFlags.Normal | UnitFlags.Fast | UnitFlags.Transportable, "azmodanBodyguard_B-3904"),
 				new UnitEntry(135611, UnitFlags.Normal, "shadowVermin_C-16642"),
 				new UnitEntry(136090, UnitFlags.Normal, "crater_HellPortal_Node_Monster-3627"),
@@ -357,12 +421,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(140424, UnitFlags.Unique | UnitFlags.Ranged, "FallenShaman_B_Water_Money-13217"),
 				new UnitEntry(140947, UnitFlags.Unique | UnitFlags.ReflectiveMissle | UnitFlags.Flying, "DuneDervish_A_DyingManMine"),
 				new UnitEntry(141194, UnitFlags.Normal, "demonTrooper_B-581"),
-				new UnitEntry(143994, UnitFlags.Boss, "DiabloClone"),
-				new UnitEntry(143996, UnitFlags.Boss, "DiabloClone"),
-				new UnitEntry(144001, UnitFlags.Boss, "DiabloClone"),
-				new UnitEntry(144003, UnitFlags.Boss, "DiabloClone"),
-				new UnitEntry(144315, UnitFlags.Normal, "Ghoul_E-13338"),
-				new UnitEntry(144400, UnitFlags.Unique | UnitFlags.Boss | UnitFlags.Worm, ""),
+                
 				new UnitEntry(145745, UnitFlags.Normal, "TriuneCultist_A_Templar-16276"),
 				new UnitEntry(148449, UnitFlags.AdventureModeBoss, "X1_LR_Boss_UNKNOWN"),
 				new UnitEntry(152535, UnitFlags.Normal | UnitFlags.Flying | UnitFlags.Debuffing | UnitFlags.Transportable, "Succubus_DaughterOfPain"),
@@ -399,7 +458,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(189906, UnitFlags.Normal, "TriuneVesselActivated_A_Unique_Tower_Of_Power-20073"),
 				new UnitEntry(192850, UnitFlags.Normal| UnitFlags.Tough, "ThousandPounder_C-12744"),
 				new UnitEntry(192965, UnitFlags.Normal, "TentacleHorse_A-8034"),
-				new UnitEntry(193077, UnitFlags.Boss | UnitFlags.Quest, "a3dun_Crater_ST_GiantDemonHeart_Mob"),
+				
 				new UnitEntry(195747, UnitFlags.Normal | UnitFlags.Flying, "FleshPitFlyer_E-18877"),
 				new UnitEntry(196102, UnitFlags.Unique | UnitFlags.Debuffing, "TerrorDemon_A_Unique_1000Monster"),
 				new UnitEntry(202856, UnitFlags.Normal, "electricEel_B-16203"),
@@ -454,14 +513,14 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(218678, UnitFlags.AdventureModeBoss, "X1_LR_Boss_UNKNOWN"),
 				new UnitEntry(218795, UnitFlags.Normal, "ZombieSkinny_E-16212"),
 				new UnitEntry(218813, UnitFlags.Normal, "ZombieCrawler_E-4982"),
-				new UnitEntry(218947, UnitFlags.Unique | UnitFlags.Boss | UnitFlags.Worm, ""),
+				
 				new UnitEntry(219223, UnitFlags.Normal | UnitFlags.Ranged, "a2dun_Swr_Arch_Spawner_ZombieCrawler_01-1430"),
 				new UnitEntry(219673, UnitFlags.Unique | UnitFlags.Flying | UnitFlags.Debuffing | UnitFlags.Transportable, "Succubus_C_Unique_01"),
 				new UnitEntry(219725, UnitFlags.Normal, "ZombieFemale_A_TristramQuest_Unique-1359"),
 				new UnitEntry(219736, UnitFlags.Unique | UnitFlags.MalletLord, "MalletDemon_A_Unique_01"),
 				new UnitEntry(219751, UnitFlags.Unique | UnitFlags.MalletLord, "MalletDemon_A_Unique"),
 				new UnitEntry(219832, UnitFlags.Unique | UnitFlags.Burrowing | UnitFlags.ReflectiveMissle, "sandMonster_A_PortalRoulette"),
-				new UnitEntry(220160, UnitFlags.Boss, "SmallBelial"),
+				
 				new UnitEntry(220395, UnitFlags.Unique, "demonTrooper_A_Unique_02-23382"),
 				new UnitEntry(220777, UnitFlags.Unique | UnitFlags.Burrowing | UnitFlags.Worm, "Rockworm_A3_Crater_Unique_01"),
 				new UnitEntry(220851, UnitFlags.Unique | UnitFlags.Burrowing | UnitFlags.Worm, "Rockworm_A3_Crater_Unique_02"),
@@ -485,16 +544,12 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(246343, UnitFlags.Normal | UnitFlags.Burrowing, "x1_BogBlight_A-1733"),
 				new UnitEntry(254175, UnitFlags.Normal| UnitFlags.Burrowing, "x1_bogBlight_Maggot_A-2145"),
 				new UnitEntry(255704, UnitFlags.Unique | UnitFlags.Ranged | UnitFlags.Fast, "GoatMutant_Ranged_A_Unique_Uber-3308"),
-				new UnitEntry(255929, UnitFlags.Boss, "UNKNOWN"),
+				
 				new UnitEntry(256000, UnitFlags.Unique | UnitFlags.ReflectiveMissle | UnitFlags.Flying, "DuneDervish_B_Unique_Uber"),
 				new UnitEntry(256022, UnitFlags.Unique | UnitFlags.ReflectiveMissle, "DuneDervish_B_Unique_Uber-3854"),
 				new UnitEntry(256034, UnitFlags.Unique | UnitFlags.Debuffing, "TerrorDemon_A_Unique_Uber"),
 				new UnitEntry(256040, UnitFlags.Unique | UnitFlags.Ranged | UnitFlags.Fast | UnitFlags.Transportable, "morluSpellcaster_A_Unique_Uber-19260"),
-				new UnitEntry(256187, UnitFlags.Boss, "UNKNOWN"),
-				new UnitEntry(256189, UnitFlags.Boss, "UNKNOWN"),
-				new UnitEntry(256508, UnitFlags.Boss, "UNKNOWN"),
-				new UnitEntry(256709, UnitFlags.Boss, "UNKNOWN"),
-				new UnitEntry(256711, UnitFlags.Boss, "Rakanot"),
+				
 				new UnitEntry(258678, UnitFlags.Normal | UnitFlags.Tough, "x1_westmarchBrute_A-9301"),
 				new UnitEntry(260231, UnitFlags.Unique | UnitFlags.Fast, "FleshPitFlyer_B_FarmhouseAmbush_Unique-7236"),
 				new UnitEntry(260232, UnitFlags.Fast | UnitFlags.AdventureModeBoss, "Ghoul_A_NephMonument_Unique-9874"),
@@ -519,7 +574,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(283269, UnitFlags.Normal, "x1_Monstrosity_ScorpionBug_A-5744"),
 				new UnitEntry(288691, UnitFlags.Normal, "x1_Beast_Skeleton_A-3275"),
 				new UnitEntry(288732, UnitFlags.Normal | UnitFlags.Ranged, "x1_Bog_Family_Guard_Tower-32976"),
-				new UnitEntry(291368, UnitFlags.Boss, "x1_Urzael_Boss-28603"),
+				
 				new UnitEntry(294136, UnitFlags.Normal, "x1_Shield_Skeleton_D-13035"),
 				new UnitEntry(294664, UnitFlags.Normal, "x1_Ghoul_A_Challenge-1856"),
 				new UnitEntry(296283, UnitFlags.Normal | UnitFlags.Ranged, "x1_Squigglet_A-2755"),
@@ -551,7 +606,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(312375, UnitFlags.Normal | UnitFlags.Ranged, "x1_SkeletonArcher_Westmarch_CorpseSpawn_09-8190"),
 				new UnitEntry(312376, UnitFlags.Normal | UnitFlags.Ranged, "x1_SkeletonArcher_Westmarch_CorpseSpawn_10-11606"),
 				new UnitEntry(315922, UnitFlags.Normal, "x1_electricEel_B-2065"),
-				new UnitEntry(316839, UnitFlags.Boss, "x1_deathOrb_bodyPile-12094"),
+				
 				new UnitEntry(318425, UnitFlags.AdventureModeBoss, "X1_LR_Boss_UNKNOWN"),
 				new UnitEntry(319396, UnitFlags.Unique | UnitFlags.Fast, "x1_DeathMaiden_Unique_DeathOrb_B-12191"),
 				new UnitEntry(319442, UnitFlags.Normal | UnitFlags.Flying, "X1_Ghost_Dark_IntroOverlook-12"),
@@ -643,8 +698,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(373830, UnitFlags.Unique, "x1_Shield_Skeleton_Westmarch_Unique_B-20334"),
 				new UnitEntry(374384, UnitFlags.Normal | UnitFlags.Flying, "x1_WestmarchBat_C-13069"),
 				new UnitEntry(374751, UnitFlags.AdventureModeBoss, "X1_LR_Boss_UNKNOWN"),
-				new UnitEntry(375106, UnitFlags.Boss, "x1_Death_Orb_Monster-11897"),
-				new UnitEntry(375111, UnitFlags.Boss, "x1_Death_Orb_Master_Monster-17381"),
+				
 				new UnitEntry(375188, UnitFlags.Normal, "x1_ZombieSkinny_Skeleton_A_LR_Boss-17096"),
 				new UnitEntry(375189, UnitFlags.Normal, "x1_westmarchHound_Skeleton_A_LR_Boss-17076"),
 				new UnitEntry(377092, UnitFlags.AdventureModeBoss, "X1_LR_Boss_UNKNOWN"),
@@ -665,7 +719,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(6360, UnitFlags.Normal| UnitFlags.Tough, "Unburied_D-7295"),
 				new UnitEntry(4552, UnitFlags.Normal, "LacuniMale_C-3127"),
 				new UnitEntry(4548, UnitFlags.Normal, "LacuniFemale_C-3136"),
-				new UnitEntry(230725, UnitFlags.Normal|UnitFlags.Summoner, "Siege_wallMonster_A_02-20046"),
+				
 				new UnitEntry(5211, UnitFlags.Normal | UnitFlags.Fast, "sandWasp_D-11050"),
 				new UnitEntry(4757, UnitFlags.Normal, "morluMelee_B-16483"),
 				new UnitEntry(3339, UnitFlags.Normal | UnitFlags.Fast, "Beast_C-15237"),
@@ -685,7 +739,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(367095, UnitFlags.Unique | UnitFlags.Ranged | UnitFlags.Fast, "snakeMan_Caster_B_Unique_02-1499"),
 				new UnitEntry(496, UnitFlags.Unique | UnitFlags.AvoidanceSummoner, "WoodWraith_Unique_A-12021"),
 				new UnitEntry(224636, UnitFlags.Normal, "BileCrawler_A_Large_Aggro-7573"),
-				new UnitEntry(208561, UnitFlags.Boss | UnitFlags.Quest, "a4dun_Garden_Hellportal_Pillar-8309"),
+				
 				new UnitEntry(134416, UnitFlags.Normal | UnitFlags.Flying, "demonFlyer_C-9813"),
 				new UnitEntry(4755, UnitFlags.Normal, "morluMelee_A-10640"),
 				new UnitEntry(225257, UnitFlags.Normal, "BileCrawler_B_Large_Aggro-13108"),
@@ -714,7 +768,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(361480, UnitFlags.Normal | UnitFlags.Ranged, "x1_Heaven_Soul_Summoner-93135"),
 				new UnitEntry(278240, UnitFlags.Normal, "x1_demonFlyer_A_bomber-94015"),
 				new UnitEntry(300718, UnitFlags.Normal, "X1_demonTrooper_Event_A-94164"),
-				new UnitEntry(326664, UnitFlags.Normal | UnitFlags.Boss, "X1_CoreEliteDemon_Chronodemon_Burned_A-94217"),
+				
 				new UnitEntry(278230, UnitFlags.Normal, "x1_demonFlyerMega_A-94238"),
 				new UnitEntry(365323, UnitFlags.Normal, "x1_MastaBlasta_Rider_Tower_A-94697"),
 				new UnitEntry(299240, UnitFlags.Unique, "X1_BigRed_Chronodemon_Event_ImperiusCharge-95648"),
@@ -722,8 +776,8 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(322194, UnitFlags.Normal, "X1_Pand_Ext_Ordnance_Tower_Shock_A-96666"),
 				new UnitEntry(325747, UnitFlags.Normal, "X1_CoreEliteDemon_Chronodemon_Event_ChronoTrigger-98444"),
 				new UnitEntry(347363, UnitFlags.Unique | UnitFlags.Fast, "X1_MastaBlasta_Rider_Boss_Event_ChronoTrigger-98449"),
-				new UnitEntry(363051, UnitFlags.Boss | UnitFlags.Worm, "x1_Rockworm_Pand_Unique_A-98549"),
-				new UnitEntry(338681, UnitFlags.Unique, "X1_BigRed_Chronodemon_Burned_RamGuard-102349"),
+				
+                new UnitEntry(338681, UnitFlags.Unique, "X1_BigRed_Chronodemon_Burned_RamGuard-102349"),
 				new UnitEntry(329390, UnitFlags.Normal, "x1_Pand_BatteringRam_Hook_B_low-103014"),
 				new UnitEntry(340920, UnitFlags.Normal | UnitFlags.Ranged, "x1_westmarchRanged_B-103143"),
 				new UnitEntry(326937, UnitFlags.Normal, "x1_Pand_BatteringRam_Hook_B-103383"),
@@ -732,16 +786,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(360243, UnitFlags.Unique, "x1_sniperAngel_A_FortressUnique-116937"),
 				new UnitEntry(388986, UnitFlags.Unique, "x1_Malthael_Boss_Loot-118517"),
 
-
-				new UnitEntry(255620, UnitFlags.Boss, "Uber_Maghda"),
-				new UnitEntry(256094, UnitFlags.Boss, "Uber_SkeletonKingRed"),
-				new UnitEntry(255623, UnitFlags.Boss, "Uber_SiegebreakerDemon"),
-				new UnitEntry(255634, UnitFlags.Boss, "Uber_ZoltunKulle"),
-				new UnitEntry(255638, UnitFlags.Boss, "Uber_Gluttony"),
-				new UnitEntry(256714, UnitFlags.Boss, "Uber_Despair"),
-				new UnitEntry(364580, UnitFlags.Boss, "Uber_TerrorDiablo"),
-				new UnitEntry(367771, UnitFlags.Boss, "Uber_SiegebreakerDemon_Diablo"),
-				new UnitEntry(367770, UnitFlags.Boss, "Uber_Maghda_Diablo"),
+                
 
 
 				new UnitEntry(219916, UnitFlags.Unique, "MastaBlasta_Steed_A_Unique_01-16085"),
@@ -794,8 +839,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(104014, UnitFlags.Normal, "Snakeman_Melee_Belial-12500"),
 				new UnitEntry(104015, UnitFlags.Normal | UnitFlags.Ranged, "Snakeman_Caster_Belial-12542"),
 				new UnitEntry(201764, UnitFlags.Normal, "demonTrooper_A_HubAttacks-13723"),
-				new UnitEntry(214240, UnitFlags.Normal, "Siege_wallMonster_B-15903"),
-				new UnitEntry(220471, UnitFlags.Normal, "Siege_wallMonster_catapult-26964"),
+				
 				new UnitEntry(220474, UnitFlags.Normal, "demonTrooper_A_catapult-26970"),
 				new UnitEntry(170781, UnitFlags.Normal | UnitFlags.Ranged, "SkeletonArcher_E-30042"),
 				new UnitEntry(204232, UnitFlags.Normal, "skeleton_twoHander_Keep_Swift_E-34394"),
@@ -809,13 +853,14 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(178566, UnitFlags.Normal, "GoatMutant_Melee_A_GuardNoWander-43267"),
 				new UnitEntry(177041, UnitFlags.Normal, "a3Battlefield_Demon_TrebuchetDevice-43337"),
 				new UnitEntry(204981, UnitFlags.Normal, "GoatMutant_Ranged_A_Large_Aggro-45846"),
+
 				new UnitEntry(204979, UnitFlags.Normal, "GoatMutant_Melee_A_Large_Aggro-45855"),
-				new UnitEntry(316254, UnitFlags.Normal, "Siege_wallMonster_A_SiegeBreaker-47194"),
+                
 				new UnitEntry(316253, UnitFlags.Normal, "demonTrooper_A_SiegeBreaker-47227"),
 				new UnitEntry(160533, UnitFlags.Normal, "LacuniFemale_A_grassOnly-11215"),
 				new UnitEntry(215445, UnitFlags.Unique | UnitFlags.Ranged | UnitFlags.Fast, "FallenShaman_A_Unique01Whipple-13716"),
 				new UnitEntry(220397, UnitFlags.Unique, "demonTrooper_A_Unique_03-31908"),
-				new UnitEntry(346465, UnitFlags.Unique | UnitFlags.Boss, "X1_BigRed_Chronodemon_TimeTrapped_A-3810"),
+				
 				new UnitEntry(341760, UnitFlags.Unique, "X1_armorScavenger_AsteroidRain-4597"),
 				new UnitEntry(261528, UnitFlags.Normal, "x1_Bloodhawk_A-6408"),
 				new UnitEntry(261528, UnitFlags.Normal, "x1_Bloodhawk_A-6408"),
@@ -850,7 +895,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(329999, UnitFlags.Unique, "x1_westmarchBrute_B_Unique_Event_BrutelyUnfortunate-17023"),
 				new UnitEntry(312363, UnitFlags.Normal, "x1_Skeleton_Westmarch_CorpseSpawn_07-27195"),
 				new UnitEntry(367335, UnitFlags.Unique, "demonTrooper_B_Unique_03-29180"),
-				new UnitEntry(180734, UnitFlags.Normal, "Siege_wallMonster_A_captainAmbush-30574"),
+				
 				new UnitEntry(260235, UnitFlags.Unique, "Skeleton_D_Fire_BlacksmithEvent_Unique-39252"),
 				new UnitEntry(220868, UnitFlags.Unique | UnitFlags.Fast, "GoatMutant_Shaman_B_Unique_02-51922"),
 				new UnitEntry(354833, UnitFlags.Normal | UnitFlags.Stationary, "x1_Abattoir_furnaceSpinner_fireBeam_clockwise-10236"),
@@ -915,7 +960,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(183892, UnitFlags.Normal, "Skeleton_A_Necromancer-31303"),
 				new UnitEntry(221981, UnitFlags.Unique, "TriuneCultist_C_Unique_01-908"),
 				new UnitEntry(203795, UnitFlags.Unique, "fastMummy_B_FacePuzzleUnique-16937"),
-				new UnitEntry(405186, UnitFlags.TreasureGoblin, "p1_treasureGoblin_tentacle_A-14727"),
+				
 				new UnitEntry(218638, UnitFlags.Normal, "TentacleBear_B-17511"),
 				new UnitEntry(218639, UnitFlags.Normal, "TentacleBear_C-17512"),
 
@@ -978,8 +1023,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				new UnitEntry(289392, UnitFlags.Unique, "X1_GhostLord_LordOfFools-1319"),
 				new UnitEntry(361313, UnitFlags.Unique, "x1_Dark_Angel_Unique_B-4210"),
 				new UnitEntry(361771, UnitFlags.Unique, "x1_BogFamily_Brute_Unique_B-2631"),
-				new UnitEntry(363060, UnitFlags.Unique|UnitFlags.Worm|UnitFlags.Boss, "x1_Rockworm_Pand_Unique_B-5646"),
-
+				
                 new UnitEntry(191592, UnitFlags.Normal, "Corpulent_Frost_A-21800"),
                 new UnitEntry(191921, UnitFlags.Normal, "Swarm_Frost_A-22197"),
                 new UnitEntry(197489, UnitFlags.Unique, "a4dun_Aspect_Terror-60592"),
@@ -1002,16 +1046,48 @@ namespace fBaseXtensions.Cache.External.Objects
                 new UnitEntry(143995, UnitFlags.Normal, "Diablo_shadowClone_DemonHunter_Female"),
                 new UnitEntry(218656, UnitFlags.Unique, "TriuneCultist_A_Unique_01-13151"),
 
-                new UnitEntry(402360, UnitFlags.Unique, "p1_TreasureTrooper_A_Unique_14-6840"),
-                new UnitEntry(380181, UnitFlags.Normal, "p1_TreasureChild_A-6686"),
-                new UnitEntry(380183, UnitFlags.Normal, "p1_TreasureTrooper_A-6532"),
+                
                 new UnitEntry(405750, UnitFlags.Normal, "p1_Greed_PortalMonsterSummon-8862"),
-                new UnitEntry(378665, UnitFlags.Boss, "p1_Greed-8869"),
-                new UnitEntry(380657, UnitFlags.Normal, "p1_treasureGobin_A_Unique_GreedMinion-9145"),
+                
                 new UnitEntry(375552, UnitFlags.Normal, "FallenLunatic_B_Despair-4141"),
 
                 new UnitEntry(5840, UnitFlags.Summoner | UnitFlags.Stationary | UnitFlags.Stealthable, "trDun_Crypt_Pillar_Spawner"),
-			};
+
+                new UnitEntry(435154, UnitFlags.Unique | UnitFlags.Quest, "x1_TemplarMaester_Bounty_Camp_Unique01-11865"),
+                new UnitEntry(433031, UnitFlags.Normal| UnitFlags.Quest, "X1_Templar_Ranged_Camp_Bounty-11872"),
+                new UnitEntry(435156, UnitFlags.Unique| UnitFlags.Quest, "x1_TemplarMaester_Bounty_Camp_Unique03-17575"),
+                
+                new UnitEntry(6036, UnitFlags.Normal|UnitFlags.Summoner|UnitFlags.Quest, "TriuneSummoner_B-7669"),
+                new UnitEntry(6025, UnitFlags.Normal|UnitFlags.Quest, "TriuneCultist_B-7755"),
+                new UnitEntry(409615, UnitFlags.Unique|UnitFlags.Quest, "P2_morluSpellcaster_A_Unique_01-23831"),
+                new UnitEntry(409614, UnitFlags.Unique|UnitFlags.Quest, "P2_morluMelee_A_Unique_01-24866"),
+                new UnitEntry(409610, UnitFlags.Unique|UnitFlags.Quest, "P2_MalletDemon_A_Unique_01-11996"),
+                new UnitEntry(410384, UnitFlags.Unique | UnitFlags.Fast|UnitFlags.Quest, "px_BigRed_A_WormSign_Unique_A-16631"),
+
+                new UnitEntry(230725, UnitFlags.Normal|UnitFlags.Stationary|UnitFlags.Summoner, "Siege_wallMonster_A_02-20046", -1, 45),
+			    new UnitEntry(91111, UnitFlags.Normal|UnitFlags.Stationary|UnitFlags.Summoner, "Siege_wallMonster_A-18790", -1, 45),
+                new UnitEntry(214240, UnitFlags.Normal|UnitFlags.Stationary|UnitFlags.Summoner, "Siege_wallMonster_B-15903", -1, 45),
+				new UnitEntry(220471, UnitFlags.Normal|UnitFlags.Stationary|UnitFlags.Summoner, "Siege_wallMonster_catapult-26964", -1, 45),
+				new UnitEntry(316254, UnitFlags.Normal|UnitFlags.Stationary|UnitFlags.Summoner, "Siege_wallMonster_A_SiegeBreaker-47194", -1, 45),
+                new UnitEntry(180734, UnitFlags.Normal|UnitFlags.Stationary|UnitFlags.Summoner, "Siege_wallMonster_A_captainAmbush-30574", -1, 45),
+                new UnitEntry(410366, UnitFlags.Normal|UnitFlags.Stationary|UnitFlags.Summoner, "Siege_wallMonster_C-14895", -1, 45),
+
+                //
+                new UnitEntry(435155, UnitFlags.Unique, "x1_TemplarMaester_Bounty_Camp_Unique02-12725"),
+                new UnitEntry(197495, UnitFlags.Unique, "a4dun_Aspect_Destruction-2989"),
+                
+                new UnitEntry(5390, UnitFlags.Normal | UnitFlags.Summoner, "SkeletonSummoner_D-19110"),
+                new UnitEntry(6043, UnitFlags.Normal, "TriuneVesselActivated_B-34069"),
+                new UnitEntry(429010, UnitFlags.Unique, "X1_LR_Boss_TerrorDemon_A_BreathMinion-55634"),
+                new UnitEntry(349601, UnitFlags.Normal, "X1_Plagued_LacuniMale_A-77516"),
+                new UnitEntry(426943, UnitFlags.Unique, "X1_LR_Boss_RatKing_A-103492"),
+                new UnitEntry(409589, UnitFlags.Normal, "p4_rat_A-103689"),
+                new UnitEntry(427170, UnitFlags.Normal, "p4_RatKing_RatBallMonster-103735"),
+
+                new UnitEntry(433455, UnitFlags.Normal, "p2_FallenLunatic_Ring_Summon-42666"),
+                new UnitEntry(415755, UnitFlags.Unique, "p2_Ghost_A_JarOfSouls-15679"),
+
+            };
 			
 			#endregion
 

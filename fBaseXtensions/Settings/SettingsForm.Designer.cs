@@ -306,24 +306,27 @@
             this.flowLayoutPanel_MiscStats = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage16 = new System.Windows.Forms.TabPage();
             this.LBDebug = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btn_DumpObjectCache = new System.Windows.Forms.Button();
-            this.btn_DumpObstacleCache = new System.Windows.Forms.Button();
-            this.btn_DumpSNOCache = new System.Windows.Forms.Button();
-            this.btn_DumpInteractiveCache = new System.Windows.Forms.Button();
-            this.btn_DumpCharacterCache = new System.Windows.Forms.Button();
-            this.btn_DumpSkillsCache = new System.Windows.Forms.Button();
-            this.btn_DumpTargetingCache = new System.Windows.Forms.Button();
-            this.btn_DumpBountyCache = new System.Windows.Forms.Button();
-            this.btn_DumpItemBalanceCache = new System.Windows.Forms.Button();
-            this.btn_DumpProfileBehavior = new System.Windows.Forms.Button();
-            this.btn_DumpInventory = new System.Windows.Forms.Button();
-            this.btn_Test = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel23 = new System.Windows.Forms.Panel();
             this.button_saveSettings = new System.Windows.Forms.Button();
             this.comboBox_SettingFiles = new System.Windows.Forms.ComboBox();
-            this.btn_DumpBackpack = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.cacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.objectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.snoEntriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpCurrentEntriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpBackpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpEquipmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpItemBalanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpHeroInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpSkillsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpObstaclesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpInteractivesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpBountyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpTargetingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpProfileBehaviorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl_Combat.SuspendLayout();
@@ -431,8 +434,8 @@
             this.groupBox22.SuspendLayout();
             this.tabPage15.SuspendLayout();
             this.tabPage16.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.panel23.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -457,7 +460,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(671, 624);
+            this.tabPage1.Size = new System.Drawing.Size(674, 624);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Combat";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -479,7 +482,7 @@
             this.tabControl_Combat.Location = new System.Drawing.Point(3, 3);
             this.tabControl_Combat.Name = "tabControl_Combat";
             this.tabControl_Combat.SelectedIndex = 0;
-            this.tabControl_Combat.Size = new System.Drawing.Size(665, 618);
+            this.tabControl_Combat.Size = new System.Drawing.Size(668, 618);
             this.tabControl_Combat.TabIndex = 0;
             // 
             // tabPage3
@@ -489,7 +492,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(657, 592);
+            this.tabPage3.Size = new System.Drawing.Size(660, 592);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "General";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -501,7 +504,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(3, 184);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(651, 197);
+            this.groupBox2.Size = new System.Drawing.Size(654, 197);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Skills";
@@ -594,7 +597,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(651, 181);
+            this.groupBox1.Size = new System.Drawing.Size(654, 181);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Health";
@@ -719,7 +722,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(657, 592);
+            this.tabPage8.Size = new System.Drawing.Size(660, 592);
             this.tabPage8.TabIndex = 1;
             this.tabPage8.Text = "Clustering";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -733,7 +736,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(651, 523);
+            this.groupBox3.Size = new System.Drawing.Size(654, 523);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Clustering";
@@ -918,7 +921,7 @@
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(657, 592);
+            this.tabPage9.Size = new System.Drawing.Size(660, 592);
             this.tabPage9.TabIndex = 2;
             this.tabPage9.Text = "Grouping";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -934,7 +937,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(651, 367);
+            this.groupBox4.Size = new System.Drawing.Size(654, 367);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Grouping";
@@ -1152,7 +1155,7 @@
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(657, 592);
+            this.tabPage10.Size = new System.Drawing.Size(660, 592);
             this.tabPage10.TabIndex = 3;
             this.tabPage10.Text = "Avoidances";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -1163,7 +1166,7 @@
             this.flowLayoutPanel_Avoidances.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel_Avoidances.Location = new System.Drawing.Point(3, 79);
             this.flowLayoutPanel_Avoidances.Name = "flowLayoutPanel_Avoidances";
-            this.flowLayoutPanel_Avoidances.Size = new System.Drawing.Size(651, 510);
+            this.flowLayoutPanel_Avoidances.Size = new System.Drawing.Size(654, 510);
             this.flowLayoutPanel_Avoidances.TabIndex = 1;
             this.flowLayoutPanel_Avoidances.Click += new System.EventHandler(this.flowLayoutPanel_Avoidances_Click);
             this.flowLayoutPanel_Avoidances.MouseEnter += new System.EventHandler(this.flowLayoutPanel_Avoidances_MouseEnter);
@@ -1174,7 +1177,7 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox5.Location = new System.Drawing.Point(3, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(651, 76);
+            this.groupBox5.Size = new System.Drawing.Size(654, 76);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Avoidances";
@@ -1195,7 +1198,7 @@
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(657, 592);
+            this.tabPage11.Size = new System.Drawing.Size(660, 592);
             this.tabPage11.TabIndex = 4;
             this.tabPage11.Text = "Fleeing";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -1207,7 +1210,7 @@
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox6.Location = new System.Drawing.Point(3, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(651, 520);
+            this.groupBox6.Size = new System.Drawing.Size(654, 520);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             // 
@@ -1219,7 +1222,7 @@
             this.groupBox_FleeOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox_FleeOptions.Location = new System.Drawing.Point(3, 42);
             this.groupBox_FleeOptions.Name = "groupBox_FleeOptions";
-            this.groupBox_FleeOptions.Size = new System.Drawing.Size(645, 475);
+            this.groupBox_FleeOptions.Size = new System.Drawing.Size(648, 475);
             this.groupBox_FleeOptions.TabIndex = 8;
             this.groupBox_FleeOptions.TabStop = false;
             // 
@@ -1406,7 +1409,7 @@
             this.tabPage_Barbarian.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Barbarian.Name = "tabPage_Barbarian";
             this.tabPage_Barbarian.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Barbarian.Size = new System.Drawing.Size(657, 592);
+            this.tabPage_Barbarian.Size = new System.Drawing.Size(660, 592);
             this.tabPage_Barbarian.TabIndex = 5;
             this.tabPage_Barbarian.Text = "Barbarian";
             this.tabPage_Barbarian.UseVisualStyleBackColor = true;
@@ -1478,7 +1481,7 @@
             this.tabPage_Monk.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Monk.Name = "tabPage_Monk";
             this.tabPage_Monk.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Monk.Size = new System.Drawing.Size(657, 592);
+            this.tabPage_Monk.Size = new System.Drawing.Size(660, 592);
             this.tabPage_Monk.TabIndex = 7;
             this.tabPage_Monk.Text = "Monk";
             this.tabPage_Monk.UseVisualStyleBackColor = true;
@@ -1508,7 +1511,7 @@
             this.tabPage_WitchDoctor.Location = new System.Drawing.Point(4, 22);
             this.tabPage_WitchDoctor.Name = "tabPage_WitchDoctor";
             this.tabPage_WitchDoctor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_WitchDoctor.Size = new System.Drawing.Size(657, 592);
+            this.tabPage_WitchDoctor.Size = new System.Drawing.Size(660, 592);
             this.tabPage_WitchDoctor.TabIndex = 8;
             this.tabPage_WitchDoctor.Text = "Witch Doctor";
             this.tabPage_WitchDoctor.UseVisualStyleBackColor = true;
@@ -1523,7 +1526,7 @@
             this.tabPage_Wizard.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Wizard.Name = "tabPage_Wizard";
             this.tabPage_Wizard.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Wizard.Size = new System.Drawing.Size(657, 592);
+            this.tabPage_Wizard.Size = new System.Drawing.Size(660, 592);
             this.tabPage_Wizard.TabIndex = 9;
             this.tabPage_Wizard.Text = "Wizard";
             this.tabPage_Wizard.UseVisualStyleBackColor = true;
@@ -1583,7 +1586,7 @@
             this.tabPage_Crusader.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Crusader.Name = "tabPage_Crusader";
             this.tabPage_Crusader.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Crusader.Size = new System.Drawing.Size(657, 592);
+            this.tabPage_Crusader.Size = new System.Drawing.Size(660, 592);
             this.tabPage_Crusader.TabIndex = 10;
             this.tabPage_Crusader.Text = "Crusader";
             this.tabPage_Crusader.UseVisualStyleBackColor = true;
@@ -1596,7 +1599,7 @@
             this.tabPage_DemonHunter.Location = new System.Drawing.Point(4, 22);
             this.tabPage_DemonHunter.Name = "tabPage_DemonHunter";
             this.tabPage_DemonHunter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_DemonHunter.Size = new System.Drawing.Size(657, 592);
+            this.tabPage_DemonHunter.Size = new System.Drawing.Size(660, 592);
             this.tabPage_DemonHunter.TabIndex = 11;
             this.tabPage_DemonHunter.Text = "Demon hunter";
             this.tabPage_DemonHunter.UseVisualStyleBackColor = true;
@@ -1636,7 +1639,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(671, 624);
+            this.tabPage2.Size = new System.Drawing.Size(674, 624);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Targeting";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1650,7 +1653,7 @@
             this.tabControl3.Location = new System.Drawing.Point(3, 3);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(665, 618);
+            this.tabControl3.Size = new System.Drawing.Size(668, 618);
             this.tabControl3.TabIndex = 0;
             // 
             // tabPage4
@@ -1659,7 +1662,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(657, 592);
+            this.tabPage4.Size = new System.Drawing.Size(660, 592);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "General";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1676,7 +1679,7 @@
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox8.Location = new System.Drawing.Point(3, 3);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(651, 505);
+            this.groupBox8.Size = new System.Drawing.Size(654, 505);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Targeting Options";
@@ -1947,7 +1950,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(657, 592);
+            this.tabPage5.Size = new System.Drawing.Size(660, 592);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Range";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1957,7 +1960,7 @@
             this.flowLayout_TargetRanges.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayout_TargetRanges.Location = new System.Drawing.Point(3, 69);
             this.flowLayout_TargetRanges.Name = "flowLayout_TargetRanges";
-            this.flowLayout_TargetRanges.Size = new System.Drawing.Size(651, 520);
+            this.flowLayout_TargetRanges.Size = new System.Drawing.Size(654, 520);
             this.flowLayout_TargetRanges.TabIndex = 0;
             // 
             // groupBox11
@@ -1968,7 +1971,7 @@
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox11.Location = new System.Drawing.Point(3, 3);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(651, 66);
+            this.groupBox11.Size = new System.Drawing.Size(654, 66);
             this.groupBox11.TabIndex = 1;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Profile Related";
@@ -2011,7 +2014,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(657, 592);
+            this.tabPage6.Size = new System.Drawing.Size(660, 592);
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "LOS";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -2030,7 +2033,7 @@
             this.groupBox23.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox23.Location = new System.Drawing.Point(3, 189);
             this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(651, 400);
+            this.groupBox23.Size = new System.Drawing.Size(654, 400);
             this.groupBox23.TabIndex = 9;
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Targets";
@@ -2141,7 +2144,7 @@
             this.groupBox24.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox24.Location = new System.Drawing.Point(3, 3);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(651, 186);
+            this.groupBox24.Size = new System.Drawing.Size(654, 186);
             this.groupBox24.TabIndex = 10;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Range";
@@ -2177,7 +2180,6 @@
             // 
             this.trackBar_LOS_MinRange.Location = new System.Drawing.Point(3, 25);
             this.trackBar_LOS_MinRange.Maximum = 100;
-            this.trackBar_LOS_MinRange.Minimum = 10;
             this.trackBar_LOS_MinRange.Name = "trackBar_LOS_MinRange";
             this.trackBar_LOS_MinRange.Size = new System.Drawing.Size(190, 42);
             this.trackBar_LOS_MinRange.TabIndex = 0;
@@ -2228,7 +2230,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(671, 624);
+            this.tabPage7.Size = new System.Drawing.Size(674, 624);
             this.tabPage7.TabIndex = 2;
             this.tabPage7.Text = "General";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -2243,7 +2245,7 @@
             this.tabControl2.Location = new System.Drawing.Point(3, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(665, 618);
+            this.tabControl2.Size = new System.Drawing.Size(668, 618);
             this.tabControl2.TabIndex = 0;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
@@ -2255,7 +2257,7 @@
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(657, 592);
+            this.tabPage12.Size = new System.Drawing.Size(660, 592);
             this.tabPage12.TabIndex = 0;
             this.tabPage12.Text = "Misc";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -2400,7 +2402,7 @@
             this.tabPage18.Location = new System.Drawing.Point(4, 22);
             this.tabPage18.Name = "tabPage18";
             this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage18.Size = new System.Drawing.Size(657, 592);
+            this.tabPage18.Size = new System.Drawing.Size(660, 592);
             this.tabPage18.TabIndex = 2;
             this.tabPage18.Text = "Death";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -2443,7 +2445,7 @@
             this.tabPage17.Location = new System.Drawing.Point(4, 22);
             this.tabPage17.Name = "tabPage17";
             this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage17.Size = new System.Drawing.Size(657, 592);
+            this.tabPage17.Size = new System.Drawing.Size(660, 592);
             this.tabPage17.TabIndex = 1;
             this.tabPage17.Text = "Adventure Mode";
             this.tabPage17.UseVisualStyleBackColor = true;
@@ -2460,7 +2462,7 @@
             this.groupBox16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox16.Location = new System.Drawing.Point(3, 70);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(651, 519);
+            this.groupBox16.Size = new System.Drawing.Size(654, 519);
             this.groupBox16.TabIndex = 20;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Gem Upgrading";
@@ -2723,7 +2725,7 @@
             this.groupBox18.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox18.Location = new System.Drawing.Point(3, 3);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(651, 67);
+            this.groupBox18.Size = new System.Drawing.Size(654, 67);
             this.groupBox18.TabIndex = 21;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "Modifiers";
@@ -2756,7 +2758,7 @@
             this.tabPage19.Location = new System.Drawing.Point(4, 22);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(657, 592);
+            this.tabPage19.Size = new System.Drawing.Size(660, 592);
             this.tabPage19.TabIndex = 3;
             this.tabPage19.Text = "Bnet Control";
             this.tabPage19.UseVisualStyleBackColor = true;
@@ -2768,7 +2770,7 @@
             this.groupBox25.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox25.Location = new System.Drawing.Point(3, 155);
             this.groupBox25.Name = "groupBox25";
-            this.groupBox25.Size = new System.Drawing.Size(651, 100);
+            this.groupBox25.Size = new System.Drawing.Size(654, 100);
             this.groupBox25.TabIndex = 2;
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "Misc";
@@ -2795,13 +2797,13 @@
             // 
             this.groupBox_BnetControl_AltHero.Controls.Add(this.btn_BnetControl_ResetIndexes);
             this.groupBox_BnetControl_AltHero.Controls.Add(this.btn_BnetControl_TestSwitch);
-            this.groupBox_BnetControl_AltHero.Controls.Add(this.label33);
             this.groupBox_BnetControl_AltHero.Controls.Add(this.comboBox_BnetControl_Heros);
+            this.groupBox_BnetControl_AltHero.Controls.Add(this.label33);
             this.groupBox_BnetControl_AltHero.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox_BnetControl_AltHero.Enabled = false;
             this.groupBox_BnetControl_AltHero.Location = new System.Drawing.Point(3, 55);
             this.groupBox_BnetControl_AltHero.Name = "groupBox_BnetControl_AltHero";
-            this.groupBox_BnetControl_AltHero.Size = new System.Drawing.Size(651, 100);
+            this.groupBox_BnetControl_AltHero.Size = new System.Drawing.Size(654, 100);
             this.groupBox_BnetControl_AltHero.TabIndex = 1;
             this.groupBox_BnetControl_AltHero.TabStop = false;
             this.groupBox_BnetControl_AltHero.Text = "Alt Hero";
@@ -2852,7 +2854,7 @@
             this.groupBox_BnetControl_Setup.Enabled = false;
             this.groupBox_BnetControl_Setup.Location = new System.Drawing.Point(3, 3);
             this.groupBox_BnetControl_Setup.Name = "groupBox_BnetControl_Setup";
-            this.groupBox_BnetControl_Setup.Size = new System.Drawing.Size(651, 52);
+            this.groupBox_BnetControl_Setup.Size = new System.Drawing.Size(654, 52);
             this.groupBox_BnetControl_Setup.TabIndex = 0;
             this.groupBox_BnetControl_Setup.TabStop = false;
             this.groupBox_BnetControl_Setup.Text = "Setup";
@@ -2881,7 +2883,7 @@
             this.tabPage13.Location = new System.Drawing.Point(4, 22);
             this.tabPage13.Name = "tabPage13";
             this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(671, 624);
+            this.tabPage13.Size = new System.Drawing.Size(674, 624);
             this.tabPage13.TabIndex = 3;
             this.tabPage13.Text = "Items";
             this.tabPage13.UseVisualStyleBackColor = true;
@@ -2893,7 +2895,7 @@
             this.tabControl4.Location = new System.Drawing.Point(3, 3);
             this.tabControl4.Name = "tabControl4";
             this.tabControl4.SelectedIndex = 0;
-            this.tabControl4.Size = new System.Drawing.Size(665, 618);
+            this.tabControl4.Size = new System.Drawing.Size(668, 618);
             this.tabControl4.TabIndex = 0;
             // 
             // tabPage20
@@ -2904,7 +2906,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 22);
             this.tabPage20.Name = "tabPage20";
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage20.Size = new System.Drawing.Size(657, 592);
+            this.tabPage20.Size = new System.Drawing.Size(660, 592);
             this.tabPage20.TabIndex = 2;
             this.tabPage20.Text = "Pickup";
             this.tabPage20.UseVisualStyleBackColor = true;
@@ -2921,7 +2923,7 @@
             this.groupBox21.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox21.Location = new System.Drawing.Point(3, 197);
             this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(651, 261);
+            this.groupBox21.Size = new System.Drawing.Size(654, 261);
             this.groupBox21.TabIndex = 2;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Misc";
@@ -3072,7 +3074,7 @@
             this.groupBox20.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox20.Location = new System.Drawing.Point(3, 103);
             this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(651, 94);
+            this.groupBox20.Size = new System.Drawing.Size(654, 94);
             this.groupBox20.TabIndex = 1;
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "Gems";
@@ -3179,7 +3181,7 @@
             this.groupBox19.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox19.Location = new System.Drawing.Point(3, 3);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(651, 100);
+            this.groupBox19.Size = new System.Drawing.Size(654, 100);
             this.groupBox19.TabIndex = 0;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Items";
@@ -3284,7 +3286,7 @@
             this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(671, 624);
+            this.tabPage14.Size = new System.Drawing.Size(674, 624);
             this.tabPage14.TabIndex = 4;
             this.tabPage14.Text = "Advanced";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -3295,7 +3297,7 @@
             this.groupBox13.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox13.Location = new System.Drawing.Point(3, 230);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(665, 194);
+            this.groupBox13.Size = new System.Drawing.Size(668, 194);
             this.groupBox13.TabIndex = 3;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Logging";
@@ -3306,7 +3308,7 @@
             this.flowLayout_DebugFunkyLogLevels.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayout_DebugFunkyLogLevels.Location = new System.Drawing.Point(3, 16);
             this.flowLayout_DebugFunkyLogLevels.Name = "flowLayout_DebugFunkyLogLevels";
-            this.flowLayout_DebugFunkyLogLevels.Size = new System.Drawing.Size(659, 175);
+            this.flowLayout_DebugFunkyLogLevels.Size = new System.Drawing.Size(662, 175);
             this.flowLayout_DebugFunkyLogLevels.TabIndex = 2;
             // 
             // groupBox14
@@ -3317,7 +3319,7 @@
             this.groupBox14.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox14.Location = new System.Drawing.Point(3, 50);
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(665, 180);
+            this.groupBox14.Size = new System.Drawing.Size(668, 180);
             this.groupBox14.TabIndex = 3;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Cache Data Logging";
@@ -3327,7 +3329,7 @@
             this.btn_DebugDataFormatText.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_DebugDataFormatText.Location = new System.Drawing.Point(3, 154);
             this.btn_DebugDataFormatText.Name = "btn_DebugDataFormatText";
-            this.btn_DebugDataFormatText.Size = new System.Drawing.Size(659, 23);
+            this.btn_DebugDataFormatText.Size = new System.Drawing.Size(662, 23);
             this.btn_DebugDataFormatText.TabIndex = 8;
             this.btn_DebugDataFormatText.Text = "Format Output";
             this.btn_DebugDataFormatText.UseVisualStyleBackColor = true;
@@ -3339,7 +3341,7 @@
             this.flowLayout_DebugDataFlags.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayout_DebugDataFlags.Location = new System.Drawing.Point(3, 33);
             this.flowLayout_DebugDataFlags.Name = "flowLayout_DebugDataFlags";
-            this.flowLayout_DebugDataFlags.Size = new System.Drawing.Size(659, 121);
+            this.flowLayout_DebugDataFlags.Size = new System.Drawing.Size(662, 121);
             this.flowLayout_DebugDataFlags.TabIndex = 2;
             // 
             // cb_DebugDataLogging
@@ -3348,7 +3350,7 @@
             this.cb_DebugDataLogging.Dock = System.Windows.Forms.DockStyle.Top;
             this.cb_DebugDataLogging.Location = new System.Drawing.Point(3, 16);
             this.cb_DebugDataLogging.Name = "cb_DebugDataLogging";
-            this.cb_DebugDataLogging.Size = new System.Drawing.Size(659, 17);
+            this.cb_DebugDataLogging.Size = new System.Drawing.Size(662, 17);
             this.cb_DebugDataLogging.TabIndex = 1;
             this.cb_DebugDataLogging.Text = "Debug Data Logging";
             this.cb_DebugDataLogging.UseVisualStyleBackColor = true;
@@ -3359,7 +3361,7 @@
             this.groupBox22.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox22.Location = new System.Drawing.Point(3, 3);
             this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(665, 47);
+            this.groupBox22.Size = new System.Drawing.Size(668, 47);
             this.groupBox22.TabIndex = 0;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Debug Options";
@@ -3380,7 +3382,7 @@
             this.tabPage15.Location = new System.Drawing.Point(4, 22);
             this.tabPage15.Name = "tabPage15";
             this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage15.Size = new System.Drawing.Size(671, 624);
+            this.tabPage15.Size = new System.Drawing.Size(674, 624);
             this.tabPage15.TabIndex = 5;
             this.tabPage15.Text = "Misc";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -3393,7 +3395,7 @@
             this.flowLayoutPanel_MiscStats.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_MiscStats.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel_MiscStats.Name = "flowLayoutPanel_MiscStats";
-            this.flowLayoutPanel_MiscStats.Size = new System.Drawing.Size(665, 618);
+            this.flowLayoutPanel_MiscStats.Size = new System.Drawing.Size(668, 618);
             this.flowLayoutPanel_MiscStats.TabIndex = 0;
             this.flowLayoutPanel_MiscStats.WrapContents = false;
             // 
@@ -3401,7 +3403,7 @@
             // 
             this.tabPage16.AutoScroll = true;
             this.tabPage16.Controls.Add(this.LBDebug);
-            this.tabPage16.Controls.Add(this.flowLayoutPanel1);
+            this.tabPage16.Controls.Add(this.menuStrip1);
             this.tabPage16.Location = new System.Drawing.Point(4, 22);
             this.tabPage16.Name = "tabPage16";
             this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
@@ -3417,156 +3419,13 @@
             this.LBDebug.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.LBDebug.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LBDebug.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.LBDebug.Location = new System.Drawing.Point(3, 122);
+            this.LBDebug.Location = new System.Drawing.Point(3, 27);
             this.LBDebug.Name = "LBDebug";
-            this.LBDebug.Size = new System.Drawing.Size(668, 499);
+            this.LBDebug.Size = new System.Drawing.Size(668, 594);
             this.LBDebug.TabIndex = 1;
             this.LBDebug.WrapContents = false;
             this.LBDebug.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LBDebug_MouseClick);
             this.LBDebug.MouseEnter += new System.EventHandler(this.LBDebug_MouseEnter);
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpObjectCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpObstacleCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpSNOCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpInteractiveCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpCharacterCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpSkillsCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpTargetingCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpBountyCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpBackpack);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpProfileBehavior);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpItemBalanceCache);
-            this.flowLayoutPanel1.Controls.Add(this.btn_DumpInventory);
-            this.flowLayoutPanel1.Controls.Add(this.btn_Test);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(668, 119);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // btn_DumpObjectCache
-            // 
-            this.btn_DumpObjectCache.Location = new System.Drawing.Point(3, 3);
-            this.btn_DumpObjectCache.Name = "btn_DumpObjectCache";
-            this.btn_DumpObjectCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpObjectCache.TabIndex = 0;
-            this.btn_DumpObjectCache.Text = "Dump Object Cache";
-            this.btn_DumpObjectCache.UseVisualStyleBackColor = true;
-            this.btn_DumpObjectCache.Click += new System.EventHandler(this.btn_DumpObjectCache_Click);
-            // 
-            // btn_DumpObstacleCache
-            // 
-            this.btn_DumpObstacleCache.Location = new System.Drawing.Point(146, 3);
-            this.btn_DumpObstacleCache.Name = "btn_DumpObstacleCache";
-            this.btn_DumpObstacleCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpObstacleCache.TabIndex = 1;
-            this.btn_DumpObstacleCache.Text = "Dump Obstacle Cache";
-            this.btn_DumpObstacleCache.UseVisualStyleBackColor = true;
-            this.btn_DumpObstacleCache.Click += new System.EventHandler(this.btn_DumpObstacleCache_Click);
-            // 
-            // btn_DumpSNOCache
-            // 
-            this.btn_DumpSNOCache.Location = new System.Drawing.Point(289, 3);
-            this.btn_DumpSNOCache.Name = "btn_DumpSNOCache";
-            this.btn_DumpSNOCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpSNOCache.TabIndex = 2;
-            this.btn_DumpSNOCache.Text = "Dump Sno Cache";
-            this.btn_DumpSNOCache.UseVisualStyleBackColor = true;
-            this.btn_DumpSNOCache.Click += new System.EventHandler(this.btn_DumpSNOCache_Click);
-            // 
-            // btn_DumpInteractiveCache
-            // 
-            this.flowLayoutPanel1.SetFlowBreak(this.btn_DumpInteractiveCache, true);
-            this.btn_DumpInteractiveCache.Location = new System.Drawing.Point(432, 3);
-            this.btn_DumpInteractiveCache.Name = "btn_DumpInteractiveCache";
-            this.btn_DumpInteractiveCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpInteractiveCache.TabIndex = 8;
-            this.btn_DumpInteractiveCache.Text = "Dump Interactive Cache";
-            this.btn_DumpInteractiveCache.UseVisualStyleBackColor = true;
-            this.btn_DumpInteractiveCache.Click += new System.EventHandler(this.btn_DumpInteractiveCache_Click);
-            // 
-            // btn_DumpCharacterCache
-            // 
-            this.btn_DumpCharacterCache.Location = new System.Drawing.Point(3, 32);
-            this.btn_DumpCharacterCache.Name = "btn_DumpCharacterCache";
-            this.btn_DumpCharacterCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpCharacterCache.TabIndex = 3;
-            this.btn_DumpCharacterCache.Text = "Dump Character Cache";
-            this.btn_DumpCharacterCache.UseVisualStyleBackColor = true;
-            this.btn_DumpCharacterCache.Click += new System.EventHandler(this.btn_DumpCharacterCache_Click);
-            // 
-            // btn_DumpSkillsCache
-            // 
-            this.btn_DumpSkillsCache.Location = new System.Drawing.Point(146, 32);
-            this.btn_DumpSkillsCache.Name = "btn_DumpSkillsCache";
-            this.btn_DumpSkillsCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpSkillsCache.TabIndex = 5;
-            this.btn_DumpSkillsCache.Text = "Dump Skill Cache";
-            this.btn_DumpSkillsCache.UseVisualStyleBackColor = true;
-            this.btn_DumpSkillsCache.Click += new System.EventHandler(this.btn_DumpSkillsCache_Click);
-            // 
-            // btn_DumpTargetingCache
-            // 
-            this.btn_DumpTargetingCache.Location = new System.Drawing.Point(289, 32);
-            this.btn_DumpTargetingCache.Name = "btn_DumpTargetingCache";
-            this.btn_DumpTargetingCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpTargetingCache.TabIndex = 4;
-            this.btn_DumpTargetingCache.Text = "Dump Targeting Cache";
-            this.btn_DumpTargetingCache.UseVisualStyleBackColor = true;
-            this.btn_DumpTargetingCache.Click += new System.EventHandler(this.btn_DumpTargetingCache_Click);
-            // 
-            // btn_DumpBountyCache
-            // 
-            this.flowLayoutPanel1.SetFlowBreak(this.btn_DumpBountyCache, true);
-            this.btn_DumpBountyCache.Location = new System.Drawing.Point(432, 32);
-            this.btn_DumpBountyCache.Name = "btn_DumpBountyCache";
-            this.btn_DumpBountyCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpBountyCache.TabIndex = 6;
-            this.btn_DumpBountyCache.Text = "Dump Bounty Cache";
-            this.btn_DumpBountyCache.UseVisualStyleBackColor = true;
-            this.btn_DumpBountyCache.Click += new System.EventHandler(this.btn_DumpBountyCache_Click);
-            // 
-            // btn_DumpItemBalanceCache
-            // 
-            this.btn_DumpItemBalanceCache.Location = new System.Drawing.Point(289, 61);
-            this.btn_DumpItemBalanceCache.Name = "btn_DumpItemBalanceCache";
-            this.btn_DumpItemBalanceCache.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpItemBalanceCache.TabIndex = 12;
-            this.btn_DumpItemBalanceCache.Text = "Dump Item Balance";
-            this.btn_DumpItemBalanceCache.UseVisualStyleBackColor = true;
-            this.btn_DumpItemBalanceCache.Click += new System.EventHandler(this.btn_DumpItemBalanceCache_Click);
-            // 
-            // btn_DumpProfileBehavior
-            // 
-            this.btn_DumpProfileBehavior.Location = new System.Drawing.Point(146, 61);
-            this.btn_DumpProfileBehavior.Name = "btn_DumpProfileBehavior";
-            this.btn_DumpProfileBehavior.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpProfileBehavior.TabIndex = 11;
-            this.btn_DumpProfileBehavior.Text = "ProfileBehavior";
-            this.btn_DumpProfileBehavior.UseVisualStyleBackColor = true;
-            this.btn_DumpProfileBehavior.Click += new System.EventHandler(this.btn_DumpProfileBehavior_Click);
-            // 
-            // btn_DumpInventory
-            // 
-            this.btn_DumpInventory.Location = new System.Drawing.Point(432, 61);
-            this.btn_DumpInventory.Name = "btn_DumpInventory";
-            this.btn_DumpInventory.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpInventory.TabIndex = 9;
-            this.btn_DumpInventory.Text = "Equipment";
-            this.btn_DumpInventory.UseVisualStyleBackColor = true;
-            this.btn_DumpInventory.Click += new System.EventHandler(this.btn_DumpInventory_Click);
-            // 
-            // btn_Test
-            // 
-            this.btn_Test.Location = new System.Drawing.Point(3, 90);
-            this.btn_Test.Name = "btn_Test";
-            this.btn_Test.Size = new System.Drawing.Size(137, 23);
-            this.btn_Test.TabIndex = 10;
-            this.btn_Test.Text = "Test";
-            this.btn_Test.UseVisualStyleBackColor = true;
-            this.btn_Test.Click += new System.EventHandler(this.btn_Test_Click);
             // 
             // toolTip1
             // 
@@ -3604,15 +3463,142 @@
             this.comboBox_SettingFiles.Size = new System.Drawing.Size(259, 21);
             this.comboBox_SettingFiles.TabIndex = 0;
             // 
-            // btn_DumpBackpack
+            // menuStrip1
             // 
-            this.btn_DumpBackpack.Location = new System.Drawing.Point(3, 61);
-            this.btn_DumpBackpack.Name = "btn_DumpBackpack";
-            this.btn_DumpBackpack.Size = new System.Drawing.Size(137, 23);
-            this.btn_DumpBackpack.TabIndex = 13;
-            this.btn_DumpBackpack.Text = "Backpack Cache";
-            this.btn_DumpBackpack.UseVisualStyleBackColor = true;
-            this.btn_DumpBackpack.Click += new System.EventHandler(this.btn_DumpBackpack_Click);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cacheToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(668, 24);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // cacheToolStripMenuItem
+            // 
+            this.cacheToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.objectsToolStripMenuItem,
+            this.playerToolStripMenuItem,
+            this.gameToolStripMenuItem});
+            this.cacheToolStripMenuItem.Name = "cacheToolStripMenuItem";
+            this.cacheToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.cacheToolStripMenuItem.Text = "Cache";
+            // 
+            // objectsToolStripMenuItem
+            // 
+            this.objectsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dumpCurrentEntriesToolStripMenuItem,
+            this.snoEntriesToolStripMenuItem,
+            this.dumpObstaclesToolStripMenuItem,
+            this.dumpInteractivesToolStripMenuItem});
+            this.objectsToolStripMenuItem.Name = "objectsToolStripMenuItem";
+            this.objectsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.objectsToolStripMenuItem.Text = "Objects";
+            // 
+            // snoEntriesToolStripMenuItem
+            // 
+            this.snoEntriesToolStripMenuItem.Name = "snoEntriesToolStripMenuItem";
+            this.snoEntriesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.snoEntriesToolStripMenuItem.Text = "Dump Sno Entries";
+            this.snoEntriesToolStripMenuItem.Click += new System.EventHandler(this.snoEntriesToolStripMenuItem_Click);
+            // 
+            // dumpCurrentEntriesToolStripMenuItem
+            // 
+            this.dumpCurrentEntriesToolStripMenuItem.Name = "dumpCurrentEntriesToolStripMenuItem";
+            this.dumpCurrentEntriesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.dumpCurrentEntriesToolStripMenuItem.Text = "Dump Current Entries";
+            this.dumpCurrentEntriesToolStripMenuItem.Click += new System.EventHandler(this.dumpCurrentEntriesToolStripMenuItem_Click);
+            // 
+            // playerToolStripMenuItem
+            // 
+            this.playerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dumpHeroInfoToolStripMenuItem,
+            this.dumpBackpackToolStripMenuItem,
+            this.dumpEquipmentToolStripMenuItem,
+            this.dumpItemBalanceToolStripMenuItem,
+            this.dumpSkillsToolStripMenuItem});
+            this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.playerToolStripMenuItem.Text = "Player";
+            // 
+            // dumpBackpackToolStripMenuItem
+            // 
+            this.dumpBackpackToolStripMenuItem.Name = "dumpBackpackToolStripMenuItem";
+            this.dumpBackpackToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.dumpBackpackToolStripMenuItem.Text = "Dump Backpack";
+            this.dumpBackpackToolStripMenuItem.Click += new System.EventHandler(this.dumpBackpackToolStripMenuItem_Click);
+            // 
+            // dumpEquipmentToolStripMenuItem
+            // 
+            this.dumpEquipmentToolStripMenuItem.Name = "dumpEquipmentToolStripMenuItem";
+            this.dumpEquipmentToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.dumpEquipmentToolStripMenuItem.Text = "Dump Equipment";
+            this.dumpEquipmentToolStripMenuItem.Click += new System.EventHandler(this.dumpEquipmentToolStripMenuItem_Click);
+            // 
+            // dumpItemBalanceToolStripMenuItem
+            // 
+            this.dumpItemBalanceToolStripMenuItem.Name = "dumpItemBalanceToolStripMenuItem";
+            this.dumpItemBalanceToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.dumpItemBalanceToolStripMenuItem.Text = "Dump Item Balance";
+            this.dumpItemBalanceToolStripMenuItem.Click += new System.EventHandler(this.dumpItemBalanceToolStripMenuItem_Click);
+            // 
+            // dumpHeroInfoToolStripMenuItem
+            // 
+            this.dumpHeroInfoToolStripMenuItem.Name = "dumpHeroInfoToolStripMenuItem";
+            this.dumpHeroInfoToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.dumpHeroInfoToolStripMenuItem.Text = "Dump Hero Info";
+            this.dumpHeroInfoToolStripMenuItem.Click += new System.EventHandler(this.dumpHeroInfoToolStripMenuItem_Click);
+            // 
+            // dumpSkillsToolStripMenuItem
+            // 
+            this.dumpSkillsToolStripMenuItem.Name = "dumpSkillsToolStripMenuItem";
+            this.dumpSkillsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.dumpSkillsToolStripMenuItem.Text = "Dump Skills";
+            this.dumpSkillsToolStripMenuItem.Click += new System.EventHandler(this.dumpSkillsToolStripMenuItem_Click);
+            // 
+            // dumpObstaclesToolStripMenuItem
+            // 
+            this.dumpObstaclesToolStripMenuItem.Name = "dumpObstaclesToolStripMenuItem";
+            this.dumpObstaclesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.dumpObstaclesToolStripMenuItem.Text = "Dump Obstacles";
+            this.dumpObstaclesToolStripMenuItem.Click += new System.EventHandler(this.dumpObstaclesToolStripMenuItem_Click);
+            // 
+            // dumpInteractivesToolStripMenuItem
+            // 
+            this.dumpInteractivesToolStripMenuItem.Name = "dumpInteractivesToolStripMenuItem";
+            this.dumpInteractivesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.dumpInteractivesToolStripMenuItem.Text = "Dump Interactives";
+            this.dumpInteractivesToolStripMenuItem.Click += new System.EventHandler(this.dumpInteractivesToolStripMenuItem_Click);
+            // 
+            // gameToolStripMenuItem
+            // 
+            this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dumpBountyToolStripMenuItem,
+            this.dumpTargetingToolStripMenuItem,
+            this.dumpProfileBehaviorToolStripMenuItem});
+            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gameToolStripMenuItem.Text = "Game";
+            // 
+            // dumpBountyToolStripMenuItem
+            // 
+            this.dumpBountyToolStripMenuItem.Name = "dumpBountyToolStripMenuItem";
+            this.dumpBountyToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.dumpBountyToolStripMenuItem.Text = "Dump Bounty";
+            this.dumpBountyToolStripMenuItem.Click += new System.EventHandler(this.dumpBountyToolStripMenuItem_Click);
+            // 
+            // dumpTargetingToolStripMenuItem
+            // 
+            this.dumpTargetingToolStripMenuItem.Name = "dumpTargetingToolStripMenuItem";
+            this.dumpTargetingToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.dumpTargetingToolStripMenuItem.Text = "Dump Targeting";
+            this.dumpTargetingToolStripMenuItem.Click += new System.EventHandler(this.dumpTargetingToolStripMenuItem_Click);
+            // 
+            // dumpProfileBehaviorToolStripMenuItem
+            // 
+            this.dumpProfileBehaviorToolStripMenuItem.Name = "dumpProfileBehaviorToolStripMenuItem";
+            this.dumpProfileBehaviorToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.dumpProfileBehaviorToolStripMenuItem.Text = "Dump Profile Behavior";
+            this.dumpProfileBehaviorToolStripMenuItem.Click += new System.EventHandler(this.dumpProfileBehaviorToolStripMenuItem_Click);
             // 
             // SettingsForm
             // 
@@ -3793,8 +3779,9 @@
             this.tabPage15.PerformLayout();
             this.tabPage16.ResumeLayout(false);
             this.tabPage16.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.panel23.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -3966,21 +3953,12 @@
         private System.Windows.Forms.TabPage tabPage17;
 		private System.Windows.Forms.GroupBox groupBox22;
 		private System.Windows.Forms.CheckBox cb_DebugDataLogging;
-		private System.Windows.Forms.CheckBox cb_DebugStatusBar;
-		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-		private System.Windows.Forms.Button btn_DumpObjectCache;
-		private System.Windows.Forms.Button btn_DumpObstacleCache;
-		private System.Windows.Forms.Button btn_DumpSNOCache;
-		private System.Windows.Forms.Button btn_DumpCharacterCache;
-		private System.Windows.Forms.Button btn_DumpSkillsCache;
-		private System.Windows.Forms.Button btn_DumpTargetingCache;
-		private System.Windows.Forms.Button btn_DumpBountyCache;
+        private System.Windows.Forms.CheckBox cb_DebugStatusBar;
 		private System.Windows.Forms.FlowLayoutPanel LBDebug;
 		private System.Windows.Forms.Panel panel21;
 		private System.Windows.Forms.CheckBox cb_MovementOutOfCombatSkills;
 		private System.Windows.Forms.CheckBox cb_LOSEventSwitches;
-		private System.Windows.Forms.GroupBox gb_ClusteringOptions;
-		private System.Windows.Forms.Button btn_DumpInteractiveCache;
+        private System.Windows.Forms.GroupBox gb_ClusteringOptions;
 		private System.Windows.Forms.CheckBox cb_GeneralSkipAhead;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_MiscStats;
@@ -4017,8 +3995,7 @@
 		private System.Windows.Forms.Label label23;
 		private System.Windows.Forms.ComboBox comboBox_LootWhiteItemQuality;
 		private System.Windows.Forms.Label label22;
-		internal System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.Button btn_DumpInventory;
+        internal System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage18;
 		private System.Windows.Forms.Panel panel18;
 		private System.Windows.Forms.CheckBox cb_DeathWaitForSkillsCooldown;
@@ -4027,16 +4004,14 @@
 		private System.Windows.Forms.GroupBox groupBox13;
 		private System.Windows.Forms.GroupBox groupBox14;
 		private System.Windows.Forms.FlowLayoutPanel flowLayout_DebugDataFlags;
-		private System.Windows.Forms.Button btn_DebugDataFormatText;
-		private System.Windows.Forms.Button btn_Test;
+        private System.Windows.Forms.Button btn_DebugDataFormatText;
 		private System.Windows.Forms.GroupBox groupBox15;
 		private System.Windows.Forms.TextBox txt_GoldInactivityTimeout;
 		private System.Windows.Forms.TrackBar tb_GoldInactivityTimeout;
 		private System.Windows.Forms.Label label20;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_ClusteringUnitExceptions;
 		private System.Windows.Forms.CheckBox cb_ClusterUnitException_RareElite;
-		private System.Windows.Forms.Label label29;
-		private System.Windows.Forms.Button btn_DumpProfileBehavior;
+        private System.Windows.Forms.Label label29;
 		private System.Windows.Forms.GroupBox groupBox10;
 		private System.Windows.Forms.CheckBox cb_TargetingIgnoreFloorContainers;
 		private System.Windows.Forms.CheckBox cb_TargetingIgnoreWeaponRacks;
@@ -4071,8 +4046,7 @@
 		private System.Windows.Forms.Button btn_gemUpgrading_MoveItemUp;
 		private System.Windows.Forms.GroupBox groupBox18;
 		private System.Windows.Forms.CheckBox cb_adventuremode_allowcombatmodification;
-		private System.Windows.Forms.CheckBox cb_adventuremode_NavigateMinimapMarkers;
-        private System.Windows.Forms.Button btn_DumpItemBalanceCache;
+        private System.Windows.Forms.CheckBox cb_adventuremode_NavigateMinimapMarkers;
         private System.Windows.Forms.TabPage tabPage19;
         private System.Windows.Forms.GroupBox groupBox_BnetControl_Setup;
         private System.Windows.Forms.Button btn_CharacterControl_Setup;
@@ -4098,7 +4072,23 @@
         private System.Windows.Forms.GroupBox groupBox25;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ComboBox comboBox_BnetControl_CustomDifficulty;
-        private System.Windows.Forms.Button btn_DumpBackpack;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem cacheToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem objectsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem snoEntriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpCurrentEntriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpObstaclesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpInteractivesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpHeroInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpBackpackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpEquipmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpItemBalanceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpSkillsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpBountyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpTargetingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dumpProfileBehaviorToolStripMenuItem;
 		//
 	}
 }

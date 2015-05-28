@@ -6,6 +6,8 @@
       <InternalName>Belt_norm_base_04</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Belt</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -13,6 +15,8 @@
       <InternalName>Belt_norm_base_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Belt</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -20,6 +24,8 @@
       <InternalName>Belt_norm_base_flippy</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Belt</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -27,6 +33,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Belt</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -34,6 +42,8 @@
       <InternalName>Belt_norm_base_05-10802</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Belt</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -41,6 +51,8 @@
       <InternalName>Belt_norm_base_06-5983</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Belt</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -48,6 +60,8 @@
       <InternalName>Boots_norm_unique_075</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -55,6 +69,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -62,6 +78,8 @@
       <InternalName>Boots_norm_base_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -69,6 +87,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -76,6 +96,8 @@
       <InternalName>Boots_norm_base_04-11248</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -83,6 +105,8 @@
       <InternalName>Boots_norm_base_06-3778</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -90,6 +114,8 @@
       <InternalName>Boots_norm_base_05-4805</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -97,6 +123,8 @@
       <InternalName>Boots_norm_unique_050-13353</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -104,6 +132,8 @@
       <InternalName>x1_Boots_norm_unique_04-11551</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -111,6 +141,8 @@
       <InternalName>Boots_norm_base_01-3932</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -118,6 +150,8 @@
       <InternalName>Boots_norm_unique_085-3568</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -125,6 +159,8 @@
       <InternalName>Boots_norm_unique_045-12030</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -132,6 +168,8 @@
       <InternalName>x1_Boots_norm_set_08-524848</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Boots</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -139,6 +177,8 @@
       <InternalName>Bracers_norm_base_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bracers</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -146,6 +186,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bracers</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -153,6 +195,8 @@
       <InternalName>Bracers_norm_base_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bracers</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -160,6 +204,8 @@
       <InternalName>Bracers_norm_base_05-15573</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bracers</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -167,6 +213,8 @@
       <InternalName>Bracers_norm_base_04-6794</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bracers</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -174,6 +222,8 @@
       <InternalName>Bracers_norm_base_06-12613</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bracers</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -181,6 +231,8 @@
       <InternalName>chestArmor_norm_base_04</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Chest</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -188,6 +240,8 @@
       <InternalName>chestArmor_norm_base_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Chest</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -195,6 +249,8 @@
       <InternalName>chestArmor_norm_base_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Chest</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -202,6 +258,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Chest</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -209,6 +267,8 @@
       <InternalName>chestArmor_norm_base_flippy</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Chest</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -216,6 +276,8 @@
       <InternalName>chestArmor_norm_base_05-7757</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Chest</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -223,6 +285,8 @@
       <InternalName>chestArmor_norm_base_06-7127</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Chest</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -230,6 +294,8 @@
       <InternalName>Gloves_norm_base_flippy</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Gloves</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -237,6 +303,8 @@
       <InternalName>HelmCloth_norm_base_flippy</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Helm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -244,6 +312,8 @@
       <InternalName>Helm_norm_base_flippy</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Helm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -251,6 +321,8 @@
       <InternalName>pants_norm_base_flippy</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Pants</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -258,6 +330,8 @@
       <InternalName>shoulderPads_norm_base_flippy</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shoulders</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -265,6 +339,8 @@
       <InternalName>Axe_norm_base_flippy_04</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -272,6 +348,8 @@
       <InternalName>Axe_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -279,6 +357,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -286,6 +366,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -293,6 +375,8 @@
       <InternalName>Axe_norm_base_flippy_06</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -300,6 +384,8 @@
       <InternalName>Axe_norm_base_flippy_05</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -307,6 +393,8 @@
       <InternalName>x1_Axe_norm_unique_flippy_09</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -314,6 +402,8 @@
       <InternalName>Axe_norm_base_flippy_01-24475</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -321,6 +411,8 @@
       <InternalName>x1_Axe_norm_base_flippy_01-15153</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -328,6 +420,8 @@
       <InternalName>Axe_norm_unique_flippy_06-15977</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -335,6 +429,8 @@
       <InternalName>Axe_norm_base_flippy_07-6732</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -342,6 +438,8 @@
       <InternalName>Axe_norm_unique_flippy_05-6015</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -349,6 +447,8 @@
       <InternalName>Axe_norm_unique_flippy_04-8761</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -356,6 +456,8 @@
       <InternalName>Axe_norm_unique_flippy_03-24708</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -363,6 +465,8 @@
       <InternalName>Axe_norm_unique_flippy_01-681283</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Axe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -370,6 +474,8 @@
       <InternalName>twoHandedAxe_norm_base_flippy_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -377,6 +483,8 @@
       <InternalName>twoHandedAxe_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -384,6 +492,8 @@
       <InternalName>twoHandedAxe_norm_base_flippy_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -391,6 +501,8 @@
       <InternalName>twoHandedAxe_norm_unique_flippy_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -398,6 +510,8 @@
       <InternalName>x1_twoHandedAxe_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -405,6 +519,8 @@
       <InternalName>twoHandedAxe_norm_base_flippy_04-8339</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -412,6 +528,8 @@
       <InternalName>twoHandedAxe_norm_base_flippy_05-24277</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -419,6 +537,8 @@
       <InternalName>twoHandedAxe_norm_unique_flippy_02-23923</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -426,6 +546,8 @@
       <InternalName>x1_twoHandedAxe_norm_base_flippy_01-20274</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -433,6 +555,8 @@
       <InternalName>twoHandedAxe_norm_unique_04-2436</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -440,6 +564,8 @@
       <InternalName>twoHandedAxe_norm_unique_flippy_05-2767</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>AxeTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -447,6 +573,8 @@
       <InternalName>Bow_norm_base_flippy_05-5931</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -454,6 +582,8 @@
       <InternalName>Bow_norm_base_flippy_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -461,6 +591,8 @@
       <InternalName>x1_bow_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -468,6 +600,8 @@
       <InternalName>Bow_norm_base_flippy_04-11164</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -475,6 +609,8 @@
       <InternalName>Bow_norm_base_flippy_02-13808</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -482,6 +618,8 @@
       <InternalName>x1_bow_norm_base_flippy_01-5473</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -489,6 +627,8 @@
       <InternalName>Bow_norm_base_flippy_03-1103</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -496,6 +636,8 @@
       <InternalName>Bow_norm_base_flippy_06-13162</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -503,6 +645,8 @@
       <InternalName>Bow_norm_unique_flippy_07-25191</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -510,6 +654,8 @@
       <InternalName>x1_bow_norm_unique_flippy_11-74722</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -517,6 +663,8 @@
       <InternalName>Bow_norm_unique_flippy_04-62817</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -524,6 +672,8 @@
       <InternalName>Bow_norm_unique_flippy_03-210194</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Bow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -531,6 +681,8 @@
       <InternalName>ceremonialDagger_norm_base_flippy_03-7239</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -538,6 +690,8 @@
       <InternalName>ceremonialDagger_norm_unique_flippy_03-12833</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -545,6 +699,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -552,6 +708,8 @@
       <InternalName>ceremonialDagger_norm_base_flippy_01-1837</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -559,6 +717,8 @@
       <InternalName>ceremonialDagger_norm_base_flippy_04-13805</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -566,6 +726,8 @@
       <InternalName>ceremonialDagger_norm_base_flippy_02-12711</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -573,6 +735,8 @@
       <InternalName>x1_ceremonialDagger_norm_base_flippy_01-12060</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -580,6 +744,8 @@
       <InternalName>x1_ceremonialDagger_norm_unique_10-9703</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -587,6 +753,8 @@
       <InternalName>ceremonialDagger_norm_unique_flippy_05-26194</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -594,6 +762,8 @@
       <InternalName>ceremonialDagger_norm_unique_flippy_02-115480</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -601,6 +771,8 @@
       <InternalName>ceremonialDagger_norm_unique_flippy_06-181600</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -608,6 +780,8 @@
       <InternalName>ceremonialDagger_norm_unique_flippy_09-18044</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -615,6 +789,8 @@
       <InternalName>ceremonialDagger_norm_unique_flippy_04-32055</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CeremonialKnife</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -622,6 +798,8 @@
       <InternalName>XBow_norm_base_flippy_06-10533</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -629,6 +807,8 @@
       <InternalName>XBow_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -636,6 +816,8 @@
       <InternalName>XBow_norm_base_flippy_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -643,6 +825,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -650,6 +834,8 @@
       <InternalName>x1_xbow_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -657,6 +843,8 @@
       <InternalName>XBow_norm_base_flippy_05-10406</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -664,6 +852,8 @@
       <InternalName>XBow_norm_base_flippy_08-26299</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -671,6 +861,8 @@
       <InternalName>XBow_norm_base_flippy_07-1603</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -678,6 +870,8 @@
       <InternalName>x1_xbow_norm_base_flippy_01-13054</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -685,6 +879,8 @@
       <InternalName>XBow_norm_unique_flippy_06-30319</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -692,6 +888,8 @@
       <InternalName>XBow_norm_unique_flippy_01-18524</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -699,6 +897,8 @@
       <InternalName>XBow_norm_unique_flippy_05-5224</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -706,6 +906,8 @@
       <InternalName>XBow_norm_unique_flippy_02-23108</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -713,6 +915,8 @@
       <InternalName>XBow_norm_unique_flippy_07-261344</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Crossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -720,6 +924,8 @@
       <InternalName>combatStaff_norm_base_flippy_03-15187</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -727,6 +933,8 @@
       <InternalName>x1_combatStaff_norm_base_flippy_02-23248</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -734,6 +942,8 @@
       <InternalName>combatStaff_norm_base_flippy_04-10439</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -741,6 +951,8 @@
       <InternalName>combatStaff_norm_base_flippy_01-3451</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -748,6 +960,8 @@
       <InternalName>combatStaff_norm_base_flippy_02-1653</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -755,6 +969,8 @@
       <InternalName>x1_combatStaff_norm_base_flippy_01-93351</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -762,6 +978,8 @@
       <InternalName>x1_combatStaff_norm_unique_flippy_10-1544</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -769,6 +987,8 @@
       <InternalName>combatStaff_norm_unique_flippy_02-7244</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -776,6 +996,8 @@
       <InternalName>combatStaff_norm_unique_flippy_08-478393</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -783,6 +1005,8 @@
       <InternalName>combatStaff_norm_unique_flippy_03-48215</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -790,6 +1014,8 @@
       <InternalName>x1_combatStaff_norm_unique_flippy_09-90827</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -797,6 +1023,8 @@
       <InternalName>combatStaff_norm_unique_flippy_06-43956</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -804,6 +1032,8 @@
       <InternalName>combatStaff_norm_unique_flippy_04-14841</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Daibo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -811,6 +1041,8 @@
       <InternalName>Dagger_norm_base_flippy_04-7545</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -818,6 +1050,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -825,6 +1059,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -832,6 +1068,8 @@
       <InternalName>Dagger_norm_base_flippy_05-11593</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -839,6 +1077,8 @@
       <InternalName>Dagger_norm_base_flippy_07-17646</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -846,6 +1086,8 @@
       <InternalName>Dagger_norm_base_flippy_06-17642</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -853,6 +1095,8 @@
       <InternalName>Dagger_norm_base_flippy_01-20297</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -860,6 +1104,8 @@
       <InternalName>x1_dagger_norm_base_flippy_01-16158</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -867,6 +1113,8 @@
       <InternalName>Dagger_norm_base_flippy_03-13694</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -874,6 +1122,8 @@
       <InternalName>Dagger_norm_unique_flippy_03-3435</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -881,6 +1131,8 @@
       <InternalName>Dagger_norm_unique_flippy_02-11188</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -888,6 +1140,8 @@
       <InternalName>Dagger_norm_unique_flippy_06-11329</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Dagger</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -895,6 +1149,8 @@
       <InternalName>fistWeapon_norm_base_flippy_03-20926</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -902,6 +1158,8 @@
       <InternalName>x1_fistWeapon_norm_base_flippy_02-2721</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -909,6 +1167,8 @@
       <InternalName>x1_fistWeapon_norm_base_flippy_01-5293</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -916,6 +1176,8 @@
       <InternalName>fistWeapon_norm_base_flippy_04-17653</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -923,6 +1185,8 @@
       <InternalName>fistWeapon_norm_base_flippy_02-6302</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -930,6 +1194,8 @@
       <InternalName>fistWeapon_norm_base_flippy_01-1878</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -937,6 +1203,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_10-13065</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -944,6 +1212,8 @@
       <InternalName>fistWeapon_norm_unique_07-3509</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -951,6 +1221,8 @@
       <InternalName>x1_fistWeapon_norm_unique_flippy_14-14402</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -958,6 +1230,8 @@
       <InternalName>p1_fistWeapon_norm_unique_02-20634</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -965,6 +1239,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_08-30479</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -972,6 +1248,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_04-30912</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -979,6 +1257,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_11-37057</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -986,6 +1266,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_03-34820</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -993,6 +1275,8 @@
       <InternalName>p1_fistWeapon_norm_unique_flippy_02-491971</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1000,6 +1284,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_01-581265</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1007,6 +1293,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_07-673823</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1014,6 +1302,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_02-229938</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1021,6 +1311,8 @@
       <InternalName>fistWeapon_norm_unique_flippy_06-90639</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FistWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1028,6 +1320,8 @@
       <InternalName>x1_flail1H_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Flail</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1035,6 +1329,8 @@
       <InternalName>x1_flail1H_norm_base_flippy_05</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Flail</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1042,6 +1338,8 @@
       <InternalName>x1_flail1H_norm_base_flippy_03-8053</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Flail</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1049,6 +1347,8 @@
       <InternalName>x1_flail1H_norm_base_05-5702</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Flail</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1056,6 +1356,8 @@
       <InternalName>x1_flail1H_norm_base_flippy_04-21586</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Flail</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1063,6 +1365,8 @@
       <InternalName>x1_flail1H_norm_base_flippy_01-8978</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Flail</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1070,6 +1374,8 @@
       <InternalName>x1_flail1H_norm_unique_flippy_07-1326</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Flail</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1077,6 +1383,8 @@
       <InternalName>x1_flail2H_norm_base_flippy_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FlailTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1084,6 +1392,8 @@
       <InternalName>x1_flail2H_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FlailTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1091,6 +1401,8 @@
       <InternalName>x1_flail2H_norm_base_flippy_04-17083</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FlailTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1098,6 +1410,8 @@
       <InternalName>x1_flail2H_norm_base_flippy_05-24496</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FlailTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1105,6 +1419,8 @@
       <InternalName>x1_flail2H_norm_base_flippy_03-10085</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FlailTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1112,6 +1428,8 @@
       <InternalName>x1_Flail2H_norm_unique_flippy_03-3337</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FlailTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1119,6 +1437,8 @@
       <InternalName>handXBow_norm_base_flippy_06-8485</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1126,6 +1446,8 @@
       <InternalName>handXBow_norm_base_flippy_07-5677</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1133,6 +1455,8 @@
       <InternalName>handXBow_norm_base_flippy_05</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1140,6 +1464,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1147,6 +1473,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1154,6 +1482,8 @@
       <InternalName>handXBow_norm_base_flippy_08-2907</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1161,6 +1491,8 @@
       <InternalName>handXbow_norm_base_flippy_01-7406</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1168,6 +1500,8 @@
       <InternalName>handXBow_norm_base_flippy_04-5972</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1175,6 +1509,8 @@
       <InternalName>x1_handXbow_norm_base_flippy_01-4978</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1182,6 +1518,8 @@
       <InternalName>handXBow_norm_unique_flippy_01-14894</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1189,6 +1527,8 @@
       <InternalName>handXbow_norm_base_flippy_02-4807</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1196,6 +1536,8 @@
       <InternalName>x1_handXbow_norm_unique_flippy_10-79673</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1203,6 +1545,8 @@
       <InternalName>handXbow_norm_unique_flippy_07-20800</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1210,6 +1554,8 @@
       <InternalName>handXbow_norm_unique_flippy_04-14756</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1217,6 +1563,8 @@
       <InternalName>handXbow_norm_unique_flippy_06-11173</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HandCrossbow</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1224,6 +1572,8 @@
       <InternalName>Mace_norm_base_flippy_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1231,6 +1581,8 @@
       <InternalName>x1_Mace_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1238,6 +1590,8 @@
       <InternalName>Mace_norm_base_flippy_05-14517</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1245,6 +1599,8 @@
       <InternalName>Mace_norm_base_flippy_04-11695</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1252,6 +1608,8 @@
       <InternalName>Mace_norm_base_flippy_06-21266</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1259,6 +1617,8 @@
       <InternalName>Mace_norm_base_flippy_07-22022</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1266,6 +1626,8 @@
       <InternalName>Mace_norm_base_flippy_03-957</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1273,6 +1635,8 @@
       <InternalName>x1_Mace_norm_base_flippy_01-6790</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1280,6 +1644,8 @@
       <InternalName>Mace_norm_unique_07-12305</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1287,6 +1653,8 @@
       <InternalName>Mace_norm_unique_flippy_07-7852</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1294,6 +1662,8 @@
       <InternalName>Mace_norm_unique_flippy_04-6001</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1301,6 +1671,8 @@
       <InternalName>Mace_norm_unique_flippy_02-19179</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1308,6 +1680,8 @@
       <InternalName>Mace_norm_unique_flippy_09-8942</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1315,6 +1689,8 @@
       <InternalName>x1_Mace_norm_unique_flippy_11-9228</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1322,6 +1698,8 @@
       <InternalName>x1_Mace_norm_unique_flippy_10-12436</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1329,6 +1707,8 @@
       <InternalName>Mace_norm_base_flippy_02-3002</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1336,6 +1716,8 @@
       <InternalName>x1_Mace_norm_unique_flippy_12-10103</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1343,6 +1725,8 @@
       <InternalName>Mace_norm_unique_flippy_05-4091</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1350,6 +1734,8 @@
       <InternalName>Mace_norm_unique_flippy_08-215343</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1357,6 +1743,8 @@
       <InternalName>Mace_norm_unique_flippy_01-3062</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1364,6 +1752,8 @@
       <InternalName>Mace_norm_unique_flippy_03-392434</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mace</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1371,6 +1761,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1378,6 +1770,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1385,6 +1779,8 @@
       <InternalName>twoHandedMace_norm_base_flippy_03-3310</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1392,6 +1788,8 @@
       <InternalName>twoHandedMace_norm_base_flippy_05-4080</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1399,6 +1797,8 @@
       <InternalName>twoHandedMace_norm_base_flippy_06-13839</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1406,6 +1806,8 @@
       <InternalName>twoHandedMace_norm_base_flippy_04-21580</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1413,6 +1815,8 @@
       <InternalName>x1_twoHandedMace_norm_base_flippy_01-13662</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1420,6 +1824,8 @@
       <InternalName>twoHandedMace_norm_unique_flippy_02-3137</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1427,6 +1833,8 @@
       <InternalName>twoHandedMace_norm_unique_flippy_04-656</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1434,6 +1842,8 @@
       <InternalName>twoHandedMace_norm_base_flippy_01-6334</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1441,6 +1851,8 @@
       <InternalName>twoHandedMace_norm_unique_flippy_01-21986</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1448,6 +1860,8 @@
       <InternalName>x1_twoHandedMace_norm_unique_flippy_08-32454</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1455,6 +1869,8 @@
       <InternalName>twoHandedMace_norm_unique_flippy_06-56088</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1462,6 +1878,8 @@
       <InternalName>twoHandedMace_norm_unique_flippy_07-85576</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MaceTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1469,6 +1887,8 @@
       <InternalName>mightyWeapon_1H_norm_base_flippy_02-1494</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1476,6 +1896,8 @@
       <InternalName>x1_mightyWeapon_1H_norm_base_flippy_02-1846</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1483,6 +1905,8 @@
       <InternalName>mightyWeapon_1H_norm_base_flippy_04-1864</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1490,6 +1914,8 @@
       <InternalName>mightyWeapon_1H_norm_base_flippy_03-12964</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1497,6 +1923,8 @@
       <InternalName>mightyWeapon_1H_norm_base_flippy_01-2042</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1504,6 +1932,8 @@
       <InternalName>x1_mightyWeapon_1H_norm_base_flippy_01-67717</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1511,6 +1941,8 @@
       <InternalName>mightyWeapon_1H_norm_unique_flippy_01-206685</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1518,6 +1950,8 @@
       <InternalName>x1_mightyWeapon_1H_norm_unique_flippy_08-12312</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1525,6 +1959,8 @@
       <InternalName>mightyWeapon_1H_norm_unique_flippy_05</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeapon</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1532,6 +1968,8 @@
       <InternalName>x1_mightyWeapon_2H_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1539,6 +1977,8 @@
       <InternalName>x1_mightyWeapon_2H_norm_base_flippy_01-3363</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1546,6 +1986,8 @@
       <InternalName>mightyWeapon_2H_norm_base_flippy_01-7780</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1553,6 +1995,8 @@
       <InternalName>mightyWeapon_2H_norm_base_flippy_02-4331</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1560,6 +2004,8 @@
       <InternalName>mightyWeapon_2H_norm_base_flippy_03-6700</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1567,6 +2013,8 @@
       <InternalName>mightyWeapon_2H_norm_base_flippy_04-6834</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1574,6 +2022,8 @@
       <InternalName>mightyWeapon_2H_norm_unique_flippy_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1581,6 +2031,8 @@
       <InternalName>x1_mightyWeapon_2H_norm_unique_flippy_11</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>MightyWeaponTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1588,6 +2040,8 @@
       <InternalName>Polearm_norm_base_flippy_06-7575</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1595,6 +2049,8 @@
       <InternalName>Polearm_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1602,6 +2058,8 @@
       <InternalName>Polearm_norm_base_flippy_03-970</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1609,6 +2067,8 @@
       <InternalName>Polearm_norm_base_flippy_07-18433</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1616,6 +2076,8 @@
       <InternalName>x1_polearm_norm_base_flippy_02-1120</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1623,6 +2085,8 @@
       <InternalName>Polearm_norm_unique_flippy_04-5870</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1630,6 +2094,8 @@
       <InternalName>Polearm_norm_base_flippy_05-8434</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1637,6 +2103,8 @@
       <InternalName>x1_polearm_norm_base_flippy_01-2166</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1644,6 +2112,8 @@
       <InternalName>Polearm_norm_base_flippy_04-5937</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1651,6 +2121,8 @@
       <InternalName>Polearm_norm_base_flippy_08-774</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1658,6 +2130,8 @@
       <InternalName>Polearm_norm_unique_flippy_01-5224</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1665,6 +2139,8 @@
       <InternalName>Polearm_norm_base_flippy_01-14641</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1672,6 +2148,8 @@
       <InternalName>Polearm_norm_unique_flippy_02-53325</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1679,6 +2157,8 @@
       <InternalName>x1_polearm_norm_unique_flippy_05-3091</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1686,6 +2166,8 @@
       <InternalName>Polearm_norm_unique_flippy_03-44247</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Polearm</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1693,6 +2175,8 @@
       <InternalName>Spear_norm_base_flippy_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1700,6 +2184,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1707,6 +2193,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1714,6 +2202,8 @@
       <InternalName>Spear_norm_base_flippy_04-19280</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1721,6 +2211,8 @@
       <InternalName>Spear_norm_base_flippy_03-2545</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1728,6 +2220,8 @@
       <InternalName>Spear_norm_unique_flippy_04-18555</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1735,6 +2229,8 @@
       <InternalName>Spear_norm_base_flippy_05-19801</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1742,6 +2238,8 @@
       <InternalName>x1_spear_norm_base_flippy_01-13786</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1749,6 +2247,8 @@
       <InternalName>Spear_norm_unique_flippy_01-26405</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1756,6 +2256,8 @@
       <InternalName>Spear_norm_unique_flippy_02-18808</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1763,6 +2265,8 @@
       <InternalName>x1_spear_norm_unique_flippy_05-48154</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Spear</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1770,6 +2274,8 @@
       <InternalName>Staff_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1777,6 +2283,8 @@
       <InternalName>Staff_norm_base_flippy_04-16574</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1784,6 +2292,8 @@
       <InternalName>Staff_norm_base_flippy_05-8358</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1791,6 +2301,8 @@
       <InternalName>Staff_norm_base_flippy_07-22734</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1798,6 +2310,8 @@
       <InternalName>Staff_norm_unique_flippy_01-25475</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1805,6 +2319,8 @@
       <InternalName>x1_Staff_norm_base_flippy_01-1922</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1812,6 +2328,8 @@
       <InternalName>Staff_norm_unique_flippy_03-2202</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1819,6 +2337,8 @@
       <InternalName>Staff_norm_unique_flippy_06-1279</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1826,6 +2346,8 @@
       <InternalName>Staff_norm_unique_flippy_05-13224</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1833,6 +2355,8 @@
       <InternalName>Staff_norm_unique_flippy_07-11602</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1840,6 +2364,8 @@
       <InternalName>Staff_norm_base_flippy_03-6947</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1847,6 +2373,8 @@
       <InternalName>Staff_norm_base_flippy_01-14597</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1854,6 +2382,8 @@
       <InternalName>Staff_norm_base_flippy_06-14562</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1861,6 +2391,8 @@
       <InternalName>x1_staff_norm_unique_flippy_10-1861</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1868,6 +2400,8 @@
       <InternalName>x1_staff_norm_unique_flippy_08-235967</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Staff</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1875,6 +2409,8 @@
       <InternalName>Sword_norm_base_flippy_04-7841</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1882,6 +2418,8 @@
       <InternalName>Sword_norm_base_flippy_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1889,6 +2427,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1896,6 +2436,8 @@
       <InternalName>Sword_norm_base_flippy_08-2609</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1903,6 +2445,8 @@
       <InternalName>Sword_norm_base_flippy_02-6635</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1910,6 +2454,8 @@
       <InternalName>Sword_norm_base_flippy_01-14837</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1917,6 +2463,8 @@
       <InternalName>Sword_norm_base_flippy_05-21488</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1924,6 +2472,8 @@
       <InternalName>x1_Sword_norm_base_flippy_01-15995</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1931,6 +2481,8 @@
       <InternalName>Sword_norm_base_flippy_06-9809</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1938,6 +2490,8 @@
       <InternalName>Sword_norm_unique_flippy_02-23452</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1945,6 +2499,8 @@
       <InternalName>x1_Sword_norm_unique_flippy_14-6575</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1952,6 +2508,8 @@
       <InternalName>Sword_norm_unique_flippy_01-7363</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1959,6 +2517,8 @@
       <InternalName>Sword_norm_unique_flippy_07-578</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1966,6 +2526,8 @@
       <InternalName>x1_Sword_norm_unique_flippy_13-2812</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1973,6 +2535,8 @@
       <InternalName>x1_Sword_norm_unique_flippy_20-617</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1980,6 +2544,8 @@
       <InternalName>Sword_norm_unique_flippy_08-45001</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1987,6 +2553,8 @@
       <InternalName>x1_Sword_norm_unique_flippy_15-8018</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -1994,6 +2562,8 @@
       <InternalName>Sword_norm_unique_flippy_11-60528</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2001,6 +2571,8 @@
       <InternalName>Sword_norm_unique_flippy_04-49182</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2008,6 +2580,8 @@
       <InternalName>Sword_norm_unique_flippy_05-3732</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2015,6 +2589,8 @@
       <InternalName>x1_Sword_norm_promo_flippy_02-215914</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2022,6 +2598,8 @@
       <InternalName>Sword_norm_base_flippy_07-1617</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2029,6 +2607,8 @@
       <InternalName>Sword_norm_unique_flippy_06-45519</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2036,6 +2616,8 @@
       <InternalName>x1_Sword_norm_set_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Sword</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2043,6 +2625,8 @@
       <InternalName>twoHandedSword_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2050,6 +2634,8 @@
       <InternalName>twoHandedSword_norm_base_flippy_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2057,6 +2643,8 @@
       <InternalName>x1_twoHandedSword_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2064,6 +2652,8 @@
       <InternalName>twoHandedSword_norm_base_flippy_05-13187</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2071,6 +2661,8 @@
       <InternalName>twoHandedSword_norm_base_flippy_04-21068</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2078,6 +2670,8 @@
       <InternalName>twoHandedSword_norm_base_flippy_06-19494</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2085,6 +2679,8 @@
       <InternalName>twoHandedSword_norm_base_flippy_07-12859</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2092,6 +2688,8 @@
       <InternalName>twoHandedSword_norm_base_flippy_01-3028</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2099,6 +2697,8 @@
       <InternalName>x1_twoHandedSword_norm_base_flippy_01-13325</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2106,6 +2706,8 @@
       <InternalName>twoHandedSword_norm_unique_flippy_01-3225</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2113,6 +2715,8 @@
       <InternalName>twoHandedSword_norm_unique_flippy_08-8966</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2120,6 +2724,8 @@
       <InternalName>twoHandedSword_norm_unique_flippy_09-8791</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2127,6 +2733,8 @@
       <InternalName>twoHandedSword_norm_unique_flippy_04-16946</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2134,6 +2742,8 @@
       <InternalName>twoHandedSword_norm_unique_flippy_05-18881</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2141,6 +2751,8 @@
       <InternalName>x1_twoHandedSword_norm_unique_flippy_12-3925</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2148,6 +2760,8 @@
       <InternalName>twoHandedSword_norm_unique_flippy_06-2060</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2155,6 +2769,8 @@
       <InternalName>twoHandedSword_norm_unique_flippy_10-12413</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>SwordTwoHanded</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2162,6 +2778,8 @@
       <InternalName>Wand_norm_base_flippy_05-11528</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2169,6 +2787,8 @@
       <InternalName>Wand_norm_base_flippy_03-2186</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2176,6 +2796,8 @@
       <InternalName>Wand_norm_base_flippy_06-15603</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2183,6 +2805,8 @@
       <InternalName>x1_Wand_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2190,6 +2814,8 @@
       <InternalName>Wand_norm_base_flippy_04-12251</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2197,6 +2823,8 @@
       <InternalName>Wand_norm_base_flippy_07-24809</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2204,6 +2832,8 @@
       <InternalName>x1_Wand_norm_base_flippy_01-15541</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2211,6 +2841,8 @@
       <InternalName>Wand_norm_base_flippy_02-5412</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2218,6 +2850,8 @@
       <InternalName>Wand_norm_base_flippy_01-12498</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2225,6 +2859,8 @@
       <InternalName>p1_Wand_norm_unique_flippy_01-14004</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2232,6 +2868,8 @@
       <InternalName>Wand_norm_unique_flippy_07-48205</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2239,6 +2877,8 @@
       <InternalName>Wand_norm_unique_flippy_01-26477</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Wand</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2246,6 +2886,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amulet</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2253,6 +2895,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ring</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2260,6 +2904,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>FollowerTrinket</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2267,6 +2913,8 @@
       <InternalName>x1_CruShield_norm_base_flippy_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2274,6 +2922,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2281,6 +2931,8 @@
       <InternalName>x1_CruShield_norm_base_flippy_08</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2288,6 +2940,8 @@
       <InternalName>x1_CruShield_norm_base_flippy_05-3185</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2295,6 +2949,8 @@
       <InternalName>x1_CruShield_norm_base_flippy_06-9340</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2302,6 +2958,8 @@
       <InternalName>x1_CruShield_norm_base_flippy_07-14146</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2309,6 +2967,8 @@
       <InternalName>x1_CruShield_norm_base_flippy_02-3319</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2316,6 +2976,8 @@
       <InternalName>x1_cruShield_norm_unique_flippy_02-87858</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CrusaderShield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2323,6 +2985,8 @@
       <InternalName>Mojo_norm_unique_flippy_04-12327</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2330,6 +2994,8 @@
       <InternalName>Mojo_norm_base_flippy_03-2351</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2337,6 +3003,8 @@
       <InternalName>Mojo_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2344,6 +3012,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2351,6 +3021,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2358,6 +3030,8 @@
       <InternalName>Mojo_norm_base_flippy_04-24863</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2365,6 +3039,8 @@
       <InternalName>Mojo_norm_base_flippy_01-9263</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2372,6 +3048,8 @@
       <InternalName>x1_Mojo_norm_base_flippy_01-20262</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2379,6 +3057,8 @@
       <InternalName>Mojo_norm_base_01-11670</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2386,6 +3066,8 @@
       <InternalName>Mojo_norm_unique_flippy_05-16239</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2393,6 +3075,8 @@
       <InternalName>Mojo_norm_unique_flippy_07-22764</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2400,6 +3084,8 @@
       <InternalName>Mojo_norm_unique_flippy_01-15152</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Mojo</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2407,6 +3093,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Quiver</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2414,6 +3102,8 @@
       <InternalName>Shield_norm_base_flippy_04-2681</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2421,6 +3111,8 @@
       <InternalName>Shield_norm_base_flippy_05-7566</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2428,6 +3120,8 @@
       <InternalName>Shield_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2435,6 +3129,8 @@
       <InternalName>Shield_norm_base_flippy_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2442,6 +3138,8 @@
       <InternalName>x1_Shield_norm_base_flippy_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2449,6 +3147,8 @@
       <InternalName>Shield_norm_unique_flippy_03-18333</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2456,6 +3156,8 @@
       <InternalName>Shield_norm_base_flippy_01-19143</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2463,6 +3165,8 @@
       <InternalName>Shield_norm_base_flippy_07-20794</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2470,6 +3174,8 @@
       <InternalName>Shield_norm_base_flippy_06-1082</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2477,6 +3183,8 @@
       <InternalName>Shield_norm_unique_flippy_07-1304</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2484,6 +3192,8 @@
       <InternalName>x1_Shield_norm_base_flippy_01-14924</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2491,6 +3201,8 @@
       <InternalName>Shield_norm_unique_flippy_08-10861</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2498,6 +3210,8 @@
       <InternalName>Shield_norm_unique_flippy_01-150932</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2505,6 +3219,8 @@
       <InternalName>Shield_norm_unique_flippy_06-19615</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2512,6 +3228,8 @@
       <InternalName>x1_Shield_norm_unique_09</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Shield</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2519,6 +3237,8 @@
       <InternalName>orb_norm_base_flippy_03-9464</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Source</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2526,6 +3246,8 @@
       <InternalName>orb_norm_base_flippy_01-10108</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Source</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2533,6 +3255,8 @@
       <InternalName>x1_orb_norm_base_flippy_01-10695</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Source</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2540,6 +3264,8 @@
       <InternalName>x1_orb_norm_base_flippy_02-2520</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Source</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2547,6 +3273,8 @@
       <InternalName>orb_norm_base_flippy_04-24761</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Source</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2554,6 +3282,8 @@
       <InternalName>CraftingMaterials_Flippy_Global</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2561,6 +3291,8 @@
       <InternalName>CraftingPlan_Smith_Drop</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2568,6 +3300,8 @@
       <InternalName>CraftingPlan_Jeweler_Drop</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2575,6 +3309,8 @@
       <InternalName>CraftingReagent_Legendary_Unique_Gloves_001_x1-8035</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2582,6 +3318,8 @@
       <InternalName>CraftingReagent_Legendary_Unique_Sword_1H_019_x1-6052</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2589,6 +3327,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>InfernalKey</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2596,6 +3336,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>InfernalKey</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2603,6 +3345,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>InfernalKey</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2610,6 +3354,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>InfernalKey</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2617,6 +3363,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>InfernalKey</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2624,6 +3372,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>InfernalKey</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2631,6 +3381,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>InfernalKey</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2638,6 +3390,8 @@
       <InternalName>DemonOrgan_Ghom_x1</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2645,6 +3399,8 @@
       <InternalName>DemonOrgan_Diablo_x1</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2652,6 +3408,8 @@
       <InternalName>DemonOrgan_SiegeBreaker_x1</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2659,6 +3417,8 @@
       <InternalName>DemonOrgan_SkeletonKing_x1</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>CraftingMaterial</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2666,6 +3426,8 @@
       <InternalName>LootRunKey</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>KeyFragment</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2673,6 +3435,8 @@
       <InternalName>TieredLootrunKey_0-44181</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>KeyFragment</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2680,6 +3444,8 @@
       <InternalName>Consumable_Add_Sockets_flippy-20806</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>RamaladnisGift</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2687,6 +3453,8 @@
       <InternalName>Console_PowerGlobe</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>PowerGlobe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2694,6 +3462,8 @@
       <InternalName>HealthGlobe</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HealthGlobe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2701,6 +3471,8 @@
       <InternalName>HealthGlobe_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HealthGlobe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2708,6 +3480,8 @@
       <InternalName>x1_healthGlobe-2662</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HealthGlobe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2715,6 +3489,8 @@
       <InternalName>HealthGlobe_04-8236</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HealthGlobe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2722,6 +3498,8 @@
       <InternalName>HealthGlobe_03-9202</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>HealthGlobe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2729,6 +3507,8 @@
       <InternalName>p1_tiered_rifts_Orb</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>PowerGlobe</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2736,6 +3516,8 @@
       <InternalName>GoldCoin</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Gold</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2743,6 +3525,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Gold</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2750,6 +3534,8 @@
       <InternalName>GoldLarge</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Gold</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2757,6 +3543,8 @@
       <InternalName>GoldMedium</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Gold</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2764,6 +3552,8 @@
       <InternalName>GoldSmall</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Gold</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2771,6 +3561,8 @@
       <InternalName>healthPotion_Console</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Potion</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2778,6 +3570,8 @@
       <InternalName>healthPotion_Legendary_01_x1</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryPotion</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2785,6 +3579,8 @@
       <InternalName>healthPotion_Legendary_06_x1-27250</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryPotion</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2792,6 +3588,8 @@
       <InternalName>healthPotion_Legendary_03_x1-16986</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryPotion</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2799,6 +3597,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2806,6 +3606,8 @@
       <InternalName>Lore_Book_Flippy</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2813,6 +3615,8 @@
       <InternalName>x1_Bog_LoreBook_Adria</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2820,6 +3624,8 @@
       <InternalName>X1_Catacombs_LoreBook_Rakkis</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2827,6 +3633,8 @@
       <InternalName>Lore_Cains_Satchel_Book_Open</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2834,6 +3642,8 @@
       <InternalName>Lore_AzmodansOrders6</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2841,6 +3651,8 @@
       <InternalName>Lore_BelialOasis-10284</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2848,6 +3660,8 @@
       <InternalName>Lore_WaterPuzzle-9440</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2855,6 +3669,8 @@
       <InternalName>Lore_NephalemLastStand-15170</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2862,6 +3678,8 @@
       <InternalName>x1_Fortress_LoreBook_Malthael_Open-15656</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LoreBook</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2869,6 +3687,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>BloodShard</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2876,6 +3696,8 @@
       <InternalName>Amethyst_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2883,6 +3705,8 @@
       <InternalName>Amethyst_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2890,6 +3714,8 @@
       <InternalName>Amethyst_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2897,6 +3723,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2904,6 +3732,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2911,6 +3741,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2918,6 +3750,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2925,6 +3759,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2932,6 +3768,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2939,6 +3777,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2946,6 +3786,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2953,6 +3795,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2960,6 +3804,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Amethyst</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2967,6 +3813,8 @@
       <InternalName>Diamond_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2974,6 +3822,8 @@
       <InternalName>Diamond_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2981,6 +3831,8 @@
       <InternalName>Diamond_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2988,6 +3840,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -2995,6 +3849,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3002,6 +3858,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3009,6 +3867,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3016,6 +3876,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3023,6 +3885,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3030,6 +3894,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3037,6 +3903,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3044,6 +3912,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3051,6 +3921,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Diamond</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3058,6 +3930,8 @@
       <InternalName>Emerald_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3065,6 +3939,8 @@
       <InternalName>Emerald_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3072,6 +3948,8 @@
       <InternalName>Emerald_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3079,6 +3957,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3086,6 +3966,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3093,6 +3975,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3100,6 +3984,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3107,6 +3993,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3114,6 +4002,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3121,6 +4011,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3128,6 +4020,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3135,6 +4029,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3142,6 +4038,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Emerald</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3149,6 +4047,8 @@
       <InternalName>Ruby_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3156,6 +4056,8 @@
       <InternalName>Ruby_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3163,6 +4065,8 @@
       <InternalName>Ruby_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3170,6 +4074,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3177,6 +4083,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3184,6 +4092,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3191,6 +4101,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3198,6 +4110,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3205,6 +4119,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3212,6 +4128,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3219,6 +4137,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3226,6 +4146,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3233,6 +4155,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Ruby</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3240,6 +4164,8 @@
       <InternalName>Topaz_normal-3048</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3247,6 +4173,8 @@
       <InternalName>Topaz_01</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3254,6 +4182,8 @@
       <InternalName>Topaz_02</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3261,6 +4191,8 @@
       <InternalName>Topaz_03</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3268,6 +4200,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3275,6 +4209,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3282,6 +4218,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3289,6 +4227,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3296,6 +4236,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3303,6 +4245,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3310,6 +4254,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3317,6 +4263,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3324,6 +4272,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3331,6 +4281,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>Topaz</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3338,6 +4290,8 @@
       <InternalName>Unique_Gem_013_x1</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3345,6 +4299,8 @@
       <InternalName>Unique_Gem_005_x1</InternalName>
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3352,6 +4308,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3359,6 +4317,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3366,6 +4326,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3373,6 +4335,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3380,6 +4344,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3387,6 +4353,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3394,6 +4362,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3401,6 +4371,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3408,6 +4380,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3415,6 +4389,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
     <DroppedItemEntry>
@@ -3422,6 +4398,8 @@
       <InternalName />
       <ActorType>Item</ActorType>
       <EntryType>Item</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <PluginDroppedItemTypes>LegendaryGem</PluginDroppedItemTypes>
     </DroppedItemEntry>
   </DroppedItemCache>
@@ -4542,6 +5520,11 @@
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>
     <ItemDataEntry>
+      <SnoId>57788</SnoId>
+      <ItemType>Helm</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
       <SnoId>253984</SnoId>
       <ItemType>Pants</ItemType>
       <LegendaryType>None</LegendaryType>
@@ -4913,6 +5896,11 @@
     </ItemDataEntry>
     <ItemDataEntry>
       <SnoId>139102</SnoId>
+      <ItemType>CeremonialKnife</ItemType>
+      <LegendaryType>None</LegendaryType>
+    </ItemDataEntry>
+    <ItemDataEntry>
+      <SnoId>139106</SnoId>
       <ItemType>CeremonialKnife</ItemType>
       <LegendaryType>None</LegendaryType>
     </ItemDataEntry>

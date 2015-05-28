@@ -552,6 +552,7 @@ namespace fBaseXtensions.Cache.Internal
 		internal static Dictionary<int, ActorType?> dictActorType = new Dictionary<int, ActorType?>();
 		internal static Dictionary<int, TargetType?> dictTargetType = new Dictionary<int, TargetType?>();
 		internal static Dictionary<int, float?> dictCollisionRadius = new Dictionary<int, float?>();
+        internal static Dictionary<int, int?> dictInteractRange = new Dictionary<int, int?>();
 		internal static Dictionary<int, String> dictInternalName = new Dictionary<int, String>();
 		internal static Dictionary<int, ObstacleType?> dictObstacleType = new Dictionary<int, ObstacleType?>();
 		internal static Dictionary<int, float?> dictActorSphereRadius = new Dictionary<int, float?>();

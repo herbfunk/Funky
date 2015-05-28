@@ -320,7 +320,7 @@ namespace fItemPlugin.Townrun
 			int iPlayerDynamicID = ZetaDia.Me.CommonData.DynamicId;
 			int iOriginalGameBalanceId = item.ThisBalanceID;
 			int iOriginalDynamicID = item.ThisDynamicID;
-			int iOriginalStackQuantity = item.ThisItemStackQuantity;
+			int iOriginalStackQuantity = (int)item.ThisItemStackQuantity;
 			string sOriginalItemName = item.ThisRealName;
 			string sOriginalInternalName = item.ThisInternalName;
 			PluginItemTypes OriginalPluginItemType = ItemFunc.DetermineItemType(item);
@@ -412,7 +412,7 @@ namespace fItemPlugin.Townrun
 					// Check if we combine the stacks, we won't overfill them
 					if ((tempitem.GameBalanceId == iOriginalGameBalanceId) && (tempitem.ItemStackQuantity < tempitem.MaxStackCount))
 					{
-						iLeftoverStackQuantity = (tempitem.ItemStackQuantity + iOriginalStackQuantity) - tempitem.MaxStackCount;
+						iLeftoverStackQuantity = (int)((tempitem.ItemStackQuantity + iOriginalStackQuantity) - tempitem.MaxStackCount);
 						iPointX = tempitem.InventoryColumn;
 						iPointY = tempitem.InventoryRow;
 

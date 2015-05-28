@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Documents;
 using fBaseXtensions.Cache.Internal;
 using fBaseXtensions.Cache.Internal.Enums;
 using fBaseXtensions.Cache.Internal.Objects;
@@ -15,7 +18,8 @@ namespace fBaseXtensions.Targeting.Behaviors
 	{
 		private DateTime lastAvoidanceConnectSearch = DateTime.Today;
 		private bool bStayPutDuringAvoidance = false;
-		public TBUpdateTarget() : base() { }
+		public TBUpdateTarget()
+		{ }
 
 
 		public override TargetBehavioralTypes TargetBehavioralTypeType
@@ -27,22 +31,22 @@ namespace fBaseXtensions.Targeting.Behaviors
 		}
 		public override void Initialize()
 		{
-			base.Test = (ref CacheObject obj) =>
+			Test = (ref CacheObject obj) =>
 			{
-				this.bStayPutDuringAvoidance = false;
+				bStayPutDuringAvoidance = false;
 
 				//cluster update
 				FunkyGame.Targeting.Cache.Clusters.UpdateTargetClusteringVariables();
 
 				//Standard weighting of valid objects -- updates current target.
-				this.WeightEvaluationObjList(ref obj);
+				WeightEvaluationObjList(ref obj);
 
 
 				//Final Possible Target Check
 				if (obj == null)
 				{
 					// No valid targets but we were told to stay put?
-					if (this.bStayPutDuringAvoidance)
+					if (bStayPutDuringAvoidance)
 					{
 						//Lets check our avoidance object list
 						if (FunkyGame.Targeting.Cache.objectsIgnoredDueToAvoidance.Count > 0 && DateTime.Now.Subtract(lastAvoidanceConnectSearch).TotalMilliseconds > 2000)
@@ -83,7 +87,9 @@ namespace fBaseXtensions.Targeting.Behaviors
 
 			double iHighestWeightFound = 0;
 
-			foreach (CacheObject thisobj in FunkyGame.Targeting.Cache.ValidObjects)
+		    FunkyGame.Hero.Class.UpdateCastableAbilities();
+
+		    foreach (CacheObject thisobj in FunkyGame.Targeting.Cache.ValidObjects)
 			{
 				thisobj.UpdateWeight();
 

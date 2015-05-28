@@ -6,6 +6,8 @@
       <InternalName>caOut_Oasis_Rakanishu_SideStone_A-10174</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>SpecialDestructible</GizmotargetType>
     </GizmoEntry>
@@ -14,6 +16,8 @@
       <InternalName>caOut_Oasis_Rakanishu_CenterStone_A-7493</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>SpecialDestructible</GizmotargetType>
     </GizmoEntry>
@@ -22,6 +26,8 @@
       <InternalName>trDun_Cath_Barricade_B</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -30,6 +36,8 @@
       <InternalName>p1_Cesspools_Door_Breakable</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -38,6 +46,8 @@
       <InternalName>p1_Cesspools_Barricade_Breakable</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -46,6 +56,8 @@
       <InternalName>a1dun_Leor_Jail_Door_Breakable_A-67620</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -54,6 +66,8 @@
       <InternalName>caOut_StingingWinds_Barricade_A-713</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -62,6 +76,8 @@
       <InternalName>a2dun_Aqd_Act_Barricade_A_01-13064</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -70,6 +86,8 @@
       <InternalName>CaOut_Oasis_Gear_Box-14874</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -78,6 +96,8 @@
       <InternalName>trDun_Cath_Barricade_A-17018</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -86,6 +106,8 @@
       <InternalName>trDun_Cath_WoodDoor_A_Barricaded-970</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -94,6 +116,8 @@
       <InternalName>trDun_Crypt_Door-2084</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -102,6 +126,8 @@
       <InternalName>Barricade_Doube_Breakable_Snow_A-3269</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -110,6 +136,8 @@
       <InternalName>a3_Battlefield_Barricade_Double_Breakable_charred-8320</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -118,6 +146,8 @@
       <InternalName>a3_Battlefield_Barricade_Breakable_charred-8359</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -126,6 +156,8 @@
       <InternalName>a3dun_Bridge_Barricade_A-8366</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -134,6 +166,8 @@
       <InternalName>a3dun_Bridge_Barricade_B-8415</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -142,6 +176,8 @@
       <InternalName>a3dun_Bridge_Barricade_C-9841</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -150,6 +186,8 @@
       <InternalName>a1dun_Caves_Goat_Barricade_B-24006</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -158,6 +196,8 @@
       <InternalName>a3dun_Keep_Door_Destructable-13854</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -166,6 +206,8 @@
       <InternalName>p1_Cesspools_Barricade_Breakable_Scaffolding-30687</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -174,6 +216,8 @@
       <InternalName>x1_fortress_Barricade_Breakable-110680</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -182,6 +226,8 @@
       <InternalName>x1_Westm_Barricade_Round-154093</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -190,6 +236,8 @@
       <InternalName>a2dunSwr_Breakables_Barricade_B-163977</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -198,6 +246,8 @@
       <InternalName>x1_Catacombs_Barricade_Round-38867</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -206,6 +256,8 @@
       <InternalName>x1_Catacombs_Barricade_Breakable-55384</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -214,6 +266,8 @@
       <InternalName>trDun_TinkerDoor_Breakable-8333</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -222,6 +276,8 @@
       <InternalName>TrOut_Highlands_Manor_Front_Gate-18784</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -230,6 +286,8 @@
       <InternalName>Barricade_Breakable_Snow_A-457233</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -238,6 +296,8 @@
       <InternalName>x1_Westm_Barricade_Breakable-518640</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>BreakableDoor</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -246,6 +306,8 @@
       <InternalName>a3dun_Keep_Door_Wooden_A</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>40</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -254,6 +316,8 @@
       <InternalName>a3dun_Keep_SiegeTowerDoor</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>14</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -262,6 +326,8 @@
       <InternalName>X1_Westm_Door_Giant_Lowering_Wolf-9346</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -270,6 +336,8 @@
       <InternalName>X1_Westm_Door_Giant_Iron_Bars_Arched-18634</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -278,6 +346,8 @@
       <InternalName>trOut_NewTristram_Gate_Town-67</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -286,6 +356,8 @@
       <InternalName>X1_Westm_Door_Giant_Iron-5188</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -294,6 +366,8 @@
       <InternalName>caOut_Oasis_aqd_door-8258</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -302,6 +376,8 @@
       <InternalName>x1_Catacombs_Door_A-8887</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -310,6 +386,8 @@
       <InternalName>trDun_Cath_Gate_A-93193</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -318,6 +396,8 @@
       <InternalName>trDun_Cath_Gate_C-9372</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -326,6 +406,8 @@
       <InternalName>a1dun_Leor_Gate_A-17181</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -334,6 +416,8 @@
       <InternalName>a1dun_Leor_Jail_Door_A-10528</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -342,6 +426,8 @@
       <InternalName>trDun_Cath_Gate_B_SkeletonKing-3656</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -350,6 +436,8 @@
       <InternalName>a1dunLeor_Interactive_Wooden_Door_A-6720</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -358,6 +446,8 @@
       <InternalName>CellarDoor_trOut_TristramField_Door-7824</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -366,6 +456,8 @@
       <InternalName>trDun_Cath_Gate_A_StrangerGate-20884</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -374,6 +466,8 @@
       <InternalName>trOut_Highlands_Manor_Cain_Door-9032</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -382,6 +476,8 @@
       <InternalName>a1dun_Leor_Manor_DeathofCain_Door-8987</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -390,6 +486,8 @@
       <InternalName>a1dun_caves_DrownedTemple_WallDoor-26916</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -398,6 +496,8 @@
       <InternalName>trOut_TristramField_Field_Gate-23591</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -406,6 +506,8 @@
       <InternalName>a1dun_Leor_Jail_Door_A_Exit-18422</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -414,6 +516,8 @@
       <InternalName>trdun_Cath_CathedralDoorExterior-4148</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -422,6 +526,8 @@
       <InternalName>trDun_Cath_WoodDoor_A-814</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Door</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -430,6 +536,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -438,6 +546,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -446,6 +556,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -454,6 +566,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -462,6 +576,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -470,6 +586,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -478,6 +596,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -486,6 +606,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -494,6 +616,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -502,6 +626,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -510,6 +636,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -518,6 +646,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -526,6 +656,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -534,6 +666,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -542,6 +676,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -550,6 +686,8 @@
       <InternalName>a1dun_Leor_Chest_Rare_Garrach-16708</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -558,6 +696,8 @@
       <InternalName>x1_Westm_Chest_Rare-9700</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -566,6 +706,8 @@
       <InternalName>a3dun_Crater_ST_Chest_Rare-15899</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -574,6 +716,8 @@
       <InternalName>caOut_Boneyards_chest_Rare-16905</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -582,6 +726,8 @@
       <InternalName>x1_Catacombs_chest_rare_GardenEvent-89365</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -590,6 +736,8 @@
       <InternalName>x1_Catacombs_chest_rare-11124</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -598,6 +746,8 @@
       <InternalName>a3dun_Crater_Chest_Rare-17045</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -606,6 +756,8 @@
       <InternalName>a4dun_Spire_Chest_Rare-58008</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -614,6 +766,8 @@
       <InternalName>X1_PandExt_Chest_Rare-70672</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -622,6 +776,8 @@
       <InternalName>a2dun_Aqd_Chest_Rare_FacePuzzleSmall-14922</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -630,6 +786,8 @@
       <InternalName>x1_BogCave_Chest_Rare-42256</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -638,6 +796,8 @@
       <InternalName>x1_Fortress_Chest_Rare-35353</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -646,6 +806,8 @@
       <InternalName>a2dun_Swr_Chest_Rare-19521</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Resplendant</GizmotargetType>
     </GizmoEntry>
@@ -654,6 +816,8 @@
       <InternalName>TrOut_Highlands_Chest-18282</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -662,6 +826,8 @@
       <InternalName>TrOut_Fields_Chest-9087</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -670,6 +836,8 @@
       <InternalName>trOut_Highlands_chest_Bloody-9602</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -678,6 +846,8 @@
       <InternalName>a1dun_Leor_Chest-14472</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -686,6 +856,8 @@
       <InternalName>trOut_Wilderness_HangingTree_GraveChest-1883</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -694,6 +866,8 @@
       <InternalName>trDun_Crypt_Chest_01-2841</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -702,6 +876,8 @@
       <InternalName>a2dun_Spider_Chest-7959</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -710,6 +886,8 @@
       <InternalName>a1dun_Cath_chest-3168</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -718,6 +896,8 @@
       <InternalName>x1_Global_Chest_CursedChest-1801</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -726,6 +906,8 @@
       <InternalName>x1_Global_Chest-2959</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -734,6 +916,8 @@
       <InternalName>x1_Global_Chest_SpeedKill_Elite-8331</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -742,6 +926,8 @@
       <InternalName>trOut_wilderness_chest-9346</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -750,6 +936,8 @@
       <InternalName>x1_Global_Chest_SpeedKill_Boss-881</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -758,6 +946,8 @@
       <InternalName>DrownedTemple_Chest-26930</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -766,6 +956,8 @@
       <InternalName>a1dun_Caves_Nephalem Altar_A_Chest_03_B-24663</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -774,6 +966,8 @@
       <InternalName>a1dun_Caves_Nephalem Altar_A_Chest_03-26244</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -782,6 +976,8 @@
       <InternalName>A3_Battlefield_Chest_Snowy-5333</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -790,6 +986,8 @@
       <InternalName>a2dun_Aqd_Chest-6018</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -798,6 +996,8 @@
       <InternalName>a2dun_Swr_Chest-11659</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -806,6 +1006,8 @@
       <InternalName>A4dun_Garden_Chest-3815</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -814,6 +1016,8 @@
       <InternalName>caOut_Boneyards_chest-7552</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -822,6 +1026,8 @@
       <InternalName>A4dun_Spire_Chest-2062</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -830,6 +1036,8 @@
       <InternalName>x1_Westm_Chest-13789</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -838,6 +1046,8 @@
       <InternalName>x1_westm_Graveyard_Chest-20848</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -846,6 +1056,8 @@
       <InternalName>x1_Abattoir_Chest-39194</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -854,6 +1066,8 @@
       <InternalName>x1_Pand_HexMaze_Chest-12836</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -862,6 +1076,8 @@
       <InternalName>a3dun_Crater_ST_Chest-8347</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -870,6 +1086,8 @@
       <InternalName>X1_PandExt_Chest-1937</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -878,6 +1096,8 @@
       <InternalName>x1_Bog_Chest-23698</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -886,6 +1106,8 @@
       <InternalName>x1_BogCave_Chest-2649</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -894,6 +1116,8 @@
       <InternalName>a3dun_Crater_Chest-8191</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -902,6 +1126,8 @@
       <InternalName>CaOut_Oasis_Chest-2327</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -910,6 +1136,8 @@
       <InternalName>a2dun_Zolt_Chest-1553</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -918,6 +1146,8 @@
       <InternalName>x1_Catacombs_chest-11622</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -926,6 +1156,8 @@
       <InternalName>a3dun_Keep_Chest_A-8177</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -934,6 +1166,8 @@
       <InternalName>A3_Battlefield_Chest_Frosty-1287</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -942,6 +1176,8 @@
       <InternalName>caOut_Oasis_Well_Lift_Chest-8787</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -950,6 +1186,8 @@
       <InternalName>trOut_Tristram_chest-4447</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -958,6 +1196,8 @@
       <InternalName>a2dun_Zolt_Random_Chest-6138</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -966,6 +1206,8 @@
       <InternalName>a1dun_Random_Cloud-16051</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -974,6 +1216,8 @@
       <InternalName>a1dun_random_pot_of_gold_A-16933</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -982,6 +1226,8 @@
       <InternalName>X1_Fortress_Chest-66175</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -990,6 +1236,8 @@
       <InternalName>a2dun_Zolt_Blood_Container-46882</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -998,6 +1246,8 @@
       <InternalName>a2dun_Zolt_Blood_Container_02-50993</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -1006,6 +1256,8 @@
       <InternalName>Lore_AzmodanChest3-42024</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -1014,6 +1266,8 @@
       <InternalName>Lore_AzmodanChest2-43183</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -1022,6 +1276,8 @@
       <InternalName>CaOut_BoneYard_WormCave_Chest-45908</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -1030,6 +1286,8 @@
       <InternalName>caOut_StingingWinds_Chest-21069</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -1038,6 +1296,8 @@
       <InternalName>caOut_StingingWinds_Chest_CultistCamp-13499</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -1046,6 +1306,8 @@
       <InternalName>a2dun_Cave_EggSack__Chest-54543</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Chest</GizmotargetType>
     </GizmoEntry>
@@ -1054,6 +1316,8 @@
       <InternalName>trDun_Cath_FloorSpawner_02-670</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1062,6 +1326,8 @@
       <InternalName>a2dun_Spider_Ground_Spawner-13310</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1070,6 +1336,8 @@
       <InternalName>trDun_Cath_FloorSpawner_01-2966</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1078,6 +1346,8 @@
       <InternalName>x1_Catacombs_Ground_Clicky-11367</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1086,6 +1356,8 @@
       <InternalName>x1_Abattoir_Ground_Clicky-10782</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1094,6 +1366,8 @@
       <InternalName>x1_Bog_Ground_Clicky-5500</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1102,6 +1376,8 @@
       <InternalName>x1_westm_Graveyard_Ground_Clicky-14846</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1110,6 +1386,8 @@
       <InternalName>x1_Pand_Ext_Ground_Clicky-1947</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1118,6 +1396,8 @@
       <InternalName>x1_Pand_HexMaze_Ground_Clicky-12403</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1126,6 +1406,8 @@
       <InternalName>x1_Westm_Ground_Clicky-14727</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1134,6 +1416,8 @@
       <InternalName>x1_BogCave_GroundTile-15025</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1142,6 +1426,8 @@
       <InternalName>p1_Cesspools_Ground_Clicky-39539</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1150,6 +1436,8 @@
       <InternalName>x1_Fortress_Ground_Clicky-66204</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>FloorContainer</GizmotargetType>
     </GizmoEntry>
@@ -1158,6 +1446,8 @@
       <InternalName>caOut_Boneyard_BanishedSkeleton_B-12533</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1166,6 +1456,8 @@
       <InternalName>caOut_Boneyard_BanishedSkeleton_A-13073</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1174,6 +1466,8 @@
       <InternalName>caOut_Boneyard_BanishedSkeleton_C-24391</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1182,6 +1476,8 @@
       <InternalName>x1_Westm_Female_Corpse_A_01-40455</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1190,6 +1486,8 @@
       <InternalName>LootType3_GraveGuard_C_Corpse_01-19181</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1198,6 +1496,8 @@
       <InternalName>LootType2_Adventurer_D_Corpse_01-17329</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1206,6 +1506,8 @@
       <InternalName>LootType2_Adventurer_C_Corpse_01-17368</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1214,6 +1516,8 @@
       <InternalName>LootType2_Adventurer_D_Corpse_02-18039</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1222,6 +1526,8 @@
       <InternalName>LootType3_TristramGuard_Corpse_06-6737</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1230,6 +1536,8 @@
       <InternalName>LootType2_Adventurer_A_Corpse_02-6854</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1238,6 +1546,8 @@
       <InternalName>LootType2_FesteringSkeleton_A_Corpse-9853</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1246,6 +1556,8 @@
       <InternalName>LootType2_FesteringSkeleton_B_Corpse-9851</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1254,6 +1566,8 @@
       <InternalName>LootType2_tristramVillager_Male_B_Corpse_05-401</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1262,6 +1576,8 @@
       <InternalName>LootType2_tristramVillager_Male_B_Corpse_03-554</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1270,6 +1586,8 @@
       <InternalName>LootType2_Adventurer_B_Corpse_02-705</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1278,6 +1596,8 @@
       <InternalName>LootType2_Adventurer_A_Corpse_01-1076</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1286,6 +1606,8 @@
       <InternalName>LootType2_Adventurer_B_Corpse_01-19454</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1294,6 +1616,8 @@
       <InternalName>LootType2_Adventurer_C_Corpse_02-20187</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1302,6 +1626,8 @@
       <InternalName>LootType2_tristramVillager_Male_A_Corpse_01-4310</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1310,6 +1636,8 @@
       <InternalName>LootType2_tristramVillager_Male_A_Corpse_02-5245</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1318,6 +1646,8 @@
       <InternalName>LootType3_TristramGuard_Corpse_01-5268</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1326,6 +1656,8 @@
       <InternalName>LootType3_CaldeumGuard_Cleaver_D_Corpse_05-14642</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1334,6 +1666,8 @@
       <InternalName>TristramGuard_Corpse_02_DarkRitualEvent-697</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1342,6 +1676,8 @@
       <InternalName>LootType2_tristramVillager_Male_C_Corpse_03-3097</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1350,6 +1686,8 @@
       <InternalName>LootType2_tristramVillager_Male_B_Corpse_01-3187</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1358,6 +1696,8 @@
       <InternalName>LootType2_tristramVillager_Male_A_Corpse_04-3196</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1366,6 +1706,8 @@
       <InternalName>LootType2_tristramVillager_Male_C_Corpse_01-3508</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1374,6 +1716,8 @@
       <InternalName>Cow_corpse_clickable_01-5683</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1382,6 +1726,8 @@
       <InternalName>Blacksmith_Apprentice_Corpse-668</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1390,6 +1736,8 @@
       <InternalName>trOut_TristramFields_DenofEvil_FallenShaman-11661</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1398,6 +1746,8 @@
       <InternalName>Goatman_Tree_Knot_trOut_Goatmen-18023</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1406,6 +1756,8 @@
       <InternalName>LootType2_tristramVillager_Male_C_Corpse_02-408</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1414,6 +1766,8 @@
       <InternalName>LootType3_TristramGuard_Corpse_05-409</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1422,6 +1776,8 @@
       <InternalName>LootType2_tristramVillager_Male_B_Corpse_02-427</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1430,6 +1786,8 @@
       <InternalName>LootType2_tristramVillager_Male_C_Corpse_06-10499</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1438,6 +1796,8 @@
       <InternalName>LootType3_TristramGuard_Corpse_02-540</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1446,6 +1806,8 @@
       <InternalName>LootType2_OldTristram_Guard_Corpse_02-705</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1454,6 +1816,8 @@
       <InternalName>LootType2_OldTristram_Guard_Corpse_06-717</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1462,6 +1826,8 @@
       <InternalName>LootType3_CaldeumGuard_Spear_D_Corpse_03-10835</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1470,6 +1836,8 @@
       <InternalName>LootType2_tristramVillager_Male_A_Corpse_03-9136</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1478,6 +1846,8 @@
       <InternalName>trOut_TristramFields_DenofEvil_FallenShaman_Special-2084</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1486,6 +1856,8 @@
       <InternalName>LootType3_GraveGuard_C_Corpse_03-4911</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1494,6 +1866,8 @@
       <InternalName>LootType3_TristramGuard_Corpse_03-913</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1502,6 +1876,8 @@
       <InternalName>LootType3_CaldeumGuard_Spear_D_Corpse_01-4575</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1510,6 +1886,8 @@
       <InternalName>LootType3_CaldeumGuard_Spear_D_Corpse_02-7461</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1518,6 +1896,8 @@
       <InternalName>LootType2_OldTristram_Guard_Corpse_03-1579</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1526,6 +1906,8 @@
       <InternalName>LootType2_OldTristram_Guard_Corpse_04-2570</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1534,6 +1916,8 @@
       <InternalName>LootType2_OldTristram_Guard_Corpse_01-2760</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1542,6 +1926,8 @@
       <InternalName>LootType2_OldTristram_Guard_Corpse_05-3783</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1550,6 +1936,8 @@
       <InternalName>LootType3_GraveGuard_C_Corpse_02-26949</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1558,6 +1946,8 @@
       <InternalName>LootType2_caldeumTortured_Male_C_Corpse_05-14542</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1566,6 +1956,8 @@
       <InternalName>LootType3_GraveGuard_B_Corpse_01-14680</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1574,6 +1966,8 @@
       <InternalName>LootType3_GraveGuard_C_Corpse_05-14701</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1582,6 +1976,8 @@
       <InternalName>Adventurer_A_Corpse_01_Chapel-28759</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1590,6 +1986,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_04-6095</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1598,6 +1996,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_02-6882</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1606,6 +2006,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Melee_Corpse_03-10469</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1614,6 +2016,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_03-10770</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1622,6 +2026,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Melee_Corpse_04-13158</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1630,6 +2036,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Melee_Corpse_06-15737</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1638,6 +2046,8 @@
       <InternalName>LootType3_GraveGuard_D_Corpse_02-588</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1646,6 +2056,8 @@
       <InternalName>LootType2_caldeumTortured_Male_G_Corpse_01-834</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1654,6 +2066,8 @@
       <InternalName>LootType2_caldeumTortured_Male_D_Corpse_02-2152</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1662,6 +2076,8 @@
       <InternalName>LootType2_caldeumTortured_Male_D_Corpse_04-14885</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1670,6 +2086,8 @@
       <InternalName>LootType3_GraveGuard_D_Corpse_03-16055</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1678,6 +2096,8 @@
       <InternalName>x1_Westm_Corpse_C_05-2331</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1686,6 +2106,8 @@
       <InternalName>x1_Westm_Corpse_A_03-2823</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1694,6 +2116,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Ranged_Corpse_05-1634</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1702,6 +2126,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Melee_Corpse_06-1711</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1710,6 +2136,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Ranged_Corpse_01-2175</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1718,6 +2146,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Ranged_Corpse_03-3458</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1726,6 +2156,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Melee_Corpse_05-3984</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1734,6 +2166,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Melee_Corpse_04-6826</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1742,6 +2176,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Melee_Corpse_03-13521</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1750,6 +2186,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Ranged_Corpse_06-7714</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1758,6 +2196,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Ranged_Corpse_02-7698</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1766,6 +2206,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Melee_Corpse_02-7747</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1774,6 +2216,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Melee_Corpse_01-8150</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1782,6 +2226,8 @@
       <InternalName>LootType2_caldeumTortured_Male_C_Corpse_04-811</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1790,6 +2236,8 @@
       <InternalName>LootType2_caldeumTortured_Male_A_Corpse_02-1499</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1798,6 +2246,8 @@
       <InternalName>LootType3_CaldeumGuard_Cleaver_A_Corpse_04-20366</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1806,6 +2256,8 @@
       <InternalName>LootType3_CaldeumGuard_Cleaver_A_Corpse_06-19176</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1814,6 +2266,8 @@
       <InternalName>LootType3_CaldeumGuard_Cleaver_A_Corpse_03-14052</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1822,6 +2276,8 @@
       <InternalName>LootType3_CaldeumGuard_Cleaver_A_Corpse_02-2545</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1830,6 +2286,8 @@
       <InternalName>LootType3_CaldeumGuard_Cleaver_A_Corpse_01-6750</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1838,6 +2296,8 @@
       <InternalName>x1_Abattoir_Corpse_B-10256</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1846,6 +2306,8 @@
       <InternalName>x1_Abattoir_Corpse_C-10258</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1854,6 +2316,8 @@
       <InternalName>x1_Abattoir_Corpse_A-10264</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1862,6 +2326,8 @@
       <InternalName>LootType3_TristramGuard_Corpse_04-1613</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1870,6 +2336,8 @@
       <InternalName>LootType2_caldeumTortured_Male_D_Corpse_01-5423</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1878,6 +2346,8 @@
       <InternalName>x1_BogCave_Corpse-859</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1886,6 +2356,8 @@
       <InternalName>x1_Bog_Bogit_Corpse-5507</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1894,6 +2366,8 @@
       <InternalName>x1_Pand_HexMaze_Corpse-12718</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1902,6 +2376,8 @@
       <InternalName>LootType3_BastionsKeepGuard_Ranged_Corpse_04-57725</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1910,6 +2386,8 @@
       <InternalName>x1_Westm_Corpse_C_06-8349</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1918,6 +2396,8 @@
       <InternalName>x1_Adventurer_Female_Corpse_C_01-10315</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1926,6 +2406,8 @@
       <InternalName>x1_Westm_Corpse_A_05-12778</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1934,6 +2416,8 @@
       <InternalName>x1_Westm_Corpse_B_05-13666</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1942,6 +2426,8 @@
       <InternalName>x1_Westm_Corpse_B_04-13753</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1950,6 +2436,8 @@
       <InternalName>x1_Westm_Corpse_E_04-14683</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1958,6 +2446,8 @@
       <InternalName>x1_Adventurer_Female_Corpse_C_03-12283</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1966,6 +2456,8 @@
       <InternalName>x1_Westm_Corpse_D_04-13365</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1974,6 +2466,8 @@
       <InternalName>x1_Westm_Corpse_C_01-14849</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1982,6 +2476,8 @@
       <InternalName>x1_westmarchGuard_Melee_Corpse_03-15606</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1990,6 +2486,8 @@
       <InternalName>x1_Westm_Corpse_B_01-16010</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -1998,6 +2496,8 @@
       <InternalName>x1_Adventurer_Female_Corpse_D_03-3091</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2006,6 +2506,8 @@
       <InternalName>Clicky_LootType2_DemonFlyer_B_Frosty_Corpse_01-15526</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2014,6 +2516,8 @@
       <InternalName>x1_westm_Graveyard_Corpse-14914</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2022,6 +2526,8 @@
       <InternalName>x1_Catacombs_Corpse_01-11441</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2030,6 +2536,8 @@
       <InternalName>LootType2_caldeumTortured_Male_G_Corpse_05-32847</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2038,6 +2546,8 @@
       <InternalName>LootType2_caldeumVillager_Male_A_Corpse_03-1449</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2046,6 +2556,8 @@
       <InternalName>LootType2_caldeumVillager_Male_A_Corpse_06-1892</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2054,6 +2566,8 @@
       <InternalName>x1_Westm_Corpse_E_03-19796</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2062,6 +2576,8 @@
       <InternalName>LootType3_GraveGuard_C_Corpse_04-5062</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2070,6 +2586,8 @@
       <InternalName>LootType3_GraveGuard_B_Corpse_03-5763</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2078,6 +2596,8 @@
       <InternalName>LootType2_caldeumTortured_Male_G_Corpse_02-5849</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2086,6 +2606,8 @@
       <InternalName>LootType2_skeleton_A_Corpse_01-2187</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2094,6 +2616,8 @@
       <InternalName>LootType3_GraveGuard_D_Corpse_01-5132</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2102,6 +2626,8 @@
       <InternalName>x1_Westm_Corpse_B_03-321</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2110,6 +2636,8 @@
       <InternalName>x1_Westm_Corpse_A_01-340</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2118,6 +2646,8 @@
       <InternalName>x1_Westm_Corpse_C_04-341</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2126,6 +2656,8 @@
       <InternalName>x1_westmarchGuard_Melee_Corpse_04-24119</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2134,6 +2666,8 @@
       <InternalName>x1_westmarchGuard_Melee_Corpse_05-24635</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2142,6 +2676,8 @@
       <InternalName>x1_westmarchGuard_Melee_Corpse_02-25092</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2150,6 +2686,8 @@
       <InternalName>x1_westmarchGuard_Ranged_Corpse_06-25505</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2158,6 +2696,8 @@
       <InternalName>x1_westmarchGuard_Ranged_Corpse_04-26246</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2166,6 +2706,8 @@
       <InternalName>x1_Adventurer_Female_Corpse_D_04-26411</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2174,6 +2716,8 @@
       <InternalName>x1_westmarchGuard_Ranged_Corpse_03-27968</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2182,6 +2726,8 @@
       <InternalName>x1_Bog_Corpse_01-30455</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2190,6 +2736,8 @@
       <InternalName>x1_BogBlight_Corpse-33821</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2198,6 +2746,8 @@
       <InternalName>x1_westmarchGuard_Ranged_Corpse_02-5729</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2206,6 +2756,8 @@
       <InternalName>x1_westmarchGuard_Melee_Corpse_01-5743</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2214,6 +2766,8 @@
       <InternalName>x1_Westm_Corpse_A_06-5770</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2222,6 +2776,8 @@
       <InternalName>x1_Westm_Corpse_A_04-5784</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2230,6 +2786,8 @@
       <InternalName>x1_westmarchGuard_Ranged_Corpse_01-6040</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2238,6 +2796,8 @@
       <InternalName>x1_Adventurer_Female_Corpse_A_03-6278</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2246,6 +2806,8 @@
       <InternalName>x1_Westm_Corpse_C_02-7561</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2254,6 +2816,8 @@
       <InternalName>x1_Westm_Corpse_E_06-7641</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2262,6 +2826,8 @@
       <InternalName>x1_Westm_Corpse_E_05-7678</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2270,6 +2836,8 @@
       <InternalName>x1_Adventurer_Female_Corpse_B_04-7949</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2278,6 +2846,8 @@
       <InternalName>x1_Westm_Corpse_D_01-8862</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2286,6 +2856,8 @@
       <InternalName>x1_Westm_Corpse_B_02-8865</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2294,6 +2866,8 @@
       <InternalName>x1_westmarchGuard_Ranged_Corpse_05-8965</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2302,6 +2876,8 @@
       <InternalName>x1_westmarchGuard_Melee_Corpse_06-10310</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2310,6 +2886,8 @@
       <InternalName>x1_Westm_MysticCorpsePile-12175</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2318,6 +2896,8 @@
       <InternalName>x1_Westm_Corpse_C_03-20339</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2326,6 +2906,8 @@
       <InternalName>LootType2_caldeumTortured_Male_F_Corpse_04-9852</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2334,6 +2916,8 @@
       <InternalName>LootType2_caldeumTortured_Male_F_Corpse_01-9866</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2342,6 +2926,8 @@
       <InternalName>LootType2_caldeumTortured_Male_E_Corpse_04-9865</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2350,6 +2936,8 @@
       <InternalName>LootType2_caldeumTortured_Male_B_Corpse_06-9873</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2358,6 +2946,8 @@
       <InternalName>LootType2_caldeumTortured_Male_A_Corpse_05-9891</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2366,6 +2956,8 @@
       <InternalName>LootType2_caldeumTortured_Male_B_Corpse_04-9888</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2374,6 +2966,8 @@
       <InternalName>LootType2_caldeumTortured_Male_F_Corpse_06-9898</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2382,6 +2976,8 @@
       <InternalName>LootType2_caldeumTortured_Male_E_Corpse_02-9904</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2390,6 +2986,8 @@
       <InternalName>LootType3_GraveGuard_A_Corpse_04-15087</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2398,6 +2996,8 @@
       <InternalName>LootType3_GraveGuard_B_Corpse_04-15167</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2406,6 +3006,8 @@
       <InternalName>Adventurer_A_Corpse_NephalemCave-6056</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2414,6 +3016,8 @@
       <InternalName>LootType2_caldeumTortured_Male_C_Corpse_01-12550</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2422,6 +3026,8 @@
       <InternalName>TristramGuard_Corpse_03_DescentEvent-2063</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2430,6 +3036,8 @@
       <InternalName>LootType3_GraveGuard_C_Corpse_06-23822</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2438,6 +3046,8 @@
       <InternalName>LootType3_GraveGuard_A_Corpse_01-6330</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2446,6 +3056,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Melee_Corpse_02-10677</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2454,6 +3066,8 @@
       <InternalName>Clicky_LootType2_DemonTrooper_B_Frosty_Corpse_01-13367</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2462,6 +3076,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Melee_Corpse_01-15048</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2470,6 +3086,8 @@
       <InternalName>LootType2_caldeumTortured_Male_F_Corpse_03-17401</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2478,6 +3096,8 @@
       <InternalName>LootType2_caldeumVillager_Male_A_Corpse_05-595</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2486,6 +3106,8 @@
       <InternalName>LootType2_caldeumVillager_Male_A_Corpse_01-601</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2494,6 +3116,8 @@
       <InternalName>LootType2_caldeumVillager_Male_A_Corpse_04-1149</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2502,6 +3126,8 @@
       <InternalName>LootType2_caldeumVillager_Male_A_Corpse_02-3396</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2510,6 +3136,8 @@
       <InternalName>x1_Adventurer_Female_Corpse_B_02-8488</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2518,6 +3146,8 @@
       <InternalName>x1_Westm_Corpse_D_05-1640</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2526,6 +3156,8 @@
       <InternalName>x1_Westm_Corpse_D_02-2898</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2534,6 +3166,8 @@
       <InternalName>x1_Adventurer_Female_Corpse_A_01-3766</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2542,6 +3176,8 @@
       <InternalName>x1_Westm_Corpse_E_02-7290</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2550,6 +3186,8 @@
       <InternalName>LootType2_caldeumTortured_Male_D_Corpse_06-27369</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2558,6 +3196,8 @@
       <InternalName>LootType2_caldeumTortured_Male_F_Corpse_05-29262</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2566,6 +3206,8 @@
       <InternalName>x1_Westm_Corpse_B_06-18437</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2574,6 +3216,8 @@
       <InternalName>LootType3_DeadEndCorpse_CaldeumGuard_Cleaver_A_Corpse_02-87136</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2582,6 +3226,8 @@
       <InternalName>LootType3_DeadEndCorpse_TristramGuard_Corpse_02-56997</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2590,6 +3236,8 @@
       <InternalName>p1_Cesspools_Corpse_Bloated-40161</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2598,6 +3246,8 @@
       <InternalName>p1_Cesspools_Corpse_B-40709</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2606,6 +3256,8 @@
       <InternalName>p1_Cesspools_Corpse-42087</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2614,6 +3266,8 @@
       <InternalName>x1_Fortress_Corpse-66233</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2622,6 +3276,8 @@
       <InternalName>LootType3_DeadEndCorpse_CaldeumGuard_Cleaver_A_Corpse_01-12191</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2630,6 +3286,8 @@
       <InternalName>x1_Westm_Corpse_D_06-58048</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2638,6 +3296,8 @@
       <InternalName>x1_Westm_Corpse_A_02-36773</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2646,6 +3306,8 @@
       <InternalName>x1_Catacombs_Corpse_01_DeadEndReward-78256</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2654,6 +3316,8 @@
       <InternalName>x1_Westm_Corpse2-92884</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2662,6 +3326,8 @@
       <InternalName>X1_PandExt_Corpse-94007</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2670,6 +3336,8 @@
       <InternalName>x1_Fortress_Corpse_DeadEndReward-109792</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2678,6 +3346,8 @@
       <InternalName>x1_Pand_demonFlyer_B_clickable_corpse_01-93948</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2686,6 +3356,8 @@
       <InternalName>LootType2_caldeumTortured_Male_G_Corpse_03-6509</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2694,6 +3366,8 @@
       <InternalName>LootType2_caldeumTortured_Male_C_Corpse_03-849</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2702,6 +3376,8 @@
       <InternalName>LootType2_caldeumTortured_Male_B_Corpse_02-10805</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2710,6 +3386,8 @@
       <InternalName>LootType2_caldeumTortured_Male_B_Corpse_03-36505</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2718,6 +3396,8 @@
       <InternalName>LootType3_DeadEndCorpse_TristramGuard_Corpse_01-13295</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2726,6 +3406,8 @@
       <InternalName>LootType3_GraveGuard_A_Corpse_05-26450</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2734,6 +3416,8 @@
       <InternalName>LootType3_GraveGuard_A_Corpse_02-7132</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2742,6 +3426,8 @@
       <InternalName>sunBleachedCorpse_A_01-21203</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2750,6 +3436,8 @@
       <InternalName>LootType2_skeleton_A_Corpse_03-44934</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2758,6 +3446,8 @@
       <InternalName>LootType2_caldeumTortured_Male_B_Corpse_01-45747</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2766,6 +3456,8 @@
       <InternalName>LootType2_skeleton_A_Corpse_05-45850</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2774,6 +3466,8 @@
       <InternalName>LootType2_caldeumTortured_Male_G_Corpse_06-45969</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2782,6 +3476,8 @@
       <InternalName>LootType2_caldeumTortured_Male_C_Corpse_06-46144</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2790,6 +3486,8 @@
       <InternalName>LootType2_caldeumTortured_Male_G_Corpse_04-46262</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2798,6 +3496,8 @@
       <InternalName>LootType2_caldeumTortured_Male_E_Corpse_01-19127</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2806,6 +3506,8 @@
       <InternalName>LootType2_caldeumTortured_Male_D_Corpse_03-23459</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2814,6 +3516,8 @@
       <InternalName>x1_Westm_Corpse_E_01-16388</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2822,6 +3526,8 @@
       <InternalName>BastionsKeepGuard_Melee_Corpse_Morgan-29969</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2830,6 +3536,8 @@
       <InternalName>BastionsKeepGuard_Corpse_Jonathan_L-30929</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2838,6 +3546,8 @@
       <InternalName>LootType3_DeadEndCorpse_BastionsKeepGuard_Melee_Corpse_02-37466</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2846,6 +3556,8 @@
       <InternalName>demonTrooper_A_clickable_corpse_01-39140</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2854,6 +3566,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_01-41821</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2862,6 +3576,8 @@
       <InternalName>Clicky_LootType2_DemonTrooper_A_Frosty_Corpse_01-41864</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2870,6 +3586,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_06-41902</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2878,6 +3596,8 @@
       <InternalName>demonTrooper_B_clickable_corpse_01-42003</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2886,6 +3606,8 @@
       <InternalName>Clicky_LootType2_DemonFlyer_A_Frosty_Corpse_01-43762</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2894,6 +3616,8 @@
       <InternalName>LootType2_BastionsKeepGuard_Frosty_Ranged_Corpse_05-44897</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2902,6 +3626,8 @@
       <InternalName>LootType2_caldeumTortured_Male_C_Corpse_02-1953</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2910,6 +3636,8 @@
       <InternalName>LootType2_caldeumTortured_Male_B_Corpse_05-21751</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2918,6 +3646,8 @@
       <InternalName>LootType2_caldeumTortured_Male_A_Corpse_06-5361</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2926,6 +3656,8 @@
       <InternalName>LootType3_DeadEndCorpse_BastionsKeepGuard_Melee_Corpse_01-6345</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2934,6 +3666,8 @@
       <InternalName>LootType3_DeadEndCorpse_BastionsKeepGuard_Ranged_Corpse_02-20452</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2942,6 +3676,8 @@
       <InternalName>demonFlyer_B_clickable_corpse_01-23271</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2950,6 +3686,8 @@
       <InternalName>LootType3_DeadEndCorpse_BastionsKeepGuard_Ranged_Corpse_01-13185</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2958,6 +3696,8 @@
       <InternalName>LootType2_caldeumTortured_Male_A_Corpse_01-1623</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2966,6 +3706,8 @@
       <InternalName>LootType2_caldeumTortured_Male_A_Corpse_03-2019</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2974,6 +3716,8 @@
       <InternalName>LootType3_CaldeumGuard_Cleaver_A_Corpse_05-6325</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2982,6 +3726,8 @@
       <InternalName>LootType2_skeleton_A_Corpse_04-702</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2990,6 +3736,8 @@
       <InternalName>LootType3_GraveGuard_B_Corpse_02-29580</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -2998,6 +3746,8 @@
       <InternalName>LootType2_caldeumTortured_Male_F_Corpse_02-45508</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3006,6 +3756,8 @@
       <InternalName>LootType3_GraveGuard_D_Corpse_06-45500</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3014,6 +3766,8 @@
       <InternalName>LootType2_caldeumTortured_Male_D_Corpse_05-1501</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3022,6 +3776,8 @@
       <InternalName>LootType2_caldeumTortured_Male_A_Corpse_04-7762</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3030,6 +3786,8 @@
       <InternalName>LootType2_caldeumTortured_Male_E_Corpse_06-13184</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3038,6 +3796,8 @@
       <InternalName>LootType2_caldeumTortured_Male_E_Corpse_03-15081</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3046,6 +3806,8 @@
       <InternalName>LootType2_caldeumTortured_Male_E_Corpse_05-3925</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3054,6 +3816,8 @@
       <InternalName>LootType2_skeleton_A_Corpse_06-33635</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3062,6 +3826,8 @@
       <InternalName>LootType2_skeleton_A_Corpse_02-35332</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3070,6 +3836,8 @@
       <InternalName>LootType3_GraveGuard_A_Corpse_03-13730</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3078,6 +3846,8 @@
       <InternalName>LootType3_GraveGuard_D_Corpse_05-55169</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3086,6 +3856,8 @@
       <InternalName>x1_Westm_Corpse_D_03-17426</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3094,6 +3866,8 @@
       <InternalName>LootType3_GraveGuard_B_Corpse_05-50003</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3102,6 +3876,8 @@
       <InternalName>LootType3_GraveGuard_D_Corpse_04-12723</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3110,6 +3886,8 @@
       <InternalName>LootType3_GraveGuard_B_Corpse_06-21296</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>Corpse</GizmotargetType>
     </GizmoEntry>
@@ -3118,6 +3896,8 @@
       <InternalName>trDun_WeaponRack-791</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3126,6 +3906,8 @@
       <InternalName>a1dun_Leor_Tool_Rack_A_01-15551</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3134,6 +3916,8 @@
       <InternalName>Goatman_Weapon_Rack_trOut_Highlands-17316</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3142,6 +3926,8 @@
       <InternalName>A3_Battlefield_Weaponrack_A-16802</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3150,6 +3936,8 @@
       <InternalName>a2dun_zolt_WeaponRack_A-18302</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3158,6 +3946,8 @@
       <InternalName>x1_Westm_weaponRack-9780</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3166,6 +3956,8 @@
       <InternalName>x1_Abattoir_weaponRack-1181</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3174,6 +3966,8 @@
       <InternalName>a4dunGarden_Props_Weaponrack_A-8221</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3182,6 +3976,8 @@
       <InternalName>x1_westm_Int_WeaponRack-6628</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3190,6 +3986,8 @@
       <InternalName>x1_westm_Tub_Tools_A-7975</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3198,6 +3996,8 @@
       <InternalName>x1_Fortress_WeaponRack-66101</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3206,6 +4006,8 @@
       <InternalName>p1_Cesspools_weaponRack-39531</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>WeaponRack</GizmotargetType>
     </GizmoEntry>
@@ -3214,6 +4016,8 @@
       <InternalName>trDun_ArmorRack-1451</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3222,6 +4026,8 @@
       <InternalName>X1_PandExt_ArmorRack-12750</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3230,6 +4036,8 @@
       <InternalName>x1_Bog_ArmorRack_A-15606</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3238,6 +4046,8 @@
       <InternalName>x1_Abattoir_ArmorRack-3055</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3246,6 +4056,8 @@
       <InternalName>x1_Westm_ArmorRack-9628</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3254,6 +4066,8 @@
       <InternalName>X1_Westm_Graveyard_Armor_Rack-13280</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3262,6 +4076,8 @@
       <InternalName>x1_Bog_ArmorRack-5965</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3270,6 +4086,8 @@
       <InternalName>a3dun_Bridge_Armor_Rack-42001</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3278,6 +4096,8 @@
       <InternalName>x1_westm_Int_ArmorRack-26984</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3286,6 +4106,8 @@
       <InternalName>a3dun_Keep_Armor_Rack-17043</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3294,6 +4116,8 @@
       <InternalName>trOut_Highlands_ChiefGoatmenMummyRack_A-8866</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>ArmorRack</GizmotargetType>
     </GizmoEntry>
@@ -3302,6 +4126,8 @@
       <InternalName>trDun_Cath_BookcaseShelves_B-394</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3310,6 +4136,8 @@
       <InternalName>trDun_Cath_BookcaseShelves_A-1786</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3318,6 +4146,8 @@
       <InternalName>trOut_Highlands_Mystic_Wagon-4999</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3326,6 +4156,8 @@
       <InternalName>trDun_book_pile_a-822</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3334,6 +4166,8 @@
       <InternalName>trDun_Cath_BookcaseShelves_Wide-2385</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3342,6 +4176,8 @@
       <InternalName>a1dun_Crypts_Jar_of_Souls_02-6412</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3350,6 +4186,8 @@
       <InternalName>a2dun_Zolt_Books_Full_Wall_A-625</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3358,6 +4196,8 @@
       <InternalName>a2dun_Zolt_Desk_Scrolls_A-634</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3366,6 +4206,8 @@
       <InternalName>Lore_WaterPuzzle_Satchel-7158</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3374,6 +4216,8 @@
       <InternalName>x1_westm_Book_shelf-27498</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3382,6 +4226,8 @@
       <InternalName>LoreChest_GuardCaptainJournal-1949</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3390,6 +4236,8 @@
       <InternalName>Lore_Satchel_Chest_FacePuzzleLarge-42045</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3398,6 +4246,8 @@
       <InternalName>Lore_Satchel_Chest_FacePuzzleSmall-14914</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3406,6 +4256,8 @@
       <InternalName>CaOut_Oasis_Chest_Rare_MapVendorCave-12710</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3414,6 +4266,8 @@
       <InternalName>a2dun_Zolt_Random_GoldChest-11759</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3422,6 +4276,8 @@
       <InternalName>Lore_UriksJournal-13083</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3430,6 +4286,8 @@
       <InternalName>Lore_HighlandsChest-10452</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3438,6 +4296,8 @@
       <InternalName>a4dun_spire_CorruptedWallAngel_Column_1-34318</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3446,6 +4306,8 @@
       <InternalName>a4dun_spire_CorruptedWallAngel_Column_2-37722</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3454,6 +4316,8 @@
       <InternalName>a4dun_spire_CorruptedWallAngel_Column_3-39228</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3462,6 +4326,8 @@
       <InternalName>p1_Tgoblin_Greed_Bait-8859</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Chest</PluginGizmoType>
       <GizmotargetType>MiscContainer</GizmotargetType>
     </GizmoEntry>
@@ -3470,6 +4336,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3478,6 +4346,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>4</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3486,6 +4356,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3494,6 +4366,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3502,6 +4376,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3510,6 +4386,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3518,6 +4396,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3526,6 +4406,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3534,6 +4416,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3542,6 +4426,8 @@
       <InternalName>Ghost_Jail_Prisoner</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3550,6 +4436,8 @@
       <InternalName>a2dun_Spider_Venom_Pool-4568</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3558,6 +4446,8 @@
       <InternalName>trDun_SkeletonKing_Bridge_Active-3253</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3566,6 +4456,8 @@
       <InternalName>trDun_Cath_Chandelier_Trap_Switch2-383</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3574,6 +4466,8 @@
       <InternalName>a1dun_Leoric_IronMaiden_Event-14441</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3582,6 +4476,8 @@
       <InternalName>a3dun_rmpt_Demon_Elevator_A-3153</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3590,6 +4486,8 @@
       <InternalName>x1_Bog_CatacombsPortal_BeaconLoc-46725</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3598,6 +4496,8 @@
       <InternalName>X1_PandExt_SiegeRune-95859</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
     </GizmoEntry>
@@ -3606,14 +4506,68 @@
       <InternalName>caOut_Totem_A</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>None</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>430733</SnoId>
+      <InternalName>px_Wilderness_Camp_TemplarPrisoners-10975</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>Bounty</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>433124</SnoId>
+      <InternalName>px_Bounty_Camp_TrappedAngels-23348</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>Bounty</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>432259</SnoId>
+      <InternalName>px_Highlands_Camp_ResurgentCult_Totem-7343</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>Bounty</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>433402</SnoId>
+      <InternalName>px_Bounty_Camp_Hellportals_Frame-16815</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>Bounty</GizmotargetType>
+    </GizmoEntry>
+    <GizmoEntry>
+      <SnoId>432770</SnoId>
+      <InternalName>px_SpiderCaves_Camp_Cocoon-3772</InternalName>
+      <ActorType>Gizmo</ActorType>
+      <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
+      <PluginGizmoType>Switch</PluginGizmoType>
+      <GizmotargetType>Bounty</GizmotargetType>
     </GizmoEntry>
     <GizmoEntry>
       <SnoId>138989</SnoId>
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>HealingWell</PluginGizmoType>
       <GizmotargetType>Healthwell</GizmotargetType>
     </GizmoEntry>
@@ -3622,6 +4576,8 @@
       <InternalName>a1dun_Leor_BloodWell_A</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>HealingWell</PluginGizmoType>
       <GizmotargetType>Healthwell</GizmotargetType>
     </GizmoEntry>
@@ -3630,6 +4586,8 @@
       <InternalName>PoolOfReflection</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PoolOfReflection</PluginGizmoType>
       <GizmotargetType>PoolOfReflection</GizmotargetType>
     </GizmoEntry>
@@ -3638,6 +4596,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>Shrine</GizmotargetType>
     </GizmoEntry>
@@ -3646,6 +4606,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>Shrine</GizmotargetType>
     </GizmoEntry>
@@ -3654,6 +4616,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>Shrine</GizmotargetType>
     </GizmoEntry>
@@ -3662,6 +4626,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>Shrine</GizmotargetType>
     </GizmoEntry>
@@ -3670,6 +4636,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>Shrine</GizmotargetType>
     </GizmoEntry>
@@ -3678,6 +4646,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>Shrine</GizmotargetType>
     </GizmoEntry>
@@ -3686,6 +4656,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
@@ -3694,6 +4666,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
@@ -3702,6 +4676,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
@@ -3710,6 +4686,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
@@ -3718,6 +4696,8 @@
       <InternalName />
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>PowerUp</PluginGizmoType>
       <GizmotargetType>PylonShrine</GizmotargetType>
     </GizmoEntry>
@@ -3726,6 +4706,8 @@
       <InternalName>a1dun_Leor_Spike_Spawner_Switch</InternalName>
       <ActorType>Gizmo</ActorType>
       <EntryType>Gizmo</EntryType>
+      <InteractRange>-1</InteractRange>
+      <CollisionRadius>-1</CollisionRadius>
       <PluginGizmoType>Switch</PluginGizmoType>
       <GizmotargetType>Obstacle</GizmotargetType>
     </GizmoEntry>

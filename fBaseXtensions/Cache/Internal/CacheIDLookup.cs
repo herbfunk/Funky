@@ -76,6 +76,7 @@ namespace fBaseXtensions.Cache.Internal
 					{174900, 20f},{185391, 20f},
                     //a3 Siege Monster
                     {230725, 45f},
+                    {91111, 45f},{214240, 45f},{220471, 45f},{316254, 45f},{180734, 45f},{410366, 45f},
                     //monster_affix waller
                     //{226808, 12.75f},
 			  };

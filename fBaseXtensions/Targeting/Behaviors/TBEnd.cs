@@ -63,6 +63,12 @@ namespace fBaseXtensions.Targeting.Behaviors
 						return true;
 					}
 
+				    if (DateTime.Now.Subtract(FunkyGame.Targeting.Cache.lastHadSwitchAsTarget).TotalMilliseconds <= (4000))
+				    {
+                        obj = new CacheObject(FunkyGame.Hero.Position, TargetType.NoMovement, 20000, "SwitchWait", 2f, -1);
+                        return true;
+				    }
+
 					// Finally, a special check for waiting for wrath of the berserker cooldown before engaging Azmodan
 					if (Hotbar.HasPower(SNOPower.Barbarian_WrathOfTheBerserker) && FunkyBaseExtension.Settings.Barbarian.bWaitForWrath && !FunkyGame.Hero.Class.Abilities[SNOPower.Barbarian_WrathOfTheBerserker].AbilityUseTimer() &&
 						FunkyGame.Hero.CurrentWorldDynamicID == 121214 &&

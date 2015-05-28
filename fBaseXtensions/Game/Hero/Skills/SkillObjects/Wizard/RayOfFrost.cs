@@ -1,4 +1,5 @@
 ﻿using fBaseXtensions.Game.Hero.Skills.Conditions;
+using fBaseXtensions.Items.Enums;
 using Zeta.Game.Internals.Actors;
 
 namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
@@ -13,6 +14,8 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 		public override SkillUseage UseageType { get { return SkillUseage.Combat; } }
 
 		public override SkillExecutionFlags ExecutionType { get { return SkillExecutionFlags.Target; } }
+        public override bool IsPiercing { get { return _ispiercing; } }
+	    private bool _ispiercing = false;
 
 		public override void Initialize()
 		{
@@ -23,6 +26,13 @@ namespace fBaseXtensions.Game.Hero.Skills.SkillObjects.Wizard
 			
 			Priority = SkillPriority.Medium;
 			PreCast = new SkillPreCast((SkillPrecastFlags.CheckPlayerIncapacitated | SkillPrecastFlags.CheckCanCast));
+
+            //Check for piercing
+		    if (Equipment.CheckLegendaryItemCount(LegendaryItemTypes.LightofGrace))
+		    {
+                _ispiercing = true;
+		    }
+		        
 		}
 
 

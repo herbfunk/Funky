@@ -75,8 +75,8 @@ namespace fBaseXtensions.Game.Hero
 		public int FreeBackpackSlots { get; set; }
 		public int CurrentExp { get; set; }
 
-		private int coinage;
-		public int Coinage
+        private long coinage;
+		public long Coinage
 		{
 			get
 			{
@@ -601,11 +601,11 @@ namespace fBaseXtensions.Game.Hero
 						iMyDynamicID = me.CommonData.DynamicId;
 						FreeBackpackSlots = me.Inventory.NumFreeBackpackSlots;
 						PickupRadius = me.GoldPickupRadius;
-						Coinage = me.Inventory.Coinage;
+                        Coinage = ZetaDia.CPlayer.Coinage;
 					}
 
-					if (UpdateCoinage)
-						Coinage = me.Inventory.Coinage;
+				    if (UpdateCoinage)
+				        Coinage = ZetaDia.CPlayer.Coinage;
 
 					//Check current scence every 1.5 seconds
 					if (!bIsInTown && DateTime.Now.Subtract(lastCheckedSceneID).TotalSeconds > 1.50)

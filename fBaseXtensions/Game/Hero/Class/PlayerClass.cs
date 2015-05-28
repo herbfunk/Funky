@@ -76,6 +76,11 @@ namespace fBaseXtensions.Game.Hero.Class
 
 		internal DrinkHealthPotion HealthPotionAbility = new DrinkHealthPotion();
 
+	    internal void UseHealthPotion()
+	    {
+	        Skill healthPotion = HealthPotionAbility;
+            Skill.UsePower(ref healthPotion);
+	    }
 		internal virtual Skill DefaultAttack
 		{
 			get { return new WeaponMeleeInsant(); }
@@ -126,11 +131,13 @@ namespace fBaseXtensions.Game.Hero.Class
 
 		public bool ContainsNonRangedCombatSkill { get; set; }
 		public bool ContainsAnyPrimarySkill { get; set; }
+        public bool ContainsPiercingSkill { get; set; }
 
 		internal virtual void RecreateAbilities()
 		{
 			ContainsAnyPrimarySkill = false;
 			ContainsNonRangedCombatSkill = false;
+		    ContainsPiercingSkill = false;
 			Abilities = new Dictionary<SNOPower, Skill>();
 
 
@@ -160,6 +167,7 @@ namespace fBaseXtensions.Game.Hero.Class
 				Skill skill = item.Value;
 				skill.Initialize();
                 if (skill.IsPrimarySkill) ContainsAnyPrimarySkill = true;
+			    if (skill.IsPiercing) ContainsPiercingSkill = true;
 
 				Skill.CreateSkillLogicConditions(ref skill);
 				skill.SuccessfullyUsed += AbilitySuccessfullyUsed;
@@ -382,7 +390,17 @@ namespace fBaseXtensions.Game.Hero.Class
 
 		internal Dictionary<SNOPower, Skill> Abilities = new Dictionary<SNOPower, Skill>();
 		internal List<Skill> SortedAbilities = new List<Skill>();
+	    internal List<Skill> CastableAbilities = new List<Skill>();
 
+	    internal void UpdateCastableAbilities()
+	    {
+            CastableAbilities.Clear();
+            foreach (var skill in SortedAbilities)
+	        {
+	            if (skill.CheckPreCastConditionMethod())
+                    CastableAbilities.Add(skill);
+	        }
+	    }
 
 		///<summary>
 		///Searches for any abilities that have set the OutOfCombat Movement Criteria.

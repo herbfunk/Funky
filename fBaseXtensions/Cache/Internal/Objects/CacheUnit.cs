@@ -858,8 +858,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 						// Exploding Palm Bleeding Prioritize
 						if (FunkyGame.Hero.Class.AC == ActorClass.Monk
-							&& Hotbar.HasPower(SNOPower.Monk_ExplodingPalm)
-							&& centreDistance < 20f)
+                            && centreDistance < 20f
+							&& FunkyGame.Hero.Class.CastableAbilities.Any(s => s.Power == SNOPower.Monk_ExplodingPalm))
 						{
 							if (HasDOTdps.HasValue && HasDOTdps.Value) //Exploding Palm -- Bleeding Already!
 							{
@@ -870,6 +870,13 @@ namespace fBaseXtensions.Cache.Internal.Objects
 								Weight += 1000;
 							}
 						}
+
+                        //Piercing Check
+					    if (FunkyGame.Hero.Class.ContainsPiercingSkill &&
+					        FunkyGame.Hero.Class.CastableAbilities.Any(s => s.IsPiercing))
+					    {
+                            Weight += (750 * TargetInfo.IntersectingUnits);
+					    }
 
 
 

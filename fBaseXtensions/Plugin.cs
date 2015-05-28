@@ -29,7 +29,7 @@ namespace fBaseXtensions
     {
         public Version Version
         {
-            get { return new Version(1, 1, 6, 1); }
+            get { return new Version(1, 1, 6, 2); }
         }
 
 		public static PluginSettings Settings { get; set; }

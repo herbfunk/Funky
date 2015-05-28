@@ -1,4 +1,8 @@
-﻿v1.4.4
+﻿v1.4.5
+Updated to work with newest db.
+
+
+v1.4.4
 Added a check in Treehooking of VendorRun if the child does not match demonbuddy original.
 
 v1.4.3

@@ -432,17 +432,26 @@ namespace fBaseXtensions.Cache.Internal.Objects
                         //Check doors against intersection of current target unit when using ranged skill
 				        if (targetType.Value == TargetType.Door)
 				        {
-                            if (FunkyGame.Targeting.Cache.CurrentTarget != null &&
-                            FunkyGame.Targeting.Cache.CurrentUnitTarget != null &&
-                            FunkyGame.Hero.Class.LastUsedAbility.IsRanged)
-                            {
-                                if (MathEx.IntersectsPath(Position, CollisionRadius.Value, FunkyGame.Hero.Position,
-                                    FunkyGame.Targeting.Cache.CurrentTarget.Position))
-                                {
-                                    Helpers.Logger.DBLog.InfoFormat("[Funky] Door Blocking current target when using ranged skill!");
-                                    Weight += 10000;
-                                }
-                            }
+				            if (FunkyGame.Targeting.Cache.CurrentTarget != null &&
+				                FunkyGame.Targeting.Cache.CurrentUnitTarget != null &&
+				                FunkyGame.Hero.Class.LastUsedAbility.IsRanged)
+				            {
+				                if (MathEx.IntersectsPath(Position, CollisionRadius.Value, FunkyGame.Hero.Position,
+				                    FunkyGame.Targeting.Cache.CurrentTarget.Position))
+				                {
+				                    Helpers.Logger.DBLog.InfoFormat("[Funky] Door Blocking current target when using ranged skill!");
+				                    Weight += 10000;
+				                }
+				            }
+				        }
+				        else
+				        {
+				            if (GizmoTargetTypes.HasValue && 
+                                GizmoTargetTypes.Value == Enums.GizmoTargetTypes.Bounty &&
+                                centreDistance<25f)
+				            {
+				                Weight += 10000;
+				            }
 				        }
 						
 
@@ -586,9 +595,9 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 				// Check if it's in our interactable range dictionary or not
 				int iTempRange;
-				if (CacheIDLookup.dictInteractableRange.TryGetValue(SNOID, out iTempRange))
+				if (InteractRange.HasValue)
 				{
-					fRangeRequired = (float)iTempRange;
+					fRangeRequired = (float)InteractRange.Value;
 				}
 				// Treat the distance as closer if the X & Y distance are almost point-blank, for objects
 				if (RadiusDistance <= 2f)

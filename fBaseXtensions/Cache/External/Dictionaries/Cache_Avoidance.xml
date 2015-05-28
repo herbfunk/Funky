@@ -6,6 +6,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>ArcaneSentry</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -13,6 +15,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>ArcaneSentry</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -20,6 +24,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>Dececrator</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -27,6 +33,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>TreeSpore</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -34,6 +42,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>TreeSpore</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -41,6 +51,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MoltenCore</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -48,6 +60,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MoltenCore</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -55,6 +69,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MoltenCore</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -62,6 +78,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MoltenCore</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -69,6 +87,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MoltenTrail</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -76,6 +96,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>PlagueCloud</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -83,6 +105,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>Frozen</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -90,6 +114,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>Frozen</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -97,6 +123,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>BeeProjectile</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -104,6 +132,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>PlagueHand</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -111,6 +141,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>AzmodanPool</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -118,6 +150,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>AzmodanFireball</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -125,6 +159,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>AzmodanBodies</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -132,6 +168,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>BelialGround</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -139,6 +177,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>BelialGround</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -146,6 +186,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>ShamanFireBall</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -153,6 +195,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>ShamanFireBall</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -160,6 +204,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MageFirePool</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -167,6 +213,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>DiabloPrison</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -174,6 +222,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>DiabloMetor</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -181,6 +231,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>PoisonGas</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -188,6 +240,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>LacuniBomb</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -195,6 +249,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>SuccubusProjectile</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -202,6 +258,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>OrbitProjectile</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -209,6 +267,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>OrbitFocalPoint</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -216,6 +276,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>FrozenPulse</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -223,6 +285,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>Thunderstorm</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -230,6 +294,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MeteorImpact</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -237,6 +303,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>BloodspringSmall</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -244,6 +312,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>BloodspringMedium</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -251,6 +321,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>BloodspringLarge</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -258,6 +330,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>Teleport</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -265,6 +339,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MalthaelDrainSoul</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -272,6 +348,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MalthaelDeathFog</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -279,6 +357,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>MalthaelLightning</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -286,6 +366,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>AdriaArcanePool</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -293,6 +375,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>AdriaBlood</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -300,6 +384,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>RiftBossPoison</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -307,6 +393,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>GhomGasCloud</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -314,6 +402,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>DestroyerDrop</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -321,6 +411,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>ZoltBubble</AvoidanceType>
     </AvoidanceEntry>
     <AvoidanceEntry>
@@ -328,6 +420,8 @@
       <InternalName />
       <ActorType>ServerProp</ActorType>
       <EntryType>Avoidance</EntryType>
+      <InteractRange>0</InteractRange>
+      <CollisionRadius>0</CollisionRadius>
       <AvoidanceType>ZoltTwister</AvoidanceType>
     </AvoidanceEntry>
   </AvoidanceCache>

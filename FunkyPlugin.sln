@@ -12,8 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fItemPlugin", "fItemPlugin\
 		{9B349AF5-9A32-49A9-B815-9D2BA7BCE694} = {9B349AF5-9A32-49A9-B815-9D2BA7BCE694}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profiles", "Profiles\Profiles.csproj", "{D0CE5A57-301A-4175-8207-056A3D411961}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,16 +52,6 @@ Global
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0AB4160A-A6F1-4A2F-8295-E64674DF7904}.Release|x86.ActiveCfg = Release|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D0CE5A57-301A-4175-8207-056A3D411961}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

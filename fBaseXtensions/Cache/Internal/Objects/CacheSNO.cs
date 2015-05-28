@@ -31,35 +31,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			if (!Null)
 				ObjectCache.cacheSnoCollection.Add(sno);
 		}
-		public SNO(int sno)
-		{
-			SNOID = sno;
 
-			CachedSNOEntry thisEntry = ObjectCache.cacheSnoCollection[sno];
-
-			if (sno > 0)
-			{
-				SNOID = thisEntry.SNOID;
-				_gizmoTargetTypes = thisEntry.GizmoTargetTypes;
-				_unitflags = thisEntry.UnitPropertyFlags;
-				_itemdroptype = thisEntry.ItemDropType;
-				_actortype = thisEntry.Actortype;
-				_targettype = thisEntry.targetType;
-				_collisionradius = thisEntry.CollisionRadius;
-				_actorsphereradius = thisEntry.ActorSphereRadius;
-				_CanBurrow = thisEntry.CanBurrow;
-				//_GrantsNoXP = thisEntry.GrantsNoXP;
-				//_DropsNoLoot = thisEntry.DropsNoLoot;
-				_IsBarricade = thisEntry.IsBarricade;
-				_internalname = thisEntry.InternalName;
-				_obstacletype = thisEntry.Obstacletype;
-				_gizmotype = thisEntry.Gizmotype;
-				_snoentry = thisEntry.snoentry;
-				//this._RunningRate=thisEntry.RunningRate;
-				IsFinalized = thisEntry.IsFinalized;
-			}
-		}
-		public SNO(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, float? collisionradius = null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
+		public SNO(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, float? collisionradius = null, int? interactrange=null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gimzotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
 		{
 			//Creates the perm data
 			SNOID = sno;
@@ -85,6 +58,7 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			_actortype = sno.Actortype;
 			_targettype = sno.targetType;
 			_collisionradius = sno.CollisionRadius;
+		    _interactRange = sno.InteractRange;
 			_actorsphereradius = sno.ActorSphereRadius;
 			_CanBurrow = sno.CanBurrow;
 			//_GrantsNoXP = sno.GrantsNoXP;
@@ -277,6 +251,24 @@ namespace fBaseXtensions.Cache.Internal.Objects
 			}
 		}
 
+        private readonly int? _interactRange;
+        public int? InteractRange
+        {
+            get
+            {
+                if (IsFinalized) return _interactRange;
+
+                if (ObjectCache.dictInteractRange.ContainsKey(SNOID)) return ObjectCache.dictInteractRange[SNOID];
+                return null;
+            }
+            set
+            {
+                if (IsFinalized) return;
+
+                ObjectCache.dictInteractRange[SNOID] = value;
+
+            }
+        }
 
 		private readonly PluginDroppedItemTypes? _itemdroptype;
 		public PluginDroppedItemTypes? ItemDropType
@@ -575,8 +567,8 @@ namespace fBaseXtensions.Cache.Internal.Objects
 	public class CachedSNOEntry : SNO
 	{
 
-		public CachedSNOEntry(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, float? collisionradius = null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
-			: base(sno, internalname,  actortype,  targettype, collisionradius,  canburrow, isbarricade,  obstacletype,  actorsphereradius,  gizmotype,  baseitemtype,  unitflags, gizmotargettypes, snoentry)
+		public CachedSNOEntry(int sno, string internalname, ActorType? actortype = null, TargetType? targettype = null, float? collisionradius = null, int? interactrange=null, bool? canburrow = null, bool? isbarricade = null, ObstacleType? obstacletype = null, float? actorsphereradius = null, GizmoType? gizmotype = null, PluginDroppedItemTypes? baseitemtype = null, UnitFlags? unitflags = null, GizmoTargetTypes? gizmotargettypes = null, CacheEntry snoentry = null)
+			: base(sno, internalname,  actortype,  targettype, collisionradius, interactrange,  canburrow, isbarricade,  obstacletype,  actorsphereradius,  gizmotype,  baseitemtype,  unitflags, gizmotargettypes, snoentry)
 		{
 		}
 
@@ -631,12 +623,20 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					{
 						CacheGizmoEntry gizmoEntry = (CacheGizmoEntry)snoentry;
 						Gizmotype = (GizmoType)gizmoEntry.ObjectType;
-						GizmoTargetTypes = gizmoEntry.GizmotargetType; 
+						GizmoTargetTypes = gizmoEntry.GizmotargetType;
+					    if (gizmoEntry.CollisionRadius > -1)
+					        CollisionRadius = gizmoEntry.CollisionRadius;
+					    if (gizmoEntry.InteractRange > -1)
+					        InteractRange = gizmoEntry.InteractRange;
 					}
 					else if (snoentry.EntryType == EntryType.Unit)
 					{
 						CacheUnitEntry unitEntry = (CacheUnitEntry)snoentry;
 						UnitPropertyFlags = (UnitFlags)unitEntry.ObjectType;
+                        if (unitEntry.CollisionRadius > -1)
+                            CollisionRadius = unitEntry.CollisionRadius;
+                        if (unitEntry.InteractRange > -1)
+                            InteractRange = unitEntry.InteractRange;
 					}
 					else if(snoentry.EntryType == EntryType.Pet)
 					{
@@ -644,6 +644,10 @@ namespace fBaseXtensions.Cache.Internal.Objects
 
 						CacheUnitPetEntry petEntry = (CacheUnitPetEntry)snoentry;
 						PetTypes pettype=(PetTypes)petEntry.ObjectType;
+                        if (petEntry.CollisionRadius > -1)
+                            CollisionRadius = petEntry.CollisionRadius;
+                        if (petEntry.InteractRange > -1)
+                            InteractRange = petEntry.InteractRange;
 						if (pettype==PetTypes.WIZARD_ArcaneOrbs)
 						{
 							//Logger.DBLog.Debug("Arcane Orbs CacheSNO update!");
@@ -990,10 +994,6 @@ namespace fBaseXtensions.Cache.Internal.Objects
 					}
 					#endregion
 
-					if (CacheIDLookup.dictFixedCollisionRadius.ContainsKey(SNOID))
-					{//Override The Default Collision Sphere Value
-						CollisionRadius = CacheIDLookup.dictFixedCollisionRadius[SNOID];
-					}
 				}
 
 				if (!ActorSphereRadius.HasValue)

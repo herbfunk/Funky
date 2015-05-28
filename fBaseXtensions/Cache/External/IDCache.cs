@@ -42,14 +42,14 @@ namespace fBaseXtensions.Cache.External
 			UnitEntries.Clear();
 			foreach (var entry in unitdata.UnitEntries)
 			{
-				UnitEntries.Add(entry.SnoId, new CacheUnitEntry(entry.SnoId, (UnitFlags)entry.ObjectType, entry.InternalName));
+				UnitEntries.Add(entry.SnoId, new CacheUnitEntry(entry));
 			}
             Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Unit Entries", UnitEntries.Count);
 
 			UnitPetEntries.Clear();
 			foreach (var entry in unitdata.UnitPetEntries)
 			{
-				UnitPetEntries.Add(entry.SnoId, new CacheUnitPetEntry(entry.SnoId, (PetTypes)entry.ObjectType, entry.InternalName));
+				UnitPetEntries.Add(entry.SnoId, new CacheUnitPetEntry(entry));
 			}
             Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Pet Entries", UnitPetEntries.Count);
 
@@ -59,7 +59,7 @@ namespace fBaseXtensions.Cache.External
 			ItemDroppedEntries.Clear();
 			foreach (var entry in Items.DroppedItemCache)
 			{
-				ItemDroppedEntries.Add(entry.SnoId, new CacheDroppedItemEntry(entry.SnoId, (PluginDroppedItemTypes)entry.ObjectType, entry.InternalName));
+				ItemDroppedEntries.Add(entry.SnoId, new CacheDroppedItemEntry(entry));
 			}
             Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Dropped Item Entries", ItemDroppedEntries.Count);
 
@@ -91,13 +91,7 @@ namespace fBaseXtensions.Cache.External
 			GizmoEntries.Clear();
 			foreach (var entry in Gizmos.GizmoCache)
 			{
-                var pluginGizmoType = (PluginGizmoType)entry.ObjectType;
-
-                GizmoEntries.Add(entry.SnoId, 
-                    new CacheGizmoEntry(entry.SnoId, 
-                        (GizmoType)Enum.Parse(typeof(GizmoType), pluginGizmoType.ToString()),
-                        entry.InternalName,
-                        entry.GizmotargetType));
+                GizmoEntries.Add(entry.SnoId, new CacheGizmoEntry(entry));
 			}
             Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Gizmo Entries", GizmoEntries.Count);
 
@@ -109,7 +103,7 @@ namespace fBaseXtensions.Cache.External
 			foreach (var entry in Avoidance.AvoidanceCache)
 			{
                 
-				AvoidanceEntries.Add(entry.SnoId, new CacheAvoidanceEntry(entry.SnoId, (AvoidanceType)entry.ObjectType, entry.InternalName));
+				AvoidanceEntries.Add(entry.SnoId, new CacheAvoidanceEntry(entry));
 			}
             Logger.DBLog.DebugFormat("[fBaseXtensions] Loaded {0} Avoidance Entries", AvoidanceEntries.Count);
 

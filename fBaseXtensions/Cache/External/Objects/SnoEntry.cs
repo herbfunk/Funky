@@ -19,6 +19,8 @@ namespace fBaseXtensions.Cache.External.Objects
 		public string InternalName { get; set; }
 		public virtual PluginActorType ActorType { get; set; }
 		public virtual EntryType EntryType { get; set; }
+        public int InteractRange { get; set; }
+        public int CollisionRadius { get; set; }
 
 		[XmlIgnore]
 		public virtual Object ObjectType { get; set; }
@@ -81,12 +83,14 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 		public GizmoEntry() : base() { }
-		public GizmoEntry(int snoID, PluginGizmoType objectType, string internalname = "", GizmoTargetTypes targettype = GizmoTargetTypes.None)
+        public GizmoEntry(int snoID, PluginGizmoType objectType, string internalname = "", GizmoTargetTypes targettype = GizmoTargetTypes.None, int interactRange = -1, int collisionRadius = -1)
 			: base(snoID)
 		{
 			InternalName = internalname;
 			_objectType = objectType;
 			GizmotargetType = targettype;
+            InteractRange = interactRange;
+            CollisionRadius = collisionRadius;
 		}
 
 		public override string ToString()
@@ -176,48 +180,19 @@ namespace fBaseXtensions.Cache.External.Objects
 		}
 		private Object _objectType = UnitFlags.None;
 
-		////[XmlIgnore]
-		//internal PluginMonsterSize? Monstersize { get; set; }
-
-		////[XmlIgnore]
-		//internal PluginMonsterType? Monstertype { get; set; }
-
-		//// And now the helper property that the serializer will use to serialize it.
-		//[XmlElement(IsNullable = false)]
-		//public string XmlMonsterSize
-		//{
-		//	get
-		//	{
-		//		return Monstersize.HasValue ?
-		//			Monstersize.Value.ToString() : null;
-		//	}
-		//	set { Monstersize = (PluginMonsterSize)Enum.Parse(typeof(PluginMonsterSize),value); } // You should do more error checking...
-		//}
-		//[XmlElement(IsNullable = false)]
-		//public string XmlMonsterType
-		//{
-		//	get
-		//	{
-		//		return Monstertype.HasValue ?
-		//			Monstertype.Value.ToString() : null;
-		//	}
-		//	set { Monstertype = (PluginMonsterType)Enum.Parse(typeof(PluginMonsterType), value); } // You should do more error checking...
-		//}
-
-
 		public UnitEntry() : base()
 		{
 			//Monstertype = null;
 			//Monstersize = null;
 		}
 
-		public UnitEntry(int snoID, UnitFlags flags, string internalname = "")
+        public UnitEntry(int snoID, UnitFlags flags, string internalname = "", int interactRange = -1, int collisionRadius = -1)
 			:base(snoID)
 		{
 			InternalName=internalname;
 			_objectType = flags;
-			//Monstertype=monstertype;
-			//Monstersize=monstersize;
+            InteractRange = interactRange;
+            CollisionRadius = collisionRadius;
 		}
 
 		public string ReturnCacheEntryString()
@@ -255,12 +230,14 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 		public UnitPetEntry() : base() { }
-		public UnitPetEntry(int snoID, PetTypes type, string internalname = "", PluginActorType actortype=PluginActorType.Monster)
+        public UnitPetEntry(int snoID, PetTypes type, string internalname = "", PluginActorType actortype = PluginActorType.Monster, int interactRange = -1, int collisionRadius = -1)
 			:base(snoID)
 		{
 			InternalName=internalname;
 			_objectType = type;
 			_actorType = actortype;
+            InteractRange = interactRange;
+            CollisionRadius = collisionRadius;
 		}
 
 		public override string ToString()

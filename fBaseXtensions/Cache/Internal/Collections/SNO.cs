@@ -28,6 +28,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			if (!ObjectCache.dictActorType.ContainsKey(key)) ObjectCache.dictActorType.Add(key, null);
 			if (!ObjectCache.dictTargetType.ContainsKey(key)) ObjectCache.dictTargetType.Add(key, null);
 			if (!ObjectCache.dictCollisionRadius.ContainsKey(key)) ObjectCache.dictCollisionRadius.Add(key, null);
+		    if (!ObjectCache.dictInteractRange.ContainsKey(key)) ObjectCache.dictInteractRange.Add(key, null);
 			if (!ObjectCache.dictInternalName.ContainsKey(key)) ObjectCache.dictInternalName.Add(key, null);
 			if (!ObjectCache.dictCanBurrow.ContainsKey(key)) ObjectCache.dictCanBurrow.Add(key, null);
 			if (!ObjectCache.dictIsBarricade.ContainsKey(key)) ObjectCache.dictIsBarricade.Add(key, null);
@@ -45,6 +46,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			ObjectCache.dictActorType.Remove(key);
 			ObjectCache.dictTargetType.Remove(key);
 			ObjectCache.dictCollisionRadius.Remove(key);
+		    ObjectCache.dictInteractRange.Remove(key);
 			ObjectCache.dictInternalName.Remove(key);
 			ObjectCache.dictCanBurrow.Remove(key);
 			ObjectCache.dictIsBarricade.Remove(key);
@@ -180,7 +182,7 @@ namespace fBaseXtensions.Cache.Internal.Collections
 			CachedSNOEntry thisSNOdata = this[sno];
 
 			//Take the value, recreate it using finalized constructor
-			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.CollisionRadius, thisSNOdata.CanBurrow, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype, thisSNOdata.ItemDropType, thisSNOdata.UnitPropertyFlags, thisSNOdata.GizmoTargetTypes, thisSNOdata.snoentry);
+			CachedSNOEntry thisNewData = new CachedSNOEntry(thisSNOdata.SNOID, thisSNOdata.InternalName, thisSNOdata.Actortype, thisSNOdata.targetType, thisSNOdata.CollisionRadius, thisSNOdata.InteractRange, thisSNOdata.CanBurrow, thisSNOdata.IsBarricade, thisSNOdata.Obstacletype, thisSNOdata.ActorSphereRadius, thisSNOdata.Gizmotype, thisSNOdata.ItemDropType, thisSNOdata.UnitPropertyFlags, thisSNOdata.GizmoTargetTypes, thisSNOdata.snoentry);
 
 			//Now clone the data and set it as the value
 			snoEntries[sno] = (CachedSNOEntry)thisNewData.Clone();

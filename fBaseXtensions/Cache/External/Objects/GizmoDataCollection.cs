@@ -70,8 +70,8 @@ namespace fBaseXtensions.Cache.External.Objects
 
 
 				//============== DOORS ==============//
-				new GizmoEntry(54882, PluginGizmoType.Door, "a3dun_Keep_Door_Wooden_A"),
-				new GizmoEntry(54850, PluginGizmoType.Door, "a3dun_Keep_SiegeTowerDoor"),
+				new GizmoEntry(54882, PluginGizmoType.Door, "a3dun_Keep_Door_Wooden_A", GizmoTargetTypes.None, 40),
+				new GizmoEntry(54850, PluginGizmoType.Door, "a3dun_Keep_SiegeTowerDoor", GizmoTargetTypes.None, 14),
 				new GizmoEntry(308241, PluginGizmoType.Door, "X1_Westm_Door_Giant_Lowering_Wolf-9346"),
 				new GizmoEntry(308376, PluginGizmoType.Door, "X1_Westm_Door_Giant_Iron_Bars_Arched-18634"),
 				new GizmoEntry(90419, PluginGizmoType.Door, "trOut_NewTristram_Gate_Town-67"),
@@ -496,7 +496,7 @@ namespace fBaseXtensions.Cache.External.Objects
 				//
 				
 				new GizmoEntry(211999, PluginGizmoType.Switch),
-				new GizmoEntry(56686, PluginGizmoType.Switch),
+				new GizmoEntry(56686, PluginGizmoType.Switch, "", GizmoTargetTypes.None, 4),
 				new GizmoEntry(174754, PluginGizmoType.Switch),
 				new GizmoEntry(174753, PluginGizmoType.Switch),
 				new GizmoEntry(102079, PluginGizmoType.Switch),
@@ -513,7 +513,12 @@ namespace fBaseXtensions.Cache.External.Objects
 				new GizmoEntry(341214, PluginGizmoType.Switch, "x1_Bog_CatacombsPortal_BeaconLoc-46725"),
 				new GizmoEntry(361364, PluginGizmoType.Switch, "X1_PandExt_SiegeRune-95859"),
 				new GizmoEntry(3707, PluginGizmoType.Switch, "caOut_Totem_A"), //Act 2 Restless Sands Totem Switches
-				 
+				new GizmoEntry(430733, PluginGizmoType.Switch, "px_Wilderness_Camp_TemplarPrisoners-10975", GizmoTargetTypes.Bounty),
+                new GizmoEntry(433124, PluginGizmoType.Switch, "px_Bounty_Camp_TrappedAngels-23348", GizmoTargetTypes.Bounty),
+                new GizmoEntry(432259, PluginGizmoType.Switch, "px_Highlands_Camp_ResurgentCult_Totem-7343", GizmoTargetTypes.Bounty),
+                new GizmoEntry(433402, PluginGizmoType.Switch, "px_Bounty_Camp_Hellportals_Frame-16815", GizmoTargetTypes.Bounty),
+                new GizmoEntry(432770, PluginGizmoType.Switch, "px_SpiderCaves_Camp_Cocoon-3772", GizmoTargetTypes.Bounty),
+
 				//
 				new GizmoEntry(138989, PluginGizmoType.HealingWell, "", GizmoTargetTypes.Healthwell),
 				new GizmoEntry(116807, PluginGizmoType.HealingWell, "a1dun_Leor_BloodWell_A", GizmoTargetTypes.Healthwell),

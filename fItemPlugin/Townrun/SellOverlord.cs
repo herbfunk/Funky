@@ -305,7 +305,7 @@ namespace fItemPlugin.Townrun
 
 
 				//Check we have enough gold!
-				if (PotionMerchantACDItem.Gold > ZetaDia.Me.Inventory.Coinage)
+				if (PotionMerchantACDItem.Gold > ZetaDia.CPlayer.Coinage)
 				{
 					FunkyTownRunPlugin.DBLog.DebugFormat("[Funky] Vendor Potion Buying Finished (Not Enough Gold to buy Potions)");
 					bBuyingPotions = false;
